@@ -43,8 +43,8 @@ const Nav = () => {
           <ul
             className={`${
               isNavOpen ? "block" : "hidden"
-            } max-lg:flex-1 flex flex-col  absolute mt-5 bg-white top-14
-             right-0 py-4 px-6 border
+            } max-lg:flex-1 flex flex-col max-w-sm absolute mt-5 bg-white top-14
+            right-0 py-4 px-6 border
               border-gray-300 rounded-lg shadow-lg`}
           >
             {navLinks.map((item) => (
