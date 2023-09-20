@@ -23,9 +23,9 @@
 
 export const navLinks = [
   { href: "#home", label: "Home" },
-  { href: "#about-us", label: "About Us" },
+  { href: "#about", label: "About me" },
   { href: "#Resume", label: "Resume" },
-  { href: "#contact-us", label: "Contact Us" },
+  { href: "#contact", label: "Contact me" },
 ];
 
 // export const shoes = [
