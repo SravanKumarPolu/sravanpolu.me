@@ -1,5 +1,7 @@
 import linkedIn from "../assets/icons/linkedIn.svg";
 import github from "../assets/icons/github.svg";
+import netlify from "../assets/icons/netlify.svg";
+import jsfiddle from "../assets/icons/jsfiddle.svg";
 // import {
 //   bigShoe1,
 //   bigShoe2,
@@ -106,8 +108,9 @@ export const footerLinks = [
   {
     title: "Get in touch",
     links: [
-      { name: "sravanpolu.me@gmail.com", link: "sravanpolu.me@gmail.com" },
       { name: "+917973943675", link: "tel:+917973943675" },
+      { name: "sravanpolu.me@gmail.com", link: "sravanpolu.me@gmail.com" },
+
       {
         name: "linkedin.com/in/SravanPolu",
         link: "https://www.linkedin.com/in/SravanPolu",
@@ -123,4 +126,6 @@ export const footerLinks = [
 export const socialMedia = [
   { src: linkedIn, alt: "LinkedIn logo" },
   { src: github, alt: "githu logo" },
+  { src: netlify, alt: "netlify logo" },
+  { src: jsfiddle, alt: "jsfiddle logo" },
 ];
