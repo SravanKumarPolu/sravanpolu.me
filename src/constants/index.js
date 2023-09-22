@@ -1,11 +1,5 @@
-// import {
-//   facebook,
-//   instagram,
-//   shieldTick,
-//   support,
-//   truckFast,
-//   twitter,
-// } from "../assets/icons";
+import linkedIn from "../assets/icons/linkedIn.svg";
+import github from "../assets/icons/github.svg";
 // import {
 //   bigShoe1,
 //   bigShoe2,
@@ -124,4 +118,9 @@ export const footerLinks = [
       },
     ],
   },
+];
+
+export const socialMedia = [
+  { src: linkedIn, alt: "LinkedIn logo" },
+  { src: github, alt: "githu logo" },
 ];
