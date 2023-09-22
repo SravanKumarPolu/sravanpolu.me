@@ -18,17 +18,22 @@ const Hero = () => {
         max-sm:leading-[2] font-semibold"
         >
           Hi , <span>👏</span> this is
-          <span className="text-coral-red"> SravanKumar PV</span>
+          <br />
+          <span className="text-coral-red"> SravanKumar PV </span>
+          <br />
+          <span className="font-montserrat">Web Developer</span>
         </h2>
         <p>Code, like humor, works best when it's concise.</p>
       </div>
-      <div
-        className="
-        relative  flex p-20 top-20 
-       flex-col justify-center items-center w-full max-sm:p-10"
-      >
+      <div className="relative p-20 top-20 flex flex-col justify-center items-center w-full max-sm:p-10">
         <img
-          className="relative  rounded-bl-[30%] rounded-br-[30%] rounded-tl-[0] rounded-tr-[30%] object-cover "
+          className="relative p-1 border-4 rounded-bl-[30%]
+           rounded-br-[30%] rounded-tl-[0] rounded-tr-[30%]
+            object-cover filter brightness-[75%] 
+            hover: hover:border-l-green-500
+            hover: hover:border-t-green-500
+            hover:border-b-red-400
+         hover:brightness-100 transition duration-300"
           src={headerLogo}
           alt="logo"
           width={600}
