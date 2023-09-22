@@ -13,7 +13,7 @@ const Nav = () => {
       <nav className="max-container flex justify-between items-center">
         <a href="/">
           <img
-            className="rounded-full object-cover"
+            className="rounded-full object-cover pl-2 max-sm:pl-1"
             src={headerLogo}
             alt="logo"
             width={70}
