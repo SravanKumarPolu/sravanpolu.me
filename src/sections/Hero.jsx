@@ -27,7 +27,7 @@ const Hero = () => {
       </div>
       <div className="relative p-20 top-20 flex flex-col justify-center items-center w-full max-sm:p-10">
         <img
-          className="relative p-1 border-4 rounded-bl-[30%]
+          className="relative cursor-pointer p-1 border-4 rounded-bl-[30%]
            rounded-br-[30%] rounded-tl-[0] rounded-tr-[30%]
             object-cover filter brightness-[75%] 
             hover: hover:border-l-green-500
