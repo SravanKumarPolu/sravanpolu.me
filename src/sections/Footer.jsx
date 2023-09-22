@@ -1,4 +1,5 @@
 import React from "react";
+import copyrightSign from "../assets/icons/copyright-sign.svg";
 import footerLogo from "../assets/images/footerLogo.png";
 import { footerLinks, socialMedia } from "../constants";
 
@@ -74,6 +75,20 @@ const Footer = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div
+        className="flex 
+        justify-center items-center gap-2
+        font-montserrat cursor-pointer"
+      >
+        <img
+          src={copyrightSign}
+          alt="copy right sign"
+          width={20}
+          height={20}
+          className="rounded-full m-0"
+        />
+        <p>Copyright. All rights reserved.</p>
       </div>
     </footer>
   );
