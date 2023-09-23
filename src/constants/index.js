@@ -124,8 +124,8 @@ export const footerLinks = [
 ];
 
 export const socialMedia = [
-  { src: linkedIn, alt: "LinkedIn logo" },
-  { src: github, alt: "githu logo" },
-  { src: netlify, alt: "netlify logo" },
-  { src: jsfiddle, alt: "jsfiddle logo" },
+  { src: linkedIn, alt: "LinkedIn logo", name: "LinkedIn" },
+  { src: github, alt: "githu logo", name: "Github" },
+  { src: netlify, alt: "netlify logo", name: "Netlify" },
+  { src: jsfiddle, alt: "jsfiddle logo", name: "Jsfiddle" },
 ];

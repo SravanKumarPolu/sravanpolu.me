@@ -4,6 +4,7 @@ import footerLogo from "../assets/images/footerLogo.png";
 import { footerLinks, socialMedia } from "../constants";
 
 const Footer = () => {
+  const [hoveredIcon, setHoveredIcon] = React.useState(null);
   return (
     <footer id="footer" className="max-container">
       <div
@@ -45,10 +46,18 @@ const Footer = () => {
           <div className="flex  justify-center items-center gap-5 mt-2 ">
             {socialMedia.map((icon) => (
               <div
+                key={icon.name}
                 className="flex  justify-center item-center gap-5
             w-12 h-12 bg-white rounded-full"
+                onMouseEnter={() => setHoveredIcon(icon)}
+                onMouseLeave={() => setHoveredIcon(null)}
               >
                 <img src={icon.src} alt={icon.alt} width={24} height={24} />
+                {hoveredIcon === icon && (
+                  <div className="absolute text-gray-800 bg-white text-xs px-2 ml-[4rem] py-1 rounded opacity-100 bottom-4  transform -translate-x-1/2">
+                    {icon.name}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -90,7 +99,7 @@ const Footer = () => {
         </div>
       </div>
       <div
-        className="flex 
+        className="flex mt-2 p-1
         justify-center items-center gap-2
         font-montserrat cursor-pointer"
       >
@@ -99,7 +108,7 @@ const Footer = () => {
           alt="copy right sign"
           width={20}
           height={20}
-          className="rounded-full m-0"
+          className="rounded-full m-0 "
         />
         <p>Copyright. All rights reserved.</p>
       </div>
