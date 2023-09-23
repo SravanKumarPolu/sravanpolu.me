@@ -19,7 +19,7 @@ import jsfiddle from "../assets/icons/jsfiddle.svg";
 
 export const navLinks = [
   { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
+  { href: "#work", label: "Work" },
   { href: "#footer", label: "Contact me" },
   { href: "#Resume", label: "Resume" },
 ];

@@ -1,7 +1,7 @@
 import { Hero, Footer } from "./sections/index.js";
 import Nav from "./components/Nav";
 import React from "react";
-import About from "./sections/About.jsx";
+import About from "./sections/Work.jsx";
 const App = () => (
   <main className="relative">
     <Nav />
