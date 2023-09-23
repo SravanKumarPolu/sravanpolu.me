@@ -47,14 +47,18 @@ const Footer = () => {
             {socialMedia.map((icon) => (
               <div
                 key={icon.name}
-                className="flex  justify-center item-center gap-5
-            w-12 h-12 bg-white rounded-full"
+                className="flex flex-col justify-center items-center gap-1 w-12 h-12 bg-white rounded-full relative"
                 onMouseEnter={() => setHoveredIcon(icon)}
                 onMouseLeave={() => setHoveredIcon(null)}
               >
                 <img src={icon.src} alt={icon.alt} width={24} height={24} />
                 {hoveredIcon === icon && (
-                  <div className="absolute text-gray-800 bg-white text-xs px-2 ml-[4rem] py-1 rounded opacity-100 bottom-4  transform -translate-x-1/2">
+                  <div
+                    className=" flex absolute text-gray-800
+                   bg-white text-xs px-2 ml-[4rem]
+                   py-1 mt-20 rounded opacity-100 
+                    transform -translate-x-1/2"
+                  >
                     {icon.name}
                   </div>
                 )}
