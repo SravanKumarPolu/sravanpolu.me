@@ -14,13 +14,26 @@ const Footer = () => {
           className="flex flex-col
       gap-10 flex-wrap max-lg:flex-col"
         >
-          <a href="/" className="flex justify-center align-middle">
+          <a
+            href="/"
+            style={{
+              background: "white",
+            }}
+            className="flex  h-70  rounded-full justify-center align-middle"
+          >
             <img
-              className="rounded-full align-middle object-cover ml-1 max-sm:pl-1"
+              className="border-4 rounded-full align-middle object-cover ml-1 max-sm:pl-1"
               src={footerLogo}
               alt="logo"
               width={80}
-              height={50}
+              height={60}
+              style={{
+                backgroundImage:
+                  "linear-gradient(270deg, #0000ff, #008080, #FFC0CB, #c13584, #b5c135, #fd1d1d)",
+                borderImage:
+                  "linear-gradient(270deg, #0000ff, #008080, #FFC0CB, #c13584, #b5c135, #fd1d1d) 2",
+                borderImageSlice: "2",
+              }}
             />
           </a>
           <p
