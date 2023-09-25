@@ -13,9 +13,10 @@ const Work = () => {
               <li className="relative pl-8 py-2">
                 <p className="hidden md:block text-2xl font-bold mt-2 mb-2"></p>
                 <img
+                  key={icon.name}
                   src={icon.src}
                   alt={icon.alt}
-                  className="h-[1.5rem] w-[1.5rem] relative"
+                  className=" flex flex-col justify-center items-center gap-1  bg-white rounded-full relative h-[1.5rem] w-[1.5rem] "
                   onMouseEnter={() => setHoveredIcon(icon)}
                   onMouseLeave={() => setHoveredIcon(null)}
                 />
@@ -23,7 +24,7 @@ const Work = () => {
                   <div
                     className=" flex absolute text-gray-800
                    bg-gray-200 text-xs px-2 ml-[4rem]
-                   py-1 mt-20 rounded opacity-100 
+                   py-1 mt-1 rounded opacity-100 
                     transform -translate-x-1/2"
                   >
                     {icon.name}
