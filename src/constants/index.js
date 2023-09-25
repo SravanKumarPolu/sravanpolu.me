@@ -1,6 +1,12 @@
 import linkedIn from "../assets/icons/linkedIn.svg";
 import github from "../assets/icons/github.svg";
 import netlify from "../assets/icons/netlify.svg";
+import react from "../assets/icons/react.svg";
+import js from "../assets/icons/js.svg";
+import html from "../assets/icons/html.svg";
+import css from "../assets/icons/css.svg";
+import tailwind from "../assets/icons/tailwind.svg";
+import bootstrap from "../assets/icons/bootstrap.svg";
 import jsfiddle from "../assets/icons/jsfiddle.svg";
 // import {
 //   bigShoe1,
@@ -103,7 +109,14 @@ export const navLinks = [
 //       "The product not only met but exceeded my expectations. I'll definitely be a returning customer!",
 //   },
 // ];
-
+export const work = [
+  { src: react, alt: "react logo", name: "React" },
+  { src: js, alt: "JS logo", name: "JS" },
+  { src: css, alt: "css logo", name: "CSS" },
+  { src: html, alt: "html logo", name: "HTML" },
+  { src: bootstrap, alt: "bootstrap logo", name: "BootStrap" },
+  { src: tailwind, alt: "tailwind logo", name: "Tailwind" },
+];
 export const footerLinks = [
   {
     title: "Get in touch",
