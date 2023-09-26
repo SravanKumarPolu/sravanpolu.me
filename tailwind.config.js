@@ -18,6 +18,7 @@ export default {
         palanquin: ["Palanquin", "sans-serif"],
         montserrat: ["Montserrat", "sans-serif"],
       },
+
       colors: {
         customColor: "rgb(23, 30, 64)",
         primary: "#ECEEFF",
