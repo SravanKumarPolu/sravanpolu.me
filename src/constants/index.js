@@ -138,6 +138,39 @@ export const footerLinks = [
     ],
   },
 ];
+export const courses = [
+  {
+    courseName: "CSS",
+    projects: [
+      {
+        title: "Grid",
+        name: "Stripedemo",
+        link: "https://stripedemo1.netlify.app/",
+      },
+      {
+        title: "Animation",
+        name: "3DCube",
+        link: "https://jsfiddle.net/pvskr/f2vat9bm/1/",
+      },
+      {
+        title: "Animation",
+        name: "SolarSystem",
+        link: "https://jsfiddle.net/pvskr/95okncw6/388/",
+      },
+    ],
+  },
+  {
+    courseName: "JS",
+    projects: [
+      {
+        title: "JSConcept",
+        name: "Bank",
+        link: "https://jsfiddle.net/pvskr/g9jp2fsd/243/",
+      },
+    ],
+  },
+  // Add more courses here
+];
 
 export const socialMedia = [
   { src: linkedIn, alt: "LinkedIn logo", name: "LinkedIn" },
