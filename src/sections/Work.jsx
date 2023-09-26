@@ -6,7 +6,7 @@ const Work = () => {
   return (
     <section id="work">
       <div className="flex flex-row gap-6">
-        <aside class="flex self-stretch grid-cols-1 w-1/4  h-full flex-col items-center">
+        <aside class="flex self-stretch grid-cols-1 w-2/4  h-full flex-col items-center">
           <h2 className="">Work</h2>
           <ul className="p-0 border-l border-black ml-[2rem] list-none grid ">
             {work.map((icon) => (
@@ -28,8 +28,8 @@ const Work = () => {
                   {hoveredIcon === icon && (
                     <div
                       className=" flex absolute text-gray-800
-                   bg-gray-200 text-xs px-2 ml-[4rem]
-                   py-1 mt-1 rounded opacity-100 
+                   bg-gray-200 text-xs px-2 ml-[5.5rem]
+                   py-1  rounded opacity-100 
                     transform -translate-x-1/2"
                     >
                       {icon.name}
