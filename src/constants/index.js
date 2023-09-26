@@ -158,6 +158,7 @@ export const courses = [
         link: "https://jsfiddle.net/pvskr/95okncw6/388/",
       },
     ],
+    summary: " This project mainly focused on grid, flex,and animations",
   },
   {
     courseName: "JS",
@@ -168,6 +169,7 @@ export const courses = [
         link: "https://jsfiddle.net/pvskr/g9jp2fsd/243/",
       },
     ],
+    summary: " This project mainly focused on js ",
   },
   {
     courseName: "HTML",
@@ -188,6 +190,7 @@ export const courses = [
         link: "https://new-buy-me.netlify.app/",
       },
     ],
+    summary: " This project mainly focused on React JS",
   },
   {
     courseName: "BootStrap",
@@ -198,6 +201,7 @@ export const courses = [
         link: "https://jsfiddle.net/pvskr/pnfjt029/20/",
       },
     ],
+    summary: " This project mainly focused on BootStrap CSS",
   },
   // Add more courses here
 ];

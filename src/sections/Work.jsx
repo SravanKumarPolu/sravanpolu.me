@@ -75,9 +75,13 @@ const Work = () => {
                   </div>
                 ))}
               </div>
-              <p className="p-4 bg-white rounded-lg shadow-lg">
-                Note: This project mainly focused on grid, flex, and animations
-              </p>
+              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem]">
+                {courses.map((course, courseIndex) => (
+                  <p className="p-4 w-full h-20 sm:w-[20rem] bg-white rounded-lg shadow-lg">
+                    <span className="text-red-500">Note:</span> {course.summary}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </main>
