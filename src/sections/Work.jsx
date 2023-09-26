@@ -1,5 +1,5 @@
 import React from "react";
-import { work } from "../constants";
+import { courses, work, projects } from "../constants";
 
 const Work = () => {
   const [hoveredIcon, setHoveredIcon] = React.useState(null);
@@ -40,7 +40,34 @@ const Work = () => {
             ))}
           </ul>
         </aside>
-        <main></main>
+        <main>
+          <div className="overflow-y-auto p-3 scrollbar-green ">
+            <div className="p-4 bg-blue-500 rounded-[3px 70px 30px] w-96 h-72">
+              {courses.map((course, courseIndex) => (
+                <div key={courseIndex}>
+                  <h1>{course.courseName}</h1>
+                  <div className="project-info flex items-center justify-between m-4">
+                    <h2 className="role">projects:</h2>
+                    <div className="project-demo p-4 flex flex-col">
+                      {course.projects.map((project, projectIndex) => (
+                        <div key={projectIndex} className="animation-demo">
+                          <h3>{project.title}:</h3>
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            className="project-link hover:no-underline hover:text-white"
+                          >
+                            {project.name}
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </main>
       </div>
     </section>
   );
