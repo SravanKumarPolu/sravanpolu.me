@@ -36,17 +36,17 @@ const Work = () => {
             ))}
           </ul>
         </aside>
-        <main className=" sm:w-[25rem]">
-          <div className="overflow-x-auto bg-customColor p-10 custom-scrollbar w-[25rem]">
+        <main>
+          <div className="overflow-x-auto bg-customColor p-10 custom-scrollbar sm:w-[25rem]">
             <div>
-              <div className="flex flex-row gap-6 p-4 rounded-lg w-[120rem] h-96 ">
+              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem]">
                 {courses.map((course, courseIndex) => (
                   <div
+                    key={courseIndex}
                     style={{
                       clipPath: "polygon(0% 0%, 100% 0%, 100% 55%, 0% 100%)",
                     }}
-                    key={courseIndex}
-                    className="p-4 bg-white w-[20rem]  rounded-lg shadow-lg max-lg:w-[19rem]"
+                    className="p-4 w-full h-96 sm:w-[20rem] bg-white rounded-lg shadow-lg"
                   >
                     <h1 className="text-xl font-semibold text-gray-800">
                       Language: {course.courseName}
@@ -75,9 +75,8 @@ const Work = () => {
                   </div>
                 ))}
               </div>
-              <p className="p-4 bg-white w-[20rem]  rounded-lg shadow-lg">
-                {" "}
-                Note: this project mainly focued on grid and flex and animations
+              <p className="p-4 bg-white rounded-lg shadow-lg">
+                Note: This project mainly focused on grid, flex, and animations
               </p>
             </div>
           </div>
