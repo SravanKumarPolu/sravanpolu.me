@@ -109,35 +109,6 @@ export const navLinks = [
 //       "The product not only met but exceeded my expectations. I'll definitely be a returning customer!",
 //   },
 // ];
-export const work = [
-  { src: react, alt: "react logo", name: "React" },
-  { src: js, alt: "JS logo", name: "JS" },
-  { src: css, alt: "css logo", name: "CSS" },
-  { src: html, alt: "html logo", name: "HTML" },
-  { src: bootstrap, alt: "bootstrap logo", name: "BootStrap" },
-  { src: tailwind, alt: "tailwind logo", name: "Tailwind" },
-];
-export const footerLinks = [
-  {
-    title: "Get in touch",
-    links: [
-      { name: "+917973943675", link: "tel:+917973943675" },
-      {
-        name: "sravanpolu.me@gmail.com",
-        link: "mailto:sravanpolu.me@gmail.com",
-      },
-
-      {
-        name: "linkedin.com/in/SravanPolu",
-        link: "https://www.linkedin.com/in/SravanPolu",
-      },
-      {
-        name: "github.com/SravanKumarPolu",
-        link: "https://github.com/SravanKumarPolu",
-      },
-    ],
-  },
-];
 export const courses = [
   {
     courseName: "CSS",
@@ -158,6 +129,7 @@ export const courses = [
         link: "https://jsfiddle.net/pvskr/95okncw6/388/",
       },
     ],
+    language: [{ src: css, alt: "css logo", name: "CSS" }],
     summary: " This project mainly focused on grid, flex,and animations",
   },
   {
@@ -169,6 +141,8 @@ export const courses = [
         link: "https://jsfiddle.net/pvskr/g9jp2fsd/243/",
       },
     ],
+    language: [{ src: js, alt: "JS logo", name: "JS" }],
+
     summary: " This project mainly focused on js ",
   },
   {
@@ -180,6 +154,7 @@ export const courses = [
         link: "#", // Replace with the actual link if available
       },
     ],
+    language: [{ src: html, alt: "html logo", name: "HTML" }],
   },
   {
     courseName: "React",
@@ -190,6 +165,7 @@ export const courses = [
         link: "https://new-buy-me.netlify.app/",
       },
     ],
+    language: [{ src: react, alt: "react logo", name: "React" }],
     summary: " This project mainly focused on React JS",
   },
   {
@@ -201,9 +177,32 @@ export const courses = [
         link: "https://jsfiddle.net/pvskr/pnfjt029/20/",
       },
     ],
+    language: [{ src: bootstrap, alt: "bootstrap logo", name: "BootStrap" }],
     summary: " This project mainly focused on BootStrap CSS",
   },
   // Add more courses here
+];
+export const work = [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }];
+export const footerLinks = [
+  {
+    title: "Get in touch",
+    links: [
+      { name: "+917973943675", link: "tel:+917973943675" },
+      {
+        name: "sravanpolu.me@gmail.com",
+        link: "mailto:sravanpolu.me@gmail.com",
+      },
+
+      {
+        name: "linkedin.com/in/SravanPolu",
+        link: "https://www.linkedin.com/in/SravanPolu",
+      },
+      {
+        name: "github.com/SravanKumarPolu",
+        link: "https://github.com/SravanKumarPolu",
+      },
+    ],
+  },
 ];
 
 export const socialMedia = [

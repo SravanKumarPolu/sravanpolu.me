@@ -9,11 +9,11 @@ const Nav = () => {
     setIsNavOpen(!isNavOpen);
   };
   return (
-    <header className="py-6 absolute z-10 w-full bg-red-300">
+    <header className="py-6 absolute z-10 w-full">
       <nav className="max-container flex justify-between items-center">
         <a href="/">
           <img
-            className="rounded-full  object-cover ml-2 max-sm:pl-1"
+            className="rounded-full  object-cover ml-3 max-sm:pl-1"
             src={headerLogo}
             alt="logo"
             width={70}

@@ -10,25 +10,27 @@ const Work = () => {
         <aside className="flex self-stretch sm:w-2/4 flex-col items-center">
           <h2 className="">Work</h2>
           <ul className="p-0 border-l border-black ml-[2rem] list-none">
-            {work.map((icon) => (
-              <li className="flex justify-center items-center relative py-2">
+            {courses.map((course) => (
+              <li
+                key={course.courseName}
+                className="flex justify-center items-center relative py-2"
+              >
                 <div className="relative w-3 h-3 bg-yellow-300 border-2 border-solid border-red-400 transform -translate-x-1/2 -translate-y-1/2 rounded-full">
                   <div className="w-full h-0.5 absolute"></div>
                 </div>
                 <div>
                   <img
-                    key={icon.name}
-                    src={icon.src}
-                    alt={icon.alt}
+                    src={course.language[0].src}
+                    alt={course.language[0].alt}
                     width={60}
                     height={60}
                     className="flex ml-2 justify-center align-middle items-center gap-1 bg-green rounded-full relative"
-                    onMouseEnter={() => setHoveredIcon(icon)}
+                    onMouseEnter={() => setHoveredIcon(course.language[0])}
                     onMouseLeave={() => setHoveredIcon(null)}
                   />
-                  {hoveredIcon === icon && (
+                  {hoveredIcon === course.language[0] && (
                     <div className="flex absolute text-gray-800 bg-gray-200 text-xs px-2 ml-[5.5rem] py-1 rounded opacity-100 transform -translate-x-1/2">
-                      {icon.name}
+                      {course.language[0].name}
                     </div>
                   )}
                 </div>
@@ -75,7 +77,7 @@ const Work = () => {
                   </div>
                 ))}
               </div>
-              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem]">
+              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem] max-lg:hidden">
                 {courses.map((course, courseIndex) => (
                   <p className="p-4 w-full h-20 sm:w-[20rem] bg-white rounded-lg shadow-lg">
                     <span className="text-red-500">Note:</span> {course.summary}
