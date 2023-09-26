@@ -19,6 +19,7 @@ export default {
         montserrat: ["Montserrat", "sans-serif"],
       },
       colors: {
+        customColor: "rgb(23, 30, 64)",
         primary: "#ECEEFF",
         "coral-red": "#FF6452",
         "slate-gray": "#6D6D6D",

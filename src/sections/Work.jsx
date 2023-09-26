@@ -5,7 +5,7 @@ const Work = () => {
   const [hoveredIcon, setHoveredIcon] = React.useState(null);
   return (
     <section id="work">
-      <div className="flex flex-row">
+      <div className="flex flex-row gap-6">
         <aside class="flex self-stretch grid-cols-1 w-1/4  h-full flex-col items-center">
           <h2 className="">Work</h2>
           <ul className="p-0 border-l border-black ml-[2rem] list-none grid ">
@@ -41,35 +41,30 @@ const Work = () => {
           </ul>
         </aside>
         <main className="">
-          <div
-            className=" overflow-x-auto p-10 custom-scrollbar"
-            style={{
-              WebkitScrollbar: {
-                height: "0.75rem",
-              },
-              WebkitScrollbarTrack: {
-                backgroundColor: "var(--clr-primary-800)",
-              },
-              WebkitScrollbarThumb: {
-                backgroundColor: "green",
-                borderRadius: "100vw",
-              },
-            }}
-          >
-            <div className=" flex flex-row p-4 bg-blue-500 rounded-[3px 70px 30px] w-96 h-72">
+          <div className="overflow-x-auto bg-customColor p-10 custom-scrollbar w-96">
+            <div className="flex flex-row gap-6 p-4 rounded-lg w-[120rem]">
               {courses.map((course, courseIndex) => (
-                <div key={courseIndex}>
-                  <h1>language:{course.courseName}</h1>
-                  <div className="project-info flex items-center justify-between m-4">
-                    <h2 className="role">projects:</h2>
-                    <div className="project-demo p-4 flex flex-col">
+                <div
+                  key={courseIndex}
+                  className="p-4 bg-white w-[20rem]  rounded-lg shadow-lg "
+                >
+                  <h1 className="text-xl font-semibold text-gray-800">
+                    Language: {course.courseName}
+                  </h1>
+                  <div className="mt-4">
+                    <h2 className="text-lg font-medium text-blue-700">
+                      Projects:
+                    </h2>
+                    <div className="mt-2">
                       {course.projects.map((project, projectIndex) => (
-                        <div key={projectIndex} className="animation-demo">
-                          <h3>{project.title}:</h3>
+                        <div key={projectIndex} className="mb-4">
+                          <h3 className="text-md font-medium text-gray-700">
+                            {project.title}:
+                          </h3>
                           <a
                             href={project.link}
                             target="_blank"
-                            className="project-link hover:no-underline hover:text-white"
+                            className="project-link text-blue-500 hover:underline hover:text-blue-700"
                           >
                             {project.name}
                           </a>
