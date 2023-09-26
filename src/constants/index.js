@@ -169,6 +169,36 @@ export const courses = [
       },
     ],
   },
+  {
+    courseName: "HTML",
+    projects: [
+      {
+        title: "projects",
+        name: "BCDPROJECT",
+        link: "#", // Replace with the actual link if available
+      },
+    ],
+  },
+  {
+    courseName: "React",
+    projects: [
+      {
+        title: "ReactDemo",
+        name: "buyMe",
+        link: "https://new-buy-me.netlify.app/",
+      },
+    ],
+  },
+  {
+    courseName: "BootStrap",
+    projects: [
+      {
+        title: "CardDemo",
+        name: "Card",
+        link: "https://jsfiddle.net/pvskr/pnfjt029/20/",
+      },
+    ],
+  },
   // Add more courses here
 ];
 

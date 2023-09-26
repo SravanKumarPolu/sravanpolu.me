@@ -56,3 +56,21 @@
     @apply font-montserrat text-slate-gray text-lg leading-7;
   }
 }
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: green;
+
+  /* WebKit scrollbar */
+  &::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 128, 0, 0.178);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: green;
+    border-radius: 100vw;
+  }
+}

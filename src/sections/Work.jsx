@@ -40,12 +40,26 @@ const Work = () => {
             ))}
           </ul>
         </aside>
-        <main>
-          <div className="overflow-y-auto p-3 scrollbar-green ">
-            <div className="p-4 bg-blue-500 rounded-[3px 70px 30px] w-96 h-72">
+        <main className="">
+          <div
+            className=" overflow-x-auto p-10 custom-scrollbar"
+            style={{
+              WebkitScrollbar: {
+                height: "0.75rem",
+              },
+              WebkitScrollbarTrack: {
+                backgroundColor: "var(--clr-primary-800)",
+              },
+              WebkitScrollbarThumb: {
+                backgroundColor: "green",
+                borderRadius: "100vw",
+              },
+            }}
+          >
+            <div className=" flex flex-row p-4 bg-blue-500 rounded-[3px 70px 30px] w-96 h-72">
               {courses.map((course, courseIndex) => (
                 <div key={courseIndex}>
-                  <h1>{course.courseName}</h1>
+                  <h1>language:{course.courseName}</h1>
                   <div className="project-info flex items-center justify-between m-4">
                     <h2 className="role">projects:</h2>
                     <div className="project-demo p-4 flex flex-col">
