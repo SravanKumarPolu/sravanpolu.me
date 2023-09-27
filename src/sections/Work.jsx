@@ -17,6 +17,10 @@ const Work = () => {
     );
   };
 
+  const changeSlide = (slideIndex) => {
+    setCurrentSlide(slideIndex);
+  };
+
   return (
     <section id="work" className="pt-4">
       <div className="flex flex-col sm:flex-row gap-6">
@@ -24,7 +28,7 @@ const Work = () => {
         <aside className="flex self-stretch sm:w-2/4 flex-col items-center max-lg:hidden">
           <h2 className="align-middle font-bold pb-4">Work</h2>
           <ul className="p-0 border-l border-black ml-[2rem] list-none">
-            {courses.map((course) => (
+            {courses.map((course, courseIndex) => (
               <li
                 key={course.courseName}
                 className="flex justify-center mt-4 items-center relative py-2"
@@ -38,6 +42,7 @@ const Work = () => {
                     alt={course.language[0].alt}
                     width={60}
                     height={60}
+                    onClick={() => changeSlide(courseIndex)}
                     className="flex ml-2 justify-center align-middle items-center gap-1 bg-green rounded-full relative"
                     onMouseEnter={() => setHoveredIcon(course.language[0])}
                     onMouseLeave={() => setHoveredIcon(null)}
@@ -58,7 +63,7 @@ const Work = () => {
               <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem]">
                 {courses.map((course, courseIndex) => (
                   <div
-                    key={courseIndex}
+                    key={course.courseName}
                     style={{
                       clipPath: "polygon(0% 0%, 100% 0%, 100% 55%, 0% 100%)",
                     }}
@@ -108,10 +113,10 @@ const Work = () => {
               </div>
             </div>
           </div>
-          <div className=" flex button absolute  m-2 align-middle">
+          <div className="flex button absolute m-2 align-middle">
             <button
               onClick={prevSlide}
-              className="bg-blue-500  hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4"
             >
               Prev
             </button>

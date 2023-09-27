@@ -5,14 +5,10 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="w-full flex xl:flex-row flex-col 
+      className="w-full flex flex-col  items-center 
    justify-center min-h-screen gap-10 max-container"
     >
-      <div
-        className=" relative flex   flex-col
-        justify-center items-center w-full
-         max-xl:padding-x pt-28 top-10"
-      >
+      <div className="relative p-20 top-20 flex flex-col justify-center items-center w-full max-sm:p-10">
         <img
           className="relative cursor-pointer p-1 border-4 rounded-bl-[30%]
            rounded-br-[30%] rounded-tl-[0] rounded-tr-[30%]
@@ -26,6 +22,12 @@ const Hero = () => {
           width={300}
           height={300}
         />
+      </div>
+      <div
+        className=" relative flex   flex-col
+        justify-center items-center w-full
+         max-xl:padding-x pt-10 "
+      >
         <h3
           className=" pt-10 font-palanquin text-3xl max-sm:text-[24px] 
         max-sm:leading-[2] font-semibold"
@@ -38,7 +40,6 @@ const Hero = () => {
         </h3>
         <p>Code, like humor, works best when it's concise.</p>
       </div>
-      {/* <div className="relative p-20 top-20 flex flex-col justify-center items-center w-full max-sm:p-10"></div> */}
     </section>
   );
 };
