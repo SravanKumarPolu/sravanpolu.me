@@ -16,7 +16,6 @@ const Work = () => {
       prevSlide === courses.length - 1 ? 0 : prevSlide + 1
     );
   };
-
   const changeSlide = (slideIndex) => {
     setCurrentSlide(slideIndex);
   };
@@ -63,7 +62,7 @@ const Work = () => {
               <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem]">
                 {courses.map((course, courseIndex) => (
                   <div
-                    key={course.courseName}
+                    key={courseIndex}
                     style={{
                       clipPath: "polygon(0% 0%, 100% 0%, 100% 55%, 0% 100%)",
                     }}
@@ -71,8 +70,8 @@ const Work = () => {
                       courseIndex === currentSlide ? "" : "hidden"
                     }`}
                   >
-                    <h1 className="text-xl font-semibold text-gray-800">
-                      Language: {course.courseName}
+                    <h1 className="text-xl font-semibold text-gray-800 text-center">
+                      {course.courseName}
                     </h1>
                     <div className="mt-4">
                       <h2 className="text-lg font-medium text-blue-700">
@@ -113,10 +112,10 @@ const Work = () => {
               </div>
             </div>
           </div>
-          <div className="flex button absolute m-2 align-middle">
+          <div className=" flex button absolute  m-2 align-middle">
             <button
               onClick={prevSlide}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4"
+              className="bg-blue-500  hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4"
             >
               Prev
             </button>
