@@ -15,6 +15,9 @@ export default {
     },
     extend: {
       fontFamily: {
+        backgroundImage: {
+          "gradient-radial": "radial-gradient(circle, #ff5733, #6b61f2)",
+        },
         palanquin: ["Palanquin", "sans-serif"],
         montserrat: ["Montserrat", "sans-serif"],
       },

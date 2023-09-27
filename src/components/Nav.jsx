@@ -13,13 +13,17 @@ const Nav = () => {
       <nav className="max-container flex justify-between items-center">
         <a href="/">
           <img
-            className="rounded-full  object-cover ml-3 max-sm:pl-1"
+            className="rounded-full object-cover ml-3 max-sm:pl-1 border-4 border-gradient-purple"
             src={headerLogo}
             alt="logo"
             width={70}
             height={50}
+            style={{
+              backgroundImage: "linear-gradient(90deg, #ff5733, #6b61f2)",
+            }}
           />
         </a>
+
         <ul className="flex-1 flex justify-center items-center gap-16 max-lg:hidden">
           {navLinks.map((item) => (
             <li key={item.label}>
