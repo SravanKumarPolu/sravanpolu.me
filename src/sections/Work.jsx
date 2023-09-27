@@ -4,16 +4,16 @@ import { courses, work, projects } from "../constants";
 const Work = () => {
   const [hoveredIcon, setHoveredIcon] = React.useState(null);
   return (
-    <section id="work">
+    <section id="work" className="pt-4">
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Sidebar */}
         <aside className="flex self-stretch sm:w-2/4 flex-col items-center">
-          <h2 className="">Work</h2>
-          <ul className="p-0 border-l border-black ml-[2rem] list-none">
+          <h2 className=" align-middle font-bold pb-4">Work</h2>
+          <ul className="p-0 border-l  border-black ml-[2rem] list-none">
             {courses.map((course) => (
               <li
                 key={course.courseName}
-                className="flex justify-center items-center relative py-2"
+                className="flex justify-center  mt-4 items-center relative py-2"
               >
                 <div className="relative w-3 h-3 bg-yellow-300 border-2 border-solid border-red-400 transform -translate-x-1/2 -translate-y-1/2 rounded-full">
                   <div className="w-full h-0.5 absolute"></div>

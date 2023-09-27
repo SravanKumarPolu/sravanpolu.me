@@ -164,6 +164,11 @@ export const courses = [
         name: "buyMe",
         link: "https://new-buy-me.netlify.app/",
       },
+      {
+        title: "ReactWith-CSS",
+        name: "DropboxSravan",
+        link: "https://dropboxsravan.netlify.app/",
+      },
     ],
     language: [{ src: react, alt: "react logo", name: "React" }],
     summary: " This project mainly focused on React JS",
@@ -179,6 +184,18 @@ export const courses = [
     ],
     language: [{ src: bootstrap, alt: "bootstrap logo", name: "BootStrap" }],
     summary: " This project mainly focused on BootStrap CSS",
+  },
+  {
+    courseName: "Tailwind CSS",
+    projects: [
+      {
+        title: "nikesravan",
+        name: "nike",
+        link: "https://jsfiddle.net/pvskr/pnfjt029/20/",
+      },
+    ],
+    language: [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }],
+    summary: " This project mainly focused on Tailwind CSS",
   },
   // Add more courses here
 ];
