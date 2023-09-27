@@ -21,7 +21,7 @@ const Work = () => {
     <section id="work" className="pt-4">
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Sidebar */}
-        <aside className="flex self-stretch sm:w-2/4 flex-col items-center">
+        <aside className="flex self-stretch sm:w-2/4 flex-col items-center max-lg:hidden">
           <h2 className="align-middle font-bold pb-4">Work</h2>
           <ul className="p-0 border-l border-black ml-[2rem] list-none">
             {courses.map((course) => (
