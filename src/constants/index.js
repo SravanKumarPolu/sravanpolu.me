@@ -186,7 +186,7 @@ export const courses = [
     summary: " This project mainly focused on BootStrap CSS",
   },
   {
-    courseName: "Tailwind CSS",
+    courseName: "Tailwind",
     projects: [
       {
         title: "nikesravan",
