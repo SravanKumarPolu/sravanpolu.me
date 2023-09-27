@@ -3,6 +3,19 @@ import { courses, work, projects } from "../constants";
 
 const Work = () => {
   const [hoveredIcon, setHoveredIcon] = React.useState(null);
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+
+  const prevSlide = () => {
+    setCurrentSlide((prevSlide) =>
+      prevSlide === 0 ? courses.length - 1 : prevSlide - 1
+    );
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prevSlide) =>
+      prevSlide === courses.length - 1 ? 0 : prevSlide + 1
+    );
+  };
   return (
     <section id="work" className="pt-4">
       <div className="flex flex-col sm:flex-row gap-6">
@@ -77,12 +90,55 @@ const Work = () => {
                   </div>
                 ))}
               </div>
+
               <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem] max-lg:hidden">
                 {courses.map((course, courseIndex) => (
                   <p className="p-4 w-full h-20 sm:w-[20rem] bg-white rounded-lg shadow-lg">
                     <span className="text-red-500">Note:</span> {course.summary}
                   </p>
                 ))}
+              </div>
+              <div className="button">
+                <button
+                  onClick={prevSlide}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="dig-PictogramIcon w-8 h-8"
+                    focusable="false"
+                    role="presentation"
+                  >
+                    <path
+                      d="m14.75 5.75-6.25 6.5 6.25 6.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="dig-PictogramIcon w-8 h-8"
+                    focusable="false"
+                    role="presentation"
+                  >
+                    <path
+                      d="m9.25 5.75 6.25 6.5-6.25 6.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
