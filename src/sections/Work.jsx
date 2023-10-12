@@ -56,9 +56,9 @@ const Work = () => {
           </ul>
         </aside>
         <main className="flex flex-col relative justify-between items-center">
-          <div className="ml-4 overflow-x-auto bg-customColor p-10 mr-6 custom-scrollbar sm:w-[25rem]">
+          <div className="ml-4 overflow-x-auto bg-customColor p-10 mr-4 custom-scrollbar sm:w-[25rem]">
             <div>
-              <div className="flex flex-col gap-2 p-4 rounded-lg lg:w-[120rem] sm:w-full">
+              <div className="flex flex-col gap-2 py-4 rounded-lg lg:w-[120rem] sm:w-full">
                 {courses.map((course, courseIndex) => (
                   <div
                     key={courseIndex}

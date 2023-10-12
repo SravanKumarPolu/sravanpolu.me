@@ -39,6 +39,7 @@ const Nav = () => {
             </li>
           ))}
         </ul>
+
         <div className="hidden max-lg:block mr-4">
           <img
             src={hamburger}
