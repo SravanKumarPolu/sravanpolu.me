@@ -30,8 +30,7 @@ const Work = () => {
             {courses.map((course, courseIndex) => (
               <li
                 key={course.courseName}
-                className="flex justify-center mt-4 items-center relative py-2"
-              >
+                className="flex justify-center mt-4 items-center relative py-2">
                 <div className="relative w-3 h-3 bg-yellow-300 border-2 border-solid border-red-400 transform -translate-x-1/2 -translate-y-1/2 rounded-full">
                   <div className="w-full h-0.5 absolute"></div>
                 </div>
@@ -57,19 +56,18 @@ const Work = () => {
           </ul>
         </aside>
         <main className="flex flex-col relative justify-between items-center">
-          <div className="overflow-x-auto bg-customColor p-10 mr-6 custom-scrollbar sm:w-[25rem] ">
+          <div className="ml-4 overflow-x-auto bg-customColor p-10 mr-6 custom-scrollbar sm:w-[25rem]">
             <div>
-              <div className="flex flex-col gap-2  p-4 rounded-lg lg:w-[120rem] sm:w-full ">
+              <div className="flex flex-col gap-2 p-4 rounded-lg lg:w-[120rem] sm:w-full">
                 {courses.map((course, courseIndex) => (
                   <div
                     key={courseIndex}
                     style={{
                       clipPath: "polygon(0% 0%, 100% 0%, 100% 55%, 0% 100%)",
                     }}
-                    className={`p-4 w-full  h-96 sm:w-[20rem] bg-white rounded-lg shadow-lg  ${
+                    className={`p-4 w-full h-96 sm:w-[20rem] bg-white rounded-lg shadow-lg ${
                       courseIndex === currentSlide ? "" : "hidden"
-                    }`}
-                  >
+                    }`}>
                     <h1 className="text-xl font-semibold text-gray-800 text-center">
                       {course.courseName}
                     </h1>
@@ -86,8 +84,7 @@ const Work = () => {
                             <a
                               href={project.link}
                               target="_blank"
-                              className="project-link text-blue-500 hover:underline hover:text-blue-700"
-                            >
+                              className="project-link text-blue-500 hover:underline hover:text-blue-700">
                               {project.name}
                             </a>
                           </div>
@@ -98,31 +95,30 @@ const Work = () => {
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem] max-lg:hidden">
+              {/* Show the content meant for big displays on small layouts */}
+              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem] sm:hidden">
                 {courses.map((course, courseIndex) => (
                   <p
                     key={courseIndex}
                     className={`p-4 w-full h-20 sm:w-[20rem] bg-white rounded-lg shadow-lg ${
                       courseIndex === currentSlide ? "" : "hidden"
-                    }`}
-                  >
+                    }`}>
                     <span className="text-red-500">Note:</span> {course.summary}
                   </p>
                 ))}
               </div>
             </div>
           </div>
-          <div className=" flex button absolute  m-2 align-middle">
+
+          <div className="  sm:flex  absolute  m-2 align-middle">
             <button
               onClick={prevSlide}
-              className="bg-blue-500  hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4"
-            >
+              className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4">
               Prev
             </button>
             <button
               onClick={nextSlide}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg"
-            >
+              className="bg-blue-500 hover-bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
               Next
             </button>
           </div>
