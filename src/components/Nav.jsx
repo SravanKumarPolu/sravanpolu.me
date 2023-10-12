@@ -19,7 +19,8 @@ const Nav = () => {
             width={70}
             height={50}
             style={{
-              backgroundImage: "linear-gradient(90deg, #ff5733, #6b61f2)",
+              backgroundImage:
+                "repeating-radial-gradient(circle, red, gold 5px)",
             }}
           />
         </a>

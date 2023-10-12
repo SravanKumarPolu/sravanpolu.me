@@ -57,16 +57,16 @@ const Work = () => {
           </ul>
         </aside>
         <main className="flex flex-col relative justify-between items-center">
-          <div className="overflow-x-auto bg-customColor p-10 custom-scrollbar sm:w-[25rem]">
+          <div className="overflow-x-auto bg-customColor p-10 mr-6 custom-scrollbar sm:w-[25rem] ">
             <div>
-              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem]">
+              <div className="flex flex-col gap-2  p-4 rounded-lg lg:w-[120rem] sm:w-full ">
                 {courses.map((course, courseIndex) => (
                   <div
                     key={courseIndex}
                     style={{
                       clipPath: "polygon(0% 0%, 100% 0%, 100% 55%, 0% 100%)",
                     }}
-                    className={`p-4 w-full h-96 sm:w-[20rem] bg-white rounded-lg shadow-lg ${
+                    className={`p-4 w-full  h-96 sm:w-[20rem] bg-white rounded-lg shadow-lg  ${
                       courseIndex === currentSlide ? "" : "hidden"
                     }`}
                   >

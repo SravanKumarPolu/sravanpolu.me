@@ -169,6 +169,11 @@ export const courses = [
         name: "DropboxSravan",
         link: "https://dropboxsravan.netlify.app/",
       },
+      {
+        title: "ReactWith-CSS",
+        name: "#VANLIFE",
+        link: "https://van-life2.netlify.app/",
+      },
     ],
     language: [{ src: react, alt: "react logo", name: "React" }],
     summary: " This project mainly focused on React JS",
@@ -191,7 +196,7 @@ export const courses = [
       {
         title: "nikesravan",
         name: "nike",
-        link: "https://jsfiddle.net/pvskr/pnfjt029/20/",
+        link: "https://nikesravan.netlify.app",
       },
     ],
     language: [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }],
