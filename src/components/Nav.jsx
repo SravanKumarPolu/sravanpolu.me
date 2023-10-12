@@ -11,7 +11,7 @@ const Nav = () => {
   return (
     <header className="py-6 absolute z-10 w-full">
       <nav className="max-container flex justify-between items-center">
-        <a href="/">
+        {/* <a href="/">
           <img
             className="rounded-full object-cover ml-3 max-sm:pl-1 border-4 border-gradient-purple"
             src={headerLogo}
@@ -23,15 +23,17 @@ const Nav = () => {
                 "repeating-radial-gradient(circle, red, gold 5px)",
             }}
           />
-        </a>
+        </a> */}
+        <h1 className="font-bold text-indigo-500 text-3xl mx-2 sm:text-2xl md:text-4xl">
+          sravanpolu.me
+        </h1>
 
         <ul className="flex-1 flex justify-center items-center gap-16 max-lg:hidden">
           {navLinks.map((item) => (
             <li key={item.label}>
               <a
                 className="font-montserrat text-lg text-slate-gray"
-                href={item.href}
-              >
+                href={item.href}>
                 {item.label}
               </a>
             </li>
@@ -50,15 +52,13 @@ const Nav = () => {
               isNavOpen ? "block" : "hidden"
             } max-lg:flex-1 flex flex-col max-w-sm absolute mt-5 bg-white top-14
             right-0 py-4 px-6 border
-              border-gray-300 rounded-lg shadow-lg`}
-          >
+              border-gray-300 rounded-lg shadow-lg`}>
             {navLinks.map((item) => (
               <li key={item.label}>
                 <a
                   onClick={toggleNav}
                   className="font-montserrat gap-16 text-lg text-slate-gray"
-                  href={item.href}
-                >
+                  href={item.href}>
                   {item.label}
                 </a>
               </li>
