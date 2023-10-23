@@ -126,7 +126,7 @@ export const courses = [
       {
         title: "Animation",
         name: "SolarSystem",
-        link: "https://jsfiddle.net/pvskr/95okncw6/388/",
+        link: "https://sravan-solarsystemdemo.netlify.app/",
       },
     ],
     language: [{ src: css, alt: "css logo", name: "CSS" }],
@@ -167,7 +167,7 @@ export const courses = [
       {
         title: "ReactWith-CSS",
         name: "DropboxSravan",
-        link: "https://dropboxsravan.netlify.app/",
+        link: "https://dropbox-sravan.netlify.app/",
       },
       {
         title: "ReactWith-CSS",
@@ -196,7 +196,7 @@ export const courses = [
       {
         title: "nikesravan",
         name: "nike",
-        link: "https://nikesravan.netlify.app",
+        link: "https://sravan-nike.netlify.app",
       },
     ],
     language: [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }],
