@@ -198,6 +198,11 @@ export const courses = [
         name: "nike",
         link: "https://sravan-nike.netlify.app",
       },
+      {
+        title: "sravan-gym",
+        name: "GYM",
+        link: "https://sravan-gym.netlify.app",
+      },
     ],
     language: [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }],
     summary: " This project mainly focused on Tailwind CSS",

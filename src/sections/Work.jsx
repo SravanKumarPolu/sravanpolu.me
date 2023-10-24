@@ -41,7 +41,7 @@ const Work = () => {
                     width={60}
                     height={60}
                     onClick={() => changeSlide(courseIndex)}
-                    className="flex ml-2 justify-center align-middle items-center gap-1 bg-green rounded-full relative"
+                    className="flex ml-2 justify-center align-middle items-center gap-1 bg-green rounded-full relative cursor-pointer"
                     onMouseEnter={() => setHoveredIcon(course.language[0])}
                     onMouseLeave={() => setHoveredIcon(null)}
                   />
@@ -96,11 +96,11 @@ const Work = () => {
               </div>
 
               {/* Show the content meant for big displays on small layouts */}
-              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem] sm:hidden">
+              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem]  sm:hidden">
                 {courses.map((course, courseIndex) => (
                   <p
                     key={courseIndex}
-                    className={`p-4 w-full h-20 sm:w-[20rem] bg-white rounded-lg shadow-lg ${
+                    className={`p-4 w-full h-20 sm:w-[20rem] bg-white rounded-lg h-32 shadow-lg ${
                       courseIndex === currentSlide ? "" : "hidden"
                     }`}>
                     <span className="text-red-500">Note:</span> {course.summary}
@@ -110,10 +110,10 @@ const Work = () => {
             </div>
           </div>
 
-          <div className="sm:hidden">
+          <div className="sm:hidden flex  absolute  m-2 align-middle">
             {" "}
             {/* Wrap buttons in a div with sm:hidden class */}
-            <div className="sm:flex absolute m-2 align-middle">
+            <div className="  sm:flex  ">
               <button
                 onClick={prevSlide}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4">
