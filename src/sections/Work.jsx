@@ -110,17 +110,21 @@ const Work = () => {
             </div>
           </div>
 
-          <div className="  sm:flex  absolute  m-2 align-middle">
-            <button
-              onClick={prevSlide}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4">
-              Prev
-            </button>
-            <button
-              onClick={nextSlide}
-              className="bg-blue-500 hover-bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
-              Next
-            </button>
+          <div className="sm:hidden">
+            {" "}
+            {/* Wrap buttons in a div with sm:hidden class */}
+            <div className="sm:flex absolute m-2 align-middle">
+              <button
+                onClick={prevSlide}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4">
+                Prev
+              </button>
+              <button
+                onClick={nextSlide}
+                className="bg-blue-500 hover-bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+                Next
+              </button>
+            </div>
           </div>
         </main>
       </div>

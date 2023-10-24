@@ -121,7 +121,7 @@ export const courses = [
       {
         title: "Animation",
         name: "3DCube",
-        link: "https://jsfiddle.net/pvskr/f2vat9bm/1/",
+        link: "https://sravan-cubedemo.netlify.app/",
       },
       {
         title: "Animation",
