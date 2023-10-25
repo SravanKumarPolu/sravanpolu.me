@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { courses } from "../constants";
+import { motion } from "framer-motion";
 
 const Work = () => {
   const [hoveredIcon, setHoveredIcon] = useState(null);
@@ -24,8 +25,29 @@ const Work = () => {
     <section id="work" className="pt-4">
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Sidebar */}
-        <aside className="flex self-stretch sm:w-2/4 flex-col items-center max-lg:hidden">
-          <h2 className="align-middle font-bold pb-4">Work</h2>
+
+        <motion.aside
+          className="flex self-stretch sm:w-2/4 flex-col items-center max-lg:hidden"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
+          variants={{
+            hidden: { opacity: 0, x: -50 },
+            visible: { opacity: 1, x: 0 },
+          }}>
+          <motion.h2
+            className="align-middle font-bold pb-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.9 }}
+            variants={{
+              hidden: { opacity: 0, y: -100 },
+              visible: { opacity: 1, y: 0 },
+            }}>
+            Work
+          </motion.h2>
           <ul className="p-0 border-l border-black ml-[2rem] list-none">
             {courses.map((course, courseIndex) => (
               <li
@@ -54,10 +76,18 @@ const Work = () => {
               </li>
             ))}
           </ul>
-        </aside>
+        </motion.aside>
         <main className="flex flex-col relative justify-between items-center">
           <div className="ml-4  bg-customColor p-10 mr-4  sm:w-[25rem]">
-            <div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.5 }}
+              variants={{
+                hidden: { opacity: 0, x: 50 },
+                visible: { opacity: 1, x: 0 },
+              }}>
               <div className="flex flex-col gap-2 py-4 rounded-lg lg:w-[120rem] sm:w-full">
                 {courses.map((course, courseIndex) => (
                   <div
@@ -107,7 +137,7 @@ const Work = () => {
                   </p>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
 
           <div className="sm:hidden flex  absolute  m-2 align-middle">
