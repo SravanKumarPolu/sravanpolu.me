@@ -233,8 +233,18 @@ export const footerLinks = [
 ];
 
 export const socialMedia = [
-  { src: linkedIn, alt: "LinkedIn logo", name: "LinkedIn" },
-  { src: github, alt: "githu logo", name: "Github" },
+  {
+    src: linkedIn,
+    alt: "LinkedIn logo",
+    name: "LinkedIn",
+    link: "https://www.linkedin.com/in/SravanPolu",
+  },
+  {
+    src: github,
+    alt: "githu logo",
+    name: "Github",
+    link: "https://github.com/SravanKumarPolu",
+  },
   { src: netlify, alt: "netlify logo", name: "Netlify" },
   { src: jsfiddle, alt: "jsfiddle logo", name: "Jsfiddle" },
 ];

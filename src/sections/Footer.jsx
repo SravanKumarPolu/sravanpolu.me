@@ -9,19 +9,16 @@ const Footer = () => {
     <footer id="footer" className="max-container">
       <div
         className="flex justify-between items-center
-      gap-20 flex-wrap max-lg:flex-col"
-      >
+      gap-20 flex-wrap max-lg:flex-col">
         <div
           className="flex flex-col
-      gap-10 flex-wrap max-lg:flex-col"
-        >
+      gap-10 flex-wrap max-lg:flex-col">
           <a
             href="/"
             style={{
               background: "white",
             }}
-            className="flex  h-70  rounded-full justify-center align-middle"
-          >
+            className="flex  h-70  rounded-full justify-center align-middle">
             <img
               className="border-4 rounded-full align-middle object-cover ml-1 max-sm:pl-1"
               src={footerLogo}
@@ -39,8 +36,7 @@ const Footer = () => {
           </a>
           <p
             className="text-base font-montserrat w-[300px] text-white-400
-          sm:max-w-sm"
-          >
+          sm:max-w-sm">
             This below sites use to Code practice and develops few sites in{" "}
           </p>
           <div className="flex  justify-center items-center gap-5 mt-2 ">
@@ -49,16 +45,16 @@ const Footer = () => {
                 key={icon.name}
                 className="flex flex-col justify-center items-center gap-1 w-12 h-12 bg-white rounded-full relative"
                 onMouseEnter={() => setHoveredIcon(icon)}
-                onMouseLeave={() => setHoveredIcon(null)}
-              >
-                <img src={icon.src} alt={icon.alt} width={24} height={24} />
+                onMouseLeave={() => setHoveredIcon(null)}>
+                <a href={icon.link} target="_blank" rel="noopener noreferrer">
+                  <img src={icon.src} alt={icon.alt} width={24} height={24} />
+                </a>
                 {hoveredIcon === icon && (
                   <div
                     className=" flex absolute text-gray-800
                    bg-white text-xs px-2 ml-[4rem]
                    py-1 mt-20 rounded opacity-100 
-                    transform -translate-x-1/2"
-                  >
+                    transform -translate-x-1/2">
                     {icon.name}
                   </div>
                 )}
@@ -68,15 +64,13 @@ const Footer = () => {
         </div>
         <div
           className="flex  items-center
-      gap-20 flex-wrap max-lg:flex-col"
-        >
+      gap-20 flex-wrap max-lg:flex-col">
           {footerLinks.map((section) => (
             <div key={section.title}>
               <h4
                 className="text-white
               font-montserrat text-2xl
-              leading-normal font-medium mb-6"
-              >
+              leading-normal font-medium mb-6">
                 {section.title}
               </h4>
               <ul>
@@ -86,13 +80,11 @@ const Footer = () => {
                     className="mt-3 text-white-400
                   font-montserrat text-base
                   leading-normal hover:text-slate-gray
-                  cursor-pointer"
-                  >
+                  cursor-pointer">
                     <a
                       href={link.link}
                       target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                      rel="noopener noreferrer">
                       {link.name}
                     </a>
                   </li>
@@ -105,8 +97,7 @@ const Footer = () => {
       <div
         className="flex mt-2 p-1
         justify-center items-center gap-2
-        font-montserrat cursor-pointer"
-      >
+        font-montserrat cursor-pointer">
         <img
           src={copyrightSign}
           alt="copy right sign"
