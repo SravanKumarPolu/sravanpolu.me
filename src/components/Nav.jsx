@@ -2,6 +2,7 @@ import React from "react";
 import headerLogo from "../assets/images/headerLogo.png";
 import hamburger from "../assets/icons/hamburger.svg";
 import { navLinks } from "../constants";
+import { motion } from "framer-motion";
 
 const Nav = () => {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
@@ -24,9 +25,18 @@ const Nav = () => {
             }}
           />
         </a> */}
-        <h1 className="font-bold text-indigo-500 text-3xl mx-2 sm:text-2xl md:text-4xl">
+        <motion.h1
+          className="font-bold text-indigo-500 text-3xl mx-2 sm:text-2xl md:text-4xl"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.9 }}
+          variants={{
+            hidden: { opacity: 0, x: -100 },
+            visible: { opacity: 1, x: 0 },
+          }}>
           sravanpolu.me
-        </h1>
+        </motion.h1>
 
         <ul className="flex-1 flex justify-center items-center gap-16 max-lg:hidden">
           {navLinks.map((item) => (
