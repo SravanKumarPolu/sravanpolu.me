@@ -150,11 +150,12 @@ export const courses = [
     projects: [
       {
         title: "projects",
-        name: "BCDPROJECT",
-        link: "#", // Replace with the actual link if available
+        name: "Otp-sravan",
+        link: "https://sravanotp-project.netlify.app/", // Replace with the actual link if available
       },
     ],
     language: [{ src: html, alt: "html logo", name: "HTML" }],
+    summary: " This project mainly focused on Frames of HTML",
   },
   {
     courseName: "React",
