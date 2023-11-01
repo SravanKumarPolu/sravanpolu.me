@@ -88,7 +88,7 @@ const Work = () => {
                 hidden: { opacity: 0, x: 50 },
                 visible: { opacity: 1, x: 0 },
               }}>
-              <div className="flex flex-col gap-2 py-4 rounded-lg lg:w-[120rem] sm:w-full">
+              <div className="flex flex-col gap-2 py-4 rounded-lg lg:w-3/4 sm:w-full">
                 {courses.map((course, courseIndex) => (
                   <div
                     key={courseIndex}
@@ -126,11 +126,11 @@ const Work = () => {
               </div>
 
               {/* Show the content meant for big displays on small layouts */}
-              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-[120rem]  sm:hidden">
+              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-3/4 sm:hidden">
                 {courses.map((course, courseIndex) => (
                   <p
                     key={courseIndex}
-                    className={`p-4 w-full h-20 sm:w-[20rem] bg-white rounded-lg h-32 shadow-lg ${
+                    className={`p-4 w-full h-20 sm:w-[20rem] bg-white rounded-lg  shadow-lg ${
                       courseIndex === currentSlide ? "" : "hidden"
                     }`}>
                     <span className="text-red-500">Note:</span> {course.summary}
