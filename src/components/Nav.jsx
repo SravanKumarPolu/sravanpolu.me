@@ -10,8 +10,11 @@ const Nav = () => {
     setIsNavOpen(!isNavOpen);
   };
   return (
-    <header className="py-6 absolute z-10 w-full">
-      <nav className="max-container flex justify-between items-center">
+    <header
+      className=" absolute z-10 w-full 
+    
+    ">
+      <nav className="max-container py-6  flex justify-between fixed bg-pink-200  w-full items-center">
         {/* <a href="/">
           <img
             className="rounded-full object-cover ml-3 max-sm:pl-1 border-4 border-gradient-purple"
@@ -38,17 +41,26 @@ const Nav = () => {
           sravanpolu.me
         </motion.h1>
 
-        <ul className="flex-1 flex justify-center items-center gap-16 max-lg:hidden">
+        <motion.ul
+          className="flex-1 flex justify-center items-center gap-16 max-lg:hidden"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.9 }}
+          variants={{
+            hidden: { opacity: 0, x: 100 },
+            visible: { opacity: 1, x: 0 },
+          }}>
           {navLinks.map((item) => (
             <li key={item.label}>
               <a
-                className="font-montserrat text-lg text-slate-gray"
+                className="font-montserrat text-lg text-white "
                 href={item.href}>
                 {item.label}
               </a>
             </li>
           ))}
-        </ul>
+        </motion.ul>
 
         <div className="hidden max-lg:block mr-4">
           <img
@@ -65,7 +77,7 @@ const Nav = () => {
             right-0 py-4 px-6 border
               border-gray-300 rounded-lg shadow-lg`}>
             {navLinks.map((item) => (
-              <li key={item.label}>
+              <li className="p-2" key={item.label}>
                 <a
                   onClick={toggleNav}
                   className="font-montserrat gap-16 text-lg text-slate-gray"
