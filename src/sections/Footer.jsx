@@ -18,15 +18,16 @@ const Footer = () => {
             style={{
               background: "white",
             }}
-            className="flex  h-70  rounded-full justify-center align-middle">
+            className="flex h-80 rounded-full justify-center align-middle ">
             <img
-              className="border-4 rounded-full align-middle border-red-300 object-cover ml-1 max-sm:pl-1"
+              className="border-4 rounded-full align-middle border-red-300 object-cover ml-1 max-sm:pl-1 transition-transform transform hover:scale-150"
               src={footerLogo}
               alt="logo"
-              width={80}
-              height={80}
+              width={60}
+              height={60}
             />
           </a>
+
           <p
             className="text-base font-montserrat w-[300px] text-white-400
           sm:max-w-sm">
