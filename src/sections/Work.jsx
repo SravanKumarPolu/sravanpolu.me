@@ -22,7 +22,7 @@ const Work = () => {
   };
 
   return (
-    <section id="work" className="pt-4">
+    <section id="work" className="pt-6 ">
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Sidebar */}
 
@@ -77,8 +77,8 @@ const Work = () => {
             ))}
           </ul>
         </motion.aside>
-        <main className="flex flex-col relative justify-between items-center">
-          <div className="ml-4  bg-customColor p-10 mr-4  sm:w-[25rem]">
+        <main className="flex flex-col relative justify-between items-center mt-[3.5rem] ">
+          <div className="m-6  bg-customColor p-10   sm:w-[25rem]">
             <motion.div
               initial="hidden"
               whileInView="visible"
