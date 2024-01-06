@@ -38,7 +38,7 @@ const Nav = () => {
         <div
           className={`${navbarBackground} ${flexBetween} fixed top-0 z-30 w-full pb-5 sm:py-4`}>
           <motion.h1
-            className="font-bold text-2xl mx-2 sm:text-2xl md:text-3xl"
+            className="font-semibold text-3xl mx-4  sm:text-2xl md:text-3xl"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
@@ -63,7 +63,7 @@ const Nav = () => {
             {navLinks.map((item) => (
               <li key={item.label}>
                 <a
-                  className="font-montserrat text-lg  border-2 border-transparent hover:border-slate-gray rounded p-2 active:border-slate-gray "
+                  className="font-montserrat text-lg  border-2 border-transparent hover:border-black focus:border-black rounded py-2 px-4 active:border-black "
                   href={item.href}>
                   {item.label}
                 </a>
