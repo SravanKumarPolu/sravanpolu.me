@@ -14,7 +14,7 @@ const Hero = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.9 }}
+        transition={{ duration: 0.3 }}
         variants={{
           hidden: { opacity: 0, x: -100 },
           visible: { opacity: 1, x: 0 },
@@ -28,16 +28,25 @@ const Hero = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0 }}
+          transition={{ duration: 0.7 }}
           variants={{
-            hidden: { opacity: 0, y: -100 },
+            hidden: { opacity: 0, y: -170 },
             visible: { opacity: 1, y: 0 },
           }}
         />
       </motion.div>
 
       <div className="relative flex flex-col justify-center items-center w-full max-xl:px-10 pt-10">
-        <h3 className="pt-6 font-palanquin text-4xl md:text-5xl max-sm:text-2xl max-sm:leading-[2] font-semibold text-center text-gray-700 ">
+        <motion.h3
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+          variants={{
+            hidden: { opacity: 0, x: 150 },
+            visible: { opacity: 1, x: 0 },
+          }}
+          className="pt-6 font-palanquin text-4xl md:text-5xl max-sm:text-2xl max-sm:leading-[2] font-semibold text-center text-gray-700 ">
           Hi,{" "}
           <span role="img" aria-label="Wave">
             👋
@@ -47,10 +56,19 @@ const Hero = () => {
           <span className="font-montserrat text-2xl md:text-3xl text-white">
             Web Developer
           </span>
-        </h3>
-        <p className="max-sm:mt-4 text-center text-gray-700 text-lg">
+        </motion.h3>
+        <motion.p
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7 }}
+          variants={{
+            hidden: { opacity: 0, x: -100 },
+            visible: { opacity: 1, x: 0 },
+          }}
+          className="max-sm:mt-4 text-center text-gray-700 text-lg">
           Code, like humor, works best when it's concise.
-        </p>
+        </motion.p>
       </div>
     </section>
   );
