@@ -24,7 +24,7 @@ const Nav = () => {
     
     ">
       <nav
-        className={` ${navbarBackground} ${flexBetween} fixed  bg-pink-500 top-0 z-30 w-full pb-5 sm:py-4 `}>
+        className={` ${navbarBackground} ${flexBetween} fixed  text-gray-700 top-0 z-30 w-full pb-5 sm:py-4 `}>
         {/* <a href="/">
           <img
             className="rounded-full object-cover ml-3 max-sm:pl-1 border-4 border-gradient-purple"
@@ -39,7 +39,7 @@ const Nav = () => {
           />
         </a> */}
         <motion.h1
-          className="font-bold text-white text-2xl mx-2 sm:text-2xl md:text-3xl"
+          className="font-bold  text-2xl mx-2 sm:text-2xl md:text-3xl"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
@@ -63,9 +63,7 @@ const Nav = () => {
           }}>
           {navLinks.map((item) => (
             <li key={item.label}>
-              <a
-                className="font-montserrat text-lg text-white "
-                href={item.href}>
+              <a className="font-montserrat text-lg " href={item.href}>
                 {item.label}
               </a>
             </li>
