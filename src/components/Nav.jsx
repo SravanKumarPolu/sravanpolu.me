@@ -1,4 +1,5 @@
 import React from "react";
+import { useMediaQuery } from "@react-hook/media-query";
 import headerLogo from "../assets/images/headerLogo.png";
 import hamburger from "../assets/icons/hamburger.svg";
 import { navLinks } from "../constants";
@@ -9,12 +10,21 @@ const Nav = () => {
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
+
+  const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
+  const isTopOfPage = window.scrollY === 0;
+  const flexBetween = "flex justify-between";
+
+  const navbarBackground = isTopOfPage
+    ? ""
+    : "text-black bg-pink-300 drop-shadow";
   return (
     <header
       className=" absolute z-10 w-full 
     
     ">
-      <nav className="max-container py-6  flex justify-between fixed bg-pink-200  w-full items-center">
+      <nav
+        className={` ${navbarBackground} ${flexBetween} fixed  bg-pink-500 top-0 z-30 w-full pb-5 sm:py-4 `}>
         {/* <a href="/">
           <img
             className="rounded-full object-cover ml-3 max-sm:pl-1 border-4 border-gradient-purple"
@@ -29,7 +39,7 @@ const Nav = () => {
           />
         </a> */}
         <motion.h1
-          className="font-bold text-indigo-500 text-3xl mx-2 sm:text-2xl md:text-4xl"
+          className="font-bold text-white text-2xl mx-2 sm:text-2xl md:text-3xl"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
