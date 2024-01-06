@@ -36,9 +36,9 @@ const Nav = () => {
     <header className="absolute z-20 w-full">
       <nav className="sticky">
         <div
-          className={`${navbarBackground} ${flexBetween} fixed top-0 z-30 w-full pb-5 sm:py-4`}>
+          className={`${navbarBackground} ${flexBetween} flex fixed top-0 z-30 w-full pb-5 sm:py-4 justify-center items-center `}>
           <motion.h1
-            className="font-semibold text-3xl mx-4  sm:text-2xl md:text-3xl"
+            className="font-semibold text-3xl mx-4 mt-1 sm:text-2xl md:text-3xl"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
@@ -71,7 +71,7 @@ const Nav = () => {
             ))}
           </motion.ul>
 
-          <div className="hidden max-lg:block mr-4">
+          <div className="hidden max-lg:block mr-4 mt-3">
             <img
               src={hamburger}
               alt="hamburger"
