@@ -51,7 +51,7 @@ const Nav = () => {
           </motion.h1>
 
           <motion.ul
-            className="flex-1 flex justify-center items-center gap-16 max-lg:hidden"
+            className="flex-1 flex justify-center items-center gap-5 max-lg:hidden"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}

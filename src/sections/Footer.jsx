@@ -15,17 +15,17 @@ const Footer = () => {
           className="flex flex-col
       gap-10 flex-wrap max-lg:flex-col">
           <motion.a
-            href="/"
-            style={{
-              background: "white",
-            }}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.2 }}
             variants={{
               hidden: { opacity: 0, x: -100 },
               visible: { opacity: 1, x: 0 },
+            }}
+            href="/"
+            style={{
+              background: "white",
             }}
             className="flex h-80 rounded-full justify-center align-middle ">
             <img
@@ -41,9 +41,9 @@ const Footer = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.4 }}
             variants={{
-              hidden: { opacity: 0, x: -100 },
+              hidden: { opacity: 0, x: 100 },
               visible: { opacity: 1, x: 0 },
             }}
             className="text-base font-montserrat w-[300px] text-white-400
@@ -56,7 +56,7 @@ const Footer = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.7 }}
+                transition={{ duration: 0.4 }}
                 variants={{
                   hidden: { opacity: 0, x: -100 },
                   visible: { opacity: 1, x: 0 },
@@ -99,12 +99,20 @@ const Footer = () => {
       gap-20 flex-wrap max-lg:flex-col">
           {footerLinks.map((section) => (
             <div key={section.title}>
-              <h4
+              <motion.h4
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.9 }}
+                variants={{
+                  hidden: { opacity: 0, y: 100 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 className="text-white
               font-montserrat text-2xl
               leading-normal font-medium mb-6">
                 {section.title}
-              </h4>
+              </motion.h4>
               <ul>
                 {section.links.map((link) => (
                   <li
@@ -149,7 +157,7 @@ const Footer = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.9 }}
           variants={{
             hidden: { opacity: 0, x: 100 },
             visible: { opacity: 1, x: 0 },
