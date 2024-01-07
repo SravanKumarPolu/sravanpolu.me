@@ -3,10 +3,10 @@ import Nav from "./components/Nav";
 import React from "react";
 import About from "./sections/Work.jsx";
 const App = () => (
-  <main className="relative bg-gradient-to-br from-blue-200 to-purple-800">
+  <main className="relative bg-gradient-to-br from-blue-200 to-purple-800 overflow-x-hidden">
     <Nav />
 
-    <section className="xl:padding-l wide:padding-r padding-b ">
+    <section className="xl:padding-l wide:padding-r padding-b overflow-x-hidden">
       <Hero />{" "}
     </section>
     <section className="xl:padding-l wide:padding-r padding-b ">
