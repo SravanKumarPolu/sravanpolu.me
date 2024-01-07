@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer id="footer" className="max-container">
       <div
-        className="flex justify-between items-center
+        className="  overflow-x:hidden flex justify-between items-center
       gap-20 flex-wrap max-lg:flex-col">
         <div
           className="flex flex-col
@@ -58,7 +58,7 @@ const Footer = () => {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.4 }}
                 variants={{
-                  hidden: { opacity: 0, x: -100 },
+                  hidden: { opacity: 0, x: 100 },
                   visible: { opacity: 1, x: 0 },
                 }}
                 key={icon.name}
@@ -66,20 +66,7 @@ const Footer = () => {
                 onMouseEnter={() => setHoveredIcon(icon)}
                 onMouseLeave={() => setHoveredIcon(null)}>
                 <a href={icon.link} target="_blank" rel="noopener noreferrer">
-                  <motion.img
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.9 }}
-                    variants={{
-                      hidden: { opacity: 0, x: -100 },
-                      visible: { opacity: 1, x: 0 },
-                    }}
-                    src={icon.src}
-                    alt={icon.alt}
-                    width={24}
-                    height={24}
-                  />
+                  <img src={icon.src} alt={icon.alt} width={24} height={24} />
                 </a>
                 {hoveredIcon === icon && (
                   <div
@@ -103,7 +90,7 @@ const Footer = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.9 }}
+                transition={{ duration: 0.4 }}
                 variants={{
                   hidden: { opacity: 0, y: 100 },
                   visible: { opacity: 1, y: 0 },

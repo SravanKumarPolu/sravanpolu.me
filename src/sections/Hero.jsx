@@ -6,9 +6,9 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="w-full flex flex-col items-center justify-center min-h-screen gap-10 max-container ">
+      className="w-full overflow-x:hidden flex flex-col items-center justify-center min-h-screen gap-10 max-container ">
       <motion.div
-        className="relative py-10  top-20 flex
+        className="   relative py-10  top-20 flex
        flex-col justify-center items-center m-4 w-4/5
         max-sm:p-5 bg-gradient-to-br from-[#ff6b6b] to-[#ffa07a] rounded"
         initial="hidden"
