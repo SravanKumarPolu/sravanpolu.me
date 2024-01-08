@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "@react-hook/media-query";
-import headerLogo from "../assets/images/headerLogo.png";
+// import headerLogo from "../assets/images/headerLogo.png";
 import hamburger from "../assets/icons/hamburger.svg";
 import { navLinks } from "../constants";
 import { motion } from "framer-motion";
-
+import Link from "./ActiveComponent";
 const Nav = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isTopOfPage, setIsTopOfPage] = useState(true);
@@ -63,7 +63,8 @@ const Nav = () => {
             {navLinks.map((item) => (
               <button key={item.label}>
                 <a
-                  className="  font-montserrat text-lg focus-within:border-white border-2 border-transparent hover:border-black focus:border-black rounded py-2 px-4 active:border-black "
+                  onClick={toggleNav}
+                  className=" font-montserrat gap-16 text-lg text-slate-gray "
                   href={item.href}>
                   {item.label}
                 </a>
