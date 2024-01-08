@@ -50,7 +50,7 @@ const Nav = () => {
             sravanpolu.me
           </motion.h1>
 
-          <motion.ul
+          <motion.div
             className="flex-1 flex justify-center items-center gap-5 max-lg:hidden"
             initial="hidden"
             whileInView="visible"
@@ -61,15 +61,15 @@ const Nav = () => {
               visible: { opacity: 1, x: 0 },
             }}>
             {navLinks.map((item) => (
-              <li key={item.label}>
+              <button key={item.label}>
                 <a
-                  className="font-montserrat text-lg  border-2 border-transparent hover:border-black focus:border-black rounded py-2 px-4 active:border-black "
+                  className="  font-montserrat text-lg focus-within:border-white border-2 border-transparent hover:border-black focus:border-black rounded py-2 px-4 active:border-black "
                   href={item.href}>
                   {item.label}
                 </a>
-              </li>
+              </button>
             ))}
-          </motion.ul>
+          </motion.div>
 
           <div className="hidden max-lg:block mr-4 mt-3">
             <img
@@ -86,10 +86,10 @@ const Nav = () => {
             right-0 py-4 px-6 border
               border-gray-300 rounded-lg shadow-lg`}>
               {navLinks.map((item) => (
-                <li className="p-2" key={item.label}>
+                <li className="p-2 " key={item.label}>
                   <a
                     onClick={toggleNav}
-                    className="font-montserrat gap-16 text-lg text-slate-gray "
+                    className=" font-montserrat gap-16 text-lg text-slate-gray "
                     href={item.href}>
                     {item.label}
                   </a>
