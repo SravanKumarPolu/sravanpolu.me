@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "@react-hook/media-query";
-// import headerLogo from "../assets/images/headerLogo.png";
 import hamburger from "../assets/icons/hamburger.svg";
 import { navLinks } from "../constants";
 import { motion } from "framer-motion";
-import Link from "./ActiveComponent";
+
 const Nav = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState("");
   const [isTopOfPage, setIsTopOfPage] = useState(true);
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
+  };
+
+  const handleLinkClick = (label) => {
+    setActiveLink(label);
+    toggleNav();
   };
 
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
@@ -26,7 +31,7 @@ const Nav = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []); // Empty dependency array ensures that this effect runs only once, similar to componentDidMount
+  }, []);
 
   const navbarBackground = isTopOfPage
     ? ""
@@ -63,8 +68,10 @@ const Nav = () => {
             {navLinks.map((item) => (
               <button key={item.label}>
                 <a
-                  onClick={toggleNav}
-                  className=" font-montserrat gap-16 text-lg text-slate-gray "
+                  onClick={() => handleLinkClick(item.label)}
+                  className={`px-3 bg-white bg-opacity-50 rounded-sm ${
+                    activeLink === item.label ? "active-link" : ""
+                  }`}
                   href={item.href}>
                   {item.label}
                 </a>
@@ -87,9 +94,9 @@ const Nav = () => {
             right-0 py-4 px-6 border
               border-gray-300 rounded-lg shadow-lg`}>
               {navLinks.map((item) => (
-                <li className="p-2 " key={item.label}>
+                <li className="p-2" key={item.label}>
                   <a
-                    onClick={toggleNav}
+                    onClick={() => handleLinkClick(item.label)}
                     className=" font-montserrat gap-16 text-lg text-slate-gray "
                     href={item.href}>
                     {item.label}
