@@ -69,8 +69,10 @@ const Nav = () => {
               <button key={item.label}>
                 <a
                   onClick={() => handleLinkClick(item.label)}
-                  className={`px-3 bg-white bg-opacity-50 rounded-sm ${
-                    activeLink === item.label ? "active-link" : ""
+                  className={`px-3  bg-opacity-50 border-2 border-transparent active:border-white rounded-sm ${
+                    activeLink === item.label
+                      ? "active-link border-2 border-white "
+                      : ""
                   }`}
                   href={item.href}>
                   {item.label}
