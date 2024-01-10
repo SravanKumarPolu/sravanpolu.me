@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "@react-hook/media-query";
 import hamburger from "../assets/icons/hamburger.svg";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { navLinks } from "../constants";
 import { motion } from "framer-motion";
 
@@ -8,7 +9,9 @@ const Nav = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
   const [isTopOfPage, setIsTopOfPage] = useState(true);
-
+  const navbarBackground = isTopOfPage
+    ? ""
+    : "bg-primary-100 bg-blue-200 drop-shadow";
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
@@ -34,9 +37,6 @@ const Nav = () => {
   }, []);
 
   const navbarBackground = isTopOfPage
-    ? ""
-    : "text-black bg-pink-300 drop-shadow";
-
   return (
     <header className="absolute z-20 w-full">
       <nav className="sticky">
@@ -54,59 +54,60 @@ const Nav = () => {
             }}>
             sravanpolu.me
           </motion.h1>
-
-          <motion.div
-            className="flex-1 flex justify-center items-center gap-5 max-lg:hidden"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.9 }}
-            variants={{
-              hidden: { opacity: 0, x: 100 },
-              visible: { opacity: 1, x: 0 },
-            }}>
-            {navLinks.map((item) => (
-              <button key={item.label}>
-                <a
-                  onClick={() => handleLinkClick(item.label)}
-                  className={`px-3  bg-opacity-50 border-2 border-transparent active:border-white rounded-sm ${
-                    activeLink === item.label
-                      ? "active-link border-2 border-white "
-                      : ""
-                  }`}
-                  href={item.href}>
-                  {item.label}
-                </a>
-              </button>
-            ))}
-          </motion.div>
-
-          <div className="hidden max-lg:block mr-4 mt-3">
-            <img
-              src={hamburger}
-              alt="hamburger"
-              onClick={toggleNav}
-              width={25}
-              height={25}
-            />
-            <ul
-              className={`${
-                isNavOpen ? "block" : "hidden"
-              } max-lg:flex-1 flex flex-col max-w-sm absolute mt-5 bg-white top-14
-            right-0 py-4 px-6 border
-              border-gray-300 rounded-lg shadow-lg`}>
+          {isAboveMediumScreens ? (
+            <motion.div
+              className="flex-1 flex justify-center items-center gap-5 max-lg:hidden"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.9 }}
+              variants={{
+                hidden: { opacity: 0, x: 100 },
+                visible: { opacity: 1, x: 0 },
+              }}>
               {navLinks.map((item) => (
-                <li className="p-2" key={item.label}>
+                <button key={item.label} className="px-1">
                   <a
                     onClick={() => handleLinkClick(item.label)}
-                    className=" font-montserrat gap-16 text-lg text-slate-gray "
+                    className={`px-5 py-1  bg-opacity-50 border-2 border-transparent active:border-white hover:border-white rounded ${
+                      activeLink === item.label
+                        ? "active-link  border-white "
+                        : ""
+                    }`}
                     href={item.href}>
                     {item.label}
                   </a>
-                </li>
+                </button>
               ))}
-            </ul>
-          </div>
+            </motion.div>
+          ) : (
+            <div className="hidden max-lg:block mr-4 mt-3">
+              <img
+                src={hamburger}
+                alt="hamburger"
+                onClick={toggleNav}
+                width={25}
+                height={25}
+              />
+              <ul
+                className={`${
+                  isNavOpen ? "block" : "hidden"
+                } max-lg:flex-1 flex flex-col max-w-sm absolute mt-5 bg-white top-14
+            right-0 py-4 px-6 border
+              border-gray-300 rounded-lg shadow-lg`}>
+                {navLinks.map((item) => (
+                  <li className="p-2" key={item.label}>
+                    <a
+                      onClick={() => handleLinkClick(item.label)}
+                      className=" font-montserrat gap-16 text-lg text-slate-gray "
+                      href={item.href}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </nav>
     </header>
