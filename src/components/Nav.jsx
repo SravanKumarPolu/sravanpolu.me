@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "@react-hook/media-query";
 import hamburger from "../assets/icons/hamburger.svg";
-import useMediaQuery from "@/hooks/useMediaQuery";
+
 import { navLinks } from "../constants";
 import { motion } from "framer-motion";
 
@@ -9,9 +9,7 @@ const Nav = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
   const [isTopOfPage, setIsTopOfPage] = useState(true);
-  const navbarBackground = isTopOfPage
-    ? ""
-    : "bg-primary-100 bg-blue-200 drop-shadow";
+  const navbarBackground = isTopOfPage ? "" : " bg-pink-300 drop-shadow";
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
