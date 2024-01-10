@@ -36,7 +36,6 @@ const Nav = () => {
     };
   }, []);
 
-  const navbarBackground = isTopOfPage
   return (
     <header className="absolute z-20 w-full">
       <nav className="sticky">
