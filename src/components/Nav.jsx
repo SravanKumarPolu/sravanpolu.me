@@ -1,15 +1,19 @@
+// Nav.jsx
+
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "@react-hook/media-query";
 import hamburger from "../assets/icons/hamburger.svg";
+import { motion } from "framer-motion";
 
 import { navLinks } from "../constants";
-import { motion } from "framer-motion";
 
 const Nav = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
   const [isTopOfPage, setIsTopOfPage] = useState(true);
+
   const navbarBackground = isTopOfPage ? "" : " bg-pink-300 drop-shadow";
+
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
@@ -40,7 +44,9 @@ const Nav = () => {
         <div
           className={`${navbarBackground} ${flexBetween} flex fixed top-0 z-30 w-full pb-5 sm:py-4 justify-center items-center `}>
           <motion.h1
-            className="font-semibold text-3xl mx-4 mt-1 sm:text-2xl md:text-3xl"
+            className={`font-semibold text-3xl mx-4 mt-1 sm:text-2xl md:text-3xl ${
+              isTopOfPage ? "text-black" : "text-blue-500"
+            }`}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
@@ -66,11 +72,11 @@ const Nav = () => {
                 <button key={item.label} className="px-1">
                   <a
                     onClick={() => handleLinkClick(item.label)}
-                    className={`px-5 py-1  bg-opacity-50 border-2 border-transparent active:border-white hover:border-white rounded ${
+                    className={`px-5 py-1 bg-opacity-50 border-2 border-transparent active:border-white hover:border-white rounded ${
                       activeLink === item.label
-                        ? "active-link  border-white "
+                        ? "active-link border-white "
                         : ""
-                    }`}
+                    } ${!isTopOfPage ? "text-blue-500" : "text-black"}`}
                     href={item.href}>
                     {item.label}
                   </a>
@@ -96,7 +102,9 @@ const Nav = () => {
                   <li className="p-2" key={item.label}>
                     <a
                       onClick={() => handleLinkClick(item.label)}
-                      className=" font-montserrat gap-16 text-lg text-slate-gray "
+                      className={`font-montserrat gap-16 text-lg text-slate-gray ${
+                        !isTopOfPage ? "text-blue-500" : ""
+                      }`}
                       href={item.href}>
                       {item.label}
                     </a>
