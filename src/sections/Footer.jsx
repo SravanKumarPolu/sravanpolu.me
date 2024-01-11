@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const Footer = () => {
   const [hoveredIcon, setHoveredIcon] = React.useState(null);
   return (
-    <footer id="footer" className="max-container">
+    <footer id="contact" className="max-container">
       <div
         className="  overflow-x:hidden flex justify-between items-center
       gap-20 flex-wrap max-lg:flex-col">
