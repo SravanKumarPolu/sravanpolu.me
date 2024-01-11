@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import headerLogo from "../assets/images/headerLogo.png";
 import { motion } from "framer-motion";
-
 const Hero = () => {
+  const [selectedPage, setSelectedPage] = useState("");
   return (
     <section
       id="home"
