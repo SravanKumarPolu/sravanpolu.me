@@ -42,7 +42,7 @@ const Nav = () => {
     <header className="absolute z-20 w-full">
       <nav className="sticky">
         <div
-          className={`${navbarBackground} ${flexBetween} flex fixed top-0 z-30 w-full pb-5 sm:py-4 justify-center items-center `}>
+          className={`${navbarBackground} ${flexBetween} flex fixed text-center top-0 z-30 w-full pb-5 sm:py-4 justify-center items-center `}>
           <motion.h1
             className={`font-semibold text-3xl mx-4 mt-1 sm:text-2xl md:text-3xl ${
               isTopOfPage ? "text-black" : "text-blue-500"
@@ -72,10 +72,8 @@ const Nav = () => {
                 <button key={item.label} className="px-1">
                   <a
                     onClick={() => handleLinkClick(item.label)}
-                    className={`px-5 py-1 bg-opacity-50 border-2 border-transparent active:border-white hover:border-white rounded ${
-                      activeLink === item.label
-                        ? "active-link border-white "
-                        : ""
+                    className={`px-5 py-1 bg-opacity-50 border-2 font-medium border-transparent active:border-white hover:border-white rounded ${
+                      activeLink === item.label ? "active-link  " : ""
                     } ${!isTopOfPage ? "text-blue-500" : "text-black"}`}
                     href={item.href}>
                     {item.label}
