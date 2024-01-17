@@ -126,11 +126,11 @@ const Work = () => {
               </div>
 
               {/* Show the content meant for big displays on small layouts */}
-              <div className="flex flex-col sm:flex-row gap-6 p-4 rounded-lg lg:w-3/4 sm:hidden">
+              <div className="flex flex-col m-2 sm:flex-row gap-6 p-4 rounded-lg lg:w-3/4 sm:hidden">
                 {courses.map((course, courseIndex) => (
                   <p
                     key={courseIndex}
-                    className={`p-4 w-full h-20 sm:w-[20rem] bg-white rounded-lg  shadow-lg ${
+                    className={`p-4 w-full  h-22 sm:w-[20rem] bg-white rounded-lg  shadow-lg ${
                       courseIndex === currentSlide ? "" : "hidden"
                     }`}>
                     <span className="text-red-500">Note:</span> {course.summary}
