@@ -44,7 +44,7 @@ const Nav = () => {
         <div
           className={`${navbarBackground} ${flexBetween} flex fixed text-center top-0 z-30 w-full pb-5 sm:py-4 justify-center items-center `}>
           <motion.h1
-            className={`font-semibold text-3xl mx-4 mt-1 sm:text-2xl md:text-3xl ${
+            className={`font-semibold font-sans text-3xl mx-4 mt-1 sm:text-2xl md:text-3xl ${
               isTopOfPage ? "text-black" : "text-blue-500"
             }`}
             initial="hidden"

@@ -20,7 +20,7 @@ const Hero = () => {
           visible: { opacity: 1, x: 0 },
         }}>
         <motion.img
-          className="relative cursor-pointer p-1 border-4 rounded-full object-cover filter brightness-[75%] hover:border-l-green-500 hover:border-t-green-500 hover:border-b-red-400 hover:brightness-100 transition duration-300"
+          className="relative  cursor-pointer p-1 border-4 rounded-full object-cover filter brightness-[75%] hover:border-l-green-500 hover:border-t-green-500 hover:border-b-red-400 hover:brightness-100 transition duration-300"
           src={headerLogo}
           alt="logo"
           width={200}
@@ -46,15 +46,15 @@ const Hero = () => {
             hidden: { opacity: 0, x: 150 },
             visible: { opacity: 1, x: 0 },
           }}
-          className="pt-6 font-palanquin text-4xl md:text-5xl max-sm:text-2xl max-sm:leading-[2] font-semibold text-center text-gray-700 ">
+          className="pt-6  font-palanquin text-4xl md:text-5xl max-sm:text-2xl max-sm:leading-[2] font-semibold text-center text-gray-700 ">
           Hi,{" "}
           <span role="img" aria-label="Wave">
             👋
           </span>{" "}
-          I'm <br />
-          <span className="text-3xl md:text-4xl">SravanKumar PV</span> <br />
-          <span className="font-montserrat text-2xl md:text-3xl text-white">
-            Web Developer
+          this is <br />
+          <span className="text-3xl md:text-4xl">SravanKumar </span> <br />
+          <span className="font-montserrat hyphen-auto text-2xl md:text-3xl text-white">
+            Web developer with expertise in front-end development.
           </span>
         </motion.h3>
         <motion.p
@@ -66,7 +66,7 @@ const Hero = () => {
             hidden: { opacity: 0, x: -100 },
             visible: { opacity: 1, x: 0 },
           }}
-          className="max-sm:mt-4 text-center text-gray-700 text-lg">
+          className="max-sm:mt-4 leading-loose text-center text-gray-700 text-lg">
           Code, like humor, works best when it's concise.
         </motion.p>
       </div>

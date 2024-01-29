@@ -15,6 +15,7 @@ export default {
     },
     extend: {
       fontFamily: {
+        sans: ["Helvetica", "Arial", "sans-serif"],
         backgroundImage: {
           "gradient-radial": "radial-gradient(circle, #ff5733, #6b61f2)",
         },
