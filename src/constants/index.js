@@ -204,6 +204,11 @@ export const courses = [
         name: "GYM",
         link: "https://sravan-gym.netlify.app",
       },
+      {
+        title: "Task+Breaks",
+        name: "Timer",
+        link: "https://pomoto12.netlify.app/",
+      },
     ],
     language: [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }],
     summary: " This project mainly focused on Tailwind CSS",
