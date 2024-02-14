@@ -72,7 +72,7 @@ const Nav = () => {
                 <button key={item.label} className="px-1">
                   <a
                     onClick={() => handleLinkClick(item.label)}
-                    className={`px-5 py-1 bg-opacity-50 border-2 font-medium border-transparent active:border-white hover:border-white rounded ${
+                    className={`px-5 py-1 bg-opacity-50 border-[1px] font-medium border-transparent active:border-white hover:border-white rounded ${
                       activeLink === item.label ? "active-link  " : ""
                     } ${!isTopOfPage ? "text-blue-500" : "text-black"}`}
                     href={item.href}>
