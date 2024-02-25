@@ -7,10 +7,8 @@ import { motion } from "framer-motion";
 const Footer = () => {
   const [hoveredIcon, setHoveredIcon] = React.useState(null);
   return (
-    <footer id="footer" className="max-container">
-      <div
-        className="  overflow-x:hidden flex justify-between items-center
-      gap-20 flex-wrap max-lg:flex-col">
+    <footer id="footer" className="max-container bg-gray-800 text-white p-8">
+      <div className="  flex flex-col md:flex-row justify-between items-center gap-8">
         <div
           className="flex flex-col
       gap-10 flex-wrap max-lg:flex-col">
@@ -122,7 +120,7 @@ const Footer = () => {
         </div>
       </div>
       <div
-        className="flex mt-2 p-1
+        className="flex mt-6 p-1
         justify-center items-center gap-2
         font-montserrat cursor-pointer">
         <motion.img

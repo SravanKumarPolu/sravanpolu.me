@@ -22,8 +22,8 @@ const Work = () => {
   };
 
   return (
-    <section id="work" className="pt-6 ">
-      <div className="flex flex-col sm:flex-row gap-6">
+    <section id="work" className="sm:pt-4  sm:my-10 ">
+      <div className="flex h-auto flex-col sm:flex-row gap-6">
         {/* Sidebar */}
 
         <motion.aside
@@ -37,7 +37,7 @@ const Work = () => {
             visible: { opacity: 1, x: 0 },
           }}>
           <motion.h2
-            className="align-middle font-bold pb-4"
+            className="align-middle font-bold pb-2"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
@@ -48,13 +48,13 @@ const Work = () => {
             }}>
             Work
           </motion.h2>
-          <ul className="p-0 border-l border-black ml-[2rem] list-none">
+          <ul className="p-0 border-l border-black ml-[1rem] list-none">
             {courses.map((course, courseIndex) => (
               <li
                 key={course.courseName}
-                className="flex justify-center mt-4 items-center relative py-2">
+                className="flex justify-center mt-6 items-center relative py-2">
                 <div className="relative w-3 h-3 bg-yellow-300 border-2 border-solid border-red-400 transform -translate-x-1/2 -translate-y-1/2 rounded-full">
-                  <div className="w-full h-0.5 absolute"></div>
+                  <div className="w-full h-0.2 absolute"></div>
                 </div>
                 <div>
                   <img
@@ -130,7 +130,7 @@ const Work = () => {
                 {courses.map((course, courseIndex) => (
                   <p
                     key={courseIndex}
-                    className={`p-4 w-full  h-22 sm:w-[20rem] bg-white rounded-lg  shadow-lg ${
+                    className={`p-3 w-full  h-22 sm:w-[20rem] bg-white rounded-lg  shadow-lg ${
                       courseIndex === currentSlide ? "" : "hidden"
                     }`}>
                     <span className="text-red-500">Note:</span> {course.summary}

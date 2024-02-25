@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="w-full overflow-x:hidden flex flex-col items-center justify-center min-h-screen gap-10 max-container ">
+      className="w-full overflow-x:hidden flex flex-col items-center justify-center min-h-screen gap-10 max-container  py-10">
       <motion.div
         className="   relative py-10  top-20 flex
        flex-col justify-center items-center m-4 w-4/5
@@ -36,7 +36,7 @@ const Hero = () => {
         />
       </motion.div>
 
-      <div className="relative flex flex-col justify-center items-center w-full max-xl:px-10 pt-10">
+      <div className="relative flex flex-col justify-center items-center w-full max-xl:px-10 pt-10 sm:mb-10">
         <motion.h3
           initial="hidden"
           whileInView="visible"
@@ -46,7 +46,7 @@ const Hero = () => {
             hidden: { opacity: 0, x: 150 },
             visible: { opacity: 1, x: 0 },
           }}
-          className="pt-6  font-palanquin text-4xl md:text-5xl max-sm:text-2xl max-sm:leading-[2] font-semibold text-center text-gray-700 ">
+          className="pt-6 font-palanquin text-4xl md:text-5xl max-sm:text-2xl max-sm:leading-[2] font-semibold text-center text-gray-700">
           Hi,{" "}
           <span role="img" aria-label="Wave">
             👋
@@ -57,6 +57,7 @@ const Hero = () => {
             Web developer with expertise in front-end development.
           </span>
         </motion.h3>
+
         <motion.p
           initial="hidden"
           whileInView="visible"
