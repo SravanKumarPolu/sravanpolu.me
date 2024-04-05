@@ -1,15 +1,13 @@
 # This is SravanKumar Polu 🙂
 
-
 ## Portfolio Sections
-1.Header
-   
-2.Hero-page
+1. Header
+2. Hero-page
+   1.  Work
+   2.  Resume 
+3. Footer
 
-- work
-- Resume
 
-3.Footer
 
 
 ## Languages & Libraries
