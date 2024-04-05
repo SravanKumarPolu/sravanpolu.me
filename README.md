@@ -5,6 +5,7 @@
 1.Header 
 
 2.Hero-page
+
   1. work
   2. Resume
 3.Footer
