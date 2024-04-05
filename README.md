@@ -4,7 +4,8 @@
 ## Portfolio Sections
 1.Header 
 
-2.Hero-page
+2.Hero-page 
+  1.Work
 
   1. work
   2. Resume
