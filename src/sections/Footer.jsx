@@ -7,11 +7,13 @@ import { motion } from "framer-motion";
 const Footer = () => {
   const [hoveredIcon, setHoveredIcon] = React.useState(null);
   return (
-    <footer id="footer" className="max-container bg-gray-800 text-white p-8">
-      <div className="  flex flex-col md:flex-row justify-between items-center gap-8">
+    <footer
+      id="footer"
+      className="w-screen  bg-gray-800 text-white  h-auto py-4 ">
+      <div className=" flex  flex-col sm:flex-row gap-6 justify-around  md:flex-row align-middle ">
         <div
           className="flex flex-col
-      gap-10 flex-wrap max-lg:flex-col">
+      gap-4 flex-wrap max-lg:flex-col ">
           <motion.a
             initial="hidden"
             whileInView="visible"

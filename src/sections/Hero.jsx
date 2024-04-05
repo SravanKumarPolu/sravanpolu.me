@@ -14,24 +14,23 @@ const Hero = () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.5 }}
         variants={{
           hidden: { opacity: 0, x: -100 },
           visible: { opacity: 1, x: 0 },
         }}>
         <motion.img
-          className="relative  cursor-pointer p-1 border-4 rounded-full object-cover filter brightness-[75%] hover:border-l-green-500 hover:border-t-green-500 hover:border-b-red-400 hover:brightness-100 transition duration-300"
+          className="relative items-center  cursor-pointer p-1 border-4 rounded-full object-cover filter brightness-[75%] hover:border-l-green-500 hover:border-t-green-500 hover:border-b-red-400 hover:brightness-100 transition duration-300"
           src={headerLogo}
           alt="logo"
           width={200}
           height={200}
-          initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 2.5 }}
           variants={{
-            hidden: { opacity: 0, y: -170 },
-            visible: { opacity: 1, y: 0 },
+            hidden: { opacity: 0.5, x: 150 },
+            visible: { opacity: 1, x: 0 },
           }}
         />
       </motion.div>
