@@ -3,13 +3,13 @@
 
 ## Portfolio Sections
 1.Header
-   
-2.Hero-page
 
-- work
-- Resume
+  2.Hero-page
 
-3.Footer
+  1.  work
+  2.  Resume
+
+  3.Footer
 
 
 ## Languages & Libraries
