@@ -6,7 +6,7 @@
 2. Hero-page
     1. Work
     2. Resume
-3.Footer
+3.Resume
 
 
 
