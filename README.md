@@ -4,11 +4,11 @@
 ## Portfolio Sections
 1.Header
 2.Hero-page
-- two parts
-       1. Works
-       2. Resume
+
+- work
+- Resume
+
 3.Footer
-  * Contact me
 
 
 ## Languages & Libraries
