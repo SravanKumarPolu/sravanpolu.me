@@ -10,10 +10,13 @@
 
 
 
-## Languages & Libraries
+## Languages & Libraries &Framework
  * React js
  * Tailwind CSS
- * frame-motion
- * useMediaQuerry
+ * Bootstrap
+ * Js
+ * Node.js
+ * Express.js
+ * Next.js
    
 ## My wesite  click [Link] (https://sravanpolu.me/)
