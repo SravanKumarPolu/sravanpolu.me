@@ -20,7 +20,7 @@ const Hero = () => {
           visible: { opacity: 1, x: 0 },
         }}>
         <motion.img
-          className="relative items-center  cursor-pointer p-1 border-4 rounded-full object-cover filter brightness-[75%] hover:border-l-green-500 hover:border-t-green-500 hover:border-b-red-400 hover:brightness-100 transition duration-300"
+          className="relative items-center  cursor-pointer p-1 border-4 rounded-full object-cover filter brightness-[75%] hover:border-l-green-500 hover:border-t-green-500 hover:border-b-red-400 hover:brightness-100 transition "
           src={headerLogo}
           alt="logo"
           width={200}
@@ -29,8 +29,8 @@ const Hero = () => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 2.5 }}
           variants={{
-            hidden: { opacity: 0.5, x: 150 },
-            visible: { opacity: 1, x: 0 },
+            hidden: { opacity: 0.2, x: -30 },
+            visible: { opacity: 1, x: 10 },
           }}
         />
       </motion.div>
