@@ -45,7 +45,8 @@ const Hero = () => {
             hidden: { opacity: 0, x: 150 },
             visible: { opacity: 1, x: 0 },
           }}
-          className="pt-6 font-palanquin text-4xl md:text-5xl max-sm:text-2xl max-sm:leading-[2] font-semibold text-center text-gray-700">
+          className="pt-6 font-palanquin text-4xl md:text-5xl max-sm:text-2xl
+           max-sm:leading-[2] font-semibold text-center text-gray-500 hover:text-gray-300">
           Hi,{" "}
           <span role="img" aria-label="Wave">
             👋
@@ -66,7 +67,7 @@ const Hero = () => {
             hidden: { opacity: 0, x: -100 },
             visible: { opacity: 1, x: 0 },
           }}
-          className="max-sm:mt-4 leading-loose text-center text-gray-700 text-lg">
+          className="max-sm:mt-4 leading-loose text-center text-gray-500 hover:text-gray-300 text-lg">
           Code, like humor, works best when it's concise.
         </motion.p>
       </div>
