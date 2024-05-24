@@ -39,7 +39,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <header className="absolute z-20 w-full shadow-md ">
+    <header className="absolute z-20 w-full shadow-md top-0 ">
       <nav className="sticky">
         <div
           className={`${navbarBackground} ${flexBetween} flex fixed text-center top-0 z-30 w-full pb-5 sm:py-4 justify-center items-center `}>

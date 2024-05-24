@@ -29,7 +29,7 @@ const Footer = () => {
             }}
             className="flex h-80 m:h-80 relative max-sm:h-40 w-80 max-sm:w-40 rounded-full justify-center align-middle ">
             <img
-              className="border-4 rounded-full w-20  align-middle border-red-300 object-cover ml-1 max-sm:pl-1 transition-transform transform hover:scale-150"
+              className="border-4 rounded-full w-20  align-middle border-none object-cover ml-1 max-sm:pl-1 transition-transform transform hover:scale-150"
               src={footerLogo}
               alt="logo"
             />
