@@ -37,7 +37,7 @@ const Work = () => {
             visible: { opacity: 1, x: 0 },
           }}>
           <motion.h2
-            className="align-middle font-bold pb-2"
+            className="align-middle font-bold pb-2 text-white"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
@@ -48,7 +48,7 @@ const Work = () => {
             }}>
             Work
           </motion.h2>
-          <ul className="p-0 border-l border-black ml-[1rem] list-none">
+          <ul className="p-0 border-l border-white ml-[1rem] list-none">
             {courses.map((course, courseIndex) => (
               <li
                 key={course.courseName}

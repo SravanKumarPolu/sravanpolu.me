@@ -5,10 +5,10 @@ import Nav from "./components/Nav.jsx";
 import React from "react";
 
 import About from "./sections/Work.jsx";
-
+import "./App.css";
 const App = () => {
   return (
-    <main className="relative bg-gradient-to-br from-blue-200 to-purple-800 overflow-x-hidden">
+    <main className="relative multiple-gradients overflow-x-hidden">
       <Nav />
 
       <section className="xl:padding-l wide:padding-r padding-b overflow-x-hidden">

@@ -6,7 +6,17 @@
   height: 40vmin;
   pointer-events: none;
 }
+.multiple-gradients {
+  background-image: linear-gradient(to bottom, #f87171, #1e40af),
+    linear-gradient(to right, #1e40af, #f87171);
+  background-blend-mode: multiply;
+}
 
+/* .multiple-gradients {
+  background-image: linear-gradient(to right, #f87171, #1e40af),
+    linear-gradient(to bottom, #f87171, #1e40af);
+  background-blend-mode: multiply;
+} */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
