@@ -13,7 +13,7 @@ const Footer = () => {
       <div className=" flex  flex-col sm:flex-row gap-6 justify-around  md:flex-row align-middle ">
         <div
           className="flex flex-col
-      gap-4 flex-wrap max-lg:flex-col ">
+      gap-4 flex-wrap max-lg:flex-col max-sm:items-center ">
           <motion.a
             initial="hidden"
             whileInView="visible"
@@ -27,13 +27,11 @@ const Footer = () => {
             style={{
               background: "white",
             }}
-            className="flex h-80 rounded-full justify-center align-middle ">
+            className="flex h-80 m:h-80 relative max-sm:h-40 w-80 max-sm:w-40 rounded-full justify-center align-middle ">
             <img
-              className="border-4 rounded-full align-middle border-red-300 object-cover ml-1 max-sm:pl-1 transition-transform transform hover:scale-150"
+              className="border-4 rounded-full w-20  align-middle border-red-300 object-cover ml-1 max-sm:pl-1 transition-transform transform hover:scale-150"
               src={footerLogo}
               alt="logo"
-              width={60}
-              height={60}
             />
           </motion.a>
 
