@@ -26,8 +26,8 @@ import jsfiddle from "../assets/icons/jsfiddle.svg";
 export const navLinks = [
   { href: "#home", label: "Home" },
   { href: "#work", label: "Work" },
-  { href: "#footer", label: "Contact me" },
   { href: "#Resume", label: "Resume" },
+  { href: "#footer", label: "Contact me" },
 ];
 
 // export const shoes = [
