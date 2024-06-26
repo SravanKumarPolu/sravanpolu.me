@@ -12,19 +12,13 @@ const Resume = () => {
   };
 
   return (
-    <div>
+    <section id="Resume" className="flex justify-center items-center h-auto">
       <button
-        className="flex justify-center align-middle bg-white w-28 cursor-pointer"
+        className="flex justify-center items-center bg-blue-500 hover:bg-blue-600 text-white w-28 h-10 rounded cursor-pointer shadow-md"
         onClick={handleDownload}>
         Resume
       </button>
-      <iframe
-        title="resume"
-        width="100%"
-        height="800px"
-        src={resumePdf}
-        style={{ display: "none" }}></iframe>
-    </div>
+    </section>
   );
 };
 
