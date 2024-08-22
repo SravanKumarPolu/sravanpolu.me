@@ -83,3 +83,6 @@
 .active-link {
   color: blue;
 }
+.non-active-link {
+  color: rgb(59, 130, 246);
+}
