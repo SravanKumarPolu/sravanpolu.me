@@ -80,9 +80,9 @@
   border-image: repeating-radial-gradient(circle, gold, red 10px);
   border-image-slice: 1;
 }
-.active-link {
-  color: blue;
+/* .active-link {
+  color: rgb(59, 130, 246);
 }
 .non-active-link {
   color: rgb(59, 130, 246);
-}
+} */

@@ -16,13 +16,9 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Helvetica", "Arial", "sans-serif"],
-        backgroundImage: {
-          "gradient-radial": "radial-gradient(circle, #ff5733, #6b61f2)",
-        },
         palanquin: ["Palanquin", "sans-serif"],
         montserrat: ["Montserrat", "sans-serif"],
       },
-
       colors: {
         customColor: "rgb(23, 30, 64)",
         primary: "#ECEEFF",
@@ -31,13 +27,16 @@ export default {
         "pale-blue": "#F5F6FF",
         "white-400": "rgba(255, 255, 255, 0.80)",
       },
+      backgroundImage: {
+        "gradient-linear": "linear-gradient(to bottom, #f87171, #1e40af)",
+        "gradient-linear": "linear-gradient(to right, #1e40af, #f87171)",
+      },
+      backgroundBlendMode: {
+        multiply: "multiply",
+      },
       boxShadow: {
         "3xl": "0 10px 40px rgba(0, 0, 0, 0.1)",
       },
-      // backgroundImage: {
-      //   hero: "url('assets/images/collection-background.svg')",
-      //   card: "url('assets/images/thumbnail-background.svg')",
-      // },
       screens: {
         wide: "1440px",
       },

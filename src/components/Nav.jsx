@@ -12,7 +12,9 @@ const Nav = () => {
   const [activeLink, setActiveLink] = useState("");
   const [isTopOfPage, setIsTopOfPage] = useState(true);
 
-  const navbarBackground = isTopOfPage ? "" : " bg-pink-300 drop-shadow";
+  const navbarBackground = isTopOfPage
+    ? "bg-transparent z-10"
+    : "bg-gradient-linear border-b border-gray-300";
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -39,13 +41,13 @@ const Nav = () => {
   }, []);
 
   return (
-    <header className="absolute z-20 w-full shadow-md top-0 ">
+    <header className="absolute mx-12 z-20 w-full shadow-md top-0 ">
       <nav className="sticky">
         <div
           className={`${navbarBackground} ${flexBetween} flex fixed text-center top-0 z-30 w-full pb-5 sm:py-4 justify-center items-center `}>
           <motion.h1
-            className={`font-semibold font-sans text-3xl mx-4 mt-1 sm:text-2xl md:text-4xl ${
-              isTopOfPage ? "text-[#f3f4f6]" : "text-blue-500"
+            className={`font-semibold font-sans text-3xl  mt-1 sm:text-2xl md:text-4xl ${
+              isTopOfPage ? "text-[#f3f4f6]" : "text-[#f3f4f6]"
             }`}
             initial="hidden"
             whileInView="visible"
@@ -74,7 +76,7 @@ const Nav = () => {
                     onClick={() => handleLinkClick(item.label)}
                     className={`px-5 text-lg py-1 bg-opacity-50 border-[1px] font-medium border-transparent active:border-white hover:border-white rounded ${
                       activeLink === item.label ? "active-link  " : ""
-                    } ${!isTopOfPage ? "text-blue-500" : "text-[#f3f4f6]"}`}
+                    } ${!isTopOfPage ? "text-[#f3f4f6]" : "text-[#f3f4f6]"}`}
                     href={item.href}>
                     {item.label}
                   </a>
