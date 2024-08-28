@@ -13,8 +13,8 @@ const Nav = () => {
   const [isTopOfPage, setIsTopOfPage] = useState(true);
 
   const navbarBackground = isTopOfPage
-    ? "bg-transparent z-10"
-    : "bg-gradient-linear border-b border-gray-300";
+    ? " "
+    : "bg-multiple-gradients border-b border-gray-300";
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -41,81 +41,79 @@ const Nav = () => {
   }, []);
 
   return (
-    <header className="absolute mx-12 z-20 w-full shadow-md top-0 ">
-      <nav className="sticky">
-        <div
-          className={`${navbarBackground} ${flexBetween} flex fixed text-center top-0 z-30 w-full pb-5 sm:py-4 justify-center items-center `}>
-          <motion.h1
-            className={`font-semibold font-sans text-3xl  mt-1 sm:text-2xl md:text-4xl ${
-              isTopOfPage ? "text-[#f3f4f6]" : "text-[#f3f4f6]"
-            }`}
+    <nav className="flex  w-screen">
+      <div
+        className={`fixed ${navbarBackground} ${flexBetween} z-50 flex text-center top-0  w-full pb-5 sm:py-4 justify-center items-center `}>
+        <motion.h1
+          className={`font-semibold mx-16  font-sans text-3xl  mt-1 sm:text-2xl md:text-4xl ${
+            isTopOfPage ? "text-[#f3f4f6]" : "text-[#f3f4f6]"
+          }`}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.9 }}
+          variants={{
+            hidden: { opacity: 0, x: -100 },
+            visible: { opacity: 1, x: 0 },
+          }}>
+          sravanpolu.me
+        </motion.h1>
+        {isAboveMediumScreens ? (
+          <motion.div
+            className="flex-1 flex justify-center items-center gap-5 max-lg:hidden"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.9 }}
             variants={{
-              hidden: { opacity: 0, x: -100 },
+              hidden: { opacity: 0, x: 100 },
               visible: { opacity: 1, x: 0 },
             }}>
-            sravanpolu.me
-          </motion.h1>
-          {isAboveMediumScreens ? (
-            <motion.div
-              className="flex-1 flex justify-center items-center gap-5 max-lg:hidden"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.9 }}
-              variants={{
-                hidden: { opacity: 0, x: 100 },
-                visible: { opacity: 1, x: 0 },
-              }}>
+            {navLinks.map((item) => (
+              <button key={item.label} className="px-1">
+                <a
+                  onClick={() => handleLinkClick(item.label)}
+                  className={`px-5 text-lg py-1 bg-opacity-50 border-[1px] font-medium border-transparent active:border-white hover:border-white rounded ${
+                    activeLink === item.label ? "active-link  " : ""
+                  } ${!isTopOfPage ? "text-[#f3f4f6]" : "text-[#f3f4f6]"}`}
+                  href={item.href}>
+                  {item.label}
+                </a>
+              </button>
+            ))}
+          </motion.div>
+        ) : (
+          <div className="hidden max-lg:block mr-4 mt-3">
+            <img
+              src={hamburger}
+              alt="hamburger"
+              onClick={toggleNav}
+              width={25}
+              height={25}
+            />
+            <ul
+              className={`${
+                isNavOpen ? "block" : "hidden"
+              } max-lg:flex-1 flex flex-col max-w-sm absolute mt-5 bg-white top-14
+            right-0 py-4 px-6 border
+              border-gray-300 rounded-lg shadow-lg`}>
               {navLinks.map((item) => (
-                <button key={item.label} className="px-1">
+                <li className="p-2" key={item.label}>
                   <a
                     onClick={() => handleLinkClick(item.label)}
-                    className={`px-5 text-lg py-1 bg-opacity-50 border-[1px] font-medium border-transparent active:border-white hover:border-white rounded ${
-                      activeLink === item.label ? "active-link  " : ""
-                    } ${!isTopOfPage ? "text-[#f3f4f6]" : "text-[#f3f4f6]"}`}
+                    className={`font-montserrat gap-16 text-lg text-slate-gray ${
+                      !isTopOfPage ? "text-blue-500" : ""
+                    }`}
                     href={item.href}>
                     {item.label}
                   </a>
-                </button>
+                </li>
               ))}
-            </motion.div>
-          ) : (
-            <div className="hidden max-lg:block mr-4 mt-3">
-              <img
-                src={hamburger}
-                alt="hamburger"
-                onClick={toggleNav}
-                width={25}
-                height={25}
-              />
-              <ul
-                className={`${
-                  isNavOpen ? "block" : "hidden"
-                } max-lg:flex-1 flex flex-col max-w-sm absolute mt-5 bg-white top-14
-            right-0 py-4 px-6 border
-              border-gray-300 rounded-lg shadow-lg`}>
-                {navLinks.map((item) => (
-                  <li className="p-2" key={item.label}>
-                    <a
-                      onClick={() => handleLinkClick(item.label)}
-                      className={`font-montserrat gap-16 text-lg text-slate-gray ${
-                        !isTopOfPage ? "text-blue-500" : ""
-                      }`}
-                      href={item.href}>
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </nav>
-    </header>
+            </ul>
+          </div>
+        )}
+      </div>
+    </nav>
   );
 };
 

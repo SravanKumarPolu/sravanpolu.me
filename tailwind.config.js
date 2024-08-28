@@ -28,8 +28,8 @@ export default {
         "white-400": "rgba(255, 255, 255, 0.80)",
       },
       backgroundImage: {
-        "gradient-linear": "linear-gradient(to bottom, #f87171, #1e40af)",
-        "gradient-linear": "linear-gradient(to right, #1e40af, #f87171)",
+        "multiple-gradients":
+          "linear-gradient(to bottom, #f87171, #1e40af), linear-gradient(to right, #1e40af, #f87171)",
       },
       backgroundBlendMode: {
         multiply: "multiply",
