@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="w-screen  bg-gray-800 text-white  h-auto py-4 ">
+      className="w-screen  bg-gray-800 text-white  h-auto py-16 mt-4 ">
       <div className=" flex  flex-col sm:flex-row gap-6 justify-around  md:flex-row align-middle ">
         <div
           className="flex flex-col
@@ -120,7 +120,7 @@ const Footer = () => {
         </div>
       </div>
       <div
-        className="flex mt-6 p-1
+        className="flex sm:mt-6 p-1 mt-14
         justify-center items-center gap-2
         font-montserrat cursor-pointer">
         <motion.img

@@ -12,9 +12,11 @@ const Resume = () => {
   };
 
   return (
-    <section id="Resume" className="flex justify-center items-center h-auto">
+    <section
+      id="Resume"
+      className="flex justify-center items-center h-auto py-16 ">
       <button
-        className="flex justify-center items-center bg-blue-500 hover:bg-blue-600 text-white w-28 h-10 rounded cursor-pointer shadow-md"
+        className="flex justify-center my-10 items-center bg-blue-500 hover:bg-blue-600 text-white w-28 h-10 rounded cursor-pointer shadow-md"
         onClick={handleDownload}>
         Resume
       </button>

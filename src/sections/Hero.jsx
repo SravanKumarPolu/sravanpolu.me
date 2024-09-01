@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import headerLogo from "../assets/images/headerLogo.png";
+import skr from "../assets/images/skr.png";
 import { motion } from "framer-motion";
 const Hero = () => {
   const [selectedPage, setSelectedPage] = useState("");
@@ -20,8 +20,8 @@ const Hero = () => {
           visible: { opacity: 1, x: 0 },
         }}>
         <motion.img
-          className="relative items-center  cursor-pointer p-1 border-4 rounded-full object-cover filter brightness-[75%] hover:border-l-green-500 hover:border-t-green-500 hover:border-b-red-400 hover:brightness-100 transition "
-          src={headerLogo}
+          className="relative items-center cursor-pointer p-1 border-4 rounded-full object-cover filter brightness-[75%] hover:border-l-green-500 hover:border-t-green-500 hover:border-b-red-400 hover:brightness-100 transition "
+          src={skr}
           alt="logo"
           width={200}
           height={200}
@@ -45,7 +45,7 @@ const Hero = () => {
             hidden: { opacity: 0, x: 150 },
             visible: { opacity: 1, x: 0 },
           }}
-          className="pt-6 font-palanquin text-4xl md:text-5xl max-sm:text-2xl
+          className="pt-6 font-palanquin text-4xl md:text-5xl max-sm:text-2xl 
            max-sm:leading-[2] font-semibold text-center text-gray-400 hover:text-gray-200">
           Hi,{" "}
           <span role="img" aria-label="Wave">
@@ -67,7 +67,7 @@ const Hero = () => {
             hidden: { opacity: 0, x: -100 },
             visible: { opacity: 1, x: 0 },
           }}
-          className="max-sm:mt-4 leading-loose text-center text-gray-400 hover:text-gray-200 text-lg">
+          className="max-sm:mt-4 leading-loose text-center py-4 text-gray-400 hover:text-gray-200 text-lg">
           Code, like humor, works best when it's concise.
         </motion.p>
       </div>

@@ -14,7 +14,7 @@ const Nav = () => {
 
   const navbarBackground = isTopOfPage
     ? " "
-    : "bg-multiple-gradients border-b border-gray-300";
+    : "bg-multiple-gradients border-b  border-gray-300  shadow-md shadow-white-400 ";
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -41,7 +41,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className="flex  w-screen">
+    <nav className="flex  w-screen ">
       <div
         className={`fixed ${navbarBackground} ${flexBetween} z-50 flex text-center top-0  w-full pb-5 sm:py-4 justify-center items-center `}>
         <motion.h1

@@ -23,11 +23,11 @@ const Work = () => {
 
   return (
     <section id="work" className="sm:pt-4  sm:my-10 ">
-      <div className="flex h-auto flex-col sm:flex-row gap-6">
+      <div className="flex h-auto flex-col sm:flex-row gap-6 my-16">
         {/* Sidebar */}
 
         <motion.aside
-          className="flex self-stretch sm:w-2/4 flex-col items-center max-lg:hidden"
+          className="flex self-stretch sm:w-2/4 flex-col items-center max-lg:hidden mt-4"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}

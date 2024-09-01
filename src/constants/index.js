@@ -8,7 +8,7 @@ import css from "../assets/icons/css.svg";
 import tailwind from "../assets/icons/tailwind.svg";
 import bootstrap from "../assets/icons/bootstrap.svg";
 import jsfiddle from "../assets/icons/jsfiddle.svg";
-
+import typescript from "../assets/icons/ts.svg";
 export const navLinks = [
   { href: "#home", label: "Home" },
   { href: "#work", label: "Work" },
@@ -87,6 +87,23 @@ export const courses = [
     summary: " This project mainly focused on React JS",
   },
   {
+    courseName: "TypeScript",
+    projects: [
+      {
+        title: "sravan-gym",
+        name: "GYM",
+        link: "https://sravan-gym.netlify.app",
+      },
+      {
+        title: "Task+Breaks",
+        name: "Timer",
+        link: "https://task-breaks.netlify.app/",
+      },
+    ],
+    language: [{ src: typescript, alt: "TypeScript logo", name: "TypeScript" }],
+    summary: " This project mainly focused on TypeScript",
+  },
+  {
     courseName: "BootStrap",
     projects: [
       {
@@ -106,20 +123,11 @@ export const courses = [
         name: "nike",
         link: "https://sravan-nike.netlify.app",
       },
-      {
-        title: "sravan-gym",
-        name: "GYM",
-        link: "https://sravan-gym.netlify.app",
-      },
-      {
-        title: "Task+Breaks",
-        name: "Timer",
-        link: "https://pomoto12.netlify.app/",
-      },
     ],
     language: [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }],
     summary: " This project mainly focused on Tailwind CSS",
   },
+
   // Add more courses here
 ];
 export const work = [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }];
