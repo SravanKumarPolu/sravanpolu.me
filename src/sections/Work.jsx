@@ -37,7 +37,7 @@ const Work = () => {
             visible: { opacity: 1, x: 0 },
           }}>
           <motion.h2
-            className="align-middle font-bold pb-2 text-white"
+            className="align-middle font-bold pb-2 pr-10 text-white"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
@@ -113,7 +113,7 @@ const Work = () => {
                             </h3>
                             <a
                               href={project.link}
-                              target="_blank"
+                              target=" _blank"
                               className="project-link text-blue-500 hover:underline hover:text-blue-700">
                               {project.name}
                             </a>

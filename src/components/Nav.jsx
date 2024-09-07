@@ -70,10 +70,10 @@ const Nav = () => {
               visible: { opacity: 1, x: 0 },
             }}>
             {navLinks.map((item) => (
-              <button key={item.label} className="px-1">
+              <button key={item.label} className="px-2">
                 <a
                   onClick={() => handleLinkClick(item.label)}
-                  className={`px-5 text-lg py-1 bg-opacity-50 border-[1px] font-medium border-transparent active:border-white hover:border-white rounded ${
+                  className={`px-8 text-lg py-2  bg-opacity-50 border-[1px] font-medium border-transparent active:border-white hover:border-white rounded ${
                     activeLink === item.label ? "active-link  " : ""
                   } ${!isTopOfPage ? "text-[#f3f4f6]" : "text-[#f3f4f6]"}`}
                   href={item.href}>
