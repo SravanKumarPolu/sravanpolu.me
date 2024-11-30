@@ -18,53 +18,6 @@ export const navLinks = [
 
 export const courses = [
   {
-    courseName: "CSS",
-    projects: [
-      {
-        title: "Grid",
-        name: "Stripedemo",
-        link: "https://stripedemo1.netlify.app/",
-      },
-      {
-        title: "Animation",
-        name: "3DCube",
-        link: "https://sravan-cubedemo.netlify.app/",
-      },
-      {
-        title: "Animation",
-        name: "SolarSystem",
-        link: "https://sravan-solarsystemdemo.netlify.app/",
-      },
-    ],
-    language: [{ src: css, alt: "css logo", name: "CSS" }],
-    summary: " This project mainly focused on grid, flex,and animations",
-  },
-  {
-    courseName: "JS",
-    projects: [
-      {
-        title: "JSConcept",
-        name: "Bank",
-        link: "https://jsfiddle.net/pvskr/g9jp2fsd/243/",
-      },
-    ],
-    language: [{ src: js, alt: "JS logo", name: "JS" }],
-
-    summary: " This project mainly focused on js ",
-  },
-  {
-    courseName: "HTML",
-    projects: [
-      {
-        title: "projects",
-        name: "Otp-sravan",
-        link: "https://sravanotp-project.netlify.app/", // Replace with the actual link if available
-      },
-    ],
-    language: [{ src: html, alt: "html logo", name: "HTML" }],
-    summary: " This project mainly focused on Frames of HTML",
-  },
-  {
     courseName: "React",
     projects: [
       {
@@ -103,6 +56,41 @@ export const courses = [
     language: [{ src: typescript, alt: "TypeScript logo", name: "TypeScript" }],
     summary: " This project mainly focused on TypeScript",
   },
+
+  {
+    courseName: "Tailwind",
+    projects: [
+      {
+        title: "nikesravan",
+        name: "nike",
+        link: "https://sravan-nike.netlify.app",
+      },
+    ],
+    language: [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }],
+    summary: " This project mainly focused on Tailwind CSS",
+  },
+  {
+    courseName: "CSS",
+    projects: [
+      {
+        title: "Grid",
+        name: "Stripedemo",
+        link: "https://stripedemo1.netlify.app/",
+      },
+      {
+        title: "Animation",
+        name: "3DCube",
+        link: "https://sravan-cubedemo.netlify.app/",
+      },
+      {
+        title: "Animation",
+        name: "SolarSystem",
+        link: "https://sravan-solarsystemdemo.netlify.app/",
+      },
+    ],
+    language: [{ src: css, alt: "css logo", name: "CSS" }],
+    summary: " This project mainly focused on grid, flex,and animations",
+  },
   {
     courseName: "BootStrap",
     projects: [
@@ -116,16 +104,29 @@ export const courses = [
     summary: " This project mainly focused on BootStrap CSS",
   },
   {
-    courseName: "Tailwind",
+    courseName: "JS",
     projects: [
       {
-        title: "nikesravan",
-        name: "nike",
-        link: "https://sravan-nike.netlify.app",
+        title: "JSConcept",
+        name: "Bank",
+        link: "https://jsfiddle.net/pvskr/g9jp2fsd/243/",
       },
     ],
-    language: [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }],
-    summary: " This project mainly focused on Tailwind CSS",
+    language: [{ src: js, alt: "JS logo", name: "JS" }],
+
+    summary: " This project mainly focused on js ",
+  },
+  {
+    courseName: "HTML",
+    projects: [
+      {
+        title: "projects",
+        name: "Otp-sravan",
+        link: "https://sravanotp-project.netlify.app/", // Replace with the actual link if available
+      },
+    ],
+    language: [{ src: html, alt: "html logo", name: "HTML" }],
+    summary: " This project mainly focused on Frames of HTML",
   },
 
   // Add more courses here
