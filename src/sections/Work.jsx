@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { courses } from "../constants";
 import { motion } from "framer-motion";
 
@@ -17,17 +18,17 @@ const Work = () => {
       prevSlide === courses.length - 1 ? 0 : prevSlide + 1
     );
   };
+
   const changeSlide = (slideIndex) => {
     setCurrentSlide(slideIndex);
   };
 
   return (
-    <section id="work" className="sm:pt-4  sm:my-10 ">
+    <section id="work" className="sm:pt-4 sm:my-10">
       <div className="flex h-auto flex-col sm:flex-row gap-6 my-16">
         {/* Sidebar */}
-
         <motion.aside
-          className="flex self-stretch sm:w-2/4 flex-col items-center max-lg:hidden mt-4"
+          className="flex flex-1  mx-5 lg:x-10 md:mx-5 sm:mx-5 self-stretch sm:w-2/4 flex-col items-center max-lg:hidden mt-4"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
@@ -77,8 +78,10 @@ const Work = () => {
             ))}
           </ul>
         </motion.aside>
-        <main className="flex flex-col relative justify-between items-center mt-[3.5rem] ">
-          <div className="m-6  bg-customColor p-10   sm:w-[25rem]">
+
+        {/* Main Content */}
+        <main className="flex flex-1 flex-col relative justify-between items-center mt-[3.5rem] w-full">
+          <div className="m-6 bg-customColor p-10 sm:w-[25rem]">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -125,12 +128,12 @@ const Work = () => {
                 ))}
               </div>
 
-              {/* Show the content meant for big displays on small layouts */}
+              {/* Show content for small screens */}
               <div className="flex flex-col m-2 sm:flex-row gap-6 p-4 rounded-lg lg:w-3/4 sm:hidden">
                 {courses.map((course, courseIndex) => (
                   <p
                     key={courseIndex}
-                    className={`p-3 w-full  h-22 sm:w-[20rem] bg-white rounded-lg  shadow-lg ${
+                    className={`p-3 w-full h-22 sm:w-[20rem] bg-white rounded-lg shadow-lg ${
                       courseIndex === currentSlide ? "" : "hidden"
                     }`}>
                     <span className="text-red-500">Note:</span> {course.summary}
@@ -140,7 +143,8 @@ const Work = () => {
             </motion.div>
           </div>
 
-          <div className="sm:hidden flex  absolute  m-2 align-middle">
+          {/* Previous/Next Buttons - Adjust visibility */}
+          <div className="sm:visible visible lg:hidden     absolute  m-2 align-middle">
             {" "}
             {/* Wrap buttons in a div with sm:hidden class */}
             <div className="  sm:flex  ">
