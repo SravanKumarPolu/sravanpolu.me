@@ -1,154 +1,149 @@
+import { footerLinks, socialMedia } from "../constants";
+
 import React from "react";
 import copyrightSign from "../assets/icons/copyright-sign.svg";
 import footerLogo from "../assets/images/footerLogo.png";
-import { footerLinks, socialMedia } from "../constants";
 import { motion } from "framer-motion";
 
 const Footer = () => {
   const [hoveredIcon, setHoveredIcon] = React.useState(null);
-  return (
-    <footer
-      id="footer"
-      className="w-screen  bg-gray-800 text-white  h-auto py-16 mt-4 ">
-      <div className=" flex  flex-col sm:flex-row gap-6 justify-around  md:flex-row align-middle ">
-        <div
-          className="flex flex-col
-      gap-4 flex-wrap max-lg:flex-col max-sm:items-center ">
-          <motion.a
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.2 }}
-            variants={{
-              hidden: { opacity: 0, x: -100 },
-              visible: { opacity: 1, x: 0 },
-            }}
-            href="/"
-            style={{
-              background: "white",
-            }}
-            className="flex h-80 m:h-80 relative max-sm:h-40 w-80 max-sm:w-40 rounded-full justify-center align-middle ">
-            <img
-              className="border-4 rounded-full w-20  align-middle border-none object-cover ml-1 max-sm:pl-1 transition-transform transform hover:scale-150"
-              src={footerLogo}
-              alt="logo"
-            />
-          </motion.a>
 
-          <motion.p
+  return (
+    <footer id="footer" className="bg-gray-800 text-white py-16 mt-4 w-full">
+      <div className="max-w-screen-xl mx-auto px-6 sm:px-8">
+        {/* Footer Content Container */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-8 md:gap-12">
+          {/* Left Section - Logo and Description */}
+          <div className="flex flex-col flex-1 justify-center  items-center  gap-6 sm:w-1/3">
+            <motion.a
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.3 }}
+              variants={{
+                hidden: { opacity: 0, x: -100 },
+                visible: { opacity: 1, x: 0 },
+              }}
+              href="/"
+              className="relative flex justify-center items-center w-24 h-24  bg-white rounded-full">
+              <img
+                src={footerLogo}
+                alt="footer logo"
+                className="rounded-full object-cover w-20 h-20 border-4 border-white transition-transform transform hover:scale-125"
+              />
+            </motion.a>
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.4 }}
+              variants={{
+                hidden: { opacity: 0, x: 100 },
+                visible: { opacity: 1, x: 0 },
+              }}
+              className="text-base text-center sm:text-left text-white opacity-75 sm:max-w-xs">
+              This site is built using various coding platforms and is a
+              showcase of projects created during my development journey.
+            </motion.p>
+            <div className="flex justify-center sm:justify-start gap-6 mt-4">
+              {socialMedia.map((icon) => (
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.4 }}
+                  variants={{
+                    hidden: { opacity: 0, x: 100 },
+                    visible: { opacity: 1, x: 0 },
+                  }}
+                  key={icon.name}
+                  className="relative w-12 h-12 bg-white rounded-full flex items-center justify-center cursor-pointer"
+                  onMouseEnter={() => setHoveredIcon(icon)}
+                  onMouseLeave={() => setHoveredIcon(null)}>
+                  <a href={icon.link} target="_blank" rel="noopener noreferrer">
+                    <img
+                      src={icon.src}
+                      alt={icon.alt}
+                      width={24}
+                      height={24}
+                      className="transition-transform transform hover:scale-110"
+                    />
+                  </a>
+                  {hoveredIcon === icon && (
+                    <div className="absolute text-xs text-gray-800 bg-white px-2 py-1 rounded mt-2 transform -translate-x-1/2 left-1/2">
+                      {icon.name}
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Section - Footer Links */}
+          <div className="flex flex-col flex-1 sm:flex-row gap-8  justify-center items-center ">
+            {footerLinks.map((section) => (
+              <div key={section.title} className="sm:w-1/4">
+                <motion.h4
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.4 }}
+                  variants={{
+                    hidden: { opacity: 0, y: 100 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  className="text-2xl text-white font-semibold mb-4">
+                  {section.title}
+                </motion.h4>
+                <ul>
+                  {section.links.map((link) => (
+                    <li
+                      key={link.name}
+                      className="text-base text-white opacity-75 mb-3 hover:text-blue-400">
+                      <a
+                        href={link.link}
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Copyright Section */}
+        <div className="flex justify-center items-center gap-2 mt-10 pt-6 border-t border-gray-700">
+          <motion.img
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.4 }}
             variants={{
+              hidden: { opacity: 0, x: -100 },
+              visible: { opacity: 1, x: 0 },
+            }}
+            src={copyrightSign}
+            alt="Copyright Sign"
+            width={20}
+            height={20}
+            className="rounded-full"
+          />
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6 }}
+            variants={{
               hidden: { opacity: 0, x: 100 },
               visible: { opacity: 1, x: 0 },
             }}
-            className="text-base font-montserrat w-[300px] text-white-400
-          sm:max-w-sm">
-            This below sites use to Code practice and develops few sites in{" "}
+            className="text-white text-sm">
+            Copyright. All rights reserved.
           </motion.p>
-          <div className="flex  justify-center items-center gap-5 mt-2 ">
-            {socialMedia.map((icon) => (
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.4 }}
-                variants={{
-                  hidden: { opacity: 0, x: 100 },
-                  visible: { opacity: 1, x: 0 },
-                }}
-                key={icon.name}
-                className="flex flex-col justify-center items-center gap-1 w-12 h-12 bg-white rounded-full relative"
-                onMouseEnter={() => setHoveredIcon(icon)}
-                onMouseLeave={() => setHoveredIcon(null)}>
-                <a href={icon.link} target="_blank" rel="noopener noreferrer">
-                  <img src={icon.src} alt={icon.alt} width={24} height={24} />
-                </a>
-                {hoveredIcon === icon && (
-                  <div
-                    className=" flex absolute text-gray-800
-                   bg-white text-xs px-2 ml-[4rem]
-                   py-1 mt-20 rounded opacity-100 
-                    transform -translate-x-1/2">
-                    {icon.name}
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
         </div>
-        <div
-          className="flex  items-center
-      gap-20 flex-wrap max-lg:flex-col">
-          {footerLinks.map((section) => (
-            <div key={section.title}>
-              <motion.h4
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.4 }}
-                variants={{
-                  hidden: { opacity: 0, y: 100 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                className="text-white
-              font-montserrat text-2xl
-              leading-normal font-medium mb-6">
-                {section.title}
-              </motion.h4>
-              <ul>
-                {section.links.map((link) => (
-                  <li
-                    key={link.name}
-                    className="mt-3 text-white-400
-                  font-montserrat text-base
-                  leading-normal hover:text-slate-gray
-                  cursor-pointer">
-                    <a
-                      href={link.link}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div
-        className="flex sm:mt-6 p-1 mt-14
-        justify-center items-center gap-2
-        font-montserrat cursor-pointer">
-        <motion.img
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.4 }}
-          variants={{
-            hidden: { opacity: 0, x: -100 },
-            visible: { opacity: 1, x: 0 },
-          }}
-          src={copyrightSign}
-          alt="copy right sign"
-          width={20}
-          height={20}
-          className="rounded-full m-0 "
-        />
-        <motion.p
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.9 }}
-          variants={{
-            hidden: { opacity: 0, x: 100 },
-            visible: { opacity: 1, x: 0 },
-          }}>
-          Copyright. All rights reserved.
-        </motion.p>
       </div>
     </footer>
   );

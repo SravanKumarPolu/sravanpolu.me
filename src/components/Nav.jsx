@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import hamburger from "../assets/icons/hamburger.svg";
 import { motion } from "framer-motion";
 import { navLinks } from "../constants";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -43,8 +42,8 @@ const Nav = () => {
       <div
         className={`fixed ${navbarBackground} ${flexBetween} z-50 flex text-center top-0 w-full pb-5 sm:py-4  items-center`}>
         <motion.h1
-          className={` flex-1 flex justify-start  sm:justify-start mx-5 lg:x-10 md:mx-5 sm:mx-5  lg:justify-center xl:justify-center font-semibold  font-sans text-3xl mt-1 sm:text-2xl md:text-4xl ${
-            isTopOfPage ? "text-[#f3f4f6]" : "text-[#f3f4f6]"
+          className={` flex-1 flex justify-start items-center  sm:justify-start mx-5 lg:mx-0 md:mx-0 sm:mx-5  lg:justify-center xl:justify-center font-semibold  font-sans text-3xl mt-3 md:mt-1 lg:mt-1 sm:mt-3 sm:text-2xl md:text-4xl ${
+            isTopOfPage ? "text-[#f3f4f6] " : "text-[#f3f4f6]"
           }`}
           initial="hidden"
           whileInView="visible"
@@ -73,7 +72,7 @@ const Nav = () => {
                   key={item.label}
                   href={item.href}
                   onClick={() => handleLinkClick(item.label)}
-                  className={`px-8 py-4 text-center   hover:text-black ${
+                  className={`px-8 py-4 text-center    ${
                     activeLink === item.label
                       ? "  font-semibold bg-white border-t  text-black rounded-t-lg border-l    border-r shadow "
                       : "border-b text-white rounded-md"

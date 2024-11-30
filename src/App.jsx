@@ -1,17 +1,19 @@
 // App.jsx
 
-import { Hero, Footer, Resume } from "./sections/index.js";
+import "./App.css";
+
+import { Footer, Hero, Resume } from "./sections/index.js";
+
+import About from "./sections/Work.jsx";
 import Nav from "./components/Nav.jsx";
 import React from "react";
 
-import About from "./sections/Work.jsx";
-import "./App.css";
 const App = () => {
   return (
     <main className="relative multiple-gradients overflow-x-hidden">
       <Nav />
 
-      <section className="xl:padding-l wide:padding-r padding-b overflow-x-hidden">
+      <section className=" wide:padding-r padding-b overflow-x-hidden">
         <Hero />
       </section>
       <section className="xl:padding-l wide:padding-r padding-b">

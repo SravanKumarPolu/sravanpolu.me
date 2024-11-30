@@ -1,17 +1,18 @@
-import linkedIn from "../assets/icons/linkedIn.svg";
+import bootstrap from "../assets/icons/bootstrap.svg";
+import css from "../assets/icons/css.svg";
 import github from "../assets/icons/github.svg";
+import html from "../assets/icons/html.svg";
+import js from "../assets/icons/js.svg";
+import jsfiddle from "../assets/icons/jsfiddle.svg";
+import linkedIn from "../assets/icons/linkedIn.svg";
 import netlify from "../assets/icons/netlify.svg";
 import react from "../assets/icons/react.svg";
-import js from "../assets/icons/js.svg";
-import html from "../assets/icons/html.svg";
-import css from "../assets/icons/css.svg";
 import tailwind from "../assets/icons/tailwind.svg";
-import bootstrap from "../assets/icons/bootstrap.svg";
-import jsfiddle from "../assets/icons/jsfiddle.svg";
 import typescript from "../assets/icons/ts.svg";
 export const navLinks = [
   { href: "#home", label: "Home" },
-  { href: "#work", label: "Work" },
+  { href: "#work", label: "Works" },
+
   { href: "#Resume", label: "Resume" },
   { href: "#footer", label: "Contact me" },
 ];
