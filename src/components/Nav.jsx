@@ -84,7 +84,17 @@ const Nav = () => {
           </motion.div>
         ) : (
           <div className="hidden max-lg:block mr-4 mt-3">
-            <span onClick={toggleNav} className="text-[#f3f4f6]">
+            <motion.span
+              onClick={toggleNav}
+              className="text-[#f3f4f6]"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.9 }}
+              variants={{
+                hidden: { opacity: 0, x: 100 },
+                visible: { opacity: 1, x: 0 },
+              }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -94,7 +104,7 @@ const Nav = () => {
                 viewBox="0 0 16 16">
                 <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
               </svg>
-            </span>
+            </motion.span>
             <ul
               className={`${
                 isNavOpen

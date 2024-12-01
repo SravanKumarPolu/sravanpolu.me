@@ -77,37 +77,53 @@ const Hero = () => {
       </motion.div>
 
       {/* CTA Buttons */}
-      <motion.div
-        className="flex flex-wrap justify-center gap-6 mt-10"
+      <div
+        className="flex flex-wrap    justify-center gap-6 "
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.7, ease: "easeInOut" }} // Added easing
         variants={{
           hidden: { opacity: 0, y: 30 },
           visible: { opacity: 1, y: 0 },
         }}>
-        <a
+        <motion.a
           href="#work"
-          className="group relative px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 text-white rounded-full shadow-md hover:from-teal-400 hover:to-green-500 transition">
+          className="group relative px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 text-white rounded-full shadow-md hover:from-teal-400 hover:to-green-500 transition"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.9, ease: "easeInOut" }} // Added easing
+          variants={{
+            hidden: { opacity: 0, y: -50 },
+            visible: { opacity: 1, y: 0 },
+          }}>
           View Portfolio
           {/* Upward Arrow */}
-          <span className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-green-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
+          <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-green-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-caret-up-fill"
+              className="bi bi-caret-down-fill"
               viewBox="0 0 16 16">
-              <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
             </svg>
           </span>
-        </a>
+        </motion.a>
 
-        <a
+        <motion.a
           href="#footer"
-          className="group relative px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-400 text-white rounded-full shadow-md hover:from-indigo-400 hover:to-blue-500 transition">
+          className="group relative px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-400 text-white rounded-full shadow-md hover:from-indigo-400 hover:to-blue-500 transition"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.9, ease: "easeInOut" }} // Added easing
+          variants={{
+            hidden: { opacity: 0, y: 50 },
+            visible: { opacity: 1, y: 0 },
+          }}>
           Contact Me
           {/* Downward Arrow */}
           <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-indigo-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
@@ -116,13 +132,13 @@ const Hero = () => {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-caret-down-fill"
+              className="bi bi-caret-down-fill"
               viewBox="0 0 16 16">
               <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
             </svg>
           </span>
-        </a>
-      </motion.div>
+        </motion.a>
+      </div>
     </section>
   );
 };
