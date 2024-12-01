@@ -19,7 +19,7 @@ const App = () => {
       <section className="xl:padding-l wide:padding-r padding-b">
         <About />
       </section>
-      <section className="xl:padding-l wide:padding-r padding-b">
+      <section className="xl:padding-x wide:padding-r padding-b">
         <Resume />
       </section>
       <section className="bg-black   text-white">
