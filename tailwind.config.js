@@ -40,7 +40,8 @@ export default {
         "3xl": "0 10px 40px rgba(0, 0, 0, 0.1)",
       },
       screens: {
-        width: "2880px",
+        wide: "2880px",
+        xs: "400px",
       },
     },
   },

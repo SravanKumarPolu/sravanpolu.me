@@ -7,10 +7,10 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="w-full flex flex-col items-center justify-center  min-h-screen gap-10 py-10 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white overflow-x-hidden">
+      className="w-screen relative flex flex-col items-center justify-center  min-h-screen gap-10 py-10 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white overflow-x-hidden">
       {/* Profile Section */}
       <motion.div
-        className="relative flex flex-col items-center justify-center mt-10 sm:mt-10 md:mt-5 lg:mt-0 bg-gradient-to-br from-[#ff6b6b] to-[#ffa07a] rounded-xl p-10 shadow-lg w-4/5 max-w-4xl"
+        className="relative flex flex-col items-center justify-center mt-10 xs:mt-15 sm:mt-12 md:mt-4 lg:mt-0 bg-gradient-to-br from-[#ff6b6b] to-[#ffa07a] rounded-xl p-10 shadow-lg w-4/5 max-w-4xl"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
@@ -89,13 +89,38 @@ const Hero = () => {
         }}>
         <a
           href="#work"
-          className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 text-white rounded-full shadow-md hover:from-teal-400 hover:to-green-500 transition">
+          className="group relative px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 text-white rounded-full shadow-md hover:from-teal-400 hover:to-green-500 transition">
           View Portfolio
+          {/* Upward Arrow */}
+          <span className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-green-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-caret-up-fill"
+              viewBox="0 0 16 16">
+              <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+            </svg>
+          </span>
         </a>
+
         <a
           href="#footer"
-          className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-400 text-white rounded-full shadow-md hover:from-indigo-400 hover:to-blue-500 transition">
+          className="group relative px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-400 text-white rounded-full shadow-md hover:from-indigo-400 hover:to-blue-500 transition">
           Contact Me
+          {/* Downward Arrow */}
+          <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-indigo-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-caret-down-fill"
+              viewBox="0 0 16 16">
+              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+            </svg>
+          </span>
         </a>
       </motion.div>
     </section>
