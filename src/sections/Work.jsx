@@ -23,12 +23,34 @@ const Work = () => {
     setCurrentSlide(slideIndex);
   };
 
+  const getCardStyle = (index) => {
+    const styles = [
+      {
+        background: "linear-gradient(to right, #ff7e5f, #feb47b)",
+        color: "white",
+      },
+      {
+        background: "linear-gradient(to right, #4facfe, #00f2fe)",
+        color: "black",
+      },
+      {
+        background: "linear-gradient(to right, #43e97b, #38f9d7)",
+        color: "red",
+      },
+      {
+        background: "linear-gradient(to right, #fa709a, #fee144)",
+        color: "#222",
+      },
+    ];
+    return styles[index % styles.length];
+  };
+
   return (
     <section id="work" className="sm:pt-4 sm:my-10">
       <div className="flex h-auto flex-col items-center justify-center sm:flex-row gap-6 my-16">
         {/* Sidebar */}
         <motion.aside
-          className="flex flex-1  mx-5 lg:x-10 md:mx-5 sm:mx-5 self-stretch sm:w-2/4 flex-col items-center max-lg:hidden mt-4"
+          className="flex flex-1 mx-5 lg:x-10 md:mx-5 sm:mx-5 self-stretch sm:w-2/4 flex-col items-center max-lg:hidden mt-4"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
@@ -81,8 +103,24 @@ const Work = () => {
 
         {/* Main Content */}
         <main className="flex flex-1 flex-col relative justify-center items-center mt-[3.5rem] w-full ">
-          <div className="flex flex-col  justify-end items-center ">
-            <div className="m-6 bg-customColor p-10 sm:w-[25rem]">
+          <div className="flex flex-col justify-end items-center">
+            <div className="m-6 flex gap-4 flex-col bg-customColor p-10 sm:w-[25rem] relative">
+              {/* Previous/Next Buttons - Adjust visibility */}
+              <div className="sm:hidden align-top">
+                {/* Wrap buttons in a div with sm:hidden class */}
+                <div className="flex justify-center">
+                  <button
+                    onClick={prevSlide}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4">
+                    Prev
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+                    Next
+                  </button>
+                </div>
+              </div>
               <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -97,30 +135,46 @@ const Work = () => {
                     <div
                       key={courseIndex}
                       style={{
+                        ...getCardStyle(courseIndex),
                         clipPath: "polygon(0% 0%, 100% 0%, 100% 55%, 0% 100%)",
                       }}
-                      className={`p-4 w-full h-96 sm:w-[20rem] bg-white rounded-lg shadow-lg ${
+                      className={`p-4 w-full h-[34rem] sm:w-[20rem] bg-white rounded-lg shadow-lg ${
                         courseIndex === currentSlide ? "" : "hidden"
                       }`}>
-                      <h1 className="text-xl font-semibold text-gray-800 text-center">
+                      <h1 className="text-xl font-bold text-center mb-4">
                         {course.courseName}
                       </h1>
-                      <div className="mt-4">
-                        <h2 className="text-lg font-medium text-blue-700">
-                          Projects:
+                      <div>
+                        <h2 className="relative my-4 flex flex-col items-center justify-center text-lg font-medium text-blue-700 bg-yellow-100 p-2 rounded">
+                          <span>Projects:</span>
+                          <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              className="bi bi-caret-down-fill"
+                              viewBox="0 0 16 16">
+                              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                            </svg>
+                          </span>
                         </h2>
+
                         <div className="mt-2">
                           {course.projects.map((project, projectIndex) => (
                             <div key={projectIndex} className="mb-4">
-                              <h3 className="text-md font-medium text-gray-700">
-                                {project.title}:
+                              <h3 className="text-md font-semibold text-purple-600 bg-gray-100 p-1 rounded">
+                                {project.title}:{" "}
+                                <a
+                                  href={project.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="project-link text-blue-500 hover:underline hover:text-blue-700">
+                                  <p className="text-lg font-normal text-center text-yellow-500 underline">
+                                    {project.name}
+                                  </p>
+                                </a>
                               </h3>
-                              <a
-                                href={project.link}
-                                target=" _blank"
-                                className="project-link text-blue-500 hover:underline hover:text-blue-700">
-                                {project.name}
-                              </a>
                             </div>
                           ))}
                         </div>
@@ -143,23 +197,6 @@ const Work = () => {
                   ))}
                 </div>
               </motion.div>
-            </div>
-            {/* Previous/Next Buttons - Adjust visibility */}
-            <div className="sm:visible visible lg:hidden     absolute  m-2 align-bottom">
-              {" "}
-              {/* Wrap buttons in a div with sm:hidden class */}
-              <div className="  sm:flex  ">
-                <button
-                  onClick={prevSlide}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg mr-4">
-                  Prev
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="bg-blue-500 hover-bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
-                  Next
-                </button>
-              </div>
             </div>
           </div>
         </main>

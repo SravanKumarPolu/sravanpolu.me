@@ -49,7 +49,9 @@ const Resume = () => {
 
         {/* Download Resume Button */}
         <span className="flex justify-center">
-          <button className="flex justify-center items-center px-6 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white font-medium rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-xl focus:ring-2 focus:ring-blue-300">
+          <button
+            className="flex justify-center items-center px-6 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white font-medium rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-xl focus:ring-2 focus:ring-blue-300"
+            onClick={handleDownload}>
             Download Resume
           </button>
         </span>

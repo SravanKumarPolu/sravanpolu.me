@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React from "react";
 import { motion } from "framer-motion";
 import skr from "../assets/images/skr.png";
 
@@ -10,7 +9,7 @@ const Hero = () => {
       className="w-screen relative flex flex-col items-center justify-center  min-h-screen gap-10 py-10 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white overflow-x-hidden">
       {/* Profile Section */}
       <motion.div
-        className="relative flex flex-col items-center justify-center mt-10 xs:mt-15 sm:mt-12 md:mt-4 lg:mt-0 bg-gradient-to-br from-[#ff6b6b] to-[#ffa07a] rounded-xl p-10 shadow-lg w-4/5 max-w-4xl"
+        className="relative flex flex-col items-center justify-center mt-10 xs:mt-15 sm:mt-12  bg-gradient-to-br from-[#ff6b6b] to-[#ffa07a] rounded-xl p-10 shadow-lg w-4/5 max-w-4xl"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
