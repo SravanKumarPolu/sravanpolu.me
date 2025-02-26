@@ -69,7 +69,7 @@ const Work = () => {
               hidden: { opacity: 0, y: -100 },
               visible: { opacity: 1, y: 0 },
             }}>
-            Work
+            Works
           </motion.h2>
           <ul className="p-0 border-l border-white ml-[1rem] list-none">
             {courses.map((course, courseIndex) => (

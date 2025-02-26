@@ -41,8 +41,9 @@ const Nav = () => {
     <nav className="flex w-screen relative">
       <div
         className={`fixed ${navbarBackground} ${flexBetween} z-50 flex text-center top-0 w-full pb-5 sm:py-4  items-center`}>
-        <motion.h1
-          className={` flex-1 flex justify-start items-center  sm:justify-start mx-5 lg:mx-0 md:mx-0 sm:mx-5  lg:justify-center xl:justify-center font-semibold  font-sans text-3xl mt-3 md:mt-1 lg:mt-1 sm:mt-3 sm:text-2xl md:text-4xl ${
+        <motion.a
+          href="#home"
+          className={` flex-1 flex cursor-pointer justify-start items-center  sm:justify-start mx-5 lg:mx-0 md:mx-0 sm:mx-5  lg:justify-center xl:justify-center font-semibold  font-sans text-3xl mt-3 md:mt-1 lg:mt-1 sm:mt-3 sm:text-2xl md:text-4xl ${
             isTopOfPage ? "text-[#f3f4f6] " : "text-[#f3f4f6]"
           }`}
           initial="hidden"
@@ -54,7 +55,7 @@ const Nav = () => {
             visible: { opacity: 1, x: 0 },
           }}>
           sravanpolu.me
-        </motion.h1>
+        </motion.a>
         {isAboveMediumScreens ? (
           <motion.div
             className="flex-1 flex justify-center items-center gap-5 max-lg:hidden"

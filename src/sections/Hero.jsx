@@ -75,6 +75,15 @@ const Hero = () => {
         </p>
       </motion.div>
 
+      <span className="text-gray-400 text-lg font-medium">
+        Currently working:{" "}
+        <a
+          href="https://skr-e-commerce.netlify.app/"
+          className="text-blue-600 font-semibold hover:underline hover:text-blue-800 transition duration-300">
+          E-commerce Store
+        </a>
+      </span>
+
       {/* CTA Buttons */}
       <div
         className="flex flex-wrap    justify-center gap-6 "
