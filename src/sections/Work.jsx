@@ -59,18 +59,33 @@ const Work = () => {
             hidden: { opacity: 0, x: -50 },
             visible: { opacity: 1, x: 0 },
           }}>
-          <motion.h2
-            className="align-middle font-bold pb-2 pr-10 text-white"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.9 }}
-            variants={{
-              hidden: { opacity: 0, y: -100 },
-              visible: { opacity: 1, y: 0 },
-            }}>
-            Works
-          </motion.h2>
+          <h2 className="relative my-4 flex gap-2 items-center justify-center text-lg font-medium text-white p-2 rounded">
+            <motion.span
+              className="align-middle font-bold " // Adjust padding for spacing
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.9 }}
+              variants={{
+                hidden: { opacity: 0, y: -100 },
+                visible: { opacity: 1, y: 0 },
+              }}>
+              Works
+            </motion.span>
+
+            <span className="animate-bounce">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-caret-down-fill"
+                viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+              </svg>
+            </span>
+          </h2>
+
           <ul className="p-0 border-l border-white ml-[1rem] list-none">
             {courses.map((course, courseIndex) => (
               <li
