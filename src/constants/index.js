@@ -1,5 +1,6 @@
 import bootstrap from "../assets/icons/bootstrap.svg";
 import css from "../assets/icons/css.svg";
+import downArrow from "../assets/icons/downArrow.svg";
 import github from "../assets/icons/github.svg";
 import html from "../assets/icons/html.svg";
 import js from "../assets/icons/js.svg";
@@ -16,6 +17,9 @@ export const navLinks = [
   { href: "#Resume", label: "Resume" },
   { href: "#footer", label: "Contact me" },
 ];
+export const assets = {
+  downArrow,
+};
 
 export const courses = [
   {

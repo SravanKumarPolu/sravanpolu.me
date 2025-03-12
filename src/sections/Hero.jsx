@@ -1,4 +1,5 @@
 import React from "react";
+import { assets } from "../constants";
 import { motion } from "framer-motion";
 import skr from "../assets/images/skr.png";
 
@@ -6,83 +7,64 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="w-screen relative flex flex-col items-center justify-center  min-h-screen gap-10 py-10 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white overflow-x-hidden">
-      {/* Profile Section */}
+      className="relative flex flex-col items-center justify-center min-h-screen w-full gap-10 py-12 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white">
+      {/* Profile Card */}
       <motion.div
-        className="relative flex flex-col items-center justify-center mt-10 xs:mt-15 sm:mt-12  bg-gradient-to-br from-[#ff6b6b] to-[#ffa07a] rounded-xl p-10 shadow-lg w-4/5 max-w-4xl"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.5 }}
-        variants={{
-          hidden: { opacity: 0, y: -50 },
-          visible: { opacity: 1, y: 0 },
-        }}>
+        className="card w-4/5 max-w-4xl bg-gradient-to-br from-primary to-secondary shadow-xl p-10 rounded-2xl flex flex-col items-center text-center"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}>
         <motion.img
           src={skr}
           alt="SravanKumar Polu"
-          className="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-white shadow-md transform transition hover:scale-105"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1.5 }}
-          variants={{
-            hidden: { opacity: 0, scale: 0.8 },
-            visible: { opacity: 1, scale: 1 },
-          }}
+          className="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-white shadow-md hover:scale-105 transition-transform"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
         />
 
         <motion.h1
-          className="mt-6 text-center font-bold text-3xl sm:text-4xl lg:text-5xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
-          variants={{
-            hidden: { opacity: 0, x: -50 },
-            visible: { opacity: 1, x: 0 },
-          }}>
+          className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-bold text-white"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}>
           Hi, 👋 I'm SravanKumar Polu
         </motion.h1>
         <motion.p
-          className="mt-4 text-center text-lg sm:text-xl text-gray-200 font-light leading-relaxed"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8 }}
-          variants={{
-            hidden: { opacity: 0, x: 50 },
-            visible: { opacity: 1, x: 0 },
-          }}>
-          MERN Stack Developer passionate about creating responsive and visually
-          stunning web applications.
+          className="mt-3 text-lg sm:text-xl text-gray-200 font-light leading-relaxed"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}>
+          MERN Stack Developer passionate about building elegant, scalable, and
+          high-performance web applications.
         </motion.p>
       </motion.div>
 
-      {/* Tagline Section */}
+      {/* Tagline */}
       <motion.div
-        className="w-full max-w-4xl px-6 sm:px-10 text-center"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.6 }}
-        variants={{
-          hidden: { opacity: 0, y: 50 },
-          visible: { opacity: 1, y: 0 },
-        }}>
-        <p className="text-lg sm:text-xl text-gray-400 hover:text-gray-200 transition">
+        className="w-full max-w-3xl text-center text-lg sm:text-xl text-gray-400"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}>
+        <p className="hover:text-gray-200 transition">
           “Code, like humor, works best when it's concise.” <br />
-          Let's build something amazing together!
+          Let's build something amazing together! 🚀
         </p>
       </motion.div>
 
-      <span className="text-gray-400 text-lg font-medium">
-        Currently working:{" "}
+      {/* Current Project */}
+      <motion.span
+        className="text-gray-400 text-lg font-medium"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}>
+        Currently working on:{" "}
         <a
           href="https://skr-e-commerce.netlify.app/"
-          className="text-blue-600 font-semibold hover:underline hover:text-blue-800 transition duration-300">
+          className="text-blue-500 hover:text-blue-400 font-semibold underline transition">
           E-commerce Store
         </a>
-      </span>
+      </motion.span>
 
       {/* CTA Buttons */}
       <div

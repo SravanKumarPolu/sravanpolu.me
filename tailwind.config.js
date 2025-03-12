@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const config = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     fontSize: {
@@ -28,7 +28,6 @@ export default {
         "white-400": "rgba(255, 255, 255, 0.80)",
         gold: "#FFD700",
       },
-
       backgroundImage: {
         "multiple-gradients":
           "linear-gradient(to bottom, #f87171, #1e40af), linear-gradient(to right, #1e40af, #f87171)",
@@ -45,5 +44,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
+
+export default config;
