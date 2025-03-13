@@ -30,6 +30,7 @@ const Hero = () => {
           transition={{ duration: 0.6 }}>
           Hi, 👋 I'm SravanKumar Polu
         </motion.h1>
+
         <motion.p
           className="mt-3 text-lg sm:text-xl text-gray-200 font-light leading-relaxed"
           initial={{ opacity: 0, x: 50 }}
@@ -61,36 +62,24 @@ const Hero = () => {
         Currently working on:{" "}
         <a
           href="https://skr-e-commerce.netlify.app/"
-          className="text-blue-500 hover:text-blue-400 font-semibold underline transition">
+          className="text-blue-500 hover:text-blue-400 font-semibold underline transition"
+          target="_blank"
+          rel="noopener noreferrer">
           E-commerce Store
         </a>
       </motion.span>
 
       {/* CTA Buttons */}
-      <div
-        className="flex flex-wrap    justify-center gap-6 "
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.7, ease: "easeInOut" }} // Added easing
-        variants={{
-          hidden: { opacity: 0, y: 30 },
-          visible: { opacity: 1, y: 0 },
-        }}>
+      <div className="flex flex-wrap justify-center gap-6">
         <motion.a
           href="#work"
-          className="group relative px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 text-white rounded-full shadow-md hover:from-teal-400 hover:to-green-500 transition"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.9, ease: "easeInOut" }} // Added easing
-          variants={{
-            hidden: { opacity: 0, y: -50 },
-            visible: { opacity: 1, y: 0 },
-          }}>
+          className="group relative px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 text-white rounded-full shadow-md hover:from-teal-400 hover:to-green-500 transition flex items-center gap-2"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: "easeInOut" }}>
           View Portfolio
           {/* Upward Arrow */}
-          <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-green-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
+          <span className="text-green-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -105,26 +94,23 @@ const Hero = () => {
 
         <motion.a
           href="#footer"
-          className="group relative px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-400 text-white rounded-full shadow-md hover:from-indigo-400 hover:to-blue-500 transition"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.9, ease: "easeInOut" }} // Added easing
-          variants={{
-            hidden: { opacity: 0, y: 50 },
-            visible: { opacity: 1, y: 0 },
-          }}>
+          className="group relative px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-400 text-white rounded-full shadow-md hover:from-indigo-400 hover:to-blue-500 transition flex items-center gap-2"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: "easeInOut" }}>
           Contact Me
-          {/* Downward Arrow */}
-          <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-indigo-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
+          {/* Downward Arrow (SVG with dynamic color) */}
+          <span className="text-indigo-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
+              width="20"
+              height="20"
               fill="currentColor"
-              className="bi bi-caret-down-fill"
               viewBox="0 0 16 16">
-              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+              <path
+                d="M2.451 5.658a1 1 0 0 1 .753-1.659h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0L2.451 5.658z"
+                className="fill-current text-indigo-500 group-hover:text-indigo-300"
+              />
             </svg>
           </span>
         </motion.a>

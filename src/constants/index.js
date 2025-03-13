@@ -10,6 +10,9 @@ import netlify from "../assets/icons/netlify.svg";
 import react from "../assets/icons/react.svg";
 import tailwind from "../assets/icons/tailwind.svg";
 import typescript from "../assets/icons/ts.svg";
+export const assets = {
+  downArrow,
+};
 export const navLinks = [
   { href: "#home", label: "Home" },
   { href: "#work", label: "Works" },
@@ -17,9 +20,6 @@ export const navLinks = [
   { href: "#Resume", label: "Resume" },
   { href: "#footer", label: "Contact me" },
 ];
-export const assets = {
-  downArrow,
-};
 
 export const courses = [
   {
