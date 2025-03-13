@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import DownArrow from "../components/DownArrow";
 import { courses } from "../constants";
 import { motion } from "framer-motion";
 
@@ -74,15 +75,7 @@ const Work = () => {
             </motion.span>
 
             <span className="animate-bounce">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-caret-down-fill"
-                viewBox="0 0 16 16">
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-              </svg>
+              <DownArrow className="" />
             </span>
           </h2>
 
@@ -163,15 +156,7 @@ const Work = () => {
                         <h2 className="relative my-4 flex flex-col items-center justify-center text-lg font-medium text-blue-700 bg-yellow-100 p-2 rounded">
                           <span>Projects:</span>
                           <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              fill="currentColor"
-                              className="bi bi-caret-down-fill"
-                              viewBox="0 0 16 16">
-                              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                            </svg>
+                            <DownArrow className="" />
                           </span>
                         </h2>
 
