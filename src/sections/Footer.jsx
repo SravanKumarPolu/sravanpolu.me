@@ -27,7 +27,7 @@ const Footer = () => {
           {/* Logo & About */}
           <motion.div
             variants={fadeIn("up", 0.2)}
-            className="card bg-base-100 shadow-lg border border-gray-300 w-full sm:w-96">
+            className="card bg-base-100 shadow-md border border-gray-300 w-96 h-64 sm:w-96 hover:shadow-2xl transition-all duration-700">
             <figure className="pt-6">
               <a href="/">
                 <img
@@ -51,7 +51,7 @@ const Footer = () => {
           {/* Links */}
           <motion.div
             variants={fadeIn("up", 0.4)}
-            className="card bg-base-100 shadow-lg border border-gray-300 w-full sm:w-96 p-6">
+            className="card bg-base-100 shadow-md border border-gray-300 w-96 h-64 sm:w-96 p-6 hover:shadow-2xl transition-all duration-500">
             {footerLinks.map((section) => (
               <div key={section.title} className="mb-4">
                 <h4 className="card-title text-lg font-semibold text-gray-500">
@@ -82,10 +82,10 @@ const Footer = () => {
           initial="hidden"
           animate="visible"
           className="flex items-center justify-center mt-8">
-          <div className="card bg-base-100 shadow-lg border border-gray-300 w-80 p-6">
+          <div className="card bg-base-100 shadow-md border border-gray-300 w-96 h-64 p-6  hover:shadow-2xl transition-all duration-500">
+            <h4 className="card-title text-gray-500">Follow Me</h4>
             <div className="card-body text-center">
-              <h4 className="card-title text-gray-500">Follow Me</h4>
-              <div className="flex gap-4 flex-wrap justify-center">
+              <div className="flex gap-4 justify-center items-center p-4">
                 {socialMedia.map((icon) => (
                   <motion.a
                     key={icon.name}
@@ -95,7 +95,7 @@ const Footer = () => {
                     className="relative group p-3 bg-white rounded-full shadow-md transition hover:bg-blue-500"
                     whileHover={{ scale: 1.1 }}>
                     <figure>
-                      <img src={icon.src} alt={icon.alt} className="w-6 h-6" />
+                      <img src={icon.src} alt={icon.alt} className="w-8 h-8" />
                     </figure>
                     {/* Tooltip */}
                     <span className="absolute opacity-0 group-hover:opacity-100 text-xs bg-black text-white rounded px-2 py-1 bottom-[-2.5rem] left-1/2 transform -translate-x-1/2 transition z-30">
