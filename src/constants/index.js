@@ -176,6 +176,10 @@ export const socialMedia = [
     name: "Github",
     link: "https://github.com/SravanKumarPolu",
   },
-  { src: netlify, alt: "netlify logo", name: "Netlify" },
-  { src: jsfiddle, alt: "jsfiddle logo", name: "Jsfiddle" },
+  {
+    src: netlify,
+    alt: "netlify logo",
+    name: "Netlify",
+    link: "https://app.netlify.com/sites/sravanpolume/",
+  },
 ];
