@@ -1,3 +1,4 @@
+import DownArrow from "../components/DownArrow";
 import React from "react";
 import { assets } from "../constants";
 import { motion } from "framer-motion";
@@ -80,15 +81,7 @@ const Hero = () => {
           View Portfolio
           {/* Upward Arrow */}
           <span className="text-green-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className="fill-current text-green-500 group-hover:text-green-300"
-              viewBox="0 0 16 16">
-              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-            </svg>
+            <DownArrow className="text-green-500 group-hover:text-green-300" />
           </span>
         </motion.a>
 
@@ -101,17 +94,7 @@ const Hero = () => {
           Contact Me
           {/* Downward Arrow (SVG with dynamic color) */}
           <span className="text-indigo-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              viewBox="0 0 16 16">
-              <path
-                d="M2.451 5.658a1 1 0 0 1 .753-1.659h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0L2.451 5.658z"
-                className="fill-current text-indigo-500 group-hover:text-indigo-300"
-              />
-            </svg>
+            <DownArrow className="text-indigo-500 group-hover:text-indigo-300" />
           </span>
         </motion.a>
       </div>
