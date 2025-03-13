@@ -5,32 +5,43 @@ import copyrightSign from "../assets/icons/copyright-sign.svg";
 import footerLogo from "../assets/images/footerLogo.png";
 import { motion } from "framer-motion";
 
+const fadeIn = (direction = "up", delay = 0.2) => ({
+  hidden: { opacity: 0, y: direction === "up" ? 50 : -50, scale: 0.95 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, delay } },
+});
+
 const Footer = () => {
   return (
-    <footer id="footer" className="bg-neutral py-12 w-full">
-      <div className="max-w-screen-xl mx-auto flex flex-col gap-6 px-6 sm:px-8">
+    <footer id="footer" className="bg-neutral py-16 w-full">
+      {/* Wrapping the entire footer in a DaisyUI Card */}
+      <div className="card bg-base-100 shadow-xl border border-gray-300 max-w-screen-xl mx-auto px-6 sm:px-8 py-10">
         {/* Footer Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-10 place-items-center">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-12 place-items-center">
           {/* Logo & About */}
           <motion.div
-            initial={{ opacity: 0, y: -60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.6 }}
-            className="relative flex justify-center items-center card card-bordered shadow-xl bg-base-100">
-            <figure>
-              <a href="/" className="relative">
+            variants={fadeIn("up", 0.2)}
+            className="card bg-base-100 shadow-lg border border-gray-300 w-full sm:w-96">
+            <figure className="pt-6">
+              <a href="/">
                 <img
                   src={footerLogo}
                   alt="footer logo"
-                  className="w-24 h-24 rounded-full border-4 border-primary shadow-xl transition-transform hover:scale-110 hover:border-accent"
+                  className="w-24 h-24 rounded-full border-4 border-primary shadow-lg transition-transform hover:scale-110 hover:border-accent"
                 />
               </a>
             </figure>
             <div className="card-body text-center">
-              <h4 className="card-title text-xl text-center font-semibold text-gray-500">
-                About me
+              <h4 className="card-title text-lg font-semibold text-gray-500">
+                About Me
               </h4>
-              <p className="text-gray-600 max-w-xs">
+              <p className="text-gray-600">
                 Showcasing my journey as a developer through projects and
                 innovations.
               </p>
@@ -39,15 +50,11 @@ const Footer = () => {
 
           {/* Links */}
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4 }}
-            className="flex flex-wrap justify-center sm:justify-start gap-8 card card-bordered shadow-xl w-96 bg-base-100">
+            variants={fadeIn("up", 0.4)}
+            className="card bg-base-100 shadow-lg border border-gray-300 w-full sm:w-96 p-6">
             {footerLinks.map((section) => (
-              <div
-                key={section.title}
-                className="card-body text-center sm:text-left">
-                <h4 className="card-title text-xl font-semibold text-gray-500">
+              <div key={section.title} className="mb-4">
+                <h4 className="card-title text-lg font-semibold text-gray-500">
                   {section.title}
                 </h4>
                 <ul>
@@ -67,43 +74,49 @@ const Footer = () => {
               </div>
             ))}
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Social Media */}
-        <div className="flex items-center justify-center">
-          <motion.div
-            className="card card-bordered shadow-xl w-96 bg-base-100"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.7 }}>
-            <div className="card-body text-center gap-6">
+        <motion.div
+          variants={fadeIn("up", 0.6)}
+          initial="hidden"
+          animate="visible"
+          className="flex items-center justify-center mt-8">
+          <div className="card bg-base-100 shadow-lg border border-gray-300 w-80 p-6">
+            <div className="card-body text-center">
               <h4 className="card-title text-gray-500">Follow Me</h4>
               <div className="flex gap-4 flex-wrap justify-center">
                 {socialMedia.map((icon) => (
-                  <a
+                  <motion.a
                     key={icon.name}
                     href={icon.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative group p-3 bg-white rounded-full shadow-lg transition hover:bg-blue-500">
+                    className="relative group p-3 bg-white rounded-full shadow-md transition hover:bg-blue-500"
+                    whileHover={{ scale: 1.1 }}>
                     <figure>
                       <img src={icon.src} alt={icon.alt} className="w-6 h-6" />
                     </figure>
-                    <span className="absolute opacity-0 group-hover:opacity-100 text-xs bg-black text-white rounded px-2 py-1 bottom-[-2.5rem] left-1/2 transform -translate-x-1/2 transition">
+                    {/* Tooltip */}
+                    <span className="absolute opacity-0 group-hover:opacity-100 text-xs bg-black text-white rounded px-2 py-1 bottom-[-2.5rem] left-1/2 transform -translate-x-1/2 transition z-30">
                       {icon.name}
                     </span>
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
         {/* Bottom - Copyright */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 mt-10 pt-6 border-t border-gray-700 text-center">
+        <motion.div
+          variants={fadeIn("up", 0.8)}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col sm:flex-row justify-center items-center gap-2 mt-10 pt-6 border-t border-gray-700 text-center">
           <img src={copyrightSign} alt="Copyright" width={20} height={20} />
           <p className="text-gray-400 text-sm">© 2024 All Rights Reserved.</p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
