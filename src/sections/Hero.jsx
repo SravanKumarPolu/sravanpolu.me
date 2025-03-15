@@ -10,7 +10,7 @@ const Hero = () => {
       className="relative flex flex-col items-center justify-center min-h-screen w-full gap-10 py-12 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white ">
       {/* Profile Card */}
       <motion.div
-        className="w-4/5 max-w-3xl bg-gradient-to-br from-gray-400 to-gray-700 shadow-md p-10 rounded-2xl flex flex-col items-center text-center hover:shadow-2xl- transition-all duration-700"
+        className="w-4/5 max-w-3xl bg-gradient-to-br from-gray-400 to-gray-700 shadow-md p-4 rounded-2xl flex flex-col items-center text-center hover:shadow-2xl- transition-all duration-700"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}>

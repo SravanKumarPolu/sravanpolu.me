@@ -2,6 +2,9 @@
 
 export const SelectedPage = {
   Home: "home",
+  Work: "work",
+  Resume: "resume",
+  Contact: "footer",
 };
 
 export const BenefitType = {

@@ -12,9 +12,11 @@ const fadeIn = (direction = "up", delay = 0.2) => ({
 
 const Footer = () => {
   return (
-    <footer id="footer" className="bg-neutral py-16 w-full">
+    <footer
+      id="footer"
+      className="bg-neutral py-16 w-full min-h-screen  items-center justify-center">
       {/* Wrapping the entire footer in a DaisyUI Card */}
-      <div className="card bg-base-100 shadow-xl border border-gray-300 max-w-screen-xl mx-auto px-6 sm:px-8 py-10">
+      <div className="card bg-base-100  shadow-xl border border-gray-300 max-w-screen-xl mx-auto px-6 sm:px-8 py-10">
         {/* Footer Grid */}
         <motion.div
           initial="hidden"

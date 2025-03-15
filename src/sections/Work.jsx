@@ -48,7 +48,7 @@ const Work = () => {
 
   return (
     <section id="work" className="sm:pt-4 sm:my-10">
-      <div className="flex h-auto flex-col items-center justify-center sm:flex-row gap-6 my-16">
+      <div className="flex min-h-screen flex-col items-center justify-center sm:flex-row gap-6 my-16">
         {/* Sidebar */}
         <motion.aside
           className="flex flex-1 mx-5 lg:x-10 md:mx-5 sm:mx-5 self-stretch sm:w-2/4 flex-col items-center max-lg:hidden mt-4"
