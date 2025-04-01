@@ -10,7 +10,7 @@ const Nav = () => {
   const [isTopOfPage, setIsTopOfPage] = useState(true);
 
   const navbarBackground = isTopOfPage
-    ? " "
+    ? " border-b border-gray-300 shadow-md shadow-white-100 "
     : "bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 border-b border-gray-300 shadow-md shadow-white-400";
 
   const toggleNav = () => {
@@ -40,7 +40,7 @@ const Nav = () => {
   return (
     <nav className="flex w-screen relative">
       <div
-        className={`fixed ${navbarBackground} ${flexBetween} z-50 flex text-center top-0 w-full pb-5 sm:py-4  items-center`}>
+        className={`flex text-center top-0 w-full pb-5 sm:py-4 items-center fixed ${navbarBackground} ${flexBetween} z-50 `}>
         <motion.a
           href="#home"
           className={` flex-1 flex cursor-pointer justify-start items-center  sm:justify-start mx-5 lg:mx-0 md:mx-0 sm:mx-5  lg:justify-center xl:justify-center font-semibold  font-sans text-3xl mt-3 md:mt-1 lg:mt-1 sm:mt-3 sm:text-2xl md:text-4xl ${

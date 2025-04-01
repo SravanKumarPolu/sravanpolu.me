@@ -1,5 +1,6 @@
 import DownArrow from "../components/DownArrow";
 import React from "react";
+import { Typewriter } from "react-simple-typewriter";
 import { motion } from "framer-motion";
 import skr from "../assets/images/skr.png";
 
@@ -7,10 +8,10 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative flex flex-col items-center justify-center min-h-screen w-full gap-10 py-12 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white ">
+      className="relative flex flex-col items-center justify-center min-h-screen w-full gap-10 h-auto py-14 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white px-4">
       {/* Profile Card */}
       <motion.div
-        className="w-4/5 max-w-3xl bg-gradient-to-br from-gray-400 to-gray-700 shadow-md p-4 rounded-2xl flex flex-col items-center text-center hover:shadow-2xl- transition-all duration-700"
+        className="w-full max-w-3xl bg-white/10 backdrop-blur-md border mt-10 border-white/20 p-6 rounded-2xl flex flex-col items-center text-center shadow-xl"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}>
@@ -24,12 +25,28 @@ const Hero = () => {
         />
 
         <motion.h1
-          className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight"
+          className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}>
           Hi, 👋 I'm <span className="text-green-400">SravanKumar Polu</span>
         </motion.h1>
+
+        <span className="block mt-2 text-green-300 text-xl sm:text-2xl font-semibold">
+          <Typewriter
+            words={[
+              "MERN Stack Developer",
+              "React Specialist",
+              "Freelance Ready",
+            ]}
+            loop
+            cursor
+            cursorStyle="|"
+            typeSpeed={70}
+            deleteSpeed={50}
+            delaySpeed={2000}
+          />
+        </span>
 
         <motion.p
           className="mt-3 text-lg sm:text-xl text-gray-300 font-light leading-relaxed max-w-lg"
@@ -72,26 +89,26 @@ const Hero = () => {
       </motion.span>
 
       {/* CTA Buttons */}
-      <div className="flex flex-wrap justify-center gap-6 mt-4">
+      <div className="flex flex-wrap justify-center gap-6 mt-6">
         <motion.a
           href="#work"
-          className="group px-6 py-3 text-lg bg-gradient-to-r from-green-500 to-teal-400 text-white font-semibold rounded-full shadow-md hover:from-teal-400 hover:to-green-500 transition flex items-center gap-2"
+          className="group px-6 py-3 text-lg font-semibold rounded-full bg-white/10 border border-green-500 text-green-400 hover:bg-green-500 hover:text-white transition flex items-center gap-2 shadow-lg"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}>
-          <span>View Portfolio 🚀</span>
-          <span className="text-green-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce">
-            <DownArrow className="text-green-500 group-hover:text-green-300" />
+          View Portfolio 🚀
+          <span className="text-green-400 group-hover:text-white animate-bounce">
+            <DownArrow />
           </span>
         </motion.a>
 
         <motion.a
           href="#footer"
-          className="group px-6 py-3 text-lg bg-gradient-to-r from-blue-500 to-indigo-400 text-white font-semibold rounded-full shadow-md hover:from-indigo-400 hover:to-blue-500 transition flex items-center gap-2"
+          className="group px-6 py-3 text-lg font-semibold rounded-full bg-white/10 border border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white transition flex items-center gap-2 shadow-lg"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}>
-          <span>Contact Me 📩</span>
-          <span className="text-indigo-500 text-lg group-hover:opacity-100 opacity-100 animate-bounce ">
-            <DownArrow className="text-indigo-500 group-hover:text-indigo-300" />
+          Contact Me 📩
+          <span className="text-blue-400 group-hover:text-white animate-bounce">
+            <DownArrow />
           </span>
         </motion.a>
       </div>

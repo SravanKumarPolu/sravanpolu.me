@@ -1,28 +1,27 @@
 // App.jsx
-
 import "./App.css";
 
-import { Footer, Hero, Resume } from "./sections/index.js";
+import { About, Footer, Hero, Resume } from "./sections/index.js";
 
-import About from "./sections/Work.jsx";
 import Nav from "./components/Nav.jsx";
 import React from "react";
 
 const App = () => {
   return (
-    <main className="relative multiple-gradients overflow-x-hidden">
-      <Nav />
-
-      <section className=" wide:padding-r padding-b overflow-x-hidden">
+    <main className="relative  gap-4 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white overflow-x-hidden scroll-smooth">
+      <section className="sticky top-0 z-50">
+        <Nav />
+      </section>
+      <section>
         <Hero />
       </section>
-      <section className="xl:padding-l wide:padding-r padding-b">
+      <section>
         <About />
       </section>
-      <section className="xl:padding-x wide:padding-r padding-b">
+      <section>
         <Resume />
       </section>
-      <section className="bg-black   text-white">
+      <section>
         <Footer />
       </section>
     </main>
