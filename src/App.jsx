@@ -8,7 +8,7 @@ import React from "react";
 
 const App = () => {
   return (
-    <main className="relative  gap-4 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white overflow-x-hidden scroll-smooth">
+    <main className="relative  smooth gap-4 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white overflow-x-hidden scroll-smooth">
       <section className="sticky top-0 z-50">
         <Nav />
       </section>

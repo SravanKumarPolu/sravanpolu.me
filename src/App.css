@@ -37,3 +37,7 @@
 .App-link {
   color: #61dafb;
 }
+
+html {
+  scroll-behavior: smooth;
+}

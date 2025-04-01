@@ -50,7 +50,7 @@ const Work = () => {
       <div className="flex flex-col lg:flex-row min-h-screen items-start justify-center gap-10">
         {/* Sidebar (Hidden on small and medium screens) */}
         <motion.aside
-          className="hidden lg:flex flex-col gap-6 items-center w-full max-w-xs"
+          className="hidden lg:flex flex-col gap-6 items-center lg:w-2/6 w-full "
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}

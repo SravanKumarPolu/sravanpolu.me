@@ -16,7 +16,7 @@ const Resume = () => {
 
   return (
     <section
-      id="Resume"
+      id="resume"
       className="flex flex-col md:flex-row justify-center  items-center py-10 md:py-16 gap-6 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 ">
       <div className="flex flex-col gap-5 m-2 sm:gap-6 md:gap-5 w-full my-4">
         {/* View Portfolio Button */}

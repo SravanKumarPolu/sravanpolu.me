@@ -13,14 +13,13 @@ import typescript from "../assets/icons/ts.svg";
 export const assets = {
   downArrow,
 };
+
 export const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#work", label: "Works" },
-
-  { href: "#Resume", label: "Resume" },
-  { href: "#footer", label: "Contact me" },
+  { label: "Home", href: "home" },
+  { label: "Work", href: "work" },
+  { label: "Resume", href: "resume" },
+  { label: "Footer", href: "footer" },
 ];
-
 export const courses = [
   {
     courseName: "React",
