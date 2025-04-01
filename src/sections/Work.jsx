@@ -47,7 +47,7 @@ const Work = () => {
   };
   return (
     <section id="work" className="py-12 px-4">
-      <div className="flex flex-col lg:flex-row min-h-screen items-start justify-center gap-10">
+      <div className="flex mt-10 flex-col lg:flex-row min-h-screen items-start justify-center gap-10">
         {/* Sidebar (Hidden on small and medium screens) */}
         <motion.aside
           className="hidden lg:flex flex-col gap-6 items-center lg:w-2/6 w-full "
@@ -76,11 +76,11 @@ const Work = () => {
             </span>
           </h2>
 
-          <ul className="border-l border-white pl-4">
+          <ul className="border-l border-white pl-1">
             {courses.map((course, index) => (
               <li key={course.courseName} className="mb-6 cursor-pointer">
                 <div className="relative flex items-center">
-                  <div className="w-3 h-3 bg-yellow-300 border-2 border-red-400 rounded-full -ml-[0.7rem] mr-2" />
+                  <div className="w-3 h-3 bg-yellow-300 border-2 border-red-400 rounded-full -ml-[0.7rem] mr-2 shadow-[0_0_8px_2px_white]" />
                   <img
                     src={course.language[0].src}
                     alt={course.language[0].alt}
