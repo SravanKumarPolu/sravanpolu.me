@@ -38,6 +38,8 @@ const Hero = () => {
               "MERN Stack Developer",
               "React Specialist",
               "Freelance Ready",
+              "Real-Time App Enthusiast",
+              "Available for Freelance",
             ]}
             loop
             cursor
