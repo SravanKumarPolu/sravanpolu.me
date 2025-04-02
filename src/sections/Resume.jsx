@@ -1,13 +1,13 @@
 import DownArrow from "../components/DownArrow";
+import { FiDownload } from "react-icons/fi";
 import React from "react";
 import UpArrow from "../components/UpArrow";
 import { motion } from "framer-motion";
-import resumePdf from "../assets/Resume.pdf";
 
 const Resume = () => {
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = resumePdf;
+    link.href = "/Resume.pdf"; // Updated path from public folder
     link.download = "Resume.pdf";
     document.body.appendChild(link);
     link.click();
@@ -17,60 +17,65 @@ const Resume = () => {
   return (
     <section
       id="resume"
-      className="flex flex-col md:flex-row justify-center  items-center py-10 md:py-16 gap-6 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 ">
-      <div className="flex flex-col gap-5 m-2 sm:gap-6 md:gap-5 w-full my-4">
-        {/* View Portfolio Button */}
-        <motion.span
-          className="flex justify-center sm:justify-start"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
-          variants={{
-            hidden: { opacity: 0, y: -50 },
-            visible: { opacity: 1, y: 0 },
-          }}>
-          <a
-            href="#work"
-            className="group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-green-500 to-teal-400 text-white font-semibold rounded-full shadow-lg hover:bg-gradient-to-br hover:from-teal-500 hover:to-green-600 transition-all duration-300 transform hover:scale-110">
-            View Portfolio
-            {/* Upward Arrow */}
-            <span className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-green-600 text-xl opacity-100 animate-bounce">
-              <UpArrow />
-            </span>
-          </a>
-        </motion.span>
+      className="py-16 px-4 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white">
+      <motion.h2
+        initial={{ opacity: 0, y: -30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="text-4xl font-bold text-center mb-10">
+        Download My <span className="text-yellow-200">Resume</span>
+      </motion.h2>
 
-        {/* Download Resume Button */}
-        <span className="flex justify-center">
-          <button
-            className="flex justify-center items-center px-6 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white font-medium rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-xl focus:ring-2 focus:ring-blue-300"
-            onClick={handleDownload}>
-            Download Resume
-          </button>
-        </span>
+      {/* Resume Preview */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="w-full flex justify-center my-6">
+        <iframe
+          src="https://docs.google.com/gview?url=https://sravanpolu.me/Resume.pdf&embedded=true"
+          title="Resume Preview"
+          className="w-[90%] max-w-4xl h-[500px] rounded-xl shadow-2xl border border-white/30"
+        />
+      </motion.div>
 
-        {/* Contact Me Button */}
-        <motion.span
-          className="flex justify-center sm:justify-end"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
-          variants={{
-            hidden: { opacity: 0, y: 80 },
-            visible: { opacity: 1, y: 0 },
-          }}>
-          <a
-            href="#footer"
-            className="group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-yellow-500 to-orange-400 text-white font-semibold rounded-full shadow-lg hover:bg-gradient-to-br hover:from-orange-500 hover:to-yellow-600 transition-all duration-300 transform hover:scale-110">
-            Contact Me
-            {/* Downward Arrow */}
-            <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 text-yellow-600 text-xl opacity-100 animate-bounce">
-              <DownArrow className="" />
-            </span>
-          </a>
-        </motion.span>
+      {/* Button Group */}
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-10">
+        {/* View Portfolio */}
+        <motion.a
+          href="#work"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="relative group px-6 py-3 bg-gradient-to-r from-green-500 to-teal-400 text-white font-semibold rounded-full shadow-lg transition duration-300">
+          View Portfolio
+          <span className="absolute -top-5 left-1/2 transform -translate-x-1/2 text-green-200 text-xl animate-bounce">
+            <UpArrow />
+          </span>
+        </motion.a>
+
+        {/* Download Resume */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleDownload}
+          className="flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md text-white font-medium rounded-full shadow-md border border-white/20 hover:bg-white/20 transition duration-300">
+          <FiDownload className="text-lg" />
+          Download Resume
+        </motion.button>
+
+        {/* Contact Me */}
+        <motion.a
+          href="#footer"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="relative group px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-400 text-white font-semibold rounded-full shadow-lg transition duration-300">
+          Contact Me
+          <span className="absolute -bottom-5 left-1/2 transform -translate-x-1/2 text-yellow-200 text-xl animate-bounce">
+            <DownArrow />
+          </span>
+        </motion.a>
       </div>
     </section>
   );
