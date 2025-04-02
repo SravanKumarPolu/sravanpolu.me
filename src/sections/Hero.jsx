@@ -9,7 +9,7 @@ const Hero = () => {
     <section
       id="home"
       className="relative flex flex-col items-center justify-center min-h-screen w-full gap-10 h-auto py-14 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white px-4">
-      <div className="p-[2px]   rounded-3xl bg-gradient-to-r  from-teal-500 via-purple-500 to-pink-500">
+      <div className="p-[2px]   rounded-3xl bg-gradient-to-r mt-10 from-teal-500 via-purple-500 to-pink-500">
         <div className="bg-gray-900 rounded-3xl p-6 ">
           {/* original motion.div content here */}
           {/* Profile Card */}

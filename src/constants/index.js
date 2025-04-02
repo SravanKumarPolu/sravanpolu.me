@@ -4,12 +4,12 @@ import downArrow from "../assets/icons/downArrow.svg";
 import github from "../assets/icons/github.svg";
 import html from "../assets/icons/html.svg";
 import js from "../assets/icons/js.svg";
-import jsfiddle from "../assets/icons/jsfiddle.svg";
 import linkedIn from "../assets/icons/linkedIn.svg";
 import netlify from "../assets/icons/netlify.svg";
 import react from "../assets/icons/react.svg";
 import tailwind from "../assets/icons/tailwind.svg";
 import typescript from "../assets/icons/ts.svg";
+
 export const assets = {
   downArrow,
 };

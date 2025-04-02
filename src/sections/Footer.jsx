@@ -16,7 +16,7 @@ const Footer = () => {
       id="footer"
       className="bg-neutral py-16 w-full min-h-screen  items-center justify-center">
       {/* Wrapping the entire footer in a DaisyUI Card */}
-      <div className="card bg-base-100  shadow-xl border border-gray-300 max-w-screen-xl mx-auto px-6 sm:px-8 py-10">
+      <div className="card bg-base-100 shadow-xl border border-gray-300 w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 rounded-xl sm:rounded-2xl">
         {/* Footer Grid */}
         <motion.div
           initial="hidden"
@@ -29,7 +29,7 @@ const Footer = () => {
           {/* Logo & About */}
           <motion.div
             variants={fadeIn("up", 0.2)}
-            className="card bg-base-100 shadow-md border border-gray-300 w-96 h-64 sm:w-96 hover:shadow-2xl transition-all duration-700">
+            className="card bg-base-100 shadow-md border border-gray-300 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl hover:shadow-2xl transition-all duration-700 mx-auto">
             <figure className="pt-6">
               <a href="/">
                 <img
@@ -39,7 +39,7 @@ const Footer = () => {
                 />
               </a>
             </figure>
-            <div className="card-body text-center">
+            <div className="card-body text-center px-4 sm:px-6 md:px-8">
               <h4 className="card-title text-lg font-semibold text-gray-500">
                 About Me
               </h4>
@@ -53,13 +53,13 @@ const Footer = () => {
           {/* Links */}
           <motion.div
             variants={fadeIn("up", 0.4)}
-            className="card bg-base-100 shadow-md border border-gray-300 w-96 h-64 sm:w-96 p-6 hover:shadow-2xl transition-all duration-500">
+            className="card bg-base-100 shadow-md border border-gray-300 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl hover:shadow-2xl transition-all duration-700 mx-auto">
             {footerLinks.map((section) => (
-              <div key={section.title} className="mb-4">
-                <h4 className="card-title text-lg font-semibold text-gray-500">
+              <div key={section.title} className="mb-4 ">
+                <h4 className="card-title  justify-center pt-6 text-lg font-semibold text-gray-500">
                   {section.title}
                 </h4>
-                <ul>
+                <ul className="card-body">
                   {section.links.map((link) => (
                     <li
                       key={link.name}
