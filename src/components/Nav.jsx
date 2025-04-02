@@ -20,8 +20,8 @@ const Nav = () => {
   }, []);
 
   const navbarStyle = isTopOfPage
-    ? "bg-transparent border-b border-gray-200 shadow-lg border-b border-white/10"
-    : "bg-gradient-to-r from-[#1f1c2c] via-[#928dab] to-[#1f1c2c] shadow-md border-b border-white/10";
+    ? "bg-transparent border-b border-gray-200  border-b border-white/10 shadow-lg shadow-cyan-500/50"
+    : "bg-gradient-to-r from-[#1f1c2c] via-[#928dab] to-[#1f1c2c] shadow-lg shadow-cyan-500/50 border-b border-white/10 mb-2";
 
   return (
     <nav
