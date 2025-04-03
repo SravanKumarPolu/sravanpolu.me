@@ -28,7 +28,7 @@ const Nav = () => {
       className={`fixed top-0 z-50 w-full transition duration-300 ${navbarStyle}`}>
       <div className="flex justify-between items-center px-6 py-4">
         <a href="#home" className="flex items-center gap-2">
-          <span className="font-bold tracking-wide text-xl sm:text-3xl text-white">
+          <span className="font-bold tracking-wide text-xl sm:text-3xl uppercase bg-gradient-to-r from-primary via-secondary to-accent bg-[length:300%_300%] bg-clip-text text-transparent animate-gradient">
             Sravan Kumar Polu <span className="text-pink-400">| MERN Dev</span>
           </span>
         </a>

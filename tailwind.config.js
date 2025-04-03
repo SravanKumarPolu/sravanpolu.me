@@ -14,6 +14,16 @@ const config = {
       "8xl": ["96px", "106px"],
     },
     extend: {
+      animation: {
+        gradient: "gradientBG 5s ease infinite",
+      },
+      keyframes: {
+        gradientBG: {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+      },
+
       fontFamily: {
         sans: ["Helvetica", "Arial", "sans-serif"],
         palanquin: ["Palanquin", "sans-serif"],
