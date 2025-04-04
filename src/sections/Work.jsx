@@ -45,8 +45,10 @@ const Work = () => {
   };
 
   return (
-    <section id="work" className="py-12 px-4">
-      <div className="flex mt-10 flex-col lg:flex-row min-h-screen items-start justify-center gap-10">
+    <section
+      id="work"
+      className="py-16 px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20">
+      <div className="flex flex-col lg:flex-row min-h-screen items-start justify-center gap-12 lg:gap-16">
         {/* Desktop Nav */}
         {isAboveMediumScreens ? (
           <>
@@ -104,7 +106,7 @@ const Work = () => {
             {/* Desktop Main */}
             <main className="flex-1 flex flex-col items-center">
               <div className="w-full max-w-xl">
-                <div className="m-6 flex gap-4 flex-col shadow-lg p-10 relative">
+                <div className="mt-8 lg:mt-12 flex gap-4 flex-col shadow-lg p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 relative">
                   <motion.div
                     initial="hidden"
                     whileInView="visible"
@@ -156,20 +158,19 @@ const Work = () => {
             </main>
           </>
         ) : (
-          // Mobile Layout
           <main className="flex items-center justify-center w-full">
-            <div className="w-full max-w-md">
-              <div className="m-4 shadow-lg p-6 w-full flex flex-col gap-6 items-center justify-center sm:px-10">
+            <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+              <div className=" shadow-lg p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 relative  rounded-2xl flex flex-col gap-6 items-center justify-center">
                 {/* Prev/Next Buttons */}
-                <div className="flex justify-center gap-4 mb-4">
+                <div className="flex justify-center gap-4 mb-2 sm:mb-4">
                   <button
                     onClick={prevSlide}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-5 sm:px-6 md:px-8 rounded-lg transition duration-300">
                     Prev
                   </button>
                   <button
                     onClick={nextSlide}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-5 sm:px-6 md:px-8 rounded-lg transition duration-300">
                     Next
                   </button>
                 </div>
@@ -182,36 +183,38 @@ const Work = () => {
                   variants={{
                     hidden: { opacity: 0, x: 50 },
                     visible: { opacity: 1, x: 0 },
-                  }}>
+                  }}
+                  className="w-full min-h-[550px] sm:min-h-[600px] md:min-h-[650px] transition-all duration-500">
                   {courses.map((course, index) => (
                     <div
                       key={index}
                       style={getCardStyle(index)}
-                      className={`p-4 sm:p-6 rounded-xl shadow-xl text-center transition-all duration-500 w-full ${
+                      className={`p-4 sm:p-6 md:p-8 rounded-xl shadow-xl text-center transition-all duration-500 w-full ${
                         index === currentSlide ? "block" : "hidden"
                       }`}>
-                      <h3 className="text-2xl font-bold mb-4">
+                      <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
                         {course.courseName}
                       </h3>
-                      <h4 className="text-lg font-medium text-blue-800 bg-yellow-200 inline-block px-4 py-2 rounded mb-4">
-                        Projects{" "}
+                      <h4 className="text-base sm:text-lg font-medium text-blue-800 bg-yellow-200 inline-block px-4 py-2 rounded mb-4">
+                        Projects
                         <span className="inline-block animate-bounce ml-2">
                           <DownArrow />
                         </span>
                       </h4>
+
                       <div className="space-y-4 shadow-md">
                         {course.projects.map((project, idx) => (
                           <div
                             key={idx}
                             className="bg-white text-black p-4 rounded-lg shadow">
-                            <h5 className="font-semibold text-purple-700">
+                            <h5 className="font-semibold text-purple-700 text-sm sm:text-base">
                               {project.title}
                             </h5>
                             <a
                               href={project.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-500 underline hover:text-blue-700">
+                              className="text-blue-500 underline hover:text-blue-700 text-sm sm:text-base">
                               {project.name}
                             </a>
                           </div>
@@ -221,7 +224,7 @@ const Work = () => {
                   ))}
 
                   {/* Mobile Summary Section */}
-                  <div className="flex flex-col gap-4 p-4 rounded-lg sm:hidden">
+                  <div className="flex flex-col gap-4 mt-6 px-2 sm:px-4 md:px-6 sm:hidden">
                     {courses.map((course, index) => (
                       <p
                         key={index}
