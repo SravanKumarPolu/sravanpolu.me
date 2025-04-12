@@ -115,11 +115,6 @@ export const courses = [
         name: "Netflix Landing page",
         link: "https://jsfiddle.net/pvskr/4ygntpoq/28/",
       },
-      {
-        title: "JSPractice",
-        name: "Bank",
-        link: "https://jsfiddle.net/pvskr/g9jp2fsd/243/",
-      },
     ],
     language: [{ src: js, alt: "JS logo", name: "JS" }],
 
