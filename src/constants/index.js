@@ -22,28 +22,6 @@ export const navLinks = [
 ];
 export const courses = [
   {
-    courseName: "React",
-    projects: [
-      {
-        title: "ReactDemo",
-        name: "buyMe",
-        link: "https://new-buy-me.netlify.app/",
-      },
-      {
-        title: "ReactWith-CSS",
-        name: "DropboxDemo",
-        link: "https://fanciful-kitten-112003.netlify.app/",
-      },
-      {
-        title: "ReactWith-CSS",
-        name: "#VANLIFE",
-        link: "https://van-life2.netlify.app/",
-      },
-    ],
-    language: [{ src: react, alt: "react logo", name: "React" }],
-    summary: " This project mainly focused on React JS",
-  },
-  {
     courseName: "TypeScript",
     projects: [
       {
@@ -59,6 +37,23 @@ export const courses = [
     ],
     language: [{ src: typescript, alt: "TypeScript logo", name: "TypeScript" }],
     summary: " This project mainly focused on TypeScript",
+  },
+  {
+    courseName: "React",
+    projects: [
+      {
+        title: "ReactWith-CSS",
+        name: "DropboxDemo",
+        link: "https://fanciful-kitten-112003.netlify.app/",
+      },
+      {
+        title: "ReactWith-CSS",
+        name: "#VANLIFE",
+        link: "https://van-life2.netlify.app/",
+      },
+    ],
+    language: [{ src: react, alt: "react logo", name: "React" }],
+    summary: " This project mainly focused on React JS",
   },
 
   {
@@ -110,6 +105,11 @@ export const courses = [
   {
     courseName: "JavaScript",
     projects: [
+      {
+        title: "JSPractice",
+        name: "buyMe",
+        link: "https://new-buy-me.netlify.app/",
+      },
       {
         title: "JSPractice",
         name: "Netflix Landing page",
