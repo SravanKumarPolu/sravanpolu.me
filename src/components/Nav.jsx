@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Link from "./Link"; // Your custom Link component
+import MobileLink from "./MobileLink";
 import { motion } from "framer-motion";
 import { navLinks } from "../constants";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -66,12 +67,12 @@ const Nav = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: isNavOpen ? 1 : 0, x: isNavOpen ? 0 : 50 }}
           transition={{ duration: 0.5 }}
-          className={`absolute top-14 right-4 py-4 px-6 bg-white backdrop-blur-md border border-gray-300 rounded-lg shadow-lg space-y-2 ${
+          className={`absolute top-14 right-4 py-4 px-6 bg-white/90 backdrop-blur-md border border-gray-300 rounded-lg shadow-lg space-y-2 ${
             isNavOpen ? "block" : "hidden"
           }`}>
           {navLinks.map((item) => (
             <li key={item.label}>
-              <Link
+              <MobileLink
                 page={item.label}
                 selectedPage={activeLink}
                 setSelectedPage={(label) => {
