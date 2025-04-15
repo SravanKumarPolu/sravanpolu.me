@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import Link from "./Link"; // Your custom Link component
-import MobileLink from "./MobileLink";
 import { motion } from "framer-motion";
 import { navLinks } from "../constants";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -72,7 +71,7 @@ const Nav = () => {
           }`}>
           {navLinks.map((item) => (
             <li key={item.label}>
-              <MobileLink
+              <Link
                 page={item.label}
                 selectedPage={activeLink}
                 setSelectedPage={(label) => {
