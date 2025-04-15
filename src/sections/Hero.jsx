@@ -21,7 +21,7 @@ const Hero = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}>
             <motion.img
               src={skr}
-              alt="SravanKumar Polu"
+              alt="Sravan Kumar Polu"
               className="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-white shadow-lg hover:scale-105 transition-transform duration-300"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -34,7 +34,7 @@ const Hero = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}>
               Hi, 👋 I'm{" "}
-              <span className="text-green-400">SravanKumar Polu</span>
+              <span className="text-green-400">Sravan Kumar Polu</span>
             </motion.h1>
 
             <span className="block mt-2 text-green-300 text-xl sm:text-2xl font-semibold">
