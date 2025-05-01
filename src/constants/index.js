@@ -16,10 +16,11 @@ export const assets = {
 
 export const navLinks = [
   { label: "Home", href: "home" },
-  { label: "Work", href: "work" },
+  { label: "About", href: "about" },
   { label: "Resume", href: "resume" },
   { label: "Footer", href: "footer" },
 ];
+
 export const courses = [
   {
     courseName: "TypeScript",
@@ -29,6 +30,12 @@ export const courses = [
         name: "GYM",
         link: "https://sravan-gym.netlify.app",
       },
+      {
+        title: "quizlet-landingpage-replica",
+        name: "Quizlet",
+        link: "https://sravan-quizlet-landingpage.netlify.app/",
+      },
+
       {
         title: "Task+Breaks",
         name: "Timer",
