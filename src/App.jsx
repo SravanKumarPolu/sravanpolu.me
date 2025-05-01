@@ -8,20 +8,24 @@ import React from "react";
 
 const App = () => {
   return (
-    <main className="relative  smooth gap-4 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white overflow-x-hidden scroll-smooth">
+    <main className="relative scroll-smooth bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white overflow-x-hidden">
       <section className="sticky top-0 z-50">
         <Nav />
       </section>
-      <section>
+
+      <section id="home">
         <Hero />
       </section>
-      <section>
+
+      <section id="about">
         <About />
       </section>
-      <section>
+
+      <section id="resume">
         <Resume />
       </section>
-      <section>
+
+      <section id="footer">
         <Footer />
       </section>
     </main>
