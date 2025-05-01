@@ -1,39 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import Link from "./Link"; // Your custom Link component
+import Link from "./Link";
 import { motion } from "framer-motion";
 import { navLinks } from "../constants";
 import { useMediaQuery } from "@react-hook/media-query";
 
 const Nav = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("");
+  const [activeLink, setActiveLink] = useState("Home");
   const [isTopOfPage, setIsTopOfPage] = useState(true);
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
 
   const toggleNav = () => setIsNavOpen(!isNavOpen);
 
   useEffect(() => {
-    const handleScroll = () => setIsTopOfPage(window.scrollY === 0);
+    const handleScroll = () => {
+      setIsTopOfPage(window.scrollY === 0);
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            const matchedLink = navLinks.find(
+              (link) => link.label.toLowerCase() === sectionId.toLowerCase()
+            );
+            if (matchedLink) {
+              setActiveLink(matchedLink.label);
+            }
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.6,
+      }
+    );
+
+    navLinks.forEach((link) => {
+      const section = document.getElementById(link.label.toLowerCase());
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const navbarStyle = isTopOfPage
-    ? "bg-transparent border-b border-gray-200  border-b border-white/10 shadow-lg shadow-cyan-500/50"
-    : "bg-gradient-to-r from-[#1f1c2c] via-[#928dab] to-[#1f1c2c] shadow-lg shadow-cyan-500/50 border-b border-white/10 mb-2";
+    ? "bg-transparent border-b border-white/10 shadow-lg shadow-cyan-500/50"
+    : "bg-gradient-to-r from-[#1f1c2c] via-[#928dab] to-[#1f1c2c] shadow-lg shadow-cyan-500/50 border-b border-white/10";
 
   return (
     <nav
       className={`fixed top-0 z-50 w-full transition duration-300 ${navbarStyle}`}>
       <div className="flex justify-between items-center px-6 py-4">
+        {/* Logo */}
         <a href="#home" className="flex items-center gap-2">
           <span className="font-bold tracking-wide text-xl sm:text-3xl uppercase bg-gradient-to-r from-primary via-secondary to-accent bg-[length:300%_300%] bg-clip-text text-transparent animate-gradient">
             Sravan Kumar Polu <span className="text-pink-400">| MERN Dev</span>
           </span>
         </a>
 
-        {/* Desktop Nav */}
+        {/* Desktop Navigation */}
         {isAboveMediumScreens ? (
           <div className="flex gap-8">
             {navLinks.map((item) => (
@@ -60,7 +94,7 @@ const Nav = () => {
         )}
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation Menu */}
       {!isAboveMediumScreens && (
         <motion.ul
           initial={{ opacity: 0, x: 50 }}
@@ -76,7 +110,7 @@ const Nav = () => {
                 selectedPage={activeLink}
                 setSelectedPage={(label) => {
                   setActiveLink(label);
-                  setIsNavOpen(false);
+                  setIsNavOpen(false); // close on click
                 }}
               />
             </li>
