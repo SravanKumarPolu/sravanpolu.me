@@ -1,3 +1,4 @@
+import React from "react";
 import { useMediaQuery } from "@react-hook/media-query";
 
 const Link = ({ page, selectedPage, setSelectedPage }) => {
@@ -23,10 +24,10 @@ const Link = ({ page, selectedPage, setSelectedPage }) => {
     <a
       href={pageLink}
       onClick={() => setSelectedPage(page)}
-      className={`block w-full text-center py-2 px-4 text-base rounded-md transition duration-300 font-medium ${
+      className={`block text-center text-base font-medium px-4 py-2 rounded-md ${
         isActive
-          ? "text-white bg-gradient-to-r from-cyan-500 to-blue-500 shadow-md"
-          : "text-gray-700 hover:text-white hover:bg-gray-700"
+          ? "text-white bg-gradient-to-r from-indigo-500 to-purple-600"
+          : "text-gray-800 hover:bg-gray-100"
       }`}>
       {page}
     </a>
