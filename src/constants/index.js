@@ -1,22 +1,34 @@
 import bootstrap from "../assets/icons/bootstrap.svg";
+import buyMeImg from "../assets/images/buy-me.png";
+import cardImg from "../assets/images/card.png";
 import css from "../assets/icons/css.svg";
+import cubeImag from "../assets/images/cubedemo.png";
 import downArrow from "../assets/icons/downArrow.svg";
+import dropboxImg from "../assets/images/dropbox.png";
 import github from "../assets/icons/github.svg";
+import gymImg from "../assets/images/SravanGym.png";
 import html from "../assets/icons/html.svg";
 import js from "../assets/icons/js.svg";
 import linkedIn from "../assets/icons/linkedIn.svg";
+import netflixImg from "../assets/images/NetFlixDemo.png";
+import nikeImg from "../assets/images/NikeDemo.png";
+import otpImg from "../assets/images/otp.png";
+import quizletImg from "../assets/images/quizlet.png";
 import react from "../assets/icons/react.svg";
+import solorImg from "../assets/images/solordemo.png";
+import stripeImg from "../assets/images/stripeDemo.png";
 import tailwind from "../assets/icons/tailwind.svg";
+import timerImg from "../assets/images/Task+Breaks.png";
 import twitter from "../assets/icons/twitter.svg";
 import typescript from "../assets/icons/ts.svg";
-
+import vanlifImg from "../assets/images/vanlife.png";
 export const assets = {
   downArrow,
 };
 
 export const navLinks = [
   { label: "Home", href: "home" },
-  { label: "About", href: "about" },
+  { label: "Work", href: "work" },
   { label: "Resume", href: "resume" },
   { label: "Footer", href: "footer" },
 ];
@@ -26,17 +38,20 @@ export const courses = [
     courseName: "TypeScript",
     projects: [
       {
+        src: gymImg,
         title: "sravan-gym",
         name: "GYM",
         link: "https://sravan-gym.netlify.app",
       },
       {
+        src: quizletImg,
         title: "quizlet-landingpage-replica",
         name: "Quizlet",
         link: "https://sravan-quizlet-landingpage.netlify.app/",
       },
 
       {
+        src: timerImg,
         title: "Task+Breaks",
         name: "Timer",
         link: "https://task-breaks.netlify.app/",
@@ -49,11 +64,14 @@ export const courses = [
     courseName: "React",
     projects: [
       {
+        src: dropboxImg,
+
         title: "ReactWith-CSS",
         name: "DropboxDemo",
         link: "https://fanciful-kitten-112003.netlify.app/",
       },
       {
+        src: vanlifImg,
         title: "ReactWith-CSS",
         name: "#VANLIFE",
         link: "https://van-life2.netlify.app/",
@@ -67,6 +85,7 @@ export const courses = [
     courseName: "Tailwind",
     projects: [
       {
+        src: nikeImg,
         title: "nikesravan",
         name: "nike",
         link: "https://sravan-nike.netlify.app",
@@ -79,16 +98,19 @@ export const courses = [
     courseName: "CSS",
     projects: [
       {
+        src: stripeImg,
         title: "Grid",
         name: "Stripedemo",
         link: "https://stripedemo1.netlify.app/",
       },
       {
+        src: cubeImag,
         title: "Animation",
         name: "3DCube",
         link: "https://sravan-cubedemo.netlify.app/",
       },
       {
+        src: solorImg,
         title: "Animation",
         name: "SolarSystem",
         link: "https://sravan-solarsystemdemo.netlify.app/",
@@ -101,6 +123,7 @@ export const courses = [
     courseName: "BootStrap",
     projects: [
       {
+        src: cardImg,
         title: "CardDemo",
         name: "Card",
         link: "https://jsfiddle.net/pvskr/pnfjt029/20/",
@@ -113,11 +136,13 @@ export const courses = [
     courseName: "JavaScript",
     projects: [
       {
+        src: buyMeImg,
         title: "JSPractice",
         name: "buyMe",
         link: "https://new-buy-me.netlify.app/",
       },
       {
+        src: netflixImg,
         title: "JSPractice",
         name: "Netflix Landing page",
         link: "https://jsfiddle.net/pvskr/4ygntpoq/28/",
@@ -131,6 +156,7 @@ export const courses = [
     courseName: "HTML",
     projects: [
       {
+        src: otpImg,
         title: "projects",
         name: "Otp-sravan",
         link: "https://sravanotp-project.netlify.app/", // Replace with the actual link if available

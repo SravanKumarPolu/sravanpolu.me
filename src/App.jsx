@@ -1,10 +1,11 @@
 // App.jsx
 import "./App.css";
 
-import { About, Footer, Hero, Resume } from "./sections/index.js";
+import { Footer, Hero, Resume } from "./sections/index.js";
 
 import Nav from "./components/Nav.jsx";
 import React from "react";
+import Work from "./sections/Work.jsx";
 
 const App = () => {
   return (
@@ -17,8 +18,8 @@ const App = () => {
         <Hero />
       </section>
 
-      <section id="about">
-        <About />
+      <section id="work">
+        <Work />
       </section>
 
       <section id="resume">
