@@ -1,3 +1,6 @@
+// src/components/Work.jsx
+
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import React, { useState } from "react";
 
 import DownArrow from "../components/DownArrow";
@@ -8,38 +11,39 @@ import { useMediaQuery } from "@react-hook/media-query";
 const Work = () => {
   const [hoveredIcon, setHoveredIcon] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const isDesktop = useMediaQuery("(min-width:1060px)");
 
-  const prevSlide = () => {
+  const prevSlide = () =>
     setCurrentSlide((prev) => (prev === 0 ? courses.length - 1 : prev - 1));
-  };
-
-  const nextSlide = () => {
+  const nextSlide = () =>
     setCurrentSlide((prev) => (prev === courses.length - 1 ? 0 : prev + 1));
-  };
 
   const changeSlide = (index) => {
     setCurrentSlide(index);
+    setCurrentProjectIndex(0);
+  };
+
+  const handleProjectPrev = () => {
+    const projects = courses[currentSlide].projects;
+    setCurrentProjectIndex((prev) =>
+      prev === 0 ? projects.length - 1 : prev - 1
+    );
+  };
+
+  const handleProjectNext = () => {
+    const projects = courses[currentSlide].projects;
+    setCurrentProjectIndex((prev) =>
+      prev === projects.length - 1 ? 0 : prev + 1
+    );
   };
 
   const getCardStyle = (index) => {
     const styles = [
-      {
-        background: "linear-gradient(to right, #ff7e5f, #feb47b)",
-        color: "white",
-      },
-      {
-        background: "linear-gradient(to right, #4facfe, #00f2fe)",
-        color: "black",
-      },
-      {
-        background: "linear-gradient(to right, #43e97b, #38f9d7)",
-        color: "red",
-      },
-      {
-        background: "linear-gradient(to right, #fa709a, #fee144)",
-        color: "#222",
-      },
+      "bg-gradient-to-r from-orange-400 to-pink-500",
+      "bg-gradient-to-r from-cyan-400 to-blue-500",
+      "bg-gradient-to-r from-green-400 to-teal-500",
+      "bg-gradient-to-r from-purple-500 to-yellow-300",
     ];
     return styles[index % styles.length];
   };
@@ -47,200 +51,150 @@ const Work = () => {
   return (
     <section
       id="work"
-      className="py-16 px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20">
-      <div className="flex flex-col lg:flex-row min-h-screen items-start justify-center gap-12 lg:gap-16">
-        {/* Desktop Nav */}
-        {isAboveMediumScreens ? (
-          <>
-            <motion.aside
-              className="hidden lg:flex flex-col gap-6 items-center lg:w-2/6 w-full"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5 }}
-              variants={{
-                hidden: { opacity: 0, x: -50 },
-                visible: { opacity: 1, x: 0 },
-              }}>
-              <h2 className="text-2xl font-semibold text-white mb-4 flex items-center gap-2">
-                <motion.span
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.9 }}
-                  variants={{
-                    hidden: { opacity: 0, y: -100 },
-                    visible: { opacity: 1, y: 0 },
-                  }}>
-                  Works
-                </motion.span>
-                <span className="animate-bounce">
-                  <DownArrow />
-                </span>
-              </h2>
-
-              <ul className="border-l border-white pl-1">
-                {courses.map((course, index) => (
-                  <li key={course.courseName} className="mb-6 cursor-pointer">
-                    <div className="relative flex items-center">
-                      <div className="w-3 h-3 bg-yellow-300 border-2 border-red-400 rounded-full -ml-[0.7rem] mr-2 shadow-[0_0_8px_2px_white]" />
-                      <img
-                        src={course.language[0].src}
-                        alt={course.language[0].alt}
-                        className="w-12 h-12 rounded-full hover:scale-105 transition"
-                        onClick={() => changeSlide(index)}
-                        onMouseEnter={() => setHoveredIcon(course.language[0])}
-                        onMouseLeave={() => setHoveredIcon(null)}
-                      />
-                      {hoveredIcon === course.language[0] && (
-                        <div className="absolute left-16 bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded shadow">
-                          {hoveredIcon.name}
-                        </div>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </motion.aside>
-
-            {/* Desktop Main */}
-            <main className="flex-1 flex flex-col items-center">
-              <div className="w-full max-w-xl">
-                <div className="mt-8 lg:mt-12 flex gap-4 flex-col shadow-lg p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 relative">
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.5 }}
-                    transition={{ duration: 0.5 }}
-                    variants={{
-                      hidden: { opacity: 0, x: 50 },
-                      visible: { opacity: 1, x: 0 },
-                    }}>
-                    {courses.map((course, index) => (
-                      <div
-                        key={index}
-                        style={getCardStyle(index)}
-                        className={`p-6 rounded-xl shadow-xl text-center transition-all duration-500 ${
-                          index === currentSlide ? "block" : "hidden"
-                        }`}>
-                        <h3 className="text-2xl font-bold mb-4">
-                          {course.courseName}
-                        </h3>
-                        <h4 className="text-lg font-medium text-blue-800 bg-yellow-200 inline-block px-4 py-2 rounded mb-4">
-                          Projects{" "}
-                          <span className="inline-block animate-bounce ml-2">
-                            <DownArrow />
-                          </span>
-                        </h4>
-                        <div className="space-y-4 shadow-md">
-                          {course.projects.map((project, idx) => (
-                            <div
-                              key={idx}
-                              className="bg-white text-black p-4 rounded-lg shadow">
-                              <h5 className="font-semibold text-purple-700">
-                                {project.title}
-                              </h5>
-                              <a
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-blue-500 underline hover:text-blue-700">
-                                {project.name}
-                              </a>
-                            </div>
-                          ))}
-                        </div>
+      className=" py-20 px-6 md:px-12 lg:px-20 xl:px-32 bg-gray-950 text-white">
+      <div className="flex flex-col lg:flex-row items-start justify-center gap-12 ">
+        {/* Sidebar */}
+        {isDesktop && (
+          <motion.aside
+            className="hidden lg:flex flex-col items-center gap-6 lg:w-1/4"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}>
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-pink-500 text-transparent bg-clip-text mb-4 flex items-center gap-2">
+              <motion.span
+                initial={{ opacity: 0, y: -40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}>
+                Works
+              </motion.span>
+              <span className="inline-block animate-bounce ml-2 text-white">
+                <DownArrow />
+              </span>
+            </h2>
+            <ul className="border-l   border-white/30 pl-4">
+              {courses.map((course, index) => (
+                <li
+                  key={course.courseName}
+                  className={` mb-5  cursor-pointer transition-transform ${
+                    index === currentSlide ? "scale-110" : "opacity-60"
+                  }`}>
+                  <div className="relative flex items-center ">
+                    <div className="w-3 h-3 bg-yellow-300 border-2 border-red-400 rounded-full -ml-3 mr-3 shadow-md" />
+                    <img
+                      src={course.language[0].src}
+                      alt={course.language[0].alt}
+                      className="w-10 h-10 rounded-full hover:scale-110 transition-transform"
+                      onClick={() => changeSlide(index)}
+                      onMouseEnter={() => setHoveredIcon(course.language[0])}
+                      onMouseLeave={() => setHoveredIcon(null)}
+                    />
+                    {hoveredIcon === course.language[0] && (
+                      <div className="absolute left-14 bg-white text-black text-xs font-medium px-3 py-1 rounded shadow border border-gray-300">
+                        {hoveredIcon.name}
                       </div>
-                    ))}
-                  </motion.div>
-                </div>
-              </div>
-            </main>
-          </>
-        ) : (
-          <main className="flex items-center justify-center w-full">
-            <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
-              <div className=" shadow-lg p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 relative  rounded-2xl flex flex-col gap-6 items-center justify-center">
-                {/* Prev/Next Buttons */}
-                <div className="flex justify-center gap-4 mb-2 sm:mb-4">
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </motion.aside>
+        )}
+
+        {/* Main Content */}
+        <main className="flex-1 flex flex-col items-center w-full">
+          <div className="w-full max-w-4xl">
+            <div className="p-6 sm:p-8 md:p-10 lg:p-12 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl">
+              {!isDesktop && (
+                <div className="flex justify-center gap-4 mb-6">
                   <button
                     onClick={prevSlide}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-5 sm:px-6 md:px-8 rounded-lg transition duration-300">
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold py-2 px-6 rounded-full shadow hover:scale-105 transition">
                     Prev
                   </button>
                   <button
                     onClick={nextSlide}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-5 sm:px-6 md:px-8 rounded-lg transition duration-300">
+                    className="bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold py-2 px-6 rounded-full shadow hover:scale-105 transition">
                     Next
                   </button>
                 </div>
+              )}
 
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.5 }}
-                  variants={{
-                    hidden: { opacity: 0, x: 50 },
-                    visible: { opacity: 1, x: 0 },
-                  }}
-                  className="w-full min-h-[550px] sm:min-h-[600px] md:min-h-[650px] transition-all duration-500">
-                  {courses.map((course, index) => (
-                    <div
-                      key={index}
-                      style={getCardStyle(index)}
-                      className={`p-4 sm:p-6 md:p-8 rounded-xl shadow-xl text-center transition-all duration-500 w-full ${
-                        index === currentSlide ? "block" : "hidden"
-                      }`}>
-                      <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
-                        {course.courseName}
-                      </h3>
-                      <h4 className="text-base sm:text-lg font-medium text-blue-800 bg-yellow-200 inline-block px-4 py-2 rounded mb-4">
-                        Projects
-                        <span className="inline-block animate-bounce ml-2">
-                          <DownArrow />
-                        </span>
-                      </h4>
-
-                      <div className="space-y-4 shadow-md">
-                        {course.projects.map((project, idx) => (
-                          <div
-                            key={idx}
-                            className="bg-white text-black p-4 rounded-lg shadow">
-                            <h5 className="font-semibold text-purple-700 text-sm sm:text-base">
-                              {project.title}
-                            </h5>
-                            <a
-                              href={project.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-500 underline hover:text-blue-700 text-sm sm:text-base">
-                              {project.name}
-                            </a>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-
-                  {/* Mobile Summary Section */}
-                  <div className="flex flex-col gap-4 mt-6 px-2 sm:px-4 md:px-6 sm:hidden">
-                    {courses.map((course, index) => (
-                      <p
-                        key={index}
-                        className={`bg-white text-red-500 p-3 rounded-lg shadow transition-all duration-300 ${
-                          index === currentSlide ? "block" : "hidden"
-                        }`}>
-                        <span className="font-bold">Note:</span>{" "}
-                        {course.summary}
-                      </p>
-                    ))}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}>
+                <div
+                  className={`rounded-xl p-6 sm:p-8 text-center shadow-xl transition-all duration-500 ${getCardStyle(
+                    currentSlide
+                  )} text-white`}>
+                  <h3 className="text-3xl font-bold mb-4">
+                    {courses[currentSlide].courseName}
+                  </h3>
+                  <h4 className="text-lg font-medium bg-yellow-200 text-blue-900 inline-block px-4 py-2 rounded mb-6">
+                    Projects
+                    <span className="inline-block animate-bounce ml-2">
+                      <DownArrow />
+                    </span>
+                  </h4>
+                  <div className="  flex justify-between items-center mb-4 ">
+                    <button
+                      onClick={handleProjectPrev}
+                      className="absolute -left-5 top-1/2 -translate-y-1/2 bg-white text-black w-10 h-10 flex items-center justify-center rounded-full shadow hover:scale-110 transition"
+                      aria-label="Previous Project">
+                      <FaChevronLeft />
+                    </button>
+                    <button
+                      onClick={handleProjectNext}
+                      className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white text-black w-10 h-10 flex items-center justify-center rounded-full shadow hover:scale-110 transition"
+                      aria-label="Next Project">
+                      <FaChevronRight />
+                    </button>
                   </div>
-                </motion.div>
-              </div>
+                  <div className="relative ">
+                    <div className="bg-base-100 text-black p-5 rounded-xl shadow-lg transition-transform hover:scale-105">
+                      <img
+                        src={
+                          courses[currentSlide].projects[currentProjectIndex]
+                            .src
+                        }
+                        alt={
+                          courses[currentSlide].projects[currentProjectIndex]
+                            .title
+                        }
+                        className="w-full h-48 object-cover rounded-md mb-4"
+                      />
+                      <h5 className="text-lg font-semibold text-purple-700">
+                        {
+                          courses[currentSlide].projects[currentProjectIndex]
+                            .title
+                        }
+                      </h5>
+                      <a
+                        href={
+                          courses[currentSlide].projects[currentProjectIndex]
+                            .link
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 underline hover:text-blue-800 mt-2 block">
+                        {
+                          courses[currentSlide].projects[currentProjectIndex]
+                            .name
+                        }
+                      </a>
+                    </div>
+                  </div>
+
+                  {!isDesktop && (
+                    <p className="bg-white text-red-600 p-4 rounded-lg shadow mt-6">
+                      <strong>Note:</strong> {courses[currentSlide].summary}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
             </div>
-          </main>
-        )}
+          </div>
+        </main>
       </div>
     </section>
   );
