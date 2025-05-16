@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { BsMoonStarsFill, BsSunFill } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 
 import Link from "./Link";
 import { motion } from "framer-motion";
@@ -6,6 +7,7 @@ import { navLinks } from "../constants";
 import { useMediaQuery } from "@react-hook/media-query";
 
 const Nav = () => {
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("Home");
   const [isTopOfPage, setIsTopOfPage] = useState(true);
@@ -13,15 +15,14 @@ const Nav = () => {
 
   const toggleNav = () => setIsNavOpen(!isNavOpen);
 
+  // Scroll tracking
   useEffect(() => {
-    const handleScroll = () => {
-      setIsTopOfPage(window.scrollY === 0);
-    };
-
+    const handleScroll = () => setIsTopOfPage(window.scrollY === 0);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Section observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -31,9 +32,7 @@ const Nav = () => {
             const matchedLink = navLinks.find(
               (link) => link.label.toLowerCase() === sectionId.toLowerCase()
             );
-            if (matchedLink) {
-              setActiveLink(matchedLink.label);
-            }
+            if (matchedLink) setActiveLink(matchedLink.label);
           }
         });
       },
@@ -52,9 +51,22 @@ const Nav = () => {
     return () => observer.disconnect();
   }, []);
 
+  // LocalStorage theme persistence
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "light") setIsDarkMode(false);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
+
+  // Dynamic styles
   const navbarStyle = isTopOfPage
-    ? "bg-transparent border-b border-white/10 shadow-lg shadow-cyan-500/50"
-    : "bg-gradient-to-r from-[#1f1c2c] via-[#928dab] to-[#1f1c2c] shadow-lg shadow-cyan-500/50 border-b border-white/10";
+    ? "bg-transparent border-b border-white/10 backdrop-blur-md border-b border-white/10 shadow-lg shadow-cyan-500/50"
+    : isDarkMode
+    ? "bg-gradient-to-r from-[#1f1c2c]/90 via-emerald-700 to-[#1f1c2c]/90 shadow-lg shadow-emerald-400/50 border-b border-white/10 backdrop-blur-md "
+    : "bg-gradient-to-r from-emerald-500 via-[#1f1c2c] to-fuchsia-700 shadow-lg shadow-green-300/50 border-b border-gray-300 backdrop-blur-md ";
 
   return (
     <nav
@@ -67,9 +79,9 @@ const Nav = () => {
           </span>
         </a>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation + Theme Toggle */}
         {isAboveMediumScreens ? (
-          <div className="flex gap-8">
+          <div className="flex gap-6 items-center">
             {navLinks.map((item) => (
               <Link
                 key={item.label}
@@ -78,19 +90,43 @@ const Nav = () => {
                 setSelectedPage={setActiveLink}
               />
             ))}
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="p-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition text-white"
+              title="Toggle Theme">
+              {isDarkMode ? (
+                <BsMoonStarsFill />
+              ) : (
+                <BsSunFill className="text-yellow-400" />
+              )}
+            </button>
           </div>
         ) : (
           // Mobile Hamburger
-          <button onClick={toggleNav} className="text-white focus:outline-none">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
-              fill="currentColor"
-              viewBox="0 0 16 16">
-              <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="p-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition text-white"
+              title="Toggle Theme">
+              {isDarkMode ? (
+                <BsMoonStarsFill />
+              ) : (
+                <BsSunFill className="text-yellow-400" />
+              )}
+            </button>
+            <button
+              onClick={toggleNav}
+              className="text-white focus:outline-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                fill="currentColor"
+                viewBox="0 0 16 16">
+                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+              </svg>
+            </button>
+          </div>
         )}
       </div>
 
@@ -110,7 +146,7 @@ const Nav = () => {
                 selectedPage={activeLink}
                 setSelectedPage={(label) => {
                   setActiveLink(label);
-                  setIsNavOpen(false); // close on click
+                  setIsNavOpen(false);
                 }}
               />
             </li>
