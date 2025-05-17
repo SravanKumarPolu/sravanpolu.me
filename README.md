@@ -1,31 +1,89 @@
-# This is SravanKumar Polu 🙂
+# 🧑‍💻 SravanKumar Polu – Developer Portfolio
 
-## In this project mainly used Languages and libraries
- * React js
- * Tailwind CSS
- * framers-motion
- * useMediaQuery
+Welcome to my personal developer portfolio built with modern web technologies to showcase my skills, projects, and professional background. This site reflects my journey, featuring real-time, responsive, and interactive web solutions.
 
-## Project Structure
+🌐 Live Site: [https://sravanpolu.me/](https://sravanpolu.me/)
 
-This project consists of three main sections:
+---
 
-1. **Header**
-2. **Body**
-   1. Hero (Home)
-   2. Work
-   3. Resume
-3. **Footer** (Contact Me)
+## 🚀 Tech Stack
 
+| Tech              | Description                                       |
+| ----------------- | ------------------------------------------------- |
+| **React.js**      | Component-based UI framework for modern SPAs.     |
+| **Tailwind CSS**  | Utility-first CSS for fast and responsive design. |
+| **Framer Motion** | Smooth, elegant animations and transitions.       |
+| **useMediaQuery** | Custom React hook for responsive behavior.        |
 
+---
 
-##### 1.work project and with languages
-  1. CSS
-     Mainly focus on grid and flex media-query and position and animations
-  2. React
-     mainly focus on reat-Hoots and js.
-  3. TypeScript mainly focus on the TypeScript use  to how can avoid bugs like  type . 
+## 📁 Project Structure
 
+---
 
-   
-## My wesite  click [Link] (https://sravanpolu.me/)
+## 🔎 Sections Overview
+
+### 1. 🔝 **Header (Navigation)**
+
+- Sticky navigation bar
+- Responsive design
+- Active link tracking using `IntersectionObserver`
+
+### 2. 📦 **Body**
+
+#### a. 🦸 Hero (Home)
+
+- Animated intro with profile image
+- Typewriter effect for dynamic titles
+- Call-to-action buttons
+
+#### b. 💼 Work
+
+- Projects categorized by language/technology
+- Carousel-based navigation (slide by stack)
+- Hover tooltips and animated transitions
+
+#### c. 📄 Resume
+
+- Live resume preview using `iframe`
+- Buttons for viewing, downloading, and contacting
+
+### 3. 📞 **Footer (Contact Me)**
+
+- Social media links with tooltips and animations
+- Email and LinkedIn info
+- Copyright
+
+---
+
+## 🛠️ Project Categories & Focus
+
+| Tech           | Focus Area                                                            |
+| -------------- | --------------------------------------------------------------------- |
+| **CSS**        | Responsive grid, flexbox, animations, and layout precision            |
+| **React**      | Component structure, hooks (`useState`, `useEffect`, `useMediaQuery`) |
+| **TypeScript** | Type safety, cleaner props, early bug detection                       |
+
+---
+
+## 📌 Features
+
+- ✨ Modern design with smooth animations
+- 💡 Fully responsive (mobile to desktop)
+- ⚡️ Performance optimized
+- 🎯 Scroll tracking for navigation highlight
+- 🖼️ Interactive project previews
+
+---
+
+## 📬 Contact
+
+If you like what you see or want to collaborate:
+
+- ✉️ [sravanpolu.me@gmail.com](mailto:sravanpolu.me@gmail.com)
+- 💼 [LinkedIn](https://www.linkedin.com/in/SravanPolu)
+- 💻 [GitHub](https://github.com/SravanKumarPolu)
+
+---
+
+### 🚀 Built with ❤️ by SravanKumar Polu
