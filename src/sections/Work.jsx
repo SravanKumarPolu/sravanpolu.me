@@ -151,37 +151,45 @@ const Work = () => {
                     </button>
                   </div>
                   <div className="relative ">
-                    <div className="bg-base-100 text-black p-5 rounded-xl shadow-lg transition-transform hover:scale-105">
-                      <img
-                        src={
-                          courses[currentSlide].projects[currentProjectIndex]
-                            .src
-                        }
-                        alt={
-                          courses[currentSlide].projects[currentProjectIndex]
-                            .title
-                        }
-                        className="w-full h-48 object-cover rounded-md mb-4"
-                      />
-                      <h5 className="text-lg font-semibold text-purple-700">
-                        {
-                          courses[currentSlide].projects[currentProjectIndex]
-                            .title
-                        }
-                      </h5>
-                      <a
-                        href={
-                          courses[currentSlide].projects[currentProjectIndex]
-                            .link
-                        }
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 underline hover:text-blue-800 mt-2 block">
-                        {
-                          courses[currentSlide].projects[currentProjectIndex]
-                            .name
-                        }
-                      </a>
+                    <div className="card w-full bg-base-100 shadow-xl hover:shadow-2xl transition">
+                      <figure>
+                        <img
+                          src={
+                            courses[currentSlide].projects[currentProjectIndex]
+                              .src
+                          }
+                          alt={
+                            courses[currentSlide].projects[currentProjectIndex]
+                              .title
+                          }
+                          className="w-full h-48 object-cover rounded-md mb-4"
+                        />
+                      </figure>
+                      <div className="card-body">
+                        <h5 className="text-lg font-semibold text-purple-700">
+                          {
+                            courses[currentSlide].projects[currentProjectIndex]
+                              .title
+                          }
+                        </h5>
+                        <div className="card-actions justify-end">
+                          <a
+                            href={
+                              courses[currentSlide].projects[
+                                currentProjectIndex
+                              ].link
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline hover:text-blue-800 mt-2 block">
+                            {
+                              courses[currentSlide].projects[
+                                currentProjectIndex
+                              ].name
+                            }
+                          </a>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
