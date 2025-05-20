@@ -14,10 +14,9 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="bg-neutral py-16 w-full min-h-screen  items-center justify-center">
-      {/* Wrapping the entire footer in a DaisyUI Card */}
+      className="bg-neutral py-16 w-full min-h-screen items-center justify-center">
       <div className="card bg-base-100 shadow-xl border border-gray-300 w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 rounded-xl sm:rounded-2xl">
-        {/* Footer Grid */}
+        {/* Grid Section */}
         <motion.div
           initial="hidden"
           animate="visible"
@@ -55,8 +54,8 @@ const Footer = () => {
             variants={fadeIn("up", 0.4)}
             className="card bg-base-100 shadow-md border border-gray-300 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl hover:shadow-2xl transition-all duration-700 mx-auto">
             {footerLinks.map((section) => (
-              <div key={section.title} className="mb-4 ">
-                <h4 className="card-title  justify-center pt-6 text-lg font-semibold text-gray-500">
+              <div key={section.title} className="mb-4">
+                <h4 className="card-title justify-center pt-6 text-lg font-semibold text-gray-500">
                   {section.title}
                 </h4>
                 <ul className="card-body">
@@ -84,7 +83,7 @@ const Footer = () => {
           initial="hidden"
           animate="visible"
           className="flex items-center justify-center mt-8">
-          <div className="card bg-base-100 shadow-md border border-gray-300 w-96 h-64 p-6  hover:shadow-2xl transition-all duration-500">
+          <div className="card bg-base-100 shadow-md border border-gray-300 w-96 h-64 p-6 hover:shadow-2xl transition-all duration-500">
             <h4 className="card-title text-gray-500">Follow Me</h4>
             <div className="card-body text-center">
               <div className="flex gap-4 justify-center items-center p-4">
@@ -99,7 +98,6 @@ const Footer = () => {
                     <figure>
                       <img src={icon.src} alt={icon.alt} className="w-8 h-8" />
                     </figure>
-                    {/* Tooltip */}
                     <span className="absolute opacity-0 group-hover:opacity-100 text-xs bg-black text-white rounded px-2 py-1 bottom-[-2.5rem] left-1/2 transform -translate-x-1/2 transition z-30">
                       {icon.name}
                     </span>
@@ -110,7 +108,17 @@ const Footer = () => {
           </div>
         </motion.div>
 
-        {/* Bottom - Copyright */}
+        {/* Theme Toggle + Signature */}
+        <div className="mt-10 flex flex-col justify-center items-center">
+          <div className="text-sm italic text-center text-gray-400">
+            “Every pixel matters. Every interaction counts.” — Sravan Polu
+          </div>
+          <div className="mt-4">
+            <input type="checkbox" className="toggle theme-controller" />
+          </div>
+        </div>
+
+        {/* Copyright */}
         <motion.div
           variants={fadeIn("up", 0.8)}
           initial="hidden"
