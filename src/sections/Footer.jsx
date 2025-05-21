@@ -13,7 +13,7 @@ const fadeIn = (direction = "up", delay = 0.2) => ({
 const Footer = () => {
   return (
     <footer
-      id="footer"
+      id="contact"
       className="bg-neutral py-16 w-full min-h-screen items-center justify-center">
       <div className="card bg-base-100 shadow-xl border border-gray-300 w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 rounded-xl sm:rounded-2xl">
         {/* Grid Section */}
