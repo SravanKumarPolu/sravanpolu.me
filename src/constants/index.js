@@ -30,7 +30,7 @@ export const navLinks = [
   { label: "Home", href: "home" },
   { label: "Work", href: "work" },
   { label: "Resume", href: "resume" },
-  { label: "Footer", href: "footer" },
+  { label: "Contact", href: "contact" },
 ];
 
 export const courses = [
