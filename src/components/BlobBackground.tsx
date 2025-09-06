@@ -1,7 +1,7 @@
 // components/BlobBackground.tsx
 import React from "react";
 
-const BlobBackground: React.FC = () => (
+const BlobBackground: React.FC = React.memo(() => (
   <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
     {/* Top-left blob */}
     <svg
@@ -27,6 +27,8 @@ const BlobBackground: React.FC = () => (
       />
     </svg>
   </div>
-);
+));
+
+BlobBackground.displayName = 'BlobBackground';
 
 export default BlobBackground;

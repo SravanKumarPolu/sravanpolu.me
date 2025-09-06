@@ -7,7 +7,7 @@ interface LinkProps {
   setSelectedPage: (page: string) => void;
 }
 
-const Link: React.FC<LinkProps> = ({ page, selectedPage, setSelectedPage }) => {
+const Link: React.FC<LinkProps> = React.memo(({ page, selectedPage, setSelectedPage }) => {
   const isActive = selectedPage === page;
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
   const pageLink = `#${page.toLowerCase()}`;
@@ -38,6 +38,8 @@ const Link: React.FC<LinkProps> = ({ page, selectedPage, setSelectedPage }) => {
       {page}
     </a>
   );
-};
+});
+
+Link.displayName = 'Link';
 
 export default Link;
