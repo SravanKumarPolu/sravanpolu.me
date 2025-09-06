@@ -6,21 +6,37 @@ import React, { useState } from "react";
 import { courses } from "../constants";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
+import { useHaptic } from "../hooks/useHaptic";
+import { LiveRegion } from "../components/LiveRegion";
 
 
 const Work: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
+  const [announcement, setAnnouncement] = useState('');
   const isDesktop = useMediaQuery("(min-width:1060px)");
+  const { triggerHaptic } = useHaptic();
 
-  const prevSlide = (): void =>
+  const prevSlide = (): void => {
     setCurrentSlide((prev) => (prev === 0 ? courses.length - 1 : prev - 1));
-  const nextSlide = (): void =>
+    triggerHaptic('light');
+    setAnnouncement(`Now viewing ${courses[currentSlide === 0 ? courses.length - 1 : currentSlide - 1]?.courseName || 'Previous technology'} projects`);
+    setTimeout(() => setAnnouncement(''), 1000);
+  };
+  
+  const nextSlide = (): void => {
     setCurrentSlide((prev) => (prev === courses.length - 1 ? 0 : prev + 1));
+    triggerHaptic('light');
+    setAnnouncement(`Now viewing ${courses[currentSlide === courses.length - 1 ? 0 : currentSlide + 1]?.courseName || 'Next technology'} projects`);
+    setTimeout(() => setAnnouncement(''), 1000);
+  };
 
   const changeSlide = (index: number): void => {
     setCurrentSlide(index);
     setCurrentProjectIndex(0);
+    triggerHaptic('light');
+    setAnnouncement(`Now viewing ${courses[index]?.courseName || 'Unknown Technology'} projects`);
+    setTimeout(() => setAnnouncement(''), 1000);
   };
 
   const handleProjectPrev = (): void => {
@@ -48,6 +64,7 @@ const Work: React.FC = () => {
     <section
       id="work"
       className="py-20 bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white">
+      <LiveRegion message={announcement} />
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <motion.div

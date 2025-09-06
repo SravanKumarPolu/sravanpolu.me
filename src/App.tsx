@@ -19,7 +19,27 @@ const App: React.FC = () => {
         <AppProvider>
           <LoadingProvider>
             <FocusProvider>
-              <main className="relative scroll-smooth bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white overflow-x-hidden">
+              <main id="main-content" className="relative scroll-smooth bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white overflow-x-hidden">
+                {/* Skip Links for Accessibility */}
+                <a 
+                  href="#main-content" 
+                  className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-lg z-50 font-medium transition-all duration-200 hover:bg-primary-700"
+                >
+                  Skip to main content
+                </a>
+                <a 
+                  href="#work" 
+                  className="sr-only focus:not-sr-only focus:absolute focus:top-16 focus:left-4 bg-secondary-600 text-white px-4 py-2 rounded-lg z-50 font-medium transition-all duration-200 hover:bg-secondary-700"
+                >
+                  Skip to work section
+                </a>
+                <a 
+                  href="#resume" 
+                  className="sr-only focus:not-sr-only focus:absolute focus:top-28 focus:left-4 bg-accent-600 text-white px-4 py-2 rounded-lg z-50 font-medium transition-all duration-200 hover:bg-accent-700"
+                >
+                  Skip to resume
+                </a>
+                
                 <section className="sticky top-0 z-50">
                   <Nav />
                 </section>

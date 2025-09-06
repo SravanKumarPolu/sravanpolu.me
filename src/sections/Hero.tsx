@@ -5,8 +5,21 @@ import { Typewriter } from "react-simple-typewriter";
 import heroAnimation from "../assets/lottie/hero-animation.json";
 import { motion } from "framer-motion";
 import skr from "../assets/images/skr.png";
+import { useHaptic } from "../hooks/useHaptic";
 
 const Hero: React.FC = () => {
+  const { triggerHaptic } = useHaptic();
+
+  const handleButtonClick = (action: string) => {
+    triggerHaptic('light');
+    // Handle button click actions here
+    if (action === 'Download Resume') {
+      // Add resume download logic
+    } else if (action === 'View Projects') {
+      // Add scroll to projects logic
+    }
+  };
+
   return (
     <section
       id="home"
@@ -54,7 +67,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            className="text-fluid-6xl font-bold mb-golden-lg leading-tight">
             Hi, I'm{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
               Sravan Kumar Polu
@@ -67,7 +80,7 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             className="mb-8">
-            <span className="text-xl sm:text-2xl text-accent-400 font-medium">
+            <span className="text-fluid-xl text-accent-400 font-medium">
               <Typewriter
                 words={[
                   "MERN Stack Developer",
@@ -91,7 +104,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-lg sm:text-xl text-neutral-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+            className="text-fluid-lg text-neutral-300 mb-golden-xl max-w-2xl mx-auto leading-relaxed">
             Passionate about building{" "}
             <span className="text-primary-400 font-semibold">scalable</span>,{" "}
             <span className="text-secondary-400 font-semibold">high-performance</span>, and{" "}

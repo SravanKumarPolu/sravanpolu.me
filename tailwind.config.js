@@ -13,6 +13,17 @@ const config = {
       "3xl": ["28px", "50px"],
       "4xl": ["48px", "58px"],
       "8xl": ["96px", "106px"],
+      // ✅ Fluid Typography System
+      'fluid-xs': 'clamp(0.75rem, 2vw, 0.875rem)',
+      'fluid-sm': 'clamp(0.875rem, 2.5vw, 1rem)',
+      'fluid-base': 'clamp(1rem, 3vw, 1.125rem)',
+      'fluid-lg': 'clamp(1.125rem, 3.5vw, 1.25rem)',
+      'fluid-xl': 'clamp(1.25rem, 4vw, 1.5rem)',
+      'fluid-2xl': 'clamp(1.5rem, 5vw, 2rem)',
+      'fluid-3xl': 'clamp(1.875rem, 6vw, 2.5rem)',
+      'fluid-4xl': 'clamp(2.25rem, 7vw, 3rem)',
+      'fluid-5xl': 'clamp(3rem, 8vw, 4rem)',
+      'fluid-6xl': 'clamp(3.75rem, 10vw, 5rem)',
     },
 
     extend: {
@@ -130,6 +141,13 @@ const config = {
         '2xl': '4rem',     // 64px
         '3xl': '6rem',     // 96px
         '4xl': '8rem',     // 128px
+        // Golden ratio spacing
+        'golden-xs': '0.618rem',    // 10px
+        'golden-sm': '1rem',        // 16px
+        'golden-md': '1.618rem',    // 26px
+        'golden-lg': '2.618rem',    // 42px
+        'golden-xl': '4.236rem',    // 68px
+        'golden-2xl': '6.854rem',   // 110px
       },
 
       // ✅ Custom Breakpoints
