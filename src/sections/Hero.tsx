@@ -25,7 +25,6 @@ const Hero: React.FC = () => {
 
   return (
     <section
-      id="home"
       className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-900 via-primary-900 to-secondary-900 text-white overflow-hidden">
       
       {/* Advanced Parallax Background Layers */}

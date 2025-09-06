@@ -74,7 +74,6 @@ const Work: React.FC = () => {
 
   return (
     <section
-      id="work"
       className="py-20 bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white">
       <div {...swipeHandlers} className="container mx-auto px-6">
         {/* Section Header */}

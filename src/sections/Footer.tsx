@@ -13,7 +13,6 @@ const fadeIn = (direction: string = "up", delay: number = 0.2) => ({
 const Footer: React.FC = () => {
   return (
     <footer
-      id="footer"
       className="bg-neutral-900 text-white py-16">
       <div className="container mx-auto px-6">
         {/* Main Footer Content */}

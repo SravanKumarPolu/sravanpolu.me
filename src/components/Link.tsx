@@ -1,5 +1,6 @@
 import React from "react";
 import { useMediaQuery } from "@react-hook/media-query";
+import { navLinks } from "../constants";
 
 interface LinkProps {
   page: string;
@@ -10,12 +11,28 @@ interface LinkProps {
 const Link: React.FC<LinkProps> = React.memo(({ page, selectedPage, setSelectedPage }) => {
   const isActive = selectedPage === page;
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
-  const pageLink = `#${page.toLowerCase()}`;
+  
+  // Get the correct href from navLinks
+  const navLink = navLinks.find(link => link.label === page);
+  const pageLink = navLink ? `#${navLink.href}` : `#${page.toLowerCase()}`;
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setSelectedPage(page);
+    
+    const targetElement = document.getElementById(navLink?.href || page.toLowerCase());
+    if (targetElement) {
+      targetElement.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   return isAboveMediumScreens ? (
     <a
       href={pageLink}
-      onClick={() => setSelectedPage(page)}
+      onClick={handleClick}
       className={`relative group py-2 px-4 text-lg transition duration-300 font-medium ${
         isActive ? "text-white" : "text-gray-400 hover:text-white"
       }`}>
@@ -29,7 +46,7 @@ const Link: React.FC<LinkProps> = React.memo(({ page, selectedPage, setSelectedP
   ) : (
     <a
       href={pageLink}
-      onClick={() => setSelectedPage(page)}
+      onClick={handleClick}
       className={`block text-center text-base font-medium px-4 py-2 rounded-md ${
         isActive
           ? "text-white bg-gradient-to-r from-indigo-500 to-purple-600"

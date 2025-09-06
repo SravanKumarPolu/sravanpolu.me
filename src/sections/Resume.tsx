@@ -34,7 +34,6 @@ const Resume: React.FC = () => {
 
   return (
     <section
-      id="resume"
       className="py-20 bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-900 dark:to-secondary-900">
       <div className="container mx-auto px-6">
         {/* Section Header */}
@@ -95,6 +94,16 @@ const Resume: React.FC = () => {
                   href="#footer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const footerElement = document.getElementById('footer');
+                    if (footerElement) {
+                      footerElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }
+                  }}
                   className="btn btn-outline btn-lg flex-1 sm:flex-none">
                   Contact Me
                 </motion.a>
