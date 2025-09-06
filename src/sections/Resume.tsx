@@ -2,15 +2,20 @@ import { FiDownload } from "react-icons/fi";
 import React from "react";
 import { motion } from "framer-motion";
 import { useHaptic } from "../hooks/useHaptic";
+import { useAnnouncement } from "../components/AnnouncementSystem";
 import { MagneticCard } from "../components/MagneticCard";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { Button } from "../components/ui/Button";
+import { Card } from "../components/ui/Card";
 
 const Resume: React.FC = () => {
   const { triggerHaptic } = useHaptic();
+  const { announce } = useAnnouncement();
   const { ref: resumeRef, inView } = useScrollAnimation(0.1, true);
 
   const handleDownload = (): void => {
     triggerHaptic('medium');
+    announce('Resume download started', 'polite');
     try {
       const link = document.createElement("a");
       link.href = "/Resume.pdf";
@@ -19,9 +24,11 @@ const Resume: React.FC = () => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      announce('Resume downloaded successfully', 'polite');
     } catch (error) {
       // Fallback: open in new tab
       window.open("/Resume.pdf", "_blank");
+      announce('Resume opened in new tab', 'polite');
     }
   };
 

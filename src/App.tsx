@@ -9,16 +9,18 @@ import { LoadingProvider } from "./contexts/LoadingContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { FocusProvider } from "./contexts/FocusContext";
 import { AppProvider } from "./contexts/AppContext";
+import { AnnouncementProvider } from "./components/AnnouncementSystem";
 import React from "react";
 
 const App: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      <NotificationProvider>
-        <AppProvider>
-          <LoadingProvider>
-            <FocusProvider>
+      <AnnouncementProvider>
+        <NotificationProvider>
+          <AppProvider>
+            <LoadingProvider>
+              <FocusProvider>
               <main id="main-content" className="relative scroll-smooth bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white overflow-x-hidden">
                 {/* Skip Links for Accessibility */}
                 <a 
@@ -63,10 +65,11 @@ const App: React.FC = () => {
               </main>
               
               <NotificationContainer />
-            </FocusProvider>
-          </LoadingProvider>
-        </AppProvider>
-      </NotificationProvider>
+              </FocusProvider>
+            </LoadingProvider>
+          </AppProvider>
+        </NotificationProvider>
+      </AnnouncementProvider>
     </ErrorBoundary>
   );
 };
