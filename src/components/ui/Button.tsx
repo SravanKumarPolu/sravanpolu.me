@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { designTokens } from '../../design-tokens';
 
 interface ButtonProps {
@@ -15,6 +15,9 @@ interface ButtonProps {
   fullWidth?: boolean;
   magnetic?: boolean;
   type?: 'button' | 'submit' | 'reset';
+  ripple?: boolean;
+  glow?: boolean;
+  pulse?: boolean;
 }
 
 const buttonVariants = {
@@ -50,8 +53,62 @@ export const Button: React.FC<ButtonProps> = ({
   iconPosition = 'left',
   fullWidth = false,
   magnetic = false,
-  type = 'button'
+  type = 'button',
+  ripple = false,
+  glow = false,
+  pulse = false
 }) => {
+  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  
+  // Advanced magnetic effect with spring physics
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 150, damping: 15 });
+  const springY = useSpring(mouseY, { stiffness: 150, damping: 15 });
+  
+  const rotateX = useTransform(springY, [-0.5, 0.5], [15, -15]);
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-15, 15]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!magnetic || disabled || loading) return;
+    
+    const rect = buttonRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const distanceX = (e.clientX - centerX) / rect.width;
+    const distanceY = (e.clientY - centerY) / rect.height;
+    
+    mouseX.set(distanceX * 0.3);
+    mouseY.set(distanceY * 0.3);
+  };
+
+  const handleMouseLeave = () => {
+    if (!magnetic) return;
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (ripple && !disabled && !loading) {
+      const rect = buttonRef.current?.getBoundingClientRect();
+      if (rect) {
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const newRipple = { id: Date.now(), x, y };
+        
+        setRipples(prev => [...prev, newRipple]);
+        setTimeout(() => {
+          setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id));
+        }, 600);
+      }
+    }
+    
+    onClick?.();
+  };
   const content = (
     <>
       {loading && (
@@ -75,22 +132,63 @@ export const Button: React.FC<ButtonProps> = ({
     ${buttonVariants.variants.size[size]} 
     ${buttonVariants.variants.variant[variant]} 
     ${fullWidth ? 'w-full' : ''}
+    ${glow ? 'shadow-lg hover:shadow-2xl' : ''}
+    ${pulse ? 'animate-pulse' : ''}
     ${className}
   `.trim();
 
   return (
     <motion.button
+      ref={buttonRef}
       type={type}
-      whileHover={disabled || loading ? {} : { scale: magnetic ? 1.02 : 1.05, y: -1 }}
-      whileTap={disabled || loading ? {} : { scale: 0.98, y: 0 }}
-      onClick={onClick}
+      onClick={handleClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       disabled={disabled || loading}
       className={buttonClasses}
       style={{
         transition: `all ${designTokens.animation.duration.normal} ${designTokens.animation.easing.easeInOut}`,
+        rotateX: magnetic ? rotateX : undefined,
+        rotateY: magnetic ? rotateY : undefined,
+        transformStyle: 'preserve-3d',
+      }}
+      whileHover={disabled || loading ? {} : { 
+        scale: magnetic ? 1.02 : 1.05, 
+        y: -2,
+        transition: { type: "spring", stiffness: 400, damping: 10 }
+      }}
+      whileTap={disabled || loading ? {} : { 
+        scale: 0.98, 
+        y: 0,
+        transition: { type: "spring", stiffness: 400, damping: 10 }
       }}
     >
       {content}
+      
+      {/* Ripple Effects */}
+      {ripples.map((ripple) => (
+        <motion.span
+          key={ripple.id}
+          className="absolute pointer-events-none rounded-full bg-white/30"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            width: 0,
+            height: 0,
+          }}
+          animate={{
+            width: 100,
+            height: 100,
+            x: -50,
+            y: -50,
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 0.6,
+            ease: "easeOut"
+          }}
+        />
+      ))}
     </motion.button>
   );
 };

@@ -3,25 +3,53 @@ import "./App.css";
 
 import Nav from "./components/Nav";
 import LazySection from "./components/LazySection";
-import ErrorBoundary from "./components/ErrorBoundary";
+import ErrorBoundary from "./components/ui/ErrorBoundary";
 import NotificationContainer from "./components/NotificationContainer";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { FocusProvider } from "./contexts/FocusContext";
 import { AppProvider } from "./contexts/AppContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import { AnnouncementProvider } from "./components/AnnouncementSystem";
+import { usePerformanceMonitor, useWebVitals, usePerformanceOptimization } from "./hooks/usePerformanceMonitor";
+import { useAccessibility } from "./hooks/useAccessibility";
 import React from "react";
 
 const App: React.FC = () => {
+  // Performance monitoring
+  usePerformanceMonitor('App', {
+    enableMemoryMonitoring: true,
+    enableFPSMonitoring: true,
+    enableNetworkMonitoring: true
+  });
+  
+  // Web Vitals monitoring
+  useWebVitals();
+  
+  // Performance optimization
+  const { shouldReduceAnimations } = usePerformanceOptimization();
+  
+  // Accessibility features
+  const { shouldReduceMotion, isAccessible } = useAccessibility();
 
   return (
     <ErrorBoundary>
-      <AnnouncementProvider>
-        <NotificationProvider>
-          <AppProvider>
-            <LoadingProvider>
-              <FocusProvider>
-              <main id="main-content" className="relative scroll-smooth bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white overflow-x-hidden">
+      <ThemeProvider>
+        <AnnouncementProvider>
+          <NotificationProvider>
+            <AppProvider>
+              <LoadingProvider>
+                <FocusProvider>
+              <main 
+                id="main-content" 
+                className={`relative scroll-smooth bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white overflow-x-hidden ${
+                  shouldReduceAnimations ? 'reduce-motion' : ''
+                } ${isAccessible ? 'accessibility-enhanced' : ''}`}
+                style={{
+                  '--reduce-motion': shouldReduceMotion ? '1' : '0',
+                  '--accessibility-enhanced': isAccessible ? '1' : '0'
+                } as React.CSSProperties}
+              >
                 {/* Skip Links for Accessibility */}
                 <a 
                   href="#main-content" 
@@ -65,11 +93,12 @@ const App: React.FC = () => {
               </main>
               
               <NotificationContainer />
-              </FocusProvider>
-            </LoadingProvider>
-          </AppProvider>
-        </NotificationProvider>
-      </AnnouncementProvider>
+                </FocusProvider>
+              </LoadingProvider>
+            </AppProvider>
+          </NotificationProvider>
+        </AnnouncementProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 };

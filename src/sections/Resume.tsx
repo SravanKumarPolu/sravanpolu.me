@@ -5,8 +5,8 @@ import { useHaptic } from "../hooks/useHaptic";
 import { useAnnouncement } from "../components/AnnouncementSystem";
 import { MagneticCard } from "../components/MagneticCard";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import { Button } from "../components/ui/Button";
-import { Card } from "../components/ui/Card";
+// import { Button } from "../components/ui/Button";
+// import { Card } from "../components/ui/Card";
 
 const Resume: React.FC = () => {
   const { triggerHaptic } = useHaptic();
