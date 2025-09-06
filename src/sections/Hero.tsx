@@ -1,4 +1,3 @@
-import BlobBackground from "../components/BlobBackground";
 import DownArrow from "../components/DownArrow";
 import Lottie from "lottie-react";
 import React from "react";
@@ -11,49 +10,70 @@ const Hero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative flex flex-col items-center justify-center min-h-screen w-full py-14 gap-10 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white px-4 overflow-hidden">
-      {/* Background Effects */}
-      <BlobBackground />
-
+      className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-900 via-primary-900 to-secondary-900 text-white overflow-hidden">
+      
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-40">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat'
+        }} />
+      </div>
+      
+      {/* Subtle Lottie animation */}
       <Lottie
         animationData={heroAnimation}
         loop
-        className="absolute bottom-0 right-0 w-72 sm:w-96 opacity-60 z-0 pointer-events-none"
+        className="absolute bottom-0 right-0 w-64 sm:w-80 opacity-20 z-0 pointer-events-none"
       />
 
-      {/* Profile Card */}
-      <div className="p-[2px] rounded-3xl mt-10 bg-gradient-to-r from-teal-500 via-purple-500 to-pink-500 z-10">
-        <div className="bg-gray-900 rounded-3xl p-6">
+      <div className="relative z-10 container mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-4xl mx-auto">
+          
+          {/* Profile Image */}
           <motion.div
-            className="flex flex-col items-center text-center shadow-xl"
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="mb-8">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full border-4 border-white/20 shadow-2xl overflow-hidden bg-gradient-to-br from-primary-500 to-secondary-500 p-1">
+              <img
+                src={skr}
+                alt="Sravan Kumar Polu"
+                className="w-full h-full rounded-full object-cover"
+              />
+            </div>
+          </motion.div>
+
+          {/* Main Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}>
-            <motion.img
-              src={skr}
-              alt="Sravan Kumar Polu"
-              className=" w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-full border-4 border-white shadow-lg hover:scale-105 transition-transform duration-300"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-            />
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            Hi, I'm{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
+              Sravan Kumar Polu
+            </span>
+          </motion.h1>
 
-            <motion.h1
-              className="mt-6 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}>
-              Hi, 👋 I'm{" "}
-              <span className="text-green-400">Sravan Kumar Polu</span>
-            </motion.h1>
-
-            <span className="block mt-2 text-green-300 text-xl sm:text-2xl font-semibold transition-colors duration-300">
+          {/* Typewriter Effect */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mb-8">
+            <span className="text-xl sm:text-2xl text-accent-400 font-medium">
               <Typewriter
                 words={[
                   "MERN Stack Developer",
                   "React Specialist",
-                  "Freelance Ready",
-                  "Real-Time App Enthusiast",
+                  "Full-Stack Engineer",
+                  "UI/UX Enthusiast",
                   "Available for Freelance",
                 ]}
                 loop
@@ -64,76 +84,63 @@ const Hero: React.FC = () => {
                 delaySpeed={2000}
               />
             </span>
-
-            <motion.p
-              className="mt-3 text-lg sm:text-xl text-gray-300 font-light leading-relaxed max-w-lg"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}>
-              MERN Stack Developer passionate about{" "}
-              <span className="text-green-400">
-                scalable, high-performance,
-              </span>{" "}
-              and <span className="text-blue-400">user-friendly</span> web
-              applications.
-            </motion.p>
           </motion.div>
-        </div>
-      </div>
 
-      {/* Tagline */}
-      <motion.div
-        className="w-full max-w-2xl text-center text-lg sm:text-xl text-gray-400 italic z-10"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}>
-        <p className="hover:text-gray-200 transition duration-300">
-          "Building scalable web solutions with MERN Stack—one project at a
-          time." 🚀
-        </p>
-      </motion.div>
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="text-lg sm:text-xl text-neutral-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Passionate about building{" "}
+            <span className="text-primary-400 font-semibold">scalable</span>,{" "}
+            <span className="text-secondary-400 font-semibold">high-performance</span>, and{" "}
+            <span className="text-accent-400 font-semibold">user-friendly</span> web applications.
+          </motion.p>
 
-      {/* Current Project */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="mt-4 text-sm sm:text-base text-gray-400 font-medium z-10">
-        <span>Currently building: </span>
-        <a
-          href="https://skr-e-commerce.netlify.app/"
-          className="text-blue-400 hover:underline font-semibold"
-          target="_blank"
-          rel="noopener noreferrer">
-          E-commerce Store
-        </a>
-        <span className="badge badge-accent badge-outline ml-2">
-          MERN Stack
-        </span>
-      </motion.div>
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <motion.a
+              href="#work"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn btn-primary btn-lg px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+              View Portfolio
+              <DownArrow />
+            </motion.a>
 
-      {/* CTA Buttons */}
-      <div className="flex flex-wrap justify-center gap-6 mt-6 z-10">
-        <motion.a
-          href="#work"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="btn btn-outline btn-success gap-2 text-lg font-semibold shadow-md transition-all duration-300">
-          View Portfolio 🚀
-          <span className="animate-bounce">
-            <DownArrow />
-          </span>
-        </motion.a>
+            <motion.a
+              href="#footer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn btn-outline btn-lg px-8 py-3 text-lg font-semibold border-2 border-white/30 hover:border-white/60 hover:bg-white/10 transition-all duration-300">
+              Contact Me
+            </motion.a>
+          </motion.div>
 
-        <motion.a
-          href="#footer"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="btn btn-outline btn-info gap-2 text-lg font-semibold shadow-md transition-all duration-300">
-          Contact Me 📩
-          <span className="animate-bounce">
-            <DownArrow />
-          </span>
-        </motion.a>
+          {/* Current Project */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+            className="text-sm sm:text-base text-neutral-400">
+            <span>Currently building: </span>
+            <a
+              href="https://skr-e-commerce.netlify.app/"
+              className="text-primary-400 hover:text-primary-300 font-semibold transition-colors"
+              target="_blank"
+              rel="noopener noreferrer">
+              E-commerce Store
+            </a>
+            <span className="badge badge-accent badge-outline ml-2">
+              MERN Stack
+            </span>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

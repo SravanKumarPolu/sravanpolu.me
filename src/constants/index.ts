@@ -2,7 +2,7 @@ import bootstrap from "../assets/icons/bootstrap.svg";
 import buyMeImg from "../assets/images/buy-me.png";
 import cardImg from "../assets/images/card.png";
 import css from "../assets/icons/css.svg";
-import cubeImag from "../assets/images/cubedemo.png";
+import cubeImg from "../assets/images/cubedemo.png";
 import downArrow from "../assets/icons/downArrow.svg";
 import dropboxImg from "../assets/images/dropbox.png";
 import github from "../assets/icons/github.svg";
@@ -105,7 +105,7 @@ export const courses = [
         link: "https://stripedemo1.netlify.app/",
       },
       {
-        src: cubeImag,
+        src: cubeImg,
         title: "Animation",
         name: "3DCube",
         link: "https://sravan-cubedemo.netlify.app/",

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useRef, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useRef, useEffect, useCallback, ReactNode } from 'react';
 
 interface FocusContextType {
   registerFocusableElement: (id: string, element: HTMLElement) => void;
@@ -44,19 +44,19 @@ export const FocusProvider: React.FC<FocusProviderProps> = ({ children }) => {
     return Array.from(focusableElements.current.values());
   };
 
-  const focusNext = () => {
+  const focusNext = useCallback(() => {
     const elements = getFocusableElements();
     const currentIndex = elements.findIndex(el => el === document.activeElement);
     const nextIndex = (currentIndex + 1) % elements.length;
     elements[nextIndex]?.focus();
-  };
+  }, []);
 
-  const focusPrevious = () => {
+  const focusPrevious = useCallback(() => {
     const elements = getFocusableElements();
     const currentIndex = elements.findIndex(el => el === document.activeElement);
     const prevIndex = currentIndex === 0 ? elements.length - 1 : currentIndex - 1;
     elements[prevIndex]?.focus();
-  };
+  }, []);
 
   const focusFirst = () => {
     const elements = getFocusableElements();
@@ -83,7 +83,7 @@ export const FocusProvider: React.FC<FocusProviderProps> = ({ children }) => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [focusNext, focusPrevious]);
 
   return (
     <FocusContext.Provider

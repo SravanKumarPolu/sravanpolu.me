@@ -1,5 +1,5 @@
 import React from 'react';
-import { Notification, useNotification } from '../contexts/NotificationContext';
+import { Notification } from '../contexts/NotificationContext';
 import { getAriaLabel } from '../utils/accessibility';
 
 interface NotificationToastProps {

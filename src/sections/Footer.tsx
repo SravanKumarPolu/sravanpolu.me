@@ -14,9 +14,9 @@ const Footer: React.FC = () => {
   return (
     <footer
       id="footer"
-      className="bg-neutral py-16 w-full min-h-screen items-center justify-center">
-      <div className="card bg-base-100 shadow-xl border border-gray-300 w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 rounded-xl sm:rounded-2xl">
-        {/* Grid Section */}
+      className="bg-neutral-900 text-white py-16">
+      <div className="container mx-auto px-6">
+        {/* Main Footer Content */}
         <motion.div
           initial="hidden"
           animate="visible"
@@ -24,108 +24,109 @@ const Footer: React.FC = () => {
             hidden: { opacity: 0 },
             visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
           }}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-12 place-items-center">
-          {/* Logo & About */}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-12">
+          
+          {/* About Section */}
           <motion.div
             variants={fadeIn("up", 0.2)}
-            className="card bg-base-100 shadow-md border border-gray-300 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl hover:shadow-2xl transition-all duration-700 mx-auto">
-            <figure className="pt-6">
-              <a href="/">
-                <img
-                  src={footerLogo}
-                  alt="footer logo"
-                  className="w-24 h-24 rounded-full border-4 border-primary shadow-lg transition-transform hover:scale-110 hover:border-accent"
-                />
-              </a>
-            </figure>
-            <div className="card-body text-center px-4 sm:px-6 md:px-8">
-              <h4 className="card-title text-lg font-semibold text-gray-500">
-                About Me
-              </h4>
-              <p className="text-gray-600">
-                Showcasing my journey as a developer through projects and
-                innovations.
-              </p>
+            className="text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-4 mb-6">
+              <img
+                src={footerLogo}
+                alt="Sravan Kumar Polu"
+                className="w-16 h-16 rounded-full border-2 border-primary-500 shadow-lg"
+              />
+              <div>
+                <h3 className="text-xl font-bold text-white">Sravan Kumar Polu</h3>
+                <p className="text-neutral-400">MERN Stack Developer</p>
+              </div>
             </div>
+            <p className="text-neutral-300 leading-relaxed">
+              Passionate about building scalable, high-performance web applications 
+              with modern technologies. Always learning and growing in the ever-evolving 
+              world of web development.
+            </p>
           </motion.div>
 
-          {/* Links */}
+          {/* Contact Links */}
           <motion.div
             variants={fadeIn("up", 0.4)}
-            className="card bg-base-100 shadow-md border border-gray-300 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl hover:shadow-2xl transition-all duration-700 mx-auto">
-            {footerLinks.map((section) => (
-              <div key={section.title} className="mb-4">
-                <h4 className="card-title justify-center pt-6 text-lg font-semibold text-gray-500">
-                  {section.title}
-                </h4>
-                <ul className="card-body">
-                  {section.links.map((link) => (
-                    <li
-                      key={link.name}
-                      className="text-gray-400 hover:text-accent transition mb-2">
-                      <a
-                        href={link.link}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            className="text-center md:text-left">
+            <h4 className="text-lg font-semibold text-white mb-6">Get in Touch</h4>
+            <div className="space-y-3">
+              {footerLinks[0].links.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-neutral-300 hover:text-primary-400 transition-colors duration-300">
+                  {link.name}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Social Media */}
+          <motion.div
+            variants={fadeIn("up", 0.6)}
+            className="text-center md:text-left">
+            <h4 className="text-lg font-semibold text-white mb-6">Follow Me</h4>
+            <div className="flex justify-center md:justify-start gap-4">
+              {socialMedia.map((icon) => (
+                <motion.a
+                  key={icon.name}
+                  href={icon.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative group p-3 bg-neutral-800 rounded-full hover:bg-primary-600 transition-all duration-300"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}>
+                  <img 
+                    src={icon.src} 
+                    alt={icon.alt} 
+                    className="w-6 h-6 filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all duration-300" 
+                  />
+                  <span className="absolute opacity-0 group-hover:opacity-100 text-xs bg-white text-neutral-900 rounded px-2 py-1 bottom-[-2.5rem] left-1/2 transform -translate-x-1/2 transition-all duration-300 z-30 whitespace-nowrap">
+                    {icon.name}
+                  </span>
+                </motion.a>
+              ))}
+            </div>
           </motion.div>
         </motion.div>
 
-        {/* Social Media */}
-        <motion.div
-          variants={fadeIn("up", 0.6)}
-          initial="hidden"
-          animate="visible"
-          className="flex items-center justify-center mt-8">
-          <div className="card bg-base-100 shadow-md border border-gray-300 w-96 h-64 p-6 hover:shadow-2xl transition-all duration-500">
-            <h4 className="card-title text-gray-500">Follow Me</h4>
-            <div className="card-body text-center">
-              <div className="flex gap-4 justify-center items-center p-4">
-                {socialMedia.map((icon) => (
-                  <motion.a
-                    key={icon.name}
-                    href={icon.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative group p-3 bg-white rounded-full shadow-md transition hover:bg-blue-500"
-                    whileHover={{ scale: 1.1 }}>
-                    <figure>
-                      <img src={icon.src} alt={icon.alt} className="w-8 h-8" />
-                    </figure>
-                    <span className="absolute opacity-0 group-hover:opacity-100 text-xs bg-black text-white rounded px-2 py-1 bottom-[-2.5rem] left-1/2 transform -translate-x-1/2 transition z-30">
-                      {icon.name}
-                    </span>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Theme Toggle + Signature */}
-        <div className="mt-10 flex flex-col justify-center items-center">
-          <div className="text-sm italic text-center text-gray-400">
-            "Every pixel matters. Every interaction counts." — Sravan Polu
-          </div>
-          <div className="mt-4">
-            <input type="checkbox" className="toggle theme-controller" />
-          </div>
-        </div>
-
-        {/* Copyright */}
+        {/* Quote Section */}
         <motion.div
           variants={fadeIn("up", 0.8)}
           initial="hidden"
           animate="visible"
-          className="flex flex-col sm:flex-row justify-center items-center gap-2 mt-10 pt-6 border-t border-gray-700 text-center">
-          <img src={copyrightSign} alt="Copyright" width={20} height={20} />
-          <p className="text-gray-400 text-sm">© 2024 All Rights Reserved.</p>
+          className="text-center mb-12">
+          <blockquote className="text-lg italic text-neutral-300 max-w-2xl mx-auto">
+            "Every pixel matters. Every interaction counts. Building digital experiences 
+            that make a difference."
+          </blockquote>
+          <cite className="text-sm text-neutral-400 mt-2 block">— Sravan Kumar Polu</cite>
+        </motion.div>
+
+        {/* Bottom Section */}
+        <motion.div
+          variants={fadeIn("up", 1.0)}
+          initial="hidden"
+          animate="visible"
+          className="border-t border-neutral-700 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-2 text-neutral-400 text-sm">
+              <img src={copyrightSign} alt="Copyright" width={16} height={16} />
+              <span>© 2024 Sravan Kumar Polu. All rights reserved.</span>
+            </div>
+            
+            <div className="flex items-center gap-4 text-sm text-neutral-400">
+              <span>Built with</span>
+              <span className="text-red-500">❤️</span>
+              <span>using React & Tailwind CSS</span>
+            </div>
+          </div>
         </motion.div>
       </div>
     </footer>

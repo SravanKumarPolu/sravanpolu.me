@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { navLinks } from "../constants";
 import { useMediaQuery } from "@react-hook/media-query";
 import { useApp } from "../contexts/AppContext";
-import { useKeyboardNavigation, useFocusManagement } from "../hooks/useKeyboardNavigation";
+import { useKeyboardNavigation } from "../hooks/useKeyboardNavigation";
 import { getAriaLabel, getRoleDescription } from "../utils/accessibility";
 import ThemeToggle from "./ThemeToggle";
 // Using simple SVG icons instead of react-icons
@@ -15,14 +15,12 @@ const Nav: React.FC = () => {
     isNavOpen, 
     activeLink, 
     isTopOfPage,
-    toggleTheme,
     toggleNav,
     setActiveLink 
   } = useApp();
   
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
   const navRef = useRef<HTMLElement>(null);
-  const { focusFirstElement } = useFocusManagement();
 
   // Keyboard navigation
   useKeyboardNavigation({
@@ -64,10 +62,10 @@ const Nav: React.FC = () => {
 
   // Dynamic styles
   const navbarStyle = isTopOfPage
-    ? "bg-transparent border-b border-white/10 backdrop-blur-md border-b border-white/10 shadow-lg shadow-cyan-500/50"
+    ? "bg-transparent border-b border-white/10 backdrop-blur-md shadow-lg shadow-cyan-500/50"
     : isDarkMode
-    ? "bg-gradient-to-r from-[#1f1c2c]/90 via-emerald-700 to-[#1f1c2c]/90 shadow-lg shadow-emerald-400/50 border-b border-white/10 backdrop-blur-md "
-    : "bg-gradient-to-r from-emerald-500 via-[#1f1c2c] to-fuchsia-700 shadow-lg shadow-green-300/50 border-b border-gray-300 backdrop-blur-md ";
+    ? "bg-gradient-to-r from-neutral-800/90 via-primary-800 to-secondary-800 shadow-lg shadow-primary-400/50 border-b border-white/10 backdrop-blur-md"
+    : "bg-gradient-to-r from-primary-500 via-neutral-800 to-secondary-500 shadow-lg shadow-primary-300/50 border-b border-neutral-300 backdrop-blur-md";
 
   return (
     <nav

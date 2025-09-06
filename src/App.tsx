@@ -12,30 +12,32 @@ import { AppProvider } from "./contexts/AppContext";
 import React from "react";
 
 const App: React.FC = () => {
+
   return (
     <ErrorBoundary>
-      <AppProvider>
-        <NotificationProvider>
+      <NotificationProvider>
+        <AppProvider>
           <LoadingProvider>
             <FocusProvider>
-              <main className="relative scroll-smooth bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white overflow-x-hidden">
+              <main className="relative scroll-smooth bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white overflow-x-hidden">
                 <section className="sticky top-0 z-50">
                   <Nav />
                 </section>
 
-                <section id="home" role="region" aria-label="Hero section">
+
+                <section id="home" aria-label="Hero section">
                   <LazySection sectionName="hero" />
                 </section>
 
-                <section id="work" role="region" aria-label="Work and projects section">
+                <section id="work" aria-label="Work and projects section">
                   <LazySection sectionName="work" />
                 </section>
 
-                <section id="resume" role="region" aria-label="Resume and skills section">
+                <section id="resume" aria-label="Resume and skills section">
                   <LazySection sectionName="resume" />
                 </section>
 
-                <section id="footer" role="region" aria-label="Contact and footer section">
+                <section id="footer" aria-label="Contact and footer section">
                   <LazySection sectionName="footer" />
                 </section>
               </main>
@@ -43,8 +45,8 @@ const App: React.FC = () => {
               <NotificationContainer />
             </FocusProvider>
           </LoadingProvider>
-        </NotificationProvider>
-      </AppProvider>
+        </AppProvider>
+      </NotificationProvider>
     </ErrorBoundary>
   );
 };

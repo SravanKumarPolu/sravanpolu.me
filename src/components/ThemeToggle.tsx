@@ -39,7 +39,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
   // Focus management
   useEffect(() => {
     if (buttonRef.current) {
-      buttonRef.current.setAttribute('aria-pressed', isDarkMode.toString());
+      buttonRef.current.setAttribute('aria-checked', isDarkMode.toString());
     }
   }, [isDarkMode]);
 
@@ -60,7 +60,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
         group
       `}
       aria-label={getAriaLabel('toggle-theme')}
-      aria-pressed={isDarkMode}
+      aria-checked={isDarkMode}
       role="switch"
       tabIndex={0}
     >
