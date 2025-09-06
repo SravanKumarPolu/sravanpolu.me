@@ -123,7 +123,7 @@ const Footer: React.FC = () => {
             <div className="flex items-center gap-4 text-sm text-neutral-400">
               <span>Built with</span>
               <span className="text-red-500">❤️</span>
-              <span>using React & Tailwind CSS</span>
+              <span>using React & TypeScript & Tailwind CSS</span>
             </div>
           </div>
         </motion.div>

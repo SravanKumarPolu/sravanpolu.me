@@ -79,7 +79,7 @@ const ContactForm: React.FC = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="w-full max-w-2xl mx-auto"
+      className="w-full max-w-2xl mx-auto py-16 sm:py-20 md:py-24"
     >
       <motion.div variants={itemVariants} className="text-center mb-8">
         <h2 className="text-3xl font-bold text-white mb-4">

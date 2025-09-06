@@ -106,7 +106,7 @@ const getSkeletonForSection = (sectionName: string): React.ReactNode => {
       );
     case 'contact':
       return (
-        <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+        <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <SkeletonLoader variant="rectangular" height={40} width={300} className="mx-auto mb-4 rounded-lg" />

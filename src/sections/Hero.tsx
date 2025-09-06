@@ -99,7 +99,7 @@ const Hero: React.FC = () => {
         <ThemeSelector size="lg" />
       </div>
 
-      <div ref={heroRef} className="relative z-10 container mx-auto px-6 text-center">
+      <div ref={heroRef} className="relative z-10 container mx-auto px-4 sm:px-6 text-center pt-16 sm:pt-20">
         <motion.div
           initial={{ opacity: 0, y: 50, rotateX: 15 }}
           animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
@@ -158,7 +158,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-fluid-6xl font-bold mb-golden-lg leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 md:mb-8 leading-tight"
             style={{
               color: '#ffffff',
               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 0, 0, 0.4)',
@@ -166,10 +166,10 @@ const Hero: React.FC = () => {
             }}>
             Hi, I'm{" "}
             <span 
-              className="text-blue-high-contrast"
+              className="text-blue-high-contrast block sm:inline"
               style={{
-                color: '#60a5fa',
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(96, 165, 250, 0.4)',
+                color: '#ffffff',
+                textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 12px rgba(96, 165, 250, 0.8), 0 0 24px rgba(96, 165, 250, 0.6)',
                 fontWeight: '900'
               }}>
               Sravan Kumar Polu
@@ -181,9 +181,9 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="mb-8">
+            className="mb-6 sm:mb-8">
             <span 
-              className="text-fluid-xl font-medium"
+              className="text-lg sm:text-xl md:text-2xl font-medium"
               style={{
                 color: '#ec4899',
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(236, 72, 153, 0.4)',
@@ -197,12 +197,16 @@ const Hero: React.FC = () => {
                   "UI/UX Enthusiast",
                   "Available for Freelance",
                 ]}
-                loop
-                cursor
+                loop={true}
+                cursor={true}
                 cursorStyle="|"
                 typeSpeed={70}
                 deleteSpeed={50}
                 delaySpeed={2000}
+                onLoopDone={() => {}}
+                onType={() => {}}
+                onDelete={() => {}}
+                onDelay={() => {}}
               />
             </span>
           </motion.div>
@@ -212,11 +216,28 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-fluid-lg text-neutral-300 mb-golden-xl max-w-2xl mx-auto leading-relaxed">
+            className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed px-4"
+            style={{
+              color: '#ffffff',
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
+              fontWeight: '500'
+            }}>
             Passionate about building{" "}
-            <span className="text-primary-400 font-semibold">scalable</span>,{" "}
-            <span className="text-secondary-400 font-semibold">high-performance</span>, and{" "}
-            <span className="text-accent-400 font-semibold">user-friendly</span> web applications.
+            <span 
+              className="font-semibold"
+              style={{ color: '#60a5fa', textShadow: '0 0 8px rgba(96, 165, 250, 0.6)' }}>
+              scalable
+            </span>,{" "}
+            <span 
+              className="font-semibold"
+              style={{ color: '#ec4899', textShadow: '0 0 8px rgba(236, 72, 153, 0.6)' }}>
+              high-performance
+            </span>, and{" "}
+            <span 
+              className="font-semibold"
+              style={{ color: '#10b981', textShadow: '0 0 8px rgba(16, 185, 129, 0.6)' }}>
+              user-friendly
+            </span> web applications.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -224,7 +245,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-6 sm:mb-8 px-4">
             <Button
               variant="primary"
               size="lg"
@@ -235,7 +256,7 @@ const Hero: React.FC = () => {
               magnetic={true}
               ripple={true}
               glow={true}
-              className="px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600"
+              className="px-6 sm:px-8 py-3 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 w-full sm:w-auto"
             >
               View Portfolio
               <DownArrow />
@@ -246,11 +267,11 @@ const Hero: React.FC = () => {
               size="lg"
               onClick={() => {
                 triggerHaptic('light');
-                document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
               magnetic={true}
               ripple={true}
-              className="px-8 py-3 text-lg font-semibold border-2 border-white/30 hover:border-white/60 hover:bg-white/10 backdrop-blur-sm"
+              className="px-6 sm:px-8 py-3 text-base sm:text-lg font-semibold border-2 border-white/30 hover:border-white/60 hover:bg-white/10 backdrop-blur-sm w-full sm:w-auto"
             >
               Contact Me
             </Button>
@@ -261,16 +282,31 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.2 }}
-            className="text-sm sm:text-base text-neutral-400">
+            className="text-xs sm:text-sm md:text-base px-4"
+            style={{
+              color: '#ffffff',
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
+            }}>
             <span>Currently building: </span>
             <a
               href="https://skr-e-commerce.netlify.app/"
-              className="text-primary-400 hover:text-primary-300 font-semibold transition-colors"
+              className="font-semibold transition-colors"
+              style={{
+                color: '#60a5fa',
+                textShadow: '0 0 8px rgba(96, 165, 250, 0.6)'
+              }}
               target="_blank"
               rel="noopener noreferrer">
               E-commerce Store
             </a>
-            <span className="badge badge-accent badge-outline ml-2">
+            <span 
+              className="ml-2 px-3 py-1 rounded-full text-xs font-medium border"
+              style={{
+                backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                color: '#10b981',
+                borderColor: 'rgba(16, 185, 129, 0.3)',
+                textShadow: '0 0 4px rgba(16, 185, 129, 0.4)'
+              }}>
               MERN Stack
             </span>
           </motion.div>
