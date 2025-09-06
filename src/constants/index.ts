@@ -1,6 +1,8 @@
 import bootstrap from "../assets/icons/bootstrap.svg";
+import boostllyImg from "../assets/images/boostlly.png";
 import buyMeImg from "../assets/images/buy-me.png";
 import cardImg from "../assets/images/card.png";
+import chronobloomImg from "../assets/images/chronobloom.png";
 import css from "../assets/icons/css.svg";
 import cubeImg from "../assets/images/cubedemo.png";
 import downArrow from "../assets/icons/downArrow.svg";
@@ -11,6 +13,7 @@ import html from "../assets/icons/html.svg";
 import js from "../assets/icons/js.svg";
 import linkedIn from "../assets/icons/linkedIn.svg";
 import netflixImg from "../assets/images/NetFlixDemo.png";
+import nextjs from "../assets/icons/nextjs.svg";
 import nikeImg from "../assets/images/NikeDemo.png";
 import otpImg from "../assets/images/otp.png";
 import quizletImg from "../assets/images/quizlet.png";
@@ -35,6 +38,25 @@ export const navLinks = [
 ];
 
 export const courses = [
+  {
+    courseName: "Next.js",
+    projects: [
+      {
+        src: chronobloomImg,
+        title: "chronobloom",
+        name: "ChronoBloom",
+        link: "https://chronobloom.netlify.app/",
+      },
+      {
+        src: boostllyImg,
+        title: "boostlly",
+        name: "Boostlly",
+        link: "https://boostlly.netlify.app/",
+      },
+    ],
+    language: [{ src: nextjs, alt: "Next.js logo", name: "Next.js" }],
+    summary: " This project mainly focused on Next.js framework",
+  },
   {
     courseName: "TypeScript",
     projects: [
@@ -61,6 +83,7 @@ export const courses = [
     language: [{ src: typescript, alt: "TypeScript logo", name: "TypeScript" }],
     summary: " This project mainly focused on TypeScript",
   },
+ 
   {
     courseName: "React",
     projects: [
