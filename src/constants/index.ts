@@ -33,6 +33,7 @@ export const assets = {
 export const navLinks = [
   { label: "Home", href: "home" },
   { label: "Work", href: "work" },
+  { label: "Analytics", href: "analytics" },
   { label: "Resume", href: "resume" },
   { label: "Contact", href: "footer" },
 ];

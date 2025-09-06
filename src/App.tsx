@@ -64,8 +64,14 @@ const App: React.FC = () => {
                   Skip to work section
                 </a>
                 <a 
-                  href="#resume" 
+                  href="#analytics" 
                   className="sr-only focus:not-sr-only focus:absolute focus:top-28 focus:left-4 bg-accent-600 text-white px-4 py-2 rounded-lg z-50 font-medium transition-all duration-200 hover:bg-accent-700"
+                >
+                  Skip to analytics
+                </a>
+                <a 
+                  href="#resume" 
+                  className="sr-only focus:not-sr-only focus:absolute focus:top-40 focus:left-4 bg-accent-600 text-white px-4 py-2 rounded-lg z-50 font-medium transition-all duration-200 hover:bg-accent-700"
                 >
                   Skip to resume
                 </a>
@@ -81,6 +87,10 @@ const App: React.FC = () => {
 
                 <section id="work" aria-label="Work and projects section">
                   <LazySection sectionName="work" />
+                </section>
+
+                <section id="analytics" aria-label="Data analytics and visualizations section">
+                  <LazySection sectionName="analytics" />
                 </section>
 
                 <section id="resume" aria-label="Resume and skills section">

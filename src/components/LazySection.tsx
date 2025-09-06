@@ -5,6 +5,7 @@ import SectionErrorBoundary from './SectionErrorBoundary';
 // Lazy load sections
 const LazyHero = lazy(() => import('../sections/Hero'));
 const LazyWork = lazy(() => import('../sections/Work'));
+const LazyAnalytics = lazy(() => import('../sections/DataAnalytics'));
 const LazyResume = lazy(() => import('../sections/Resume'));
 const LazyFooter = lazy(() => import('../sections/Footer'));
 
@@ -30,6 +31,25 @@ const getSkeletonForSection = (sectionName: string): React.ReactNode => {
                   <SkeletonProjectCard />
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+      );
+    case 'analytics':
+      return (
+        <section className="py-20 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <SkeletonLoader variant="rectangular" height={40} width={300} className="mx-auto mb-4 rounded-lg" />
+              <SkeletonLoader variant="rectangular" height={20} width={500} className="mx-auto rounded-lg" />
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+              <SkeletonLoader variant="rectangular" height={400} className="rounded-xl" />
+              <SkeletonLoader variant="rectangular" height={400} className="rounded-xl" />
+            </div>
+            <div className="space-y-8">
+              <SkeletonLoader variant="rectangular" height={350} className="rounded-xl" />
+              <SkeletonLoader variant="rectangular" height={400} className="rounded-xl" />
             </div>
           </div>
         </section>
@@ -74,6 +94,8 @@ const LazySection: React.FC<LazySectionProps> = ({ sectionName, fallback }) => {
         return LazyHero;
       case 'work':
         return LazyWork;
+      case 'analytics':
+        return LazyAnalytics;
       case 'resume':
         return LazyResume;
       case 'footer':
