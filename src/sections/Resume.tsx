@@ -6,12 +6,19 @@ import { motion } from "framer-motion";
 
 const Resume: React.FC = () => {
   const handleDownload = (): void => {
-    const link = document.createElement("a");
-    link.href = "/Resume.pdf";
-    link.download = "Resume.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+      const link = document.createElement("a");
+      link.href = "/Resume.pdf";
+      link.download = "Sravan_Kumar_Polu_Resume.pdf";
+      link.target = "_blank";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading resume:", error);
+      // Fallback: open in new tab
+      window.open("/Resume.pdf", "_blank");
+    }
   };
 
   return (

@@ -8,8 +8,14 @@ import { courses } from "../constants";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
 
+interface Language {
+  src: string;
+  alt: string;
+  name: string;
+}
+
 const Work: React.FC = () => {
-  const [hoveredIcon, setHoveredIcon] = useState<any>(null);
+  const [hoveredIcon, setHoveredIcon] = useState<Language | null>(null);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
   const isDesktop = useMediaQuery("(min-width:1060px)");
@@ -25,14 +31,20 @@ const Work: React.FC = () => {
   };
 
   const handleProjectPrev = (): void => {
-    const projects = courses[currentSlide].projects;
+    const currentCourse = courses[currentSlide];
+    if (!currentCourse || !currentCourse.projects || currentCourse.projects.length === 0) return;
+    
+    const projects = currentCourse.projects;
     setCurrentProjectIndex((prev) =>
       prev === 0 ? projects.length - 1 : prev - 1
     );
   };
 
   const handleProjectNext = (): void => {
-    const projects = courses[currentSlide].projects;
+    const currentCourse = courses[currentSlide];
+    if (!currentCourse || !currentCourse.projects || currentCourse.projects.length === 0) return;
+    
+    const projects = currentCourse.projects;
     setCurrentProjectIndex((prev) =>
       prev === projects.length - 1 ? 0 : prev + 1
     );
@@ -81,16 +93,16 @@ const Work: React.FC = () => {
                   <div className="relative flex items-center ">
                     <div className="w-3 h-3 bg-yellow-300 border-2 border-red-400 rounded-full -ml-3 mr-3 shadow-md" />
                     <img
-                      src={course.language[0].src}
-                      alt={course.language[0].alt}
+                      src={course.language?.[0]?.src || "/placeholder.png"}
+                      alt={course.language?.[0]?.alt || "Language icon"}
                       className="w-10 h-10 rounded-full hover:scale-110 transition-transform"
                       onClick={() => changeSlide(index)}
-                      onMouseEnter={() => setHoveredIcon(course.language[0])}
+                      onMouseEnter={() => setHoveredIcon(course.language?.[0])}
                       onMouseLeave={() => setHoveredIcon(null)}
                     />
-                    {hoveredIcon === course.language[0] && (
+                    {hoveredIcon === course.language?.[0] && (
                       <div className="absolute left-14 bg-white text-black text-xs font-medium px-3 py-1 rounded shadow border border-gray-300">
-                        {hoveredIcon.name}
+                        {hoveredIcon?.name || "Language"}
                       </div>
                     )}
                   </div>
@@ -128,7 +140,7 @@ const Work: React.FC = () => {
                     currentSlide
                   )} text-white`}>
                   <h3 className="text-3xl font-bold mb-4">
-                    {courses[currentSlide].courseName}
+                    {courses[currentSlide]?.courseName || "Unknown Course"}
                   </h3>
                   <h4 className="text-lg font-medium bg-yellow-200 text-blue-900 inline-block px-4 py-2 rounded mb-6">
                     Projects
@@ -155,12 +167,12 @@ const Work: React.FC = () => {
                       <figure>
                         <img
                           src={
-                            courses[currentSlide].projects[currentProjectIndex]
-                              .src
+                            courses[currentSlide]?.projects?.[currentProjectIndex]
+                              ?.src || "/placeholder.png"
                           }
                           alt={
-                            courses[currentSlide].projects[currentProjectIndex]
-                              .title
+                            courses[currentSlide]?.projects?.[currentProjectIndex]
+                              ?.title || "Project Image"
                           }
                           className="w-full h-48 object-cover rounded-md mb-4"
                         />
@@ -168,24 +180,24 @@ const Work: React.FC = () => {
                       <div className="card-body">
                         <h5 className="text-lg font-semibold text-purple-700">
                           {
-                            courses[currentSlide].projects[currentProjectIndex]
-                              .title
+                            courses[currentSlide]?.projects?.[currentProjectIndex]
+                              ?.title || "Project Title"
                           }
                         </h5>
                         <div className="card-actions justify-end">
                           <a
                             href={
-                              courses[currentSlide].projects[
+                              courses[currentSlide]?.projects?.[
                                 currentProjectIndex
-                              ].link
+                              ]?.link || "#"
                             }
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 underline hover:text-blue-800 mt-2 block">
                             {
-                              courses[currentSlide].projects[
+                              courses[currentSlide]?.projects?.[
                                 currentProjectIndex
-                              ].name
+                              ]?.name || "Project Link"
                             }
                           </a>
                         </div>
@@ -195,7 +207,7 @@ const Work: React.FC = () => {
 
                   {!isDesktop && (
                     <p className="bg-white text-red-600 p-4 rounded-lg shadow mt-6">
-                      <strong>Note:</strong> {courses[currentSlide].summary}
+                      <strong>Note:</strong> {courses[currentSlide]?.summary || "No summary available"}
                     </p>
                   )}
                 </div>

@@ -30,7 +30,7 @@ const Nav: React.FC = () => {
           if (entry.isIntersecting) {
             const sectionId = entry.target.id;
             const matchedLink = navLinks.find(
-              (link) => link.label.toLowerCase() === sectionId.toLowerCase()
+              (link) => link.href === sectionId
             );
             if (matchedLink) setActiveLink(matchedLink.label);
           }
@@ -44,7 +44,7 @@ const Nav: React.FC = () => {
     );
 
     navLinks.forEach((link) => {
-      const section = document.getElementById(link.label.toLowerCase());
+      const section = document.getElementById(link.href);
       if (section) observer.observe(section);
     });
 
