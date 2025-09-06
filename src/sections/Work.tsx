@@ -4,7 +4,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import React, { useState } from "react";
 
 import { courses } from "../constants";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
 import { useHaptic } from "../hooks/useHaptic";
 import { useAnnouncement } from "../components/AnnouncementSystem";
@@ -12,15 +12,28 @@ import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { useSwipeable } from "react-swipeable";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
+// import { useTheme } from "../contexts/ThemeContext";
+import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor";
+import { useAccessibility } from "../hooks/useAccessibility";
+import { SkeletonProjectCardAdvanced } from "../components/SkeletonLoader";
 
 
 const Work: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const isDesktop = useMediaQuery("(min-width:1060px)");
   const { triggerHaptic } = useHaptic();
   const { announce } = useAnnouncement();
   const { ref: workRef, inView } = useScrollAnimation(0.1, true);
+  // const { currentTheme } = useTheme();
+  const { shouldReduceMotion } = useAccessibility();
+  
+  // Performance monitoring
+  usePerformanceMonitor('Work', {
+    enableMemoryMonitoring: true,
+    enableFPSMonitoring: true
+  });
 
   // Swipe gestures for mobile
   const swipeHandlers = useSwipeable({
@@ -151,19 +164,27 @@ const Work: React.FC = () => {
               </div>
             )}
 
-            {/* Project Showcase */}
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Card 
-                variant="elevated" 
-                size="lg" 
-                containerQuery={true}
-                className="overflow-hidden"
+            {/* Enhanced Project Showcase */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
               >
+                {isLoading ? (
+                  <SkeletonProjectCardAdvanced />
+                ) : (
+                  <Card 
+                    variant="glass" 
+                    size="lg" 
+                    containerQuery={true}
+                    tilt={!shouldReduceMotion}
+                    shimmer={!shouldReduceMotion}
+                    glow={true}
+                    className="overflow-hidden backdrop-blur-xl"
+                  >
                 {/* Project Header */}
                 <div className="border-b border-neutral-200 dark:border-neutral-700 mb-6">
                   <div className="flex items-center gap-4 mb-4">
@@ -218,7 +239,18 @@ const Work: React.FC = () => {
                       <Button
                         variant="primary"
                         size="sm"
-                        onClick={() => window.open(courses[currentSlide]?.projects?.[currentProjectIndex]?.link || "#", '_blank')}
+                        magnetic={!shouldReduceMotion}
+                        ripple={true}
+                        glow={true}
+                        loading={isLoading}
+                        onClick={() => {
+                          setIsLoading(true);
+                          setTimeout(() => {
+                            window.open(courses[currentSlide]?.projects?.[currentProjectIndex]?.link || "#", '_blank');
+                            setIsLoading(false);
+                          }, 1000);
+                        }}
+                        className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600"
                       >
                         View Project
                       </Button>
@@ -243,8 +275,10 @@ const Work: React.FC = () => {
                     ))}
                   </div>
                 </div>
-              </Card>
-            </motion.div>
+                  </Card>
+                )}
+              </motion.div>
+            </AnimatePresence>
           </main>
         </div>
       </div>
