@@ -1,26 +1,37 @@
-import { BsMoonStarsFill, BsSunFill } from "react-icons/bs";
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useRef } from "react";
 import Link from "./Link";
 import { motion } from "framer-motion";
 import { navLinks } from "../constants";
 import { useMediaQuery } from "@react-hook/media-query";
+import { useApp } from "../contexts/AppContext";
+import { useKeyboardNavigation, useFocusManagement } from "../hooks/useKeyboardNavigation";
+import { getAriaLabel, getRoleDescription } from "../utils/accessibility";
+import ThemeToggle from "./ThemeToggle";
+// Using simple SVG icons instead of react-icons
 
 const Nav: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
-  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
-  const [activeLink, setActiveLink] = useState<string>("Home");
-  const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
+  const { 
+    isDarkMode, 
+    isNavOpen, 
+    activeLink, 
+    isTopOfPage,
+    toggleTheme,
+    toggleNav,
+    setActiveLink 
+  } = useApp();
+  
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
+  const navRef = useRef<HTMLElement>(null);
+  const { focusFirstElement } = useFocusManagement();
 
-  const toggleNav = (): void => setIsNavOpen(!isNavOpen);
-
-  // Scroll tracking
-  useEffect(() => {
-    const handleScroll = (): void => setIsTopOfPage(window.scrollY === 0);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Keyboard navigation
+  useKeyboardNavigation({
+    onEscape: () => {
+      if (isNavOpen) {
+        toggleNav();
+      }
+    },
+  });
 
   // Section observer
   useEffect(() => {
@@ -49,17 +60,7 @@ const Nav: React.FC = () => {
     });
 
     return () => observer.disconnect();
-  }, []);
-
-  // LocalStorage theme persistence
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "light") setIsDarkMode(false);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
-  }, [isDarkMode]);
+  }, [setActiveLink]);
 
   // Dynamic styles
   const navbarStyle = isTopOfPage
@@ -70,10 +71,16 @@ const Nav: React.FC = () => {
 
   return (
     <nav
-      className={`fixed top-0 z-50 w-full transition duration-300 ${navbarStyle}`}>
+      ref={navRef}
+      className={`fixed top-0 z-50 w-full transition duration-300 ${navbarStyle}`}
+      role="navigation"
+      aria-label={getRoleDescription('navigation')}>
       <div className="flex justify-between items-center px-6 py-4">
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-2">
+        <a 
+          href="#home" 
+          className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-1"
+          aria-label="Sravan Kumar Polu - Go to home section">
           <span className="font-bold tracking-wide text-xl sm:text-3xl uppercase bg-gradient-to-r from-primary via-secondary to-accent bg-[length:300%_300%] bg-clip-text text-transparent animate-gradient">
             Sravan Kumar Polu <span className="text-pink-400">| MERN Dev</span>
           </span>
@@ -90,41 +97,33 @@ const Nav: React.FC = () => {
                 setSelectedPage={setActiveLink}
               />
             ))}
-            <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition text-white"
-              title="Toggle Theme">
-              {isDarkMode ? (
-                <BsMoonStarsFill className="w-5 h-5" />
-              ) : (
-                <BsSunFill className="w-5 h-5 text-yellow-400" />
-              )}
-            </button>
+            <ThemeToggle 
+              size="md"
+              className="bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md"
+            />
           </div>
         ) : (
           // Mobile Hamburger
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition text-white"
-              title="Toggle Theme">
-              {isDarkMode ? (
-                <BsMoonStarsFill className="w-5 h-5" />
-              ) : (
-                <BsSunFill className="w-5 h-5 text-yellow-400" />
-              )}
-            </button>
+            <ThemeToggle 
+              size="sm"
+              className="bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md"
+            />
             <button
               onClick={toggleNav}
-              className="text-white focus:outline-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="28"
-                height="28"
-                fill="currentColor"
-                viewBox="0 0 16 16">
-                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-              </svg>
+              className="text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-1"
+              aria-label={getAriaLabel('toggle-navigation')}
+              aria-expanded={isNavOpen}
+              aria-controls="mobile-menu">
+              {isNavOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         )}
@@ -133,20 +132,23 @@ const Nav: React.FC = () => {
       {/* Mobile Navigation Menu */}
       {!isAboveMediumScreens && (
         <motion.ul
+          id="mobile-menu"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: isNavOpen ? 1 : 0, x: isNavOpen ? 0 : 50 }}
           transition={{ duration: 0.5 }}
           className={`absolute top-14 right-4 py-4 px-6 bg-white/90 backdrop-blur-md border border-gray-300 rounded-lg shadow-lg space-y-2 ${
             isNavOpen ? "block" : "hidden"
-          }`}>
+          }`}
+          role="menu"
+          aria-label="Mobile navigation menu">
           {navLinks.map((item) => (
-            <li key={item.label}>
+            <li key={item.label} role="none">
               <Link
                 page={item.label}
                 selectedPage={activeLink}
                 setSelectedPage={(label: string) => {
                   setActiveLink(label);
-                  setIsNavOpen(false);
+                  toggleNav();
                 }}
               />
             </li>
