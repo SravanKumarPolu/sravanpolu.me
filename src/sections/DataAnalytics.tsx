@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
-import { useAccessibility } from '../hooks/useAccessibility';
+// import { useAccessibility } from '../hooks/useAccessibility';
 import { usePerformanceMonitor } from '../hooks/usePerformanceMonitor';
 import { 
   SkillsRadarChart, 

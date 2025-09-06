@@ -1,5 +1,5 @@
-import React, { useRef, useState, Suspense } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import React, { useRef, useState, Suspense, useMemo } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { 
   Environment, 
   OrbitControls, 
@@ -11,6 +11,7 @@ import {
 import { motion } from 'framer-motion';
 import { useAccessibility } from '../../hooks/useAccessibility';
 import { useHaptic } from '../../hooks/useHaptic';
+import { use3DAccessibility } from '../../hooks/use3DAccessibility';
 import * as THREE from 'three';
 
 interface Project3DPreviewProps {
@@ -19,62 +20,112 @@ interface Project3DPreviewProps {
     title: string;
     name: string;
     link: string;
+    technologies?: string[];
+    description?: string;
   };
   isActive: boolean;
   onProjectClick: () => void;
   className?: string;
+  enableAdvancedAnimations?: boolean;
+  showTechBadges?: boolean;
 }
 
-// 3D Project Card Component
+// Enhanced 3D Project Card Component
 const Project3DCard: React.FC<{
   project: Project3DPreviewProps['project'];
   isActive: boolean;
   onProjectClick: () => void;
-}> = ({ project, isActive, onProjectClick }) => {
+  enableAdvancedAnimations?: boolean;
+  showTechBadges?: boolean;
+}> = ({ project, isActive, onProjectClick, enableAdvancedAnimations = true, showTechBadges = true }) => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const glowRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
   const [clicked, setClicked] = useState(false);
+  const [textureLoaded, setTextureLoaded] = useState(false);
   const { shouldReduceMotion } = useAccessibility();
   const { triggerHaptic } = useHaptic();
+  const { announce } = use3DAccessibility();
 
-  // Load project texture with error handling
-  const texture = useTexture(project.src, (error) => {
-    console.warn('Failed to load texture:', error);
+  // Load project texture with error handling and loading state
+  const texture = useTexture(project.src, (texture) => {
+    setTextureLoaded(true);
+    texture.flipY = false;
+    texture.generateMipmaps = true;
   });
 
-  // Animation frame updates
+  // Memoized technology colors for consistent rendering
+  const techColors = useMemo(() => [
+    '#3b82f6', // Blue
+    '#8b5cf6', // Purple
+    '#10b981', // Green
+    '#f59e0b', // Orange
+    '#ef4444', // Red
+    '#06b6d4', // Cyan
+  ], []);
+
+  // Enhanced animation frame updates
   useFrame((state) => {
     if (!meshRef.current || shouldReduceMotion) return;
     
     const time = state.clock.getElapsedTime();
     
-    // Subtle rotation animation
-    meshRef.current.rotation.y = Math.sin(time * 0.5) * 0.1;
+    // Enhanced rotation animation with easing
+    if (enableAdvancedAnimations) {
+      meshRef.current.rotation.y = Math.sin(time * 0.3) * 0.15 + Math.cos(time * 0.2) * 0.05;
+      meshRef.current.rotation.z = Math.sin(time * 0.4) * 0.05;
+    } else {
+      meshRef.current.rotation.y = Math.sin(time * 0.5) * 0.1;
+    }
     
-    // Hover animation
+    // Enhanced hover animation
     if (hovered) {
-      meshRef.current.scale.setScalar(1.1);
-      meshRef.current.rotation.x = Math.sin(time * 2) * 0.05;
+      const hoverScale = enableAdvancedAnimations ? 1.15 : 1.1;
+      meshRef.current.scale.lerp(new THREE.Vector3(hoverScale, hoverScale, hoverScale), 0.15);
+      if (enableAdvancedAnimations) {
+        meshRef.current.rotation.x = Math.sin(time * 3) * 0.08;
+        meshRef.current.rotation.z = Math.sin(time * 2.5) * 0.05;
+      } else {
+        meshRef.current.rotation.x = Math.sin(time * 2) * 0.05;
+      }
     } else {
       meshRef.current.scale.lerp(new THREE.Vector3(1, 1, 1), 0.1);
       meshRef.current.rotation.x = 0;
+      meshRef.current.rotation.z = 0;
     }
 
-    // Active state animation
+    // Enhanced active state animation
     if (isActive) {
-      meshRef.current.position.y = Math.sin(time * 2) * 0.1;
+      const floatIntensity = enableAdvancedAnimations ? 0.15 : 0.1;
+      meshRef.current.position.y = Math.sin(time * 1.5) * floatIntensity + Math.cos(time * 0.8) * 0.05;
     } else {
       meshRef.current.position.y = 0;
+    }
+
+    // Glow effect animation
+    if (glowRef.current && isActive && glowRef.current.material) {
+      const material = glowRef.current.material as THREE.MeshStandardMaterial;
+      material.opacity = 0.3 + Math.sin(time * 2) * 0.1;
     }
   });
 
   const handleClick = () => {
     setClicked(true);
     triggerHaptic('medium');
+    announce(`Opening ${project.name} project`);
     onProjectClick();
     
     // Reset clicked state after animation
     setTimeout(() => setClicked(false), 300);
+  };
+
+  const handlePointerOver = () => {
+    setHovered(true);
+    announce(`Hovering over ${project.name} project`);
+  };
+
+  const handlePointerOut = () => {
+    setHovered(false);
   };
 
   return (
@@ -84,47 +135,49 @@ const Project3DCard: React.FC<{
         <mesh
           ref={meshRef}
           onClick={handleClick}
-          onPointerOver={() => setHovered(true)}
-          onPointerOut={() => setHovered(false)}
+          onPointerOver={handlePointerOver}
+          onPointerOut={handlePointerOut}
           scale={clicked ? 0.95 : 1}
         >
           <boxGeometry args={[3, 2, 0.2]} />
           <meshStandardMaterial
-            map={texture}
+            map={textureLoaded ? texture : undefined}
             roughness={0.3}
             metalness={0.1}
             transparent
-            opacity={0.9}
+            opacity={textureLoaded ? 0.9 : 0.3}
+            color={textureLoaded ? '#ffffff' : '#e5e7eb'}
           />
         </mesh>
       ) : (
         <Float
-          speed={2}
-          rotationIntensity={0.5}
-          floatIntensity={0.5}
+          speed={enableAdvancedAnimations ? 1.5 : 2}
+          rotationIntensity={enableAdvancedAnimations ? 0.3 : 0.5}
+          floatIntensity={enableAdvancedAnimations ? 0.3 : 0.5}
         >
           <mesh
             ref={meshRef}
             onClick={handleClick}
-            onPointerOver={() => setHovered(true)}
-            onPointerOut={() => setHovered(false)}
+            onPointerOver={handlePointerOver}
+            onPointerOut={handlePointerOut}
             scale={clicked ? 0.95 : 1}
           >
             <boxGeometry args={[3, 2, 0.2]} />
             <meshStandardMaterial
-              map={texture}
+              map={textureLoaded ? texture : undefined}
               roughness={0.3}
               metalness={0.1}
               transparent
-              opacity={0.9}
+              opacity={textureLoaded ? 0.9 : 0.3}
+              color={textureLoaded ? '#ffffff' : '#e5e7eb'}
             />
           </mesh>
         </Float>
       )}
 
-      {/* Glow Effect */}
+      {/* Enhanced Glow Effect */}
       {isActive && (
-        <mesh position={[0, 0, -0.3]}>
+        <mesh ref={glowRef} position={[0, 0, -0.3]}>
           <boxGeometry args={[3.2, 2.2, 0.1]} />
           <meshStandardMaterial
             color="#3b82f6"
@@ -134,7 +187,19 @@ const Project3DCard: React.FC<{
         </mesh>
       )}
 
-      {/* Project Title */}
+      {/* Hover Glow Effect */}
+      {hovered && !isActive && (
+        <mesh position={[0, 0, -0.25]}>
+          <boxGeometry args={[3.1, 2.1, 0.05]} />
+          <meshStandardMaterial
+            color="#8b5cf6"
+            transparent
+            opacity={0.2}
+          />
+        </mesh>
+      )}
+
+      {/* Enhanced Project Title */}
       <Html
         position={[0, -1.5, 0]}
         center
@@ -146,50 +211,85 @@ const Project3DCard: React.FC<{
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <h3 className="text-lg font-semibold text-white bg-black/50 px-3 py-1 rounded-lg backdrop-blur-sm">
+          <h3 className="text-lg font-semibold text-white bg-black/60 px-4 py-2 rounded-lg backdrop-blur-sm shadow-lg">
             {project.name}
           </h3>
+          {project.description && (
+            <p className="text-xs text-white/80 bg-black/40 px-2 py-1 rounded mt-1 backdrop-blur-sm">
+              {project.description}
+            </p>
+          )}
         </motion.div>
       </Html>
 
-      {/* Interactive Elements */}
-      <group position={[0, 1.2, 0.2]}>
-        {/* Technology Icons */}
-        {!shouldReduceMotion ? (
-          <Float speed={1.5} rotationIntensity={0.3}>
+      {/* Technology Badges */}
+      {showTechBadges && project.technologies && project.technologies.length > 0 && (
+        <group position={[0, 1.2, 0.2]}>
+          {project.technologies.slice(0, 3).map((tech, index) => {
+            const angle = (index * Math.PI * 2) / Math.min(project.technologies!.length, 3);
+            const radius = 0.8;
+            const x = Math.cos(angle) * radius;
+            const z = Math.sin(angle) * radius;
+            const color = techColors[index % techColors.length];
+            
+            const techMesh = (
+              <mesh key={tech} position={[x, 0, z]}>
+                <sphereGeometry args={[0.08, 12, 12]} />
+                <meshStandardMaterial color={color} />
+              </mesh>
+            );
+            
+            return !shouldReduceMotion ? (
+              <Float key={tech} speed={1 + index * 0.2} rotationIntensity={0.2}>
+                {techMesh}
+              </Float>
+            ) : techMesh;
+          })}
+        </group>
+      )}
+
+      {/* Default Technology Indicator */}
+      {showTechBadges && (!project.technologies || project.technologies.length === 0) && (
+        <group position={[0, 1.2, 0.2]}>
+          {!shouldReduceMotion ? (
+            <Float speed={1.5} rotationIntensity={0.3}>
+              <mesh>
+                <sphereGeometry args={[0.1, 16, 16]} />
+                <meshStandardMaterial color="#10b981" />
+              </mesh>
+            </Float>
+          ) : (
             <mesh>
               <sphereGeometry args={[0.1, 16, 16]} />
               <meshStandardMaterial color="#10b981" />
             </mesh>
-          </Float>
-        ) : (
-          <mesh>
-            <sphereGeometry args={[0.1, 16, 16]} />
-            <meshStandardMaterial color="#10b981" />
-          </mesh>
-        )}
-      </group>
+          )}
+        </group>
+      )}
 
-      {/* Contact Shadows */}
+      {/* Enhanced Contact Shadows */}
       <ContactShadows
         position={[0, -1.5, 0]}
-        opacity={0.4}
-        scale={4}
-        blur={2}
-        far={2}
-        resolution={256}
+        opacity={0.5}
+        scale={4.5}
+        blur={2.5}
+        far={2.5}
+        resolution={512}
         color="#000000"
       />
     </group>
   );
 };
 
-// 3D Scene Component
+// Enhanced 3D Scene Component
 const Project3DScene: React.FC<{
   project: Project3DPreviewProps['project'];
   isActive: boolean;
   onProjectClick: () => void;
-}> = ({ project, isActive, onProjectClick }) => {
+  enableAdvancedAnimations?: boolean;
+  showTechBadges?: boolean;
+}> = ({ project, isActive, onProjectClick, enableAdvancedAnimations = true, showTechBadges = true }) => {
+  const { shouldReduceMotion } = useAccessibility();
   return (
     <>
       {/* Lighting Setup */}
@@ -211,6 +311,8 @@ const Project3DScene: React.FC<{
         project={project}
         isActive={isActive}
         onProjectClick={onProjectClick}
+        enableAdvancedAnimations={enableAdvancedAnimations}
+        showTechBadges={showTechBadges}
       />
 
       {/* Background Elements */}
@@ -249,12 +351,14 @@ const Project3DScene: React.FC<{
   );
 };
 
-// Main 3D Preview Component
+// Main Enhanced 3D Preview Component
 const Project3DPreview: React.FC<Project3DPreviewProps> = ({
   project,
   isActive,
   onProjectClick,
-  className = ''
+  className = '',
+  enableAdvancedAnimations = true,
+  showTechBadges = true
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { shouldReduceMotion } = useAccessibility();
@@ -284,38 +388,53 @@ const Project3DPreview: React.FC<Project3DPreviewProps> = ({
             project={project}
             isActive={isActive}
             onProjectClick={onProjectClick}
+            enableAdvancedAnimations={enableAdvancedAnimations}
+            showTechBadges={showTechBadges}
           />
           
-          {/* Camera Controls */}
+          {/* Enhanced Camera Controls */}
           {!shouldReduceMotion && (
             <OrbitControls
               enablePan={false}
               enableZoom={false}
               enableRotate={true}
-              autoRotate={isActive}
-              autoRotateSpeed={0.5}
+              autoRotate={isActive && enableAdvancedAnimations}
+              autoRotateSpeed={enableAdvancedAnimations ? 0.3 : 0.5}
               maxPolarAngle={Math.PI / 2}
               minPolarAngle={Math.PI / 3}
+              dampingFactor={0.05}
+              enableDamping={true}
             />
           )}
         </Suspense>
       </Canvas>
 
-      {/* Overlay Controls */}
+      {/* Enhanced Overlay Controls */}
       <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
-        <div className="flex gap-2">
-          <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse"></div>
+        <div className="flex gap-2 items-center">
+          <div className={`w-2 h-2 rounded-full animate-pulse ${
+            isActive ? 'bg-primary-500' : 'bg-neutral-400'
+          }`}></div>
           <span className="text-xs text-neutral-600 dark:text-neutral-400">
-            3D Preview
+            {isActive ? 'Active 3D Preview' : '3D Preview'}
           </span>
+          {project.technologies && project.technologies.length > 0 && (
+            <span className="text-xs text-neutral-500 dark:text-neutral-500">
+              • {project.technologies.length} tech{project.technologies.length > 1 ? 's' : ''}
+            </span>
+          )}
         </div>
         
         <button
           onClick={onProjectClick}
-          className="px-3 py-1 bg-primary-500 text-white text-xs rounded-full hover:bg-primary-600 transition-colors"
+          className={`px-4 py-2 text-xs rounded-full transition-all ${
+            isActive 
+              ? 'bg-primary-500 text-white hover:bg-primary-600 shadow-lg' 
+              : 'bg-white/80 dark:bg-neutral-800/80 text-neutral-700 dark:text-neutral-300 hover:bg-white dark:hover:bg-neutral-800'
+          }`}
           aria-label={`View ${project.name} project`}
         >
-          Explore
+          {isActive ? 'Explore' : 'View'}
         </button>
       </div>
     </div>

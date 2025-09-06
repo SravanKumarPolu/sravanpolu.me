@@ -220,7 +220,7 @@ export const use3DAccessibility = (options: Use3DAccessibilityOptions = {}) => {
       // Focus indicators
       showFocusIndicators: accessibilityState.isNavigating
     };
-  }, [shouldReduceMotion, prefersReducedData, accessibilityState]);
+  }, [shouldReduceMotion, accessibilityState]);
 
   // Get accessible color scheme
   const getAccessibleColors = useCallback(() => {

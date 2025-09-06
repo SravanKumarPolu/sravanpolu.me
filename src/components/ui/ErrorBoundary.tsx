@@ -1,6 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from './Button';
+import { CustomButton as Button } from './Button';
 import { Card } from './Card';
 
 interface Props {

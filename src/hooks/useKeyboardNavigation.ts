@@ -9,6 +9,7 @@ interface KeyboardNavigationOptions {
   onArrowRight?: () => void;
   onSpace?: () => void;
   onTab?: () => void;
+  onKeyF?: () => void;
   enabled?: boolean;
 }
 
@@ -22,6 +23,7 @@ export const useKeyboardNavigation = (options: KeyboardNavigationOptions = {}) =
     onArrowRight,
     onSpace,
     onTab,
+    onKeyF,
     enabled = true,
   } = options;
 
@@ -85,8 +87,15 @@ export const useKeyboardNavigation = (options: KeyboardNavigationOptions = {}) =
           onTab();
         }
         break;
+      case 'f':
+      case 'F':
+        if (onKeyF) {
+          event.preventDefault();
+          onKeyF();
+        }
+        break;
     }
-  }, [enabled, onEnter, onEscape, onArrowUp, onArrowDown, onArrowLeft, onArrowRight, onSpace, onTab]);
+  }, [enabled, onEnter, onEscape, onArrowUp, onArrowDown, onArrowLeft, onArrowRight, onSpace, onTab, onKeyF]);
 
   useEffect(() => {
     if (enabled) {

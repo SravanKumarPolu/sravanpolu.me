@@ -79,8 +79,28 @@ const Nav: React.FC = () => {
           href="#home" 
           className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-1"
           aria-label="Sravan Kumar Polu - Go to home section">
-          <span className="font-bold tracking-wide text-xl sm:text-3xl uppercase bg-gradient-to-r from-primary via-secondary to-accent bg-[length:300%_300%] bg-clip-text text-transparent animate-gradient">
-            Sravan Kumar Polu <span className="text-pink-400">| MERN Dev</span>
+          <span 
+            className="font-bold tracking-wide text-xl sm:text-3xl uppercase"
+            style={{
+              color: '#ffffff',
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 0, 0, 0.4)',
+              fontWeight: '900'
+            }}>
+            <span 
+              style={{
+                color: '#60a5fa',
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(96, 165, 250, 0.4)',
+                fontWeight: '900'
+              }}>
+              Sravan Kumar Polu
+            </span>
+            <span 
+              className="ml-2"
+              style={{
+                color: '#ec4899',
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(236, 72, 153, 0.4)',
+                fontWeight: '900'
+              }}>| MERN Dev</span>
           </span>
         </a>
 

@@ -1,7 +1,7 @@
 // src/components/Work.tsx
 
-import { FaChevronLeft, FaChevronRight, FaBox, FaEye } from "react-icons/fa";
-import React, { useState } from "react";
+import { FaChevronLeft, FaChevronRight, FaTh, FaEye } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 
 import { courses } from "../constants";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,13 +10,13 @@ import { useHaptic } from "../hooks/useHaptic";
 import { useAnnouncement } from "../components/AnnouncementSystem";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { useSwipeable } from "react-swipeable";
-import { Button } from "../components/ui/Button";
+import { CustomButton as Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 // import { useTheme } from "../contexts/ThemeContext";
 import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor";
 import { useAccessibility } from "../hooks/useAccessibility";
 import { SkeletonProjectCardAdvanced } from "../components/SkeletonLoader";
-import { Project3DShowcase, Project3DModal, Lazy3DWrapper } from "../components/3d";
+import Simple3DPreview from "../components/3d/Simple3DPreview";
 
 
 const Work: React.FC = () => {
@@ -24,8 +24,8 @@ const Work: React.FC = () => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<'2d' | '3d'>('2d');
-  const [selectedProject, setSelectedProject] = useState<any>(null);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  // const [selectedProject, setSelectedProject] = useState<any>(null);
+  // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const isDesktop = useMediaQuery("(min-width:1060px)");
   const { triggerHaptic } = useHaptic();
   const { announce } = useAnnouncement();
@@ -89,28 +89,43 @@ const Work: React.FC = () => {
 
   // 3D Interaction Handlers
   const handleViewModeToggle = (): void => {
-    setViewMode(prev => prev === '2d' ? '3d' : '2d');
+    setViewMode(prev => {
+      const newMode = prev === '2d' ? '3d' : '2d';
+      console.log('Switching view mode from', prev, 'to', newMode);
+      return newMode;
+    });
     triggerHaptic('light');
     announce(`Switched to ${viewMode === '2d' ? '3D' : '2D'} view mode`);
   };
 
+  // Debug logging for 3D view
+  useEffect(() => {
+    if (viewMode === '3d') {
+      console.log('Rendering 3D view with project:', courses[currentSlide]?.projects?.[currentProjectIndex]);
+    }
+  }, [viewMode, currentSlide, currentProjectIndex]);
+
   const handleProjectClick = (project: any): void => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-    triggerHaptic('medium');
-    announce(`Opening ${project.name} in 3D modal`);
+    if (project && project.link && project.link !== '#') {
+      triggerHaptic('medium');
+      announce(`Opening ${project.name || project.title} project`);
+      window.open(project.link, '_blank');
+    } else {
+      triggerHaptic('light');
+      announce('No project link available');
+    }
   };
 
-  const handleModalClose = (): void => {
-    setIsModalOpen(false);
-    setSelectedProject(null);
-    triggerHaptic('light');
-  };
+  // const handleModalClose = (): void => {
+  //   setIsModalOpen(false);
+  //   setSelectedProject(null);
+  //   triggerHaptic('light');
+  // };
 
-  const handle3DProjectChange = (index: number): void => {
-    setCurrentProjectIndex(index);
-    triggerHaptic('light');
-  };
+  // const handle3DProjectChange = (index: number): void => {
+  //   setCurrentProjectIndex(index);
+  //   triggerHaptic('light');
+  // };
 
 
   return (
@@ -139,7 +154,7 @@ const Work: React.FC = () => {
             >
               {viewMode === '2d' ? (
                 <>
-                  <FaBox className="w-4 h-4" />
+                  <FaTh className="w-4 h-4" />
                   <span className="hidden sm:inline">3D View</span>
                 </>
               ) : (
@@ -234,19 +249,17 @@ const Work: React.FC = () => {
                   <SkeletonProjectCardAdvanced />
                 ) : viewMode === '3d' ? (
                   // 3D Project Showcase
-                  <Lazy3DWrapper
-                    className="w-full h-[600px] rounded-xl overflow-hidden"
-                    threshold={0.1}
-                    enablePerformanceMonitoring={true}
-                  >
-                    <Project3DShowcase
-                      projects={courses[currentSlide]?.projects || []}
-                      currentIndex={currentProjectIndex}
-                      onProjectChange={handle3DProjectChange}
-                      onProjectClick={handleProjectClick}
-                      className="w-full h-full"
+                  <div className="w-full h-[600px] rounded-xl overflow-hidden">
+                    <Simple3DPreview
+                      project={courses[currentSlide]?.projects?.[currentProjectIndex] || {
+                        src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Ctext x='200' y='150' text-anchor='middle' font-size='24' fill='%236b7280'%3ENo Project%3C/text%3E%3C/svg%3E",
+                        title: "No Project Available",
+                        name: "no-project",
+                        link: "#"
+                      }}
+                      onProjectClick={() => handleProjectClick(courses[currentSlide]?.projects?.[currentProjectIndex])}
                     />
-                  </Lazy3DWrapper>
+                  </div>
                 ) : (
                   // 2D Project Display (Original)
                   <Card 
@@ -356,13 +369,9 @@ const Work: React.FC = () => {
         </div>
       </div>
 
-      {/* 3D Project Modal */}
-      {selectedProject && (
-        <Project3DModal
-          project={selectedProject}
-          isOpen={isModalOpen}
-          onClose={handleModalClose}
-        />
+      {/* 3D Project Modal - Temporarily disabled */}
+      {false && (
+        <div>3D Modal temporarily disabled</div>
       )}
     </section>
   );

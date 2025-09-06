@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../contexts/ThemeContext';
-import { Button } from './Button';
+import { CustomButton as Button } from './Button';
 import { Card } from './Card';
 
 interface ThemeSelectorProps {

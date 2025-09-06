@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '../ui/Button';
+import { CustomButton as Button } from '../ui/Button';
 import { Card } from '../ui/Card';
 import { Modal } from '../ui/Modal';
 import { Dropdown } from '../ui/Dropdown';

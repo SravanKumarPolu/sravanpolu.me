@@ -12,6 +12,8 @@ declare module "react-icons/fa" {
   
   export const FaChevronLeft: ComponentType<SVGProps<SVGSVGElement>>;
   export const FaChevronRight: ComponentType<SVGProps<SVGSVGElement>>;
+  export const FaEye: ComponentType<SVGProps<SVGSVGElement>>;
+  export const FaTh: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 declare module "react-icons/fi" {

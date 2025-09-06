@@ -8,3 +8,46 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Enhanced text visibility utilities */
+@layer utilities {
+  .text-high-contrast {
+    color: #ffffff;
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 8px rgba(0, 0, 0, 0.6),
+      0 0 16px rgba(0, 0, 0, 0.4);
+    font-weight: 900;
+  }
+  
+  .text-blue-high-contrast {
+    color: #60a5fa;
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 8px rgba(0, 0, 0, 0.6),
+      0 0 16px rgba(96, 165, 250, 0.4);
+    font-weight: 900;
+  }
+  
+  .text-pink-high-contrast {
+    color: #ec4899;
+    text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 8px rgba(0, 0, 0, 0.6),
+      0 0 16px rgba(236, 72, 153, 0.4);
+    font-weight: 900;
+  }
+}
+
+/* Ensure text is always visible with better contrast */
+@layer components {
+  .hero-text {
+    @apply text-white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .nav-text {
+    @apply text-white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}

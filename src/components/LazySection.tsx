@@ -6,6 +6,9 @@ import SectionErrorBoundary from './SectionErrorBoundary';
 const LazyHero = lazy(() => import('../sections/Hero'));
 const LazyWork = lazy(() => import('../sections/Work'));
 const LazyAnalytics = lazy(() => import('../sections/DataAnalytics'));
+const LazySkills = lazy(() => import('../components/SkillsShowcase'));
+const LazyTestimonials = lazy(() => import('../components/Testimonials'));
+const LazyContact = lazy(() => import('../components/ContactForm'));
 const LazyResume = lazy(() => import('../sections/Resume'));
 const LazyFooter = lazy(() => import('../sections/Footer'));
 
@@ -71,6 +74,50 @@ const getSkeletonForSection = (sectionName: string): React.ReactNode => {
           </div>
         </section>
       );
+    case 'skills':
+      return (
+        <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <SkeletonLoader variant="rectangular" height={40} width={300} className="mx-auto mb-4 rounded-lg" />
+              <SkeletonLoader variant="rectangular" height={20} width={500} className="mx-auto rounded-lg" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <SkeletonLoader key={index} variant="rectangular" height={120} className="rounded-xl" />
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    case 'testimonials':
+      return (
+        <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <SkeletonLoader variant="rectangular" height={40} width={300} className="mx-auto mb-4 rounded-lg" />
+              <SkeletonLoader variant="rectangular" height={20} width={500} className="mx-auto rounded-lg" />
+            </div>
+            <div className="max-w-4xl mx-auto">
+              <SkeletonLoader variant="rectangular" height={300} className="rounded-2xl" />
+            </div>
+          </div>
+        </section>
+      );
+    case 'contact':
+      return (
+        <section className="py-20 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <SkeletonLoader variant="rectangular" height={40} width={300} className="mx-auto mb-4 rounded-lg" />
+              <SkeletonLoader variant="rectangular" height={20} width={500} className="mx-auto rounded-lg" />
+            </div>
+            <div className="max-w-2xl mx-auto">
+              <SkeletonLoader variant="rectangular" height={500} className="rounded-xl" />
+            </div>
+          </div>
+        </section>
+      );
     case 'footer':
       return (
         <footer className="bg-neutral py-16 w-full min-h-screen items-center justify-center">
@@ -96,6 +143,12 @@ const LazySection: React.FC<LazySectionProps> = ({ sectionName, fallback }) => {
         return LazyWork;
       case 'analytics':
         return LazyAnalytics;
+      case 'skills':
+        return LazySkills;
+      case 'testimonials':
+        return LazyTestimonials;
+      case 'contact':
+        return LazyContact;
       case 'resume':
         return LazyResume;
       case 'footer':

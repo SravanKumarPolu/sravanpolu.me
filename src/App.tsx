@@ -93,6 +93,18 @@ const App: React.FC = () => {
                   <LazySection sectionName="analytics" />
                 </section>
 
+                <section id="skills" aria-label="Skills and expertise section">
+                  <LazySection sectionName="skills" />
+                </section>
+
+                <section id="testimonials" aria-label="Client testimonials section">
+                  <LazySection sectionName="testimonials" />
+                </section>
+
+                <section id="contact" aria-label="Contact form section">
+                  <LazySection sectionName="contact" />
+                </section>
+
                 <section id="resume" aria-label="Resume and skills section">
                   <LazySection sectionName="resume" />
                 </section>

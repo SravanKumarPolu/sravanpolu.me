@@ -8,7 +8,7 @@ import skr from "../assets/images/skr.png";
 import { useHaptic } from "../hooks/useHaptic";
 import { ParallaxBackground } from "../components/ParallaxBackground";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import { Button } from "../components/ui/Button";
+import { CustomButton as Button } from "../components/ui/Button";
 // import { useTheme } from "../contexts/ThemeContext";
 import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor";
 import { useAccessibility } from "../hooks/useAccessibility";
@@ -158,9 +158,20 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-fluid-6xl font-bold mb-golden-lg leading-tight">
+            className="text-fluid-6xl font-bold mb-golden-lg leading-tight"
+            style={{
+              color: '#ffffff',
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 0, 0, 0.4)',
+              fontWeight: '900'
+            }}>
             Hi, I'm{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
+            <span 
+              className="text-blue-high-contrast"
+              style={{
+                color: '#60a5fa',
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(96, 165, 250, 0.4)',
+                fontWeight: '900'
+              }}>
               Sravan Kumar Polu
             </span>
           </motion.h1>
@@ -171,7 +182,13 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
             className="mb-8">
-            <span className="text-fluid-xl text-accent-400 font-medium">
+            <span 
+              className="text-fluid-xl font-medium"
+              style={{
+                color: '#ec4899',
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(236, 72, 153, 0.4)',
+                fontWeight: '700'
+              }}>
               <Typewriter
                 words={[
                   "MERN Stack Developer",

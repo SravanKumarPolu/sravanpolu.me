@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Button } from '../ui/Button';
+import { CustomButton as Button } from '../ui/Button';
 
 describe('Button Component', () => {
   test('renders button with children', () => {

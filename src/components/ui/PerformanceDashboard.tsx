@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from './Card';
-import { Button } from './Button';
+import { CustomButton as Button } from './Button';
 import { usePerformanceMonitor, useMemoryMonitor, useWebVitals, usePerformanceOptimization } from '../../hooks/usePerformanceMonitor';
 // import { useAccessibility } from '../../hooks/useAccessibility';
 

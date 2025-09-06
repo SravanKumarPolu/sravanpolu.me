@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { 
   OrbitControls, 
   Environment, 
@@ -10,6 +10,8 @@ import {
 import { useAccessibility } from '../../hooks/useAccessibility';
 import { useHaptic } from '../../hooks/useHaptic';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
+import { use3DAccessibility } from '../../hooks/use3DAccessibility';
+import { usePerformanceMonitor } from '../../hooks/usePerformanceMonitor';
 import Project3DPreview from './Project3DPreview';
 import * as THREE from 'three';
 
@@ -19,56 +21,96 @@ interface Project3DShowcaseProps {
     title: string;
     name: string;
     link: string;
+    technologies?: string[];
+    description?: string;
   }>;
   currentIndex: number;
   onProjectChange: (index: number) => void;
   onProjectClick: (project: any) => void;
   className?: string;
+  enableAutoRotate?: boolean;
+  enableSmoothTransitions?: boolean;
+  showProjectInfo?: boolean;
 }
 
-// 3D Carousel Scene
+// Enhanced 3D Carousel Scene
 const Project3DCarousel: React.FC<{
   projects: Project3DShowcaseProps['projects'];
   currentIndex: number;
   onProjectClick: (project: any) => void;
-}> = ({ projects, currentIndex, onProjectClick }) => {
+  enableSmoothTransitions?: boolean;
+}> = ({ projects, currentIndex, onProjectClick, enableSmoothTransitions = true }) => {
   const groupRef = useRef<THREE.Group>(null);
   const { shouldReduceMotion } = useAccessibility();
+  const { announce } = use3DAccessibility();
 
-  useEffect(() => {
+  // Smooth rotation animation
+  useFrame((state) => {
     if (!groupRef.current || shouldReduceMotion) return;
     
-    // Animate to current project position
     const targetRotation = (currentIndex * -Math.PI * 2) / projects.length;
-    groupRef.current.rotation.y = targetRotation;
-  }, [currentIndex, projects.length, shouldReduceMotion]);
+    
+    if (enableSmoothTransitions) {
+      // Smooth interpolation
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(
+        groupRef.current.rotation.y,
+        targetRotation,
+        0.05
+      );
+    } else {
+      // Instant rotation
+      groupRef.current.rotation.y = targetRotation;
+    }
+  });
+
+  // Announce project changes for accessibility
+  useEffect(() => {
+    if (projects[currentIndex]) {
+      announce(`Now viewing ${projects[currentIndex].name} project`);
+    }
+  }, [currentIndex, projects, announce]);
+
+  // Memoized project positions for better performance
+  const projectPositions = useMemo(() => {
+    return projects.map((_, index) => {
+      const angle = (index * Math.PI * 2) / projects.length;
+      const radius = 4;
+      return {
+        x: Math.cos(angle) * radius,
+        z: Math.sin(angle) * radius,
+        rotation: -angle
+      };
+    });
+  }, [projects]);
 
   return (
     <group ref={groupRef}>
       {projects.map((project, index) => {
-        const angle = (index * Math.PI * 2) / projects.length;
-        const radius = 4;
-        const x = Math.cos(angle) * radius;
-        const z = Math.sin(angle) * radius;
+        const position = projectPositions[index];
+        const isActive = index === currentIndex;
         
         return (
-          <group key={index} position={[x, 0, z]} rotation={[0, -angle, 0]}>
+          <group key={`${project.name}-${index}`} position={[position.x, 0, position.z]} rotation={[0, position.rotation, 0]}>
             {shouldReduceMotion ? (
               <Project3DPreview
                 project={project}
-                isActive={index === currentIndex}
+                isActive={isActive}
                 onProjectClick={() => onProjectClick(project)}
+                enableAdvancedAnimations={false}
+                showTechBadges={true}
               />
             ) : (
               <Float
                 speed={1 + index * 0.1}
                 rotationIntensity={0.2}
-                floatIntensity={0.1}
+                floatIntensity={isActive ? 0.2 : 0.1}
               >
                 <Project3DPreview
                   project={project}
-                  isActive={index === currentIndex}
+                  isActive={isActive}
                   onProjectClick={() => onProjectClick(project)}
+                  enableAdvancedAnimations={true}
+                  showTechBadges={true}
                 />
               </Float>
             )}
@@ -79,13 +121,21 @@ const Project3DCarousel: React.FC<{
   );
 };
 
-// 3D Environment Scene
+// Enhanced 3D Environment Scene
 const Showcase3DScene: React.FC<{
   projects: Project3DShowcaseProps['projects'];
   currentIndex: number;
   onProjectClick: (project: any) => void;
-}> = ({ projects, currentIndex, onProjectClick }) => {
+  enableSmoothTransitions?: boolean;
+  enableAutoRotate?: boolean;
+}> = ({ projects, currentIndex, onProjectClick, enableSmoothTransitions = true, enableAutoRotate = false }) => {
   const { shouldReduceMotion } = useAccessibility();
+  
+  // Performance monitoring
+  usePerformanceMonitor('Showcase3DScene', {
+    enableMemoryMonitoring: true,
+    enableFPSMonitoring: true
+  });
   
   return (
     <>
@@ -121,6 +171,7 @@ const Showcase3DScene: React.FC<{
         projects={projects}
         currentIndex={currentIndex}
         onProjectClick={onProjectClick}
+        enableSmoothTransitions={enableSmoothTransitions}
       />
 
       {/* Background Elements */}
@@ -135,11 +186,12 @@ const Showcase3DScene: React.FC<{
         />
       </group>
 
-      {/* Floating Particles */}
-      {Array.from({ length: 20 }).map((_, i) => {
+      {/* Enhanced Floating Particles */}
+      {Array.from({ length: shouldReduceMotion ? 10 : 20 }).map((_, i) => {
+        const colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#06b6d4'];
         const mesh = (
           <mesh
-            key={i}
+            key={`particle-${i}`}
             position={[
               (Math.random() - 0.5) * 20,
               (Math.random() - 0.5) * 10,
@@ -148,7 +200,7 @@ const Showcase3DScene: React.FC<{
           >
             <sphereGeometry args={[0.05, 8, 8]} />
             <meshStandardMaterial
-              color={['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b'][i % 4]}
+              color={colors[i % colors.length]}
               transparent
               opacity={0.3}
             />
@@ -157,7 +209,7 @@ const Showcase3DScene: React.FC<{
         
         return shouldReduceMotion ? mesh : (
           <Float
-            key={i}
+            key={`particle-float-${i}`}
             speed={0.5 + Math.random() * 1}
             rotationIntensity={0.1}
             floatIntensity={0.2}
@@ -170,47 +222,78 @@ const Showcase3DScene: React.FC<{
   );
 };
 
-// Main Showcase Component
+// Main Enhanced Showcase Component
 const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
   projects,
   currentIndex,
   onProjectChange,
   onProjectClick,
-  className = ''
+  className = '',
+  enableAutoRotate = false,
+  enableSmoothTransitions = true,
+  showProjectInfo = true
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const { shouldReduceMotion } = useAccessibility();
   const { triggerHaptic } = useHaptic();
+  const { announce } = use3DAccessibility();
 
-  // Keyboard navigation
+  // Enhanced keyboard navigation with transition handling
   useKeyboardNavigation({
     onArrowLeft: () => {
+      if (isTransitioning) return;
+      setIsTransitioning(true);
       const prevIndex = currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
       onProjectChange(prevIndex);
       triggerHaptic('light');
+      announce(`Navigated to ${projects[prevIndex]?.name || 'previous project'}`);
+      setTimeout(() => setIsTransitioning(false), 300);
     },
     onArrowRight: () => {
+      if (isTransitioning) return;
+      setIsTransitioning(true);
       const nextIndex = currentIndex === projects.length - 1 ? 0 : currentIndex + 1;
       onProjectChange(nextIndex);
       triggerHaptic('light');
+      announce(`Navigated to ${projects[nextIndex]?.name || 'next project'}`);
+      setTimeout(() => setIsTransitioning(false), 300);
     },
     onEnter: () => {
       onProjectClick(projects[currentIndex]);
       triggerHaptic('medium');
+      announce(`Opening ${projects[currentIndex]?.name || 'project'}`);
     }
   });
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     const prevIndex = currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
     onProjectChange(prevIndex);
     triggerHaptic('light');
-  };
+    announce(`Navigated to ${projects[prevIndex]?.name || 'previous project'}`);
+    setTimeout(() => setIsTransitioning(false), 300);
+  }, [currentIndex, projects, onProjectChange, triggerHaptic, announce, isTransitioning]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     const nextIndex = currentIndex === projects.length - 1 ? 0 : currentIndex + 1;
     onProjectChange(nextIndex);
     triggerHaptic('light');
-  };
+    announce(`Navigated to ${projects[nextIndex]?.name || 'next project'}`);
+    setTimeout(() => setIsTransitioning(false), 300);
+  }, [currentIndex, projects, onProjectChange, triggerHaptic, announce, isTransitioning]);
+
+  const handleProjectChange = useCallback((index: number) => {
+    if (isTransitioning || index === currentIndex) return;
+    setIsTransitioning(true);
+    onProjectChange(index);
+    triggerHaptic('light');
+    announce(`Navigated to ${projects[index]?.name || 'project'}`);
+    setTimeout(() => setIsTransitioning(false), 300);
+  }, [currentIndex, projects, onProjectChange, triggerHaptic, announce, isTransitioning]);
 
   return (
     <div className={`relative w-full h-[600px] ${className}`}>
@@ -239,28 +322,38 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
           projects={projects}
           currentIndex={currentIndex}
           onProjectClick={onProjectClick}
+          enableSmoothTransitions={enableSmoothTransitions}
+          enableAutoRotate={enableAutoRotate}
         />
         
-        {/* Camera Controls */}
+        {/* Enhanced Camera Controls */}
         {!shouldReduceMotion && (
           <OrbitControls
             enablePan={false}
             enableZoom={true}
             enableRotate={true}
-            autoRotate={false}
+            autoRotate={enableAutoRotate}
+            autoRotateSpeed={0.5}
             maxPolarAngle={Math.PI / 2}
             minPolarAngle={Math.PI / 6}
             maxDistance={15}
             minDistance={5}
+            dampingFactor={0.05}
+            enableDamping={true}
           />
         )}
       </Canvas>
 
-      {/* Navigation Controls */}
+      {/* Enhanced Navigation Controls */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-4">
         <button
           onClick={handlePrevious}
-          className="w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+          disabled={isTransitioning}
+          className={`w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center transition-all ${
+            isTransitioning 
+              ? 'opacity-50 cursor-not-allowed' 
+              : 'hover:scale-110 hover:shadow-xl'
+          }`}
           aria-label="Previous project"
         >
           <svg className="w-6 h-6 text-neutral-700 dark:text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -268,25 +361,31 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
           </svg>
         </button>
 
-        {/* Project Indicators */}
+        {/* Enhanced Project Indicators */}
         <div className="flex gap-2">
-          {projects.map((_, index) => (
+          {projects.map((project, index) => (
             <button
-              key={index}
-              onClick={() => onProjectChange(index)}
+              key={`indicator-${index}`}
+              onClick={() => handleProjectChange(index)}
+              disabled={isTransitioning}
               className={`w-3 h-3 rounded-full transition-all ${
                 index === currentIndex
-                  ? "bg-primary-500 scale-125"
+                  ? "bg-primary-500 scale-125 shadow-lg"
                   : "bg-neutral-300 dark:bg-neutral-600 hover:bg-neutral-400 dark:hover:bg-neutral-500"
-              }`}
-              aria-label={`Go to project ${index + 1}`}
+              } ${isTransitioning ? 'opacity-50' : ''}`}
+              aria-label={`Go to ${project.name} project`}
             />
           ))}
         </div>
 
         <button
           onClick={handleNext}
-          className="w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+          disabled={isTransitioning}
+          className={`w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center transition-all ${
+            isTransitioning 
+              ? 'opacity-50 cursor-not-allowed' 
+              : 'hover:scale-110 hover:shadow-xl'
+          }`}
           aria-label="Next project"
         >
           <svg className="w-6 h-6 text-neutral-700 dark:text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -295,32 +394,64 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
         </button>
       </div>
 
-      {/* Project Info Overlay */}
-      <AnimatePresence>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          key={currentIndex}
-          className="absolute top-6 left-6 right-6"
-        >
-          <div className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
-            <h3 className="text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-2">
-              {projects[currentIndex]?.name}
-            </h3>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              Project {currentIndex + 1} of {projects.length}
-            </p>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+      {/* Enhanced Project Info Overlay */}
+      {showProjectInfo && (
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            key={currentIndex}
+            className="absolute top-6 left-6 right-6"
+          >
+            <div className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+              <h3 className="text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-2">
+                {projects[currentIndex]?.name}
+              </h3>
+              {projects[currentIndex]?.description && (
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
+                  {projects[currentIndex].description}
+                </p>
+              )}
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                  Project {currentIndex + 1} of {projects.length}
+                </p>
+                {(() => {
+                  const currentProject = projects[currentIndex];
+                  const technologies = currentProject?.technologies;
+                  return technologies && technologies.length > 0 && (
+                    <div className="flex gap-1">
+                      {technologies.slice(0, 3).map((tech, index) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-xs rounded-full"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {technologies.length > 3 && (
+                        <span className="px-2 py-1 bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 text-xs rounded-full">
+                          +{technologies.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      )}
 
-      {/* Instructions */}
+      {/* Enhanced Instructions */}
       <div className="absolute top-6 right-6 text-right">
-        <div className="bg-black/50 text-white text-xs px-3 py-2 rounded-lg backdrop-blur-sm">
+        <div className="bg-black/60 text-white text-xs px-3 py-2 rounded-lg backdrop-blur-sm shadow-lg">
           <p>🖱️ Click & drag to rotate</p>
           <p>⌨️ Use arrow keys to navigate</p>
           <p>🖱️ Scroll to zoom</p>
+          {enableAutoRotate && <p>🔄 Auto-rotate enabled</p>}
+          {isTransitioning && <p>⏳ Transitioning...</p>}
         </div>
       </div>
     </div>

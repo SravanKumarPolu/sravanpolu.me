@@ -34,8 +34,10 @@ export const navLinks = [
   { label: "Home", href: "home" },
   { label: "Work", href: "work" },
   { label: "Analytics", href: "analytics" },
+  { label: "Skills", href: "skills" },
+  { label: "Testimonials", href: "testimonials" },
+  { label: "Contact", href: "contact" },
   { label: "Resume", href: "resume" },
-  { label: "Contact", href: "footer" },
 ];
 
 export const courses = [
