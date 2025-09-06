@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-const useMediaQuery = (query) => {
-  const [matches, setMatches] = useState(
+const useMediaQuery = (query: string): boolean => {
+  const [matches, setMatches] = useState<boolean>(
     typeof window !== "undefined" && window.matchMedia(query).matches
   );
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(query);
-    const handleChange = () => setMatches(mediaQuery.matches);
+    const handleChange = (): void => setMatches(mediaQuery.matches);
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);

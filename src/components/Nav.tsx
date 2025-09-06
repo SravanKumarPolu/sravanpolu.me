@@ -6,18 +6,18 @@ import { motion } from "framer-motion";
 import { navLinks } from "../constants";
 import { useMediaQuery } from "@react-hook/media-query";
 
-const Nav = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const [isNavOpen, setIsNavOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState("Home");
-  const [isTopOfPage, setIsTopOfPage] = useState(true);
+const Nav: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(false);
+  const [activeLink, setActiveLink] = useState<string>("Home");
+  const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
 
-  const toggleNav = () => setIsNavOpen(!isNavOpen);
+  const toggleNav = (): void => setIsNavOpen(!isNavOpen);
 
   // Scroll tracking
   useEffect(() => {
-    const handleScroll = () => setIsTopOfPage(window.scrollY === 0);
+    const handleScroll = (): void => setIsTopOfPage(window.scrollY === 0);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -25,7 +25,7 @@ const Nav = () => {
   // Section observer
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const sectionId = entry.target.id;
@@ -95,9 +95,9 @@ const Nav = () => {
               className="p-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition text-white"
               title="Toggle Theme">
               {isDarkMode ? (
-                <BsMoonStarsFill />
+                <BsMoonStarsFill className="w-5 h-5" />
               ) : (
-                <BsSunFill className="text-yellow-400" />
+                <BsSunFill className="w-5 h-5 text-yellow-400" />
               )}
             </button>
           </div>
@@ -109,9 +109,9 @@ const Nav = () => {
               className="p-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md transition text-white"
               title="Toggle Theme">
               {isDarkMode ? (
-                <BsMoonStarsFill />
+                <BsMoonStarsFill className="w-5 h-5" />
               ) : (
-                <BsSunFill className="text-yellow-400" />
+                <BsSunFill className="w-5 h-5 text-yellow-400" />
               )}
             </button>
             <button
@@ -144,7 +144,7 @@ const Nav = () => {
               <Link
                 page={item.label}
                 selectedPage={activeLink}
-                setSelectedPage={(label) => {
+                setSelectedPage={(label: string) => {
                   setActiveLink(label);
                   setIsNavOpen(false);
                 }}

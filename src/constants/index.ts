@@ -22,6 +22,7 @@ import timerImg from "../assets/images/Task+Breaks.png";
 import twitter from "../assets/icons/twitter.svg";
 import typescript from "../assets/icons/ts.svg";
 import vanlifImg from "../assets/images/vanlife.png";
+
 export const assets = {
   downArrow,
 };
@@ -168,7 +169,9 @@ export const courses = [
 
   // Add more courses here
 ];
+
 export const work = [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }];
+
 export const footerLinks = [
   {
     title: "Get in touch",

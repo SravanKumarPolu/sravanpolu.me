@@ -1,7 +1,13 @@
 import React from "react";
 import { useMediaQuery } from "@react-hook/media-query";
 
-const Link = ({ page, selectedPage, setSelectedPage }) => {
+interface LinkProps {
+  page: string;
+  selectedPage: string;
+  setSelectedPage: (page: string) => void;
+}
+
+const Link: React.FC<LinkProps> = ({ page, selectedPage, setSelectedPage }) => {
   const isActive = selectedPage === page;
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
   const pageLink = `#${page.toLowerCase()}`;

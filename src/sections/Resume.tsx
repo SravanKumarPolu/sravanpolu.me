@@ -4,8 +4,8 @@ import React from "react";
 import UpArrow from "../components/UpArrow";
 import { motion } from "framer-motion";
 
-const Resume = () => {
-  const handleDownload = () => {
+const Resume: React.FC = () => {
+  const handleDownload = (): void => {
     const link = document.createElement("a");
     link.href = "/Resume.pdf";
     link.download = "Resume.pdf";
@@ -63,7 +63,7 @@ const Resume = () => {
               whileTap={{ scale: 0.95 }}
               onClick={handleDownload}
               className="btn btn-accent gap-2">
-              <FiDownload className="text-lg" />
+              <FiDownload className="w-5 h-5" />
               Download Resume
             </motion.button>
 

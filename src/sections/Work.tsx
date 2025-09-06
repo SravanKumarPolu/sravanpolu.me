@@ -1,4 +1,4 @@
-// src/components/Work.jsx
+// src/components/Work.tsx
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import React, { useState } from "react";
@@ -8,37 +8,37 @@ import { courses } from "../constants";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
 
-const Work = () => {
-  const [hoveredIcon, setHoveredIcon] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+const Work: React.FC = () => {
+  const [hoveredIcon, setHoveredIcon] = useState<any>(null);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
   const isDesktop = useMediaQuery("(min-width:1060px)");
 
-  const prevSlide = () =>
+  const prevSlide = (): void =>
     setCurrentSlide((prev) => (prev === 0 ? courses.length - 1 : prev - 1));
-  const nextSlide = () =>
+  const nextSlide = (): void =>
     setCurrentSlide((prev) => (prev === courses.length - 1 ? 0 : prev + 1));
 
-  const changeSlide = (index) => {
+  const changeSlide = (index: number): void => {
     setCurrentSlide(index);
     setCurrentProjectIndex(0);
   };
 
-  const handleProjectPrev = () => {
+  const handleProjectPrev = (): void => {
     const projects = courses[currentSlide].projects;
     setCurrentProjectIndex((prev) =>
       prev === 0 ? projects.length - 1 : prev - 1
     );
   };
 
-  const handleProjectNext = () => {
+  const handleProjectNext = (): void => {
     const projects = courses[currentSlide].projects;
     setCurrentProjectIndex((prev) =>
       prev === projects.length - 1 ? 0 : prev + 1
     );
   };
 
-  const getCardStyle = (index) => {
+  const getCardStyle = (index: number): string => {
     const styles = [
       "bg-gradient-to-r from-orange-400 to-pink-500",
       "bg-gradient-to-r from-cyan-400 to-blue-500",
@@ -141,13 +141,13 @@ const Work = () => {
                       onClick={handleProjectPrev}
                       className="absolute -left-5 top-1/2 -translate-y-1/2 bg-white text-black w-10 h-10 flex items-center justify-center rounded-full shadow hover:scale-110 transition"
                       aria-label="Previous Project">
-                      <FaChevronLeft />
+                      <FaChevronLeft className="w-4 h-4" />
                     </button>
                     <button
                       onClick={handleProjectNext}
                       className="absolute -right-5 top-1/2 -translate-y-1/2 bg-white text-black w-10 h-10 flex items-center justify-center rounded-full shadow hover:scale-110 transition"
                       aria-label="Next Project">
-                      <FaChevronRight />
+                      <FaChevronRight className="w-4 h-4" />
                     </button>
                   </div>
                   <div className="relative ">

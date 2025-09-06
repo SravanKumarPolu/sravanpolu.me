@@ -7,7 +7,7 @@ import heroAnimation from "../assets/lottie/hero-animation.json";
 import { motion } from "framer-motion";
 import skr from "../assets/images/skr.png";
 
-const Hero = () => {
+const Hero: React.FC = () => {
   return (
     <section
       id="home"
@@ -88,8 +88,8 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}>
         <p className="hover:text-gray-200 transition duration-300">
-          “Building scalable web solutions with MERN Stack—one project at a
-          time.” 🚀
+          "Building scalable web solutions with MERN Stack—one project at a
+          time." 🚀
         </p>
       </motion.div>
 

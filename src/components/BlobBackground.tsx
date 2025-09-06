@@ -1,5 +1,7 @@
-// components/BlobBackground.jsx
-const BlobBackground = () => (
+// components/BlobBackground.tsx
+import React from "react";
+
+const BlobBackground: React.FC = () => (
   <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
     {/* Top-left blob */}
     <svg

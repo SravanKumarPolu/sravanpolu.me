@@ -1,4 +1,4 @@
-// sections/index.js
+// sections/index.ts
 
 import About from "./Work";
 import Footer from "./Footer";
@@ -7,7 +7,7 @@ import Resume from "./Resume";
 
 export { Hero, Footer, About, Resume };
 
-// types.js
+// types.ts
 export const SelectedPage = Object.freeze({
   Home: "home",
   Work: "work",

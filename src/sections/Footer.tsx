@@ -5,15 +5,15 @@ import copyrightSign from "../assets/icons/copyright-sign.svg";
 import footerLogo from "../assets/images/footerLogo.png";
 import { motion } from "framer-motion";
 
-const fadeIn = (direction = "up", delay = 0.2) => ({
+const fadeIn = (direction: string = "up", delay: number = 0.2) => ({
   hidden: { opacity: 0, y: direction === "up" ? 50 : -50, scale: 0.95 },
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, delay } },
 });
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <footer
-      id="contact"
+      id="footer"
       className="bg-neutral py-16 w-full min-h-screen items-center justify-center">
       <div className="card bg-base-100 shadow-xl border border-gray-300 w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-8 sm:py-10 rounded-xl sm:rounded-2xl">
         {/* Grid Section */}
@@ -111,7 +111,7 @@ const Footer = () => {
         {/* Theme Toggle + Signature */}
         <div className="mt-10 flex flex-col justify-center items-center">
           <div className="text-sm italic text-center text-gray-400">
-            “Every pixel matters. Every interaction counts.” — Sravan Polu
+            "Every pixel matters. Every interaction counts." — Sravan Polu
           </div>
           <div className="mt-4">
             <input type="checkbox" className="toggle theme-controller" />
