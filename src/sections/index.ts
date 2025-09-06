@@ -1,12 +1,12 @@
 // sections/index.ts
 
-import About from "./Work";
+import Work from "./Work";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Resume from "./Resume";
 import DataAnalytics from "./DataAnalytics";
 
-export { Hero, Footer, About, Resume, DataAnalytics };
+export { Hero, Footer, Work, Resume, DataAnalytics };
 
 // types.ts
 export const SelectedPage = Object.freeze({

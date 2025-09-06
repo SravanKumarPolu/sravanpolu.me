@@ -1,6 +1,6 @@
 // src/components/Work.tsx
 
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaBox, FaEye } from "react-icons/fa";
 import React, { useState } from "react";
 
 import { courses } from "../constants";
@@ -16,12 +16,16 @@ import { Card } from "../components/ui/Card";
 import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor";
 import { useAccessibility } from "../hooks/useAccessibility";
 import { SkeletonProjectCardAdvanced } from "../components/SkeletonLoader";
+import { Project3DShowcase, Project3DModal, Lazy3DWrapper } from "../components/3d";
 
 
 const Work: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [viewMode, setViewMode] = useState<'2d' | '3d'>('2d');
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const isDesktop = useMediaQuery("(min-width:1060px)");
   const { triggerHaptic } = useHaptic();
   const { announce } = useAnnouncement();
@@ -83,6 +87,31 @@ const Work: React.FC = () => {
     );
   };
 
+  // 3D Interaction Handlers
+  const handleViewModeToggle = (): void => {
+    setViewMode(prev => prev === '2d' ? '3d' : '2d');
+    triggerHaptic('light');
+    announce(`Switched to ${viewMode === '2d' ? '3D' : '2D'} view mode`);
+  };
+
+  const handleProjectClick = (project: any): void => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+    triggerHaptic('medium');
+    announce(`Opening ${project.name} in 3D modal`);
+  };
+
+  const handleModalClose = (): void => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+    triggerHaptic('light');
+  };
+
+  const handle3DProjectChange = (index: number): void => {
+    setCurrentProjectIndex(index);
+    triggerHaptic('light');
+  };
+
 
   return (
     <section
@@ -95,11 +124,39 @@ const Work: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16 transform-gpu">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">Projects</span>
-          </h2>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">Projects</span>
+            </h2>
+            
+            {/* 3D Toggle Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleViewModeToggle}
+              className="flex items-center gap-2 hover:scale-105 transition-transform"
+              aria-label={`Switch to ${viewMode === '2d' ? '3D' : '2D'} view`}
+            >
+              {viewMode === '2d' ? (
+                <>
+                  <FaBox className="w-4 h-4" />
+                  <span className="hidden sm:inline">3D View</span>
+                </>
+              ) : (
+                <>
+                  <FaEye className="w-4 h-4" />
+                  <span className="hidden sm:inline">2D View</span>
+                </>
+              )}
+            </Button>
+          </div>
           <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
             Explore my portfolio of web applications built with modern technologies
+            {viewMode === '3d' && (
+              <span className="block mt-2 text-sm text-primary-500">
+                🎮 Interactive 3D Experience • Click & drag to explore
+              </span>
+            )}
           </p>
         </motion.div>
 
@@ -167,7 +224,7 @@ const Work: React.FC = () => {
             {/* Enhanced Project Showcase */}
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentSlide}
+                key={`${currentSlide}-${viewMode}`}
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
@@ -175,7 +232,23 @@ const Work: React.FC = () => {
               >
                 {isLoading ? (
                   <SkeletonProjectCardAdvanced />
+                ) : viewMode === '3d' ? (
+                  // 3D Project Showcase
+                  <Lazy3DWrapper
+                    className="w-full h-[600px] rounded-xl overflow-hidden"
+                    threshold={0.1}
+                    enablePerformanceMonitoring={true}
+                  >
+                    <Project3DShowcase
+                      projects={courses[currentSlide]?.projects || []}
+                      currentIndex={currentProjectIndex}
+                      onProjectChange={handle3DProjectChange}
+                      onProjectClick={handleProjectClick}
+                      className="w-full h-full"
+                    />
+                  </Lazy3DWrapper>
                 ) : (
+                  // 2D Project Display (Original)
                   <Card 
                     variant="glass" 
                     size="lg" 
@@ -185,96 +258,96 @@ const Work: React.FC = () => {
                     glow={true}
                     className="overflow-hidden backdrop-blur-xl"
                   >
-                {/* Project Header */}
-                <div className="border-b border-neutral-200 dark:border-neutral-700 mb-6">
-                  <div className="flex items-center gap-4 mb-4">
-                    <img
-                      src={courses[currentSlide]?.language?.[0]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%23e5e7eb'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='16' fill='%236b7280'%3E?%3C/text%3E%3C/svg%3E"}
-                      alt={courses[currentSlide]?.language?.[0]?.alt || "Technology"}
-                      className="w-12 h-12 rounded-full"
-                    />
-                    <div>
-                      <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200">
-                        {courses[currentSlide]?.courseName || "Unknown Technology"}
-                      </h3>
-                      <p className="text-neutral-600 dark:text-neutral-400">
-                        {courses[currentSlide]?.summary || "No description available"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Project Carousel */}
-                <div className="relative">
-                  {/* Navigation Arrows */}
-                  <button
-                    onClick={handleProjectPrev}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 bg-white dark:bg-neutral-700 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
-                    aria-label="Previous Project">
-                    <FaChevronLeft className="w-4 h-4 text-neutral-600 dark:text-neutral-300" />
-                  </button>
-                  
-                  <button
-                    onClick={handleProjectNext}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 bg-white dark:bg-neutral-700 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
-                    aria-label="Next Project">
-                    <FaChevronRight className="w-4 h-4 text-neutral-600 dark:text-neutral-300" />
-                  </button>
-
-                  {/* Project Card */}
-                  <div className="bg-neutral-50 dark:bg-neutral-900 rounded-xl p-6">
-                    <div className="aspect-video mb-4 rounded-lg overflow-hidden">
+                    {/* Project Header */}
+                    <div className="border-b border-neutral-200 dark:border-neutral-700 mb-6">
+                      <div className="flex items-center gap-4 mb-4">
                         <img
-                          src={courses[currentSlide]?.projects?.[currentProjectIndex]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Ctext x='200' y='150' text-anchor='middle' font-size='24' fill='%236b7280'%3ENo Image%3C/text%3E%3C/svg%3E"}
-                          alt={courses[currentSlide]?.projects?.[currentProjectIndex]?.title || "Project Image"}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          src={courses[currentSlide]?.language?.[0]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%23e5e7eb'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='16' fill='%236b7280'%3E?%3C/text%3E%3C/svg%3E"}
+                          alt={courses[currentSlide]?.language?.[0]?.alt || "Technology"}
+                          className="w-12 h-12 rounded-full"
                         />
+                        <div>
+                          <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200">
+                            {courses[currentSlide]?.courseName || "Unknown Technology"}
+                          </h3>
+                          <p className="text-neutral-600 dark:text-neutral-400">
+                            {courses[currentSlide]?.summary || "No description available"}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    
-                    <div className="text-center">
-                      <h4 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-2">
-                        {courses[currentSlide]?.projects?.[currentProjectIndex]?.title || "Project Title"}
-                      </h4>
-                      
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        magnetic={!shouldReduceMotion}
-                        ripple={true}
-                        glow={true}
-                        loading={isLoading}
-                        onClick={() => {
-                          setIsLoading(true);
-                          setTimeout(() => {
-                            window.open(courses[currentSlide]?.projects?.[currentProjectIndex]?.link || "#", '_blank');
-                            setIsLoading(false);
-                          }, 1000);
-                        }}
-                        className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600"
-                      >
-                        View Project
-                      </Button>
-                    </div>
-                  </div>
-                </div>
 
-                {/* Project Counter */}
-                <div className="flex justify-center mt-6">
-                  <div className="flex gap-2">
-                    {courses[currentSlide]?.projects?.map((_, index) => (
+                    {/* Project Carousel */}
+                    <div className="relative">
+                      {/* Navigation Arrows */}
                       <button
-                        key={index}
-                        onClick={() => setCurrentProjectIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-colors ${
-                          index === currentProjectIndex
-                            ? "bg-primary-500"
-                            : "bg-neutral-300 dark:bg-neutral-600"
-                        }`}
-                        aria-label={`Go to project ${index + 1}`}
-                      />
-                    ))}
-                  </div>
-                </div>
+                        onClick={handleProjectPrev}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 bg-white dark:bg-neutral-700 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+                        aria-label="Previous Project">
+                        <FaChevronLeft className="w-4 h-4 text-neutral-600 dark:text-neutral-300" />
+                      </button>
+                      
+                      <button
+                        onClick={handleProjectNext}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 bg-white dark:bg-neutral-700 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+                        aria-label="Next Project">
+                        <FaChevronRight className="w-4 h-4 text-neutral-600 dark:text-neutral-300" />
+                      </button>
+
+                      {/* Project Card */}
+                      <div className="bg-neutral-50 dark:bg-neutral-900 rounded-xl p-6">
+                        <div className="aspect-video mb-4 rounded-lg overflow-hidden">
+                            <img
+                              src={courses[currentSlide]?.projects?.[currentProjectIndex]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Ctext x='200' y='150' text-anchor='middle' font-size='24' fill='%236b7280'%3ENo Image%3C/text%3E%3C/svg%3E"}
+                              alt={courses[currentSlide]?.projects?.[currentProjectIndex]?.title || "Project Image"}
+                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                            />
+                        </div>
+                        
+                        <div className="text-center">
+                          <h4 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-2">
+                            {courses[currentSlide]?.projects?.[currentProjectIndex]?.title || "Project Title"}
+                          </h4>
+                          
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            magnetic={!shouldReduceMotion}
+                            ripple={true}
+                            glow={true}
+                            loading={isLoading}
+                            onClick={() => {
+                              setIsLoading(true);
+                              setTimeout(() => {
+                                window.open(courses[currentSlide]?.projects?.[currentProjectIndex]?.link || "#", '_blank');
+                                setIsLoading(false);
+                              }, 1000);
+                            }}
+                            className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600"
+                          >
+                            View Project
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Project Counter */}
+                    <div className="flex justify-center mt-6">
+                      <div className="flex gap-2">
+                        {courses[currentSlide]?.projects?.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setCurrentProjectIndex(index)}
+                            className={`w-2 h-2 rounded-full transition-colors ${
+                              index === currentProjectIndex
+                                ? "bg-primary-500"
+                                : "bg-neutral-300 dark:bg-neutral-600"
+                            }`}
+                            aria-label={`Go to project ${index + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </Card>
                 )}
               </motion.div>
@@ -282,6 +355,15 @@ const Work: React.FC = () => {
           </main>
         </div>
       </div>
+
+      {/* 3D Project Modal */}
+      {selectedProject && (
+        <Project3DModal
+          project={selectedProject}
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+        />
+      )}
     </section>
   );
 };

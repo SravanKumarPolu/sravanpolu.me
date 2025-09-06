@@ -1,0 +1,330 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Canvas } from '@react-three/fiber';
+import { 
+  OrbitControls, 
+  Environment, 
+  ContactShadows,
+  Float
+} from '@react-three/drei';
+import { useAccessibility } from '../../hooks/useAccessibility';
+import { useHaptic } from '../../hooks/useHaptic';
+import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
+import Project3DPreview from './Project3DPreview';
+import * as THREE from 'three';
+
+interface Project3DShowcaseProps {
+  projects: Array<{
+    src: string;
+    title: string;
+    name: string;
+    link: string;
+  }>;
+  currentIndex: number;
+  onProjectChange: (index: number) => void;
+  onProjectClick: (project: any) => void;
+  className?: string;
+}
+
+// 3D Carousel Scene
+const Project3DCarousel: React.FC<{
+  projects: Project3DShowcaseProps['projects'];
+  currentIndex: number;
+  onProjectClick: (project: any) => void;
+}> = ({ projects, currentIndex, onProjectClick }) => {
+  const groupRef = useRef<THREE.Group>(null);
+  const { shouldReduceMotion } = useAccessibility();
+
+  useEffect(() => {
+    if (!groupRef.current || shouldReduceMotion) return;
+    
+    // Animate to current project position
+    const targetRotation = (currentIndex * -Math.PI * 2) / projects.length;
+    groupRef.current.rotation.y = targetRotation;
+  }, [currentIndex, projects.length, shouldReduceMotion]);
+
+  return (
+    <group ref={groupRef}>
+      {projects.map((project, index) => {
+        const angle = (index * Math.PI * 2) / projects.length;
+        const radius = 4;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        
+        return (
+          <group key={index} position={[x, 0, z]} rotation={[0, -angle, 0]}>
+            {shouldReduceMotion ? (
+              <Project3DPreview
+                project={project}
+                isActive={index === currentIndex}
+                onProjectClick={() => onProjectClick(project)}
+              />
+            ) : (
+              <Float
+                speed={1 + index * 0.1}
+                rotationIntensity={0.2}
+                floatIntensity={0.1}
+              >
+                <Project3DPreview
+                  project={project}
+                  isActive={index === currentIndex}
+                  onProjectClick={() => onProjectClick(project)}
+                />
+              </Float>
+            )}
+          </group>
+        );
+      })}
+    </group>
+  );
+};
+
+// 3D Environment Scene
+const Showcase3DScene: React.FC<{
+  projects: Project3DShowcaseProps['projects'];
+  currentIndex: number;
+  onProjectClick: (project: any) => void;
+}> = ({ projects, currentIndex, onProjectClick }) => {
+  const { shouldReduceMotion } = useAccessibility();
+  
+  return (
+    <>
+      {/* Advanced Lighting Setup */}
+      <ambientLight intensity={0.3} />
+      <directionalLight
+        position={[10, 10, 5]}
+        intensity={1.2}
+        castShadow
+        shadow-mapSize-width={4096}
+        shadow-mapSize-height={4096}
+        shadow-camera-far={50}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+      />
+      <pointLight position={[-10, -10, -10]} intensity={0.8} color="#3b82f6" />
+      <pointLight position={[10, 10, 10]} intensity={0.6} color="#8b5cf6" />
+      <spotLight
+        position={[0, 15, 0]}
+        angle={0.3}
+        penumbra={1}
+        intensity={0.5}
+        castShadow
+      />
+
+      {/* Environment */}
+      <Environment preset="studio" />
+
+      {/* Main Carousel */}
+      <Project3DCarousel
+        projects={projects}
+        currentIndex={currentIndex}
+        onProjectClick={onProjectClick}
+      />
+
+      {/* Background Elements */}
+      <group position={[0, -3, -8]}>
+        <ContactShadows
+          opacity={0.4}
+          scale={20}
+          blur={2}
+          far={4}
+          resolution={512}
+          color="#000000"
+        />
+      </group>
+
+      {/* Floating Particles */}
+      {Array.from({ length: 20 }).map((_, i) => {
+        const mesh = (
+          <mesh
+            key={i}
+            position={[
+              (Math.random() - 0.5) * 20,
+              (Math.random() - 0.5) * 10,
+              (Math.random() - 0.5) * 20
+            ]}
+          >
+            <sphereGeometry args={[0.05, 8, 8]} />
+            <meshStandardMaterial
+              color={['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b'][i % 4]}
+              transparent
+              opacity={0.3}
+            />
+          </mesh>
+        );
+        
+        return shouldReduceMotion ? mesh : (
+          <Float
+            key={i}
+            speed={0.5 + Math.random() * 1}
+            rotationIntensity={0.1}
+            floatIntensity={0.2}
+          >
+            {mesh}
+          </Float>
+        );
+      })}
+    </>
+  );
+};
+
+// Main Showcase Component
+const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
+  projects,
+  currentIndex,
+  onProjectChange,
+  onProjectClick,
+  className = ''
+}) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { shouldReduceMotion } = useAccessibility();
+  const { triggerHaptic } = useHaptic();
+
+  // Keyboard navigation
+  useKeyboardNavigation({
+    onArrowLeft: () => {
+      const prevIndex = currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
+      onProjectChange(prevIndex);
+      triggerHaptic('light');
+    },
+    onArrowRight: () => {
+      const nextIndex = currentIndex === projects.length - 1 ? 0 : currentIndex + 1;
+      onProjectChange(nextIndex);
+      triggerHaptic('light');
+    },
+    onEnter: () => {
+      onProjectClick(projects[currentIndex]);
+      triggerHaptic('medium');
+    }
+  });
+
+  const handlePrevious = () => {
+    const prevIndex = currentIndex === 0 ? projects.length - 1 : currentIndex - 1;
+    onProjectChange(prevIndex);
+    triggerHaptic('light');
+  };
+
+  const handleNext = () => {
+    const nextIndex = currentIndex === projects.length - 1 ? 0 : currentIndex + 1;
+    onProjectChange(nextIndex);
+    triggerHaptic('light');
+  };
+
+  return (
+    <div className={`relative w-full h-[600px] ${className}`}>
+      {/* Loading State */}
+      {!isLoaded && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900 rounded-xl">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-500 mx-auto mb-4"></div>
+            <p className="text-neutral-600 dark:text-neutral-400">Loading 3D Experience...</p>
+          </div>
+        </div>
+      )}
+
+      {/* 3D Canvas */}
+      <Canvas
+        shadows
+        camera={{ position: [0, 2, 8], fov: 50 }}
+        onCreated={() => setIsLoaded(true)}
+        style={{ 
+          background: 'transparent',
+          opacity: isLoaded ? 1 : 0,
+          transition: 'opacity 0.8s ease-in-out'
+        }}
+      >
+        <Showcase3DScene
+          projects={projects}
+          currentIndex={currentIndex}
+          onProjectClick={onProjectClick}
+        />
+        
+        {/* Camera Controls */}
+        {!shouldReduceMotion && (
+          <OrbitControls
+            enablePan={false}
+            enableZoom={true}
+            enableRotate={true}
+            autoRotate={false}
+            maxPolarAngle={Math.PI / 2}
+            minPolarAngle={Math.PI / 6}
+            maxDistance={15}
+            minDistance={5}
+          />
+        )}
+      </Canvas>
+
+      {/* Navigation Controls */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-4">
+        <button
+          onClick={handlePrevious}
+          className="w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+          aria-label="Previous project"
+        >
+          <svg className="w-6 h-6 text-neutral-700 dark:text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        {/* Project Indicators */}
+        <div className="flex gap-2">
+          {projects.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => onProjectChange(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                index === currentIndex
+                  ? "bg-primary-500 scale-125"
+                  : "bg-neutral-300 dark:bg-neutral-600 hover:bg-neutral-400 dark:hover:bg-neutral-500"
+              }`}
+              aria-label={`Go to project ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={handleNext}
+          className="w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+          aria-label="Next project"
+        >
+          <svg className="w-6 h-6 text-neutral-700 dark:text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Project Info Overlay */}
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          key={currentIndex}
+          className="absolute top-6 left-6 right-6"
+        >
+          <div className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-lg p-4 shadow-lg">
+            <h3 className="text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-2">
+              {projects[currentIndex]?.name}
+            </h3>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Project {currentIndex + 1} of {projects.length}
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Instructions */}
+      <div className="absolute top-6 right-6 text-right">
+        <div className="bg-black/50 text-white text-xs px-3 py-2 rounded-lg backdrop-blur-sm">
+          <p>🖱️ Click & drag to rotate</p>
+          <p>⌨️ Use arrow keys to navigate</p>
+          <p>🖱️ Scroll to zoom</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Project3DShowcase;
