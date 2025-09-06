@@ -179,7 +179,7 @@ const config = {
     require("daisyui"),
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
-    require("flowbite/plugin")
+    require("@tailwindcss/container-queries")
   ],
 };
 

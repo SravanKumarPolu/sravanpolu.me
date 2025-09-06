@@ -15,7 +15,7 @@ export const MagneticCard: React.FC<MagneticCardProps> = ({
   className = '',
   onClick
 }) => {
-  const { ref, handleMouseMove, handleMouseLeave } = useMagnetic(strength);
+  const { ref, handleMouseMove, handleMouseLeave } = useMagnetic({ strength });
 
   return (
     <motion.div

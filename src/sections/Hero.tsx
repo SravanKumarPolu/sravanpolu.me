@@ -8,20 +8,12 @@ import skr from "../assets/images/skr.png";
 import { useHaptic } from "../hooks/useHaptic";
 import { ParallaxBackground } from "../components/ParallaxBackground";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { Button } from "../components/ui/Button";
 
 const Hero: React.FC = () => {
   const { triggerHaptic } = useHaptic();
   const { ref: heroRef, inView } = useScrollAnimation(0.1, true);
 
-  const handleButtonClick = (action: string) => {
-    triggerHaptic('light');
-    // Handle button click actions here
-    if (action === 'Download Resume') {
-      // Add resume download logic
-    } else if (action === 'View Projects') {
-      // Add scroll to projects logic
-    }
-  };
 
   return (
     <section
@@ -127,22 +119,32 @@ const Hero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <motion.a
-              href="#work"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn btn-primary btn-lg px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={() => {
+                triggerHaptic('light');
+                document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              magnetic={true}
+              className="px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl"
+            >
               View Portfolio
               <DownArrow />
-            </motion.a>
+            </Button>
 
-            <motion.a
-              href="#footer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn btn-outline btn-lg px-8 py-3 text-lg font-semibold border-2 border-white/30 hover:border-white/60 hover:bg-white/10 transition-all duration-300">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => {
+                triggerHaptic('light');
+                document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              magnetic={true}
+              className="px-8 py-3 text-lg font-semibold border-2 border-white/30 hover:border-white/60 hover:bg-white/10"
+            >
               Contact Me
-            </motion.a>
+            </Button>
           </motion.div>
 
           {/* Current Project */}

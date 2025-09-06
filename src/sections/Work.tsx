@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
 import { useHaptic } from "../hooks/useHaptic";
 import { useAnnouncement } from "../components/AnnouncementSystem";
-import { MagneticCard } from "../components/MagneticCard";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { useSwipeable } from "react-swipeable";
 import { Button } from "../components/ui/Button";
@@ -132,19 +131,23 @@ const Work: React.FC = () => {
             {/* Mobile Navigation */}
             {!isDesktop && (
               <div className="flex justify-center gap-4 mb-8">
-                <button
+                <Button
+                  variant="outline"
+                  size="sm"
                   onClick={prevSlide}
-                  className="btn btn-outline btn-sm">
+                >
                   Previous
-                </button>
+                </Button>
                 <span className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
                   {currentSlide + 1} of {courses.length}
                 </span>
-                <button
+                <Button
+                  variant="outline"
+                  size="sm"
                   onClick={nextSlide}
-                  className="btn btn-outline btn-sm">
+                >
                   Next
-                </button>
+                </Button>
               </div>
             )}
 
@@ -154,29 +157,33 @@ const Work: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white dark:bg-neutral-800 rounded-2xl shadow-lg overflow-hidden">
-              
-              {/* Project Header */}
-              <div className="p-6 border-b border-neutral-200 dark:border-neutral-700">
-                <div className="flex items-center gap-4 mb-4">
-                  <img
-                    src={courses[currentSlide]?.language?.[0]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%23e5e7eb'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='16' fill='%236b7280'%3E?%3C/text%3E%3C/svg%3E"}
-                    alt={courses[currentSlide]?.language?.[0]?.alt || "Technology"}
-                    className="w-12 h-12 rounded-full"
-                  />
-                  <div>
-                    <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200">
-                      {courses[currentSlide]?.courseName || "Unknown Technology"}
-                    </h3>
-                    <p className="text-neutral-600 dark:text-neutral-400">
-                      {courses[currentSlide]?.summary || "No description available"}
-                    </p>
+            >
+              <Card 
+                variant="elevated" 
+                size="lg" 
+                containerQuery={true}
+                className="overflow-hidden"
+              >
+                {/* Project Header */}
+                <div className="border-b border-neutral-200 dark:border-neutral-700 mb-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <img
+                      src={courses[currentSlide]?.language?.[0]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%23e5e7eb'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='16' fill='%236b7280'%3E?%3C/text%3E%3C/svg%3E"}
+                      alt={courses[currentSlide]?.language?.[0]?.alt || "Technology"}
+                      className="w-12 h-12 rounded-full"
+                    />
+                    <div>
+                      <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200">
+                        {courses[currentSlide]?.courseName || "Unknown Technology"}
+                      </h3>
+                      <p className="text-neutral-600 dark:text-neutral-400">
+                        {courses[currentSlide]?.summary || "No description available"}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Project Carousel */}
-              <div className="p-6">
+                {/* Project Carousel */}
                 <div className="relative">
                   {/* Navigation Arrows */}
                   <button
@@ -208,13 +215,13 @@ const Work: React.FC = () => {
                         {courses[currentSlide]?.projects?.[currentProjectIndex]?.title || "Project Title"}
                       </h4>
                       
-                      <a
-                        href={courses[currentSlide]?.projects?.[currentProjectIndex]?.link || "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-primary btn-sm">
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        onClick={() => window.open(courses[currentSlide]?.projects?.[currentProjectIndex]?.link || "#", '_blank')}
+                      >
                         View Project
-                      </a>
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -236,7 +243,7 @@ const Work: React.FC = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </Card>
             </motion.div>
           </main>
         </div>
