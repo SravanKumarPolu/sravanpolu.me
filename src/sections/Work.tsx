@@ -8,6 +8,9 @@ import { motion } from "framer-motion";
 import { useMediaQuery } from "@react-hook/media-query";
 import { useHaptic } from "../hooks/useHaptic";
 import { LiveRegion } from "../components/LiveRegion";
+import { MagneticCard } from "../components/MagneticCard";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { useSwipeable } from "react-swipeable";
 
 
 const Work: React.FC = () => {
@@ -16,6 +19,14 @@ const Work: React.FC = () => {
   const [announcement, setAnnouncement] = useState('');
   const isDesktop = useMediaQuery("(min-width:1060px)");
   const { triggerHaptic } = useHaptic();
+  const { ref: workRef, inView } = useScrollAnimation(0.1, true);
+
+  // Swipe gestures for mobile
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => nextSlide(),
+    onSwipedRight: () => prevSlide(),
+    trackMouse: true,
+  });
 
   const prevSlide = (): void => {
     setCurrentSlide((prev) => (prev === 0 ? courses.length - 1 : prev - 1));
@@ -65,14 +76,14 @@ const Work: React.FC = () => {
       id="work"
       className="py-20 bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white">
       <LiveRegion message={announcement} />
-      <div className="container mx-auto px-6">
+      <div {...swipeHandlers} className="container mx-auto px-6">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16">
+          ref={workRef}
+          initial={{ opacity: 0, y: 50, rotateX: 15 }}
+          animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16 transform-gpu">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">Projects</span>
           </h2>

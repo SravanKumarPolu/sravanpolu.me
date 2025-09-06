@@ -155,6 +155,11 @@ const config = {
         xs: "400px",
         wide: "2880px",
       },
+      
+      // ✅ Advanced Transform Utilities
+      transform: {
+        'gpu': 'translateZ(0)',
+      },
     },
   },
 

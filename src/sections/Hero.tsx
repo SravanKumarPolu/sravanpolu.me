@@ -6,9 +6,12 @@ import heroAnimation from "../assets/lottie/hero-animation.json";
 import { motion } from "framer-motion";
 import skr from "../assets/images/skr.png";
 import { useHaptic } from "../hooks/useHaptic";
+import { ParallaxBackground } from "../components/ParallaxBackground";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const Hero: React.FC = () => {
   const { triggerHaptic } = useHaptic();
+  const { ref: heroRef, inView } = useScrollAnimation(0.1, true);
 
   const handleButtonClick = (action: string) => {
     triggerHaptic('light');
@@ -25,13 +28,21 @@ const Hero: React.FC = () => {
       id="home"
       className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-900 via-primary-900 to-secondary-900 text-white overflow-hidden">
       
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-40">
+      {/* Advanced Parallax Background Layers */}
+      <ParallaxBackground speed={0.2} opacity={0.3}>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-secondary-500/20" />
+      </ParallaxBackground>
+      
+      <ParallaxBackground speed={0.4} opacity={0.2}>
         <div className="absolute inset-0" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           backgroundRepeat: 'repeat'
         }} />
-      </div>
+      </ParallaxBackground>
+      
+      <ParallaxBackground speed={0.6} opacity={0.1}>
+        <div className="absolute inset-0 bg-gradient-to-tl from-accent-500/10 to-transparent" />
+      </ParallaxBackground>
       
       {/* Subtle Lottie animation */}
       <Lottie
@@ -40,12 +51,12 @@ const Hero: React.FC = () => {
         className="absolute bottom-0 right-0 w-64 sm:w-80 opacity-20 z-0 pointer-events-none"
       />
 
-      <div className="relative z-10 container mx-auto px-6 text-center">
+      <div ref={heroRef} className="relative z-10 container mx-auto px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 50, rotateX: 15 }}
+          animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-4xl mx-auto">
+          className="max-w-4xl mx-auto transform-gpu">
           
           {/* Profile Image */}
           <motion.div

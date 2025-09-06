@@ -2,9 +2,12 @@ import { FiDownload } from "react-icons/fi";
 import React from "react";
 import { motion } from "framer-motion";
 import { useHaptic } from "../hooks/useHaptic";
+import { MagneticCard } from "../components/MagneticCard";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 const Resume: React.FC = () => {
   const { triggerHaptic } = useHaptic();
+  const { ref: resumeRef, inView } = useScrollAnimation(0.1, true);
 
   const handleDownload = (): void => {
     triggerHaptic('medium');
@@ -29,11 +32,11 @@ const Resume: React.FC = () => {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16">
+          ref={resumeRef}
+          initial={{ opacity: 0, y: 50, rotateX: 15 }}
+          animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16 transform-gpu">
           <h2 className="text-fluid-4xl font-bold mb-4 text-neutral-800 dark:text-neutral-200">
             My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">Resume</span>
           </h2>
@@ -49,7 +52,7 @@ const Resume: React.FC = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="max-w-4xl mx-auto">
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl overflow-hidden">
+          <MagneticCard strength={0.1} className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl overflow-hidden">
             {/* Resume Preview */}
             <div className="p-6 border-b border-neutral-200 dark:border-neutral-700">
               <div className="aspect-[4/3] bg-neutral-100 dark:bg-neutral-700 rounded-lg overflow-hidden">
@@ -90,7 +93,7 @@ const Resume: React.FC = () => {
                 </motion.a>
               </div>
             </div>
-          </div>
+          </MagneticCard>
         </motion.div>
 
         {/* Skills Summary */}
@@ -106,7 +109,7 @@ const Resume: React.FC = () => {
             </h3>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 max-w-2xl mx-auto">
             {[
               { name: "React", color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200" },
               { name: "Node.js", color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" },
