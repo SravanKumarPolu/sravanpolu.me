@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { 
   OrbitControls, 
   Environment, 
@@ -14,6 +14,41 @@ import { use3DAccessibility } from '../../hooks/use3DAccessibility';
 import { usePerformanceMonitor } from '../../hooks/usePerformanceMonitor';
 import Project3DPreview from './Project3DPreview';
 import * as THREE from 'three';
+
+// WebGL Renderer Configuration Component
+const WebGLConfig: React.FC = () => {
+  const { gl } = useThree();
+  
+  useEffect(() => {
+    // Configure color space and tone mapping for ultra-sharp clarity
+    gl.outputColorSpace = THREE.SRGBColorSpace;
+    gl.toneMapping = THREE.ACESFilmicToneMapping;
+    gl.toneMappingExposure = 1.5;
+    
+    // Configure device pixel ratio (cap at 2 for mobile performance)
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    gl.setPixelRatio(dpr);
+    
+    // Enable proper shadow rendering with high quality
+    gl.shadowMap.enabled = true;
+    gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    gl.shadowMap.autoUpdate = true;
+    
+    // Configure renderer for maximum clarity
+    gl.toneMappingExposure = 1.2;
+    
+    console.log('WebGL configured for sharp clarity:', {
+      colorSpace: gl.outputColorSpace,
+      toneMapping: gl.toneMapping,
+      toneMappingExposure: gl.toneMappingExposure,
+      pixelRatio: gl.getPixelRatio(),
+      shadowMap: gl.shadowMap.enabled,
+      shadowMapType: gl.shadowMap.type
+    });
+  }, [gl]);
+  
+  return null;
+};
 
 interface Project3DShowcaseProps {
   projects: Array<{
@@ -139,32 +174,42 @@ const Showcase3DScene: React.FC<{
   
   return (
     <>
-      {/* Advanced Lighting Setup */}
+      {/* Enhanced Advanced Lighting Setup for Sharp Clarity */}
       <ambientLight intensity={0.3} />
       <directionalLight
-        position={[10, 10, 5]}
-        intensity={1.2}
+        position={[8, 12, 6]}
+        intensity={2.5}
         castShadow
         shadow-mapSize-width={4096}
         shadow-mapSize-height={4096}
         shadow-camera-far={50}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
+        shadow-camera-left={-15}
+        shadow-camera-right={15}
+        shadow-camera-top={15}
+        shadow-camera-bottom={-15}
+        shadow-bias={-0.0001}
       />
-      <pointLight position={[-10, -10, -10]} intensity={0.8} color="#3b82f6" />
-      <pointLight position={[10, 10, 10]} intensity={0.6} color="#8b5cf6" />
+      <directionalLight
+        position={[-6, 10, 4]}
+        intensity={1.2}
+        castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+      />
+      <pointLight position={[0, 8, 6]} intensity={1.5} color="#ffffff" />
+      <pointLight position={[0, -4, 6]} intensity={0.8} color="#ffffff" />
       <spotLight
         position={[0, 15, 0]}
-        angle={0.3}
-        penumbra={1}
-        intensity={0.5}
+        angle={0.2}
+        penumbra={0.5}
+        intensity={1.2}
         castShadow
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
       />
 
-      {/* Environment */}
-      <Environment preset="studio" />
+      {/* Environment with reduced intensity for clarity */}
+      <Environment preset="studio" background={false} />
 
       {/* Main Carousel */}
       <Project3DCarousel
@@ -177,11 +222,11 @@ const Showcase3DScene: React.FC<{
       {/* Background Elements */}
       <group position={[0, -3, -8]}>
         <ContactShadows
-          opacity={0.4}
+          opacity={0.6}
           scale={20}
-          blur={2}
+          blur={1}
           far={4}
-          resolution={512}
+          resolution={1024}
           color="#000000"
         />
       </group>
@@ -310,14 +355,26 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
       {/* 3D Canvas */}
       <Canvas
         shadows
-        camera={{ position: [0, 2, 8], fov: 50 }}
+        camera={{ position: [0, 1, 10], fov: 45, up: [0, 1, 0] }}
         onCreated={() => setIsLoaded(true)}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: 'high-performance',
+          outputColorSpace: THREE.SRGBColorSpace,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.5,
+          precision: 'highp',
+          logarithmicDepthBuffer: true
+        }}
+        dpr={[1, 2]}
         style={{ 
-          background: 'transparent',
+          background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
           opacity: isLoaded ? 1 : 0,
           transition: 'opacity 0.8s ease-in-out'
         }}
       >
+        <WebGLConfig />
         <Showcase3DScene
           projects={projects}
           currentIndex={currentIndex}
@@ -334,10 +391,10 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
             enableRotate={true}
             autoRotate={enableAutoRotate}
             autoRotateSpeed={0.5}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 6}
+            maxPolarAngle={Math.PI * 0.75}
+            minPolarAngle={Math.PI * 0.25}
             maxDistance={15}
-            minDistance={5}
+            minDistance={6}
             touches={{
               ONE: 2, // Single finger for rotation
               TWO: 1  // Two fingers for zoom

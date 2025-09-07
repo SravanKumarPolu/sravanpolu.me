@@ -1,5 +1,5 @@
-import React, { useRef, useState, Suspense, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, useState, Suspense, useEffect, useMemo } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { 
   Environment, 
   OrbitControls, 
@@ -13,6 +13,35 @@ import { useAccessibility } from '../../hooks/useAccessibility';
 import { useHaptic } from '../../hooks/useHaptic';
 import { use3DAccessibility } from '../../hooks/use3DAccessibility';
 import * as THREE from 'three';
+
+// WebGL Renderer Configuration Component
+const WebGLConfig: React.FC = () => {
+  const { gl } = useThree();
+  
+  useEffect(() => {
+    // Configure color space and tone mapping
+    gl.outputColorSpace = THREE.SRGBColorSpace;
+    gl.toneMapping = THREE.ACESFilmicToneMapping;
+    gl.toneMappingExposure = 1.0;
+    
+    // Configure device pixel ratio (cap at 2 for mobile performance)
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    gl.setPixelRatio(dpr);
+    
+    // Enable proper shadow rendering
+    gl.shadowMap.enabled = true;
+    gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    
+    console.log('WebGL configured:', {
+      colorSpace: gl.outputColorSpace,
+      toneMapping: gl.toneMapping,
+      pixelRatio: gl.getPixelRatio(),
+      shadowMap: gl.shadowMap.enabled
+    });
+  }, [gl]);
+  
+  return null;
+};
 
 interface Project3DPreviewProps {
   project: {
@@ -50,7 +79,7 @@ const Project3DCard: React.FC<{
   // Load project texture with error handling and loading state
   const texture = useTexture(project.src, (texture) => {
     setTextureLoaded(true);
-    texture.flipY = false;
+    texture.flipY = true; // Fix upside-down texture issue
     texture.generateMipmaps = true;
   });
 
@@ -292,16 +321,22 @@ const Project3DScene: React.FC<{
   const { shouldReduceMotion } = useAccessibility();
   return (
     <>
-      {/* Lighting Setup */}
-      <ambientLight intensity={0.4} />
+      {/* Enhanced Lighting Setup */}
+      <ambientLight intensity={0.6} />
       <directionalLight
-        position={[10, 10, 5]}
-        intensity={1}
+        position={[5, 8, 5]}
+        intensity={1.5}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
       />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#3b82f6" />
+      <directionalLight
+        position={[-5, 8, 5]}
+        intensity={0.8}
+        castShadow
+      />
+      <pointLight position={[0, 5, 5]} intensity={0.8} color="#3b82f6" />
+      <pointLight position={[0, -5, 5]} intensity={0.4} color="#8b5cf6" />
 
       {/* Environment */}
       <Environment preset="studio" />
@@ -375,14 +410,24 @@ const Project3DPreview: React.FC<Project3DPreviewProps> = ({
       {/* 3D Canvas */}
       <Canvas
         shadows
-        camera={{ position: [0, 0, 5], fov: 50 }}
+        camera={{ position: [0, 0, 6], fov: 45, up: [0, 1, 0] }}
         onCreated={() => setIsLoaded(true)}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: 'high-performance',
+          outputColorSpace: THREE.SRGBColorSpace,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.0
+        }}
+        dpr={[1, 2]}
         style={{ 
           background: 'transparent',
           opacity: isLoaded ? 1 : 0,
           transition: 'opacity 0.5s ease-in-out'
         }}
       >
+        <WebGLConfig />
         <Suspense fallback={null}>
           <Project3DScene
             project={project}
@@ -400,8 +445,8 @@ const Project3DPreview: React.FC<Project3DPreviewProps> = ({
               enableRotate={true}
               autoRotate={isActive && enableAdvancedAnimations}
               autoRotateSpeed={enableAdvancedAnimations ? 0.3 : 0.5}
-              maxPolarAngle={Math.PI / 2}
-              minPolarAngle={Math.PI / 3}
+              maxPolarAngle={Math.PI * 0.75}
+              minPolarAngle={Math.PI * 0.25}
               dampingFactor={0.05}
               enableDamping={true}
             />

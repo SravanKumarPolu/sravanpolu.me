@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, useState, useEffect } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, useTexture, Environment, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -22,7 +22,13 @@ const Simple3DProject: React.FC<{ project: Simple3DPreviewProps['project']; onPr
   
   const texture = useTexture(project.src, (texture) => {
     setTextureLoaded(true);
-    texture.flipY = false;
+    texture.flipY = true; // Fix upside-down texture issue
+    texture.generateMipmaps = false; // Disable mipmaps for maximum sharpness
+    texture.minFilter = THREE.NearestFilter; // Nearest filter for pixel-perfect sharpness
+    texture.magFilter = THREE.NearestFilter; // Nearest filter for maximum clarity
+    texture.anisotropy = 16; // Maximum texture clarity
+    texture.wrapS = THREE.ClampToEdgeWrapping;
+    texture.wrapT = THREE.ClampToEdgeWrapping;
   });
   
   useFrame((state) => {
@@ -64,12 +70,17 @@ const Simple3DProject: React.FC<{ project: Simple3DPreviewProps['project']; onPr
         }}
         position={[0, 0, 0]}
       >
-        <boxGeometry args={[2.5, 1.8, 0.1]} />
+        <boxGeometry args={[2.5, 1.8, 0.1, 32, 32, 4]} />
         <meshStandardMaterial 
           map={textureLoaded ? texture : null} 
-          color={textureLoaded ? undefined : "#f3f4f6"}
-          metalness={0.1}
-          roughness={0.2}
+          color={textureLoaded ? "#ffffff" : "#f3f4f6"}
+          metalness={0.0}
+          roughness={0.0}
+          envMapIntensity={0.0}
+          emissive="#000000"
+          emissiveIntensity={0.0}
+          transparent={false}
+          opacity={1.0}
         />
       </mesh>
       
@@ -119,6 +130,41 @@ const FloatingParticles: React.FC = () => {
   );
 };
 
+// WebGL Renderer Configuration Component
+const WebGLConfig: React.FC = () => {
+  const { gl } = useThree();
+  
+  useEffect(() => {
+    // Configure for CRYSTAL-CLEAR sharpness - NO HAZE
+    gl.outputColorSpace = THREE.SRGBColorSpace;
+    gl.toneMapping = THREE.NoToneMapping; // Disable tone mapping for maximum contrast
+    gl.toneMappingExposure = 1.0;
+    
+    // Configure device pixel ratio (cap at 2 for mobile performance)
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    gl.setPixelRatio(dpr);
+    
+    // Enable ultra-high quality shadow rendering
+    gl.shadowMap.enabled = true;
+    gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    gl.shadowMap.autoUpdate = true;
+    
+    // Configure renderer for maximum clarity and sharpness
+    // Note: antialias, alpha, preserveDrawingBuffer, and powerPreference are configured in Canvas props
+    
+    console.log('WebGL configured for CRYSTAL-CLEAR sharpness:', {
+      colorSpace: gl.outputColorSpace,
+      toneMapping: gl.toneMapping,
+      toneMappingExposure: gl.toneMappingExposure,
+      pixelRatio: gl.getPixelRatio(),
+      shadowMap: gl.shadowMap.enabled,
+      shadowMapType: gl.shadowMap.type
+    });
+  }, [gl]);
+  
+  return null;
+};
+
 const Simple3DPreview: React.FC<Simple3DPreviewProps> = ({ project, onProjectClick }) => {
   const [hasError, setHasError] = useState(false);
 
@@ -147,14 +193,48 @@ const Simple3DPreview: React.FC<Simple3DPreviewProps> = ({ project, onProjectCli
     <div style={{ width: '100%', height: '100%' }} className="relative">
       <Canvas 
         onError={() => setHasError(true)}
-        camera={{ position: [0, 0, 5], fov: 50 }}
-        gl={{ antialias: true, alpha: true }}
+        camera={{ position: [0, 0, 6], fov: 45, up: [0, 1, 0] }}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: 'high-performance',
+          outputColorSpace: THREE.SRGBColorSpace,
+          toneMapping: THREE.NoToneMapping,
+          toneMappingExposure: 1.0,
+          precision: 'highp',
+          logarithmicDepthBuffer: true
+        }}
+        dpr={[1, 2]}
+        style={{ background: '#ffffff' }}
       >
-        {/* Enhanced lighting */}
-        <ambientLight intensity={0.4} />
-        <directionalLight position={[5, 5, 5]} intensity={1} castShadow />
-        <pointLight position={[-5, -5, 5]} intensity={0.5} color="#3b82f6" />
-        <spotLight position={[0, 10, 0]} intensity={0.3} angle={0.3} penumbra={1} />
+        <WebGLConfig />
+        {/* CRYSTAL-CLEAR lighting - NO HAZE */}
+        <ambientLight intensity={0.0} />
+        <directionalLight 
+          position={[10, 15, 8]} 
+          intensity={5.0} 
+          castShadow 
+          shadow-mapSize-width={4096}
+          shadow-mapSize-height={4096}
+          shadow-camera-far={50}
+          shadow-camera-left={-12}
+          shadow-camera-right={12}
+          shadow-camera-top={12}
+          shadow-camera-bottom={-12}
+          shadow-bias={-0.0001}
+        />
+        <directionalLight position={[-8, 12, 6]} intensity={3.0} castShadow />
+        <pointLight position={[0, 10, 8]} intensity={4.0} color="#ffffff" />
+        <pointLight position={[0, -6, 8]} intensity={2.0} color="#ffffff" />
+        <spotLight 
+          position={[0, 20, 0]} 
+          intensity={3.0} 
+          angle={0.1} 
+          penumbra={0.1}
+          castShadow
+          shadow-mapSize-width={4096}
+          shadow-mapSize-height={4096}
+        />
         
         {/* Floating particles */}
         <FloatingParticles />
@@ -162,14 +242,14 @@ const Simple3DPreview: React.FC<Simple3DPreviewProps> = ({ project, onProjectCli
         {/* 3D Project */}
         <Simple3DProject project={project} onProjectClick={onProjectClick} />
         
-        {/* Environment and shadows */}
-        <Environment preset="sunset" />
+        {/* NO ENVIRONMENT - CRYSTAL CLEAR */}
         <ContactShadows
           position={[0, -2, 0]}
-          opacity={0.4}
+          opacity={0.2}
           scale={10}
-          blur={2}
+          blur={0.5}
           far={4.5}
+          resolution={1024}
         />
         
         {/* Camera controls - Mobile optimized */}
@@ -177,10 +257,10 @@ const Simple3DPreview: React.FC<Simple3DPreviewProps> = ({ project, onProjectCli
           enableZoom={true}
           enablePan={false}
           enableRotate={true}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 3}
+          maxPolarAngle={Math.PI * 0.75}
+          minPolarAngle={Math.PI * 0.25}
           maxDistance={8}
-          minDistance={3}
+          minDistance={4}
           touches={{
             ONE: 2, // Single finger for rotation
             TWO: 1  // Two fingers for zoom
@@ -190,8 +270,8 @@ const Simple3DPreview: React.FC<Simple3DPreviewProps> = ({ project, onProjectCli
         />
       </Canvas>
       
-      {/* Project info overlay - Mobile optimized */}
-      <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 bg-black/50 backdrop-blur-sm rounded-lg p-2 sm:p-3 text-white">
+      {/* Project info overlay - Mobile optimized with reduced blur */}
+      <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 bg-black/70 rounded-lg p-2 sm:p-3 text-white">
         <h3 className="text-sm sm:text-lg font-semibold">{project.title}</h3>
         <p className="text-xs sm:text-sm opacity-80">
           {project.link && project.link !== '#' ? 'Tap to open project' : 'No link available'}

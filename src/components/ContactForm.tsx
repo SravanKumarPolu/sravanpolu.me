@@ -25,7 +25,6 @@ const ContactForm: React.FC = () => {
     message: ''
   });
   const [errors, setErrors] = useState<FormErrors>({});
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const { triggerHaptic } = useHaptic();
@@ -72,10 +71,6 @@ const ContactForm: React.FC = () => {
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setTouched(prev => ({
-      ...prev,
-      [name]: true
-    }));
 
     const error = validateField(name, value);
     setErrors(prev => ({
@@ -97,12 +92,6 @@ const ContactForm: React.FC = () => {
     });
 
     setErrors(newErrors);
-    setTouched({
-      name: true,
-      email: true,
-      subject: true,
-      message: true
-    });
 
     return isValid;
   };
@@ -129,7 +118,6 @@ const ContactForm: React.FC = () => {
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
       setErrors({});
-      setTouched({});
       triggerHaptic('medium');
     } catch (error) {
       setSubmitStatus('error');

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { 
   OrbitControls, 
   Environment, 
@@ -16,6 +16,35 @@ import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 import { use3DAccessibility } from '../../hooks/use3DAccessibility';
 import { usePerformanceMonitor } from '../../hooks/usePerformanceMonitor';
 import * as THREE from 'three';
+
+// WebGL Renderer Configuration Component
+const WebGLConfig: React.FC = () => {
+  const { gl } = useThree();
+  
+  useEffect(() => {
+    // Configure color space and tone mapping
+    gl.outputColorSpace = THREE.SRGBColorSpace;
+    gl.toneMapping = THREE.ACESFilmicToneMapping;
+    gl.toneMappingExposure = 1.0;
+    
+    // Configure device pixel ratio (cap at 2 for mobile performance)
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    gl.setPixelRatio(dpr);
+    
+    // Enable proper shadow rendering
+    gl.shadowMap.enabled = true;
+    gl.shadowMap.type = THREE.PCFSoftShadowMap;
+    
+    console.log('WebGL configured:', {
+      colorSpace: gl.outputColorSpace,
+      toneMapping: gl.toneMapping,
+      pixelRatio: gl.getPixelRatio(),
+      shadowMap: gl.shadowMap.enabled
+    });
+  }, [gl]);
+  
+  return null;
+};
 
 interface Project3DModalProps {
   project: {
@@ -50,7 +79,7 @@ const Project3DDetail: React.FC<{
   // Enhanced texture loading with error handling
   const texture = useTexture(project.src, (texture) => {
     setTextureLoaded(true);
-    texture.flipY = false;
+    texture.flipY = true; // Fix upside-down texture issue
     texture.generateMipmaps = true;
   });
 
@@ -314,10 +343,10 @@ const Modal3DScene: React.FC<{
   return (
     <>
       {/* Enhanced Advanced Lighting */}
-      <ambientLight intensity={enableAdvancedLighting ? 0.3 : 0.4} />
+      <ambientLight intensity={enableAdvancedLighting ? 0.5 : 0.6} />
       <directionalLight
-        position={[10, 10, 5]}
-        intensity={enableAdvancedLighting ? 1.8 : 1.5}
+        position={[5, 8, 5]}
+        intensity={enableAdvancedLighting ? 2.0 : 1.8}
         castShadow
         shadow-mapSize-width={4096}
         shadow-mapSize-height={4096}
@@ -327,14 +356,19 @@ const Modal3DScene: React.FC<{
         shadow-camera-top={15}
         shadow-camera-bottom={-15}
       />
-      <pointLight position={[-10, -10, -10]} intensity={enableAdvancedLighting ? 1.0 : 0.8} color="#3b82f6" />
-      <pointLight position={[10, 10, 10]} intensity={enableAdvancedLighting ? 0.8 : 0.6} color="#8b5cf6" />
-      <pointLight position={[0, -10, 5]} intensity={enableAdvancedLighting ? 0.6 : 0.4} color="#10b981" />
+      <directionalLight
+        position={[-5, 8, 5]}
+        intensity={enableAdvancedLighting ? 1.2 : 1.0}
+        castShadow
+      />
+      <pointLight position={[0, 5, 5]} intensity={enableAdvancedLighting ? 1.2 : 1.0} color="#3b82f6" />
+      <pointLight position={[0, -5, 5]} intensity={enableAdvancedLighting ? 0.8 : 0.6} color="#8b5cf6" />
+      <pointLight position={[0, 0, 8]} intensity={enableAdvancedLighting ? 0.6 : 0.4} color="#10b981" />
       <spotLight
-        position={[0, 15, 0]}
-        angle={0.4}
+        position={[0, 12, 0]}
+        angle={0.3}
         penumbra={1}
-        intensity={enableAdvancedLighting ? 0.9 : 0.7}
+        intensity={enableAdvancedLighting ? 1.0 : 0.8}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
@@ -513,14 +547,24 @@ const Project3DModal: React.FC<Project3DModalProps> = ({
             {/* Enhanced 3D Canvas */}
             <Canvas
               shadows
-              camera={{ position: [0, 0, 8], fov: 50 }}
+              camera={{ position: [0, 0, 10], fov: 45, up: [0, 1, 0] }}
               onCreated={() => setIsLoaded(true)}
+              gl={{ 
+                antialias: true, 
+                alpha: true,
+                powerPreference: 'high-performance',
+                outputColorSpace: THREE.SRGBColorSpace,
+                toneMapping: THREE.ACESFilmicToneMapping,
+                toneMappingExposure: 1.0
+              }}
+              dpr={[1, 2]}
               style={{ 
                 background: 'transparent',
                 opacity: isLoaded ? 1 : 0,
                 transition: 'opacity 0.5s ease-in-out'
               }}
             >
+              <WebGLConfig />
               <Modal3DScene project={project} enableAdvancedLighting={enableAdvancedLighting} />
               
               {/* Enhanced Camera Controls */}
@@ -530,10 +574,10 @@ const Project3DModal: React.FC<Project3DModalProps> = ({
                   enableZoom={true}
                   enableRotate={true}
                   autoRotate={false}
-                  maxPolarAngle={Math.PI / 2}
-                  minPolarAngle={Math.PI / 6}
+                  maxPolarAngle={Math.PI * 0.75}
+                  minPolarAngle={Math.PI * 0.25}
                   maxDistance={20}
-                  minDistance={3}
+                  minDistance={4}
                   dampingFactor={0.05}
                   enableDamping={true}
                 />

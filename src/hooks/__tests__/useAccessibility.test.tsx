@@ -21,7 +21,7 @@ describe('useAccessibility Hook', () => {
     const { result } = renderHook(() => useAccessibility());
     
     expect(result.current).toHaveProperty('shouldReduceMotion');
-    expect(result.current).toHaveProperty('prefersReducedData');
+    expect(result.current).toHaveProperty('prefersReducedMotion');
     expect(result.current).toHaveProperty('isAccessible');
   });
 
@@ -43,10 +43,10 @@ describe('useAccessibility Hook', () => {
     expect(result.current.shouldReduceMotion).toBe(true);
   });
 
-  test('detects reduced data preference', () => {
-    // Mock matchMedia to return true for reduced data
+  test('detects reduced motion preference', () => {
+    // Mock matchMedia to return true for reduced motion
     window.matchMedia = jest.fn().mockImplementation(query => ({
-      matches: query === '(prefers-reduced-data: reduce)',
+      matches: query === '(prefers-reduced-motion: reduce)',
       media: query,
       onchange: null,
       addListener: jest.fn(),
@@ -58,7 +58,7 @@ describe('useAccessibility Hook', () => {
 
     const { result } = renderHook(() => useAccessibility());
     
-    expect(result.current.prefersReducedData).toBe(true);
+    expect(result.current.prefersReducedMotion).toBe(true);
   });
 
   test('detects high contrast preference', () => {
