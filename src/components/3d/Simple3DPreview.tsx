@@ -172,22 +172,29 @@ const Simple3DPreview: React.FC<Simple3DPreviewProps> = ({ project, onProjectCli
           far={4.5}
         />
         
-        {/* Camera controls */}
+        {/* Camera controls - Mobile optimized */}
         <OrbitControls 
           enableZoom={true}
           enablePan={false}
+          enableRotate={true}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 3}
           maxDistance={8}
           minDistance={3}
+          touches={{
+            ONE: 2, // Single finger for rotation
+            TWO: 1  // Two fingers for zoom
+          }}
+          dampingFactor={0.05}
+          enableDamping={true}
         />
       </Canvas>
       
-      {/* Project info overlay */}
-      <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 text-white">
-        <h3 className="text-lg font-semibold">{project.title}</h3>
-        <p className="text-sm opacity-80">
-          {project.link && project.link !== '#' ? 'Click to open project' : 'No link available'}
+      {/* Project info overlay - Mobile optimized */}
+      <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 bg-black/50 backdrop-blur-sm rounded-lg p-2 sm:p-3 text-white">
+        <h3 className="text-sm sm:text-lg font-semibold">{project.title}</h3>
+        <p className="text-xs sm:text-sm opacity-80">
+          {project.link && project.link !== '#' ? 'Tap to open project' : 'No link available'}
         </p>
       </div>
     </div>

@@ -249,7 +249,7 @@ const Work: React.FC = () => {
                   <SkeletonProjectCardAdvanced />
                 ) : viewMode === '3d' ? (
                   // 3D Project Showcase
-                  <div className="w-full h-[600px] rounded-xl overflow-hidden">
+                  <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] rounded-xl overflow-hidden">
                     <Simple3DPreview
                       project={courses[currentSlide]?.projects?.[currentProjectIndex] || {
                         src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Ctext x='200' y='150' text-anchor='middle' font-size='24' fill='%236b7280'%3ENo Project%3C/text%3E%3C/svg%3E",

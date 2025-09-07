@@ -296,7 +296,7 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
   }, [currentIndex, projects, onProjectChange, triggerHaptic, announce, isTransitioning]);
 
   return (
-    <div className={`relative w-full h-[600px] ${className}`}>
+    <div className={`relative w-full h-[400px] sm:h-[500px] md:h-[600px] ${className}`}>
       {/* Loading State */}
       {!isLoaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900 rounded-xl">
@@ -326,7 +326,7 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
           enableAutoRotate={enableAutoRotate}
         />
         
-        {/* Enhanced Camera Controls */}
+        {/* Enhanced Camera Controls - Mobile optimized */}
         {!shouldReduceMotion && (
           <OrbitControls
             enablePan={false}
@@ -338,18 +338,22 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
             minPolarAngle={Math.PI / 6}
             maxDistance={15}
             minDistance={5}
+            touches={{
+              ONE: 2, // Single finger for rotation
+              TWO: 1  // Two fingers for zoom
+            }}
             dampingFactor={0.05}
             enableDamping={true}
           />
         )}
       </Canvas>
 
-      {/* Enhanced Navigation Controls */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-4">
+      {/* Enhanced Navigation Controls - Mobile optimized */}
+      <div className="absolute bottom-3 sm:bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-2 sm:gap-4">
         <button
           onClick={handlePrevious}
           disabled={isTransitioning}
-          className={`w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center transition-all ${
+          className={`w-10 h-10 sm:w-12 sm:h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center transition-all ${
             isTransitioning 
               ? 'opacity-50 cursor-not-allowed' 
               : 'hover:scale-110 hover:shadow-xl'
@@ -381,7 +385,7 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
         <button
           onClick={handleNext}
           disabled={isTransitioning}
-          className={`w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center transition-all ${
+          className={`w-10 h-10 sm:w-12 sm:h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center transition-all ${
             isTransitioning 
               ? 'opacity-50 cursor-not-allowed' 
               : 'hover:scale-110 hover:shadow-xl'

@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Sravan Polu",
+  "name": "Sravan Kumar Polu - MERN Stack Developer Portfolio",
+  "description": "Professional portfolio showcasing MERN stack projects, modern UI, and interactive web applications built with React, TypeScript, and Tailwind CSS.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,10 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#1a1a1a",
+  "background_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["portfolio", "developer", "technology"]
 }

@@ -179,7 +179,7 @@ const Project3DDemo: React.FC<Project3DDemoProps> = ({ className = '' }) => {
 
         {demoMode === 'showcase' && (
           <Lazy3DWrapper
-            className="h-[600px]"
+            className="h-[400px] sm:h-[500px] md:h-[600px]"
             enablePerformanceMonitoring={true}
             enableMemoryOptimization={true}
             showLoadingProgress={true}
