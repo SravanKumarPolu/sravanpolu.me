@@ -189,7 +189,7 @@ const Nav: React.FC = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: isNavOpen ? 1 : 0, x: isNavOpen ? 0 : 50 }}
           transition={{ duration: 0.5 }}
-          className={`absolute top-16 right-2 sm:right-4 py-4 px-4 sm:px-6 bg-white/95 backdrop-blur-md border border-gray-300 rounded-lg shadow-lg space-y-2 min-w-[200px] ${
+          className={`absolute top-16 right-2 sm:right-4 py-6 px-6 sm:px-8 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-2xl space-y-3 min-w-[240px] ${
             isNavOpen ? "block" : "hidden"
           }`}
           role="menu"

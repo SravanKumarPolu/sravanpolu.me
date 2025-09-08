@@ -84,8 +84,31 @@ const SkillsShowcase: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
-      <div className="container mx-auto px-6">
+    <section className="py-20 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-white/10 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 2 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -151,7 +174,7 @@ const SkillsShowcase: React.FC = () => {
                 onHoverEnd={() => setHoveredSkill(null)}
                 className="group relative"
               >
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 hover:bg-white/15 transition-all duration-300 h-full">
+                <div className="bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl border border-white/30 rounded-2xl p-6 hover:bg-gradient-to-br hover:from-white/15 hover:via-white/10 hover:to-white/15 transition-all duration-500 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:shadow-[0_12px_40px_0_rgba(31,38,135,0.5)] h-full group">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">{skill.icon}</span>
@@ -176,11 +199,19 @@ const SkillsShowcase: React.FC = () => {
 
                   {/* Hover Effect */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     initial={false}
                     animate={{
-                      opacity: hoveredSkill === skill.name ? 0.1 : 0
+                      opacity: hoveredSkill === skill.name ? 0.15 : 0
                     }}
+                  />
+                  
+                  {/* Shimmer effect on hover */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: '100%' }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
                   />
                 </div>
               </motion.div>
@@ -194,13 +225,12 @@ const SkillsShowcase: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
         >
           {[
             { label: 'Technologies', value: skills.length },
             { label: 'Years Experience', value: '3+' },
-            { label: 'Projects Completed', value: '50+' },
-            { label: 'Happy Clients', value: '25+' }
+            { label: 'Projects Completed', value: '50+' }
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -208,7 +238,7 @@ const SkillsShowcase: React.FC = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="text-center bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6"
+              className="text-center bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl border border-white/30 rounded-2xl p-6 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] hover:shadow-[0_12px_40px_0_rgba(31,38,135,0.5)] transition-all duration-500"
             >
               <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
               <div className="text-gray-300">{stat.label}</div>

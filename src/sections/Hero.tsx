@@ -6,7 +6,7 @@ import heroAnimation from "../assets/lottie/hero-animation.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import skr from "../assets/images/skr.png";
 import { useHaptic } from "../hooks/useHaptic";
-import { ParallaxBackground } from "../components/ParallaxBackground";
+// import { ParallaxBackground } from "../components/ParallaxBackground";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { CustomButton as Button } from "../components/ui/Button";
 // import { useTheme } from "../contexts/ThemeContext";
@@ -61,23 +61,54 @@ const Hero: React.FC = () => {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-900 via-primary-900 to-secondary-900 text-white overflow-hidden">
+      className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 text-white overflow-hidden">
       
-      {/* Advanced Parallax Background Layers */}
-      <ParallaxBackground speed={0.2} opacity={0.3}>
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-secondary-500/20" />
-      </ParallaxBackground>
+      {/* Modern Geometric Background */}
+      <div className="absolute inset-0">
+        {/* Large geometric shapes */}
+        <motion.div
+          className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl"
+          animate={{
+            rotate: [0, 180, 360],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-purple-400/20 to-pink-500/20 rounded-full"
+          animate={{
+            y: [0, -20, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-40 left-20 w-40 h-20 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-2xl"
+          animate={{
+            rotate: [0, 90, 0],
+            x: [0, 20, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
       
-      <ParallaxBackground speed={0.4} opacity={0.2}>
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat'
-        }} />
-      </ParallaxBackground>
-      
-      <ParallaxBackground speed={0.6} opacity={0.1}>
-        <div className="absolute inset-0 bg-gradient-to-tl from-accent-500/10 to-transparent" />
-      </ParallaxBackground>
+      {/* Modern grid pattern */}
+      <div className="absolute inset-0 opacity-10" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-11.046-8.954-20-20-20v20h20z'/%3E%3C/g%3E%3C/svg%3E")`,
+        backgroundRepeat: 'repeat'
+      }}></div>
       
       {/* Subtle Lottie animation */}
       <Lottie
@@ -99,216 +130,207 @@ const Hero: React.FC = () => {
         <ThemeSelector size="lg" />
       </div>
 
-      <div ref={heroRef} className="relative z-10 container mx-auto px-4 sm:px-6 text-center pt-16 sm:pt-20">
+      <div ref={heroRef} className="relative z-10 container mx-auto px-4 sm:px-6 pt-16 sm:pt-20">
         <motion.div
           initial={{ opacity: 0, y: 50, rotateX: 15 }}
           animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-4xl mx-auto transform-gpu">
+          className="max-w-6xl mx-auto transform-gpu">
           
-          {/* Enhanced Profile Image with Premium Micro-interactions */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-8">
-            <motion.div 
-              className="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full border-4 border-white/20 shadow-2xl overflow-hidden bg-gradient-to-br from-primary-500 to-secondary-500 p-1 cursor-pointer"
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              onMouseEnter={() => setIsHovered(true)}
-              style={{
-                rotateX: shouldReduceMotion ? 0 : rotateX,
-                rotateY: shouldReduceMotion ? 0 : rotateY,
-                transformStyle: 'preserve-3d',
-              }}
-              whileHover={shouldReduceMotion ? {} : { 
-                scale: 1.05,
-                transition: { type: "spring", stiffness: 400, damping: 10 }
-              }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-            >
-              <img
-                src={skr}
-                alt="Sravan Kumar Polu"
-                className="w-full h-full rounded-full object-cover"
-              />
-              
-              {/* Shimmer Effect */}
-              {isHovered && !shouldReduceMotion && (
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full"
-                  initial={{ x: '-100%' }}
-                  animate={{ x: '100%' }}
-                  transition={{ duration: 1.5, ease: "easeInOut" }}
-                />
-              )}
-              
-              {/* Glow Effect */}
+          {/* Modern Asymmetrical Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Content */}
+            <div className="text-left lg:text-left">
+              {/* Modern Typography with Better Hierarchy */}
               <motion.div
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-500/30 to-secondary-500/30 opacity-0"
-                animate={{ opacity: isHovered && !shouldReduceMotion ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.div>
-          </motion.div>
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="mb-8"
+              >
+                <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-6">
+                  <span className="text-cyan-400 text-sm font-medium">Available for Freelance</span>
+                </div>
+              </motion.div>
 
-          {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 md:mb-8 leading-tight"
-            style={{
-              color: '#ffffff',
-              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 0, 0, 0.4)',
-              fontWeight: '900'
-            }}>
-            Hi, I'm{" "}
-            <span 
-              className="text-blue-high-contrast block sm:inline"
-              style={{
-                color: '#ffffff',
-                textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 12px rgba(96, 165, 250, 0.8), 0 0 24px rgba(96, 165, 250, 0.6)',
-                fontWeight: '900'
-              }}>
-              Sravan Kumar Polu
-            </span>
-          </motion.h1>
+              {/* Main Heading */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
+              >
+                <span className="block text-white">Hi, I'm</span>
+                <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                  Sravan Kumar Polu
+                </span>
+              </motion.h1>
 
-          {/* Typewriter Effect */}
+              {/* Modern Role Display */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="mb-8"
+              >
+                <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-lg font-medium text-white">
+                    <Typewriter
+                      words={[
+                        "MERN Stack Developer",
+                        "React Specialist", 
+                        "Full-Stack Engineer",
+                        "UI/UX Enthusiast"
+                      ]}
+                      loop={true}
+                      cursor={true}
+                      cursorStyle="|"
+                      typeSpeed={70}
+                      deleteSpeed={50}
+                      delaySpeed={2000}
+                    />
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* Modern Description */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="text-lg sm:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl"
+              >
+                Passionate about building{" "}
+                <span className="font-semibold text-cyan-400">scalable</span>,{" "}
+                <span className="font-semibold text-purple-400">high-performance</span>, and{" "}
+                <span className="font-semibold text-pink-400">user-friendly</span> web applications.
+              </motion.p>
+
+              {/* Modern CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.0 }}
+                className="flex flex-col sm:flex-row gap-4 mb-8"
+              >
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={() => {
+                    triggerHaptic('light');
+                    document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 w-full sm:w-auto transition-all duration-300 transform hover:scale-105"
+                >
+                  View Portfolio
+                  <DownArrow />
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => {
+                    triggerHaptic('light');
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-8 py-4 text-lg font-semibold rounded-2xl border-2 border-white/30 hover:border-cyan-400 hover:bg-cyan-400 hover:text-white w-full sm:w-auto transition-all duration-300 transform hover:scale-105"
+                >
+                  Contact Me
+                </Button>
+              </motion.div>
+            </div>
+
+            {/* Right Column - Visual Element */}
+            <div className="relative">
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="relative"
+              >
+                {/* Modern Profile Image */}
+                <motion.div 
+                  className="w-64 h-64 mx-auto rounded-3xl border-4 border-white/20 shadow-2xl overflow-hidden bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-600 p-1 cursor-pointer relative"
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={handleMouseLeave}
+                  onMouseEnter={() => setIsHovered(true)}
+                  style={{
+                    rotateX: shouldReduceMotion ? 0 : rotateX,
+                    rotateY: shouldReduceMotion ? 0 : rotateY,
+                    transformStyle: 'preserve-3d',
+                  }}
+                  whileHover={shouldReduceMotion ? {} : { 
+                    scale: 1.05,
+                    transition: { type: "spring", stiffness: 400, damping: 10 }
+                  }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+                >
+                  <img
+                    src={skr}
+                    alt="Sravan Kumar Polu"
+                    className="w-full h-full rounded-3xl object-cover"
+                  />
+                  
+                  {/* Modern Glow Effect */}
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/40 via-blue-500/40 to-purple-500/40 opacity-0"
+                    animate={{ opacity: isHovered && !shouldReduceMotion ? 1 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+
+                {/* Floating Elements */}
+                <motion.div
+                  className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"
+                  animate={{
+                    y: [0, -10, 0],
+                    rotate: [0, 180, 360],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                <motion.div
+                  className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full"
+                  animate={{
+                    y: [0, 10, 0],
+                    rotate: [360, 180, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Current Project - Modern Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mb-6 sm:mb-8">
-            <span 
-              className="text-lg sm:text-xl md:text-2xl font-medium"
-              style={{
-                color: '#ec4899',
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(236, 72, 153, 0.4)',
-                fontWeight: '700'
-              }}>
-              <Typewriter
-                words={[
-                  "MERN Stack Developer",
-                  "React Specialist",
-                  "Full-Stack Engineer",
-                  "UI/UX Enthusiast",
-                  "Available for Freelance",
-                ]}
-                loop={true}
-                cursor={true}
-                cursorStyle="|"
-                typeSpeed={70}
-                deleteSpeed={50}
-                delaySpeed={2000}
-                onLoopDone={() => {}}
-                onType={() => {}}
-                onDelete={() => {}}
-                onDelay={() => {}}
-              />
-            </span>
-          </motion.div>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed px-4"
-            style={{
-              color: '#ffffff',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
-              fontWeight: '500'
-            }}>
-            Passionate about building{" "}
-            <span 
-              className="font-semibold"
-              style={{ color: '#60a5fa', textShadow: '0 0 8px rgba(96, 165, 250, 0.6)' }}>
-              scalable
-            </span>,{" "}
-            <span 
-              className="font-semibold"
-              style={{ color: '#ec4899', textShadow: '0 0 8px rgba(236, 72, 153, 0.6)' }}>
-              high-performance
-            </span>, and{" "}
-            <span 
-              className="font-semibold"
-              style={{ color: '#10b981', textShadow: '0 0 8px rgba(16, 185, 129, 0.6)' }}>
-              user-friendly
-            </span> web applications.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-6 sm:mb-8 px-4">
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={() => {
-                triggerHaptic('light');
-                document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              magnetic={true}
-              ripple={true}
-              glow={true}
-              className="px-6 sm:px-8 py-3 text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 w-full sm:w-auto"
-            >
-              View Portfolio
-              <DownArrow />
-            </Button>
-
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => {
-                triggerHaptic('light');
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              magnetic={true}
-              ripple={true}
-              className="px-6 sm:px-8 py-3 text-base sm:text-lg font-semibold border-2 border-white/30 hover:border-white/60 hover:bg-white/10 backdrop-blur-sm w-full sm:w-auto"
-            >
-              Contact Me
-            </Button>
-          </motion.div>
-
-          {/* Current Project */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.2 }}
-            className="text-xs sm:text-sm md:text-base px-4"
-            style={{
-              color: '#ffffff',
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
-            }}>
-            <span>Currently building: </span>
-            <a
-              href="https://skr-e-commerce.netlify.app/"
-              className="font-semibold transition-colors"
-              style={{
-                color: '#60a5fa',
-                textShadow: '0 0 8px rgba(96, 165, 250, 0.6)'
-              }}
-              target="_blank"
-              rel="noopener noreferrer">
-              E-commerce Store
-            </a>
-            <span 
-              className="ml-2 px-3 py-1 rounded-full text-xs font-medium border"
-              style={{
-                backgroundColor: 'rgba(16, 185, 129, 0.2)',
-                color: '#10b981',
-                borderColor: 'rgba(16, 185, 129, 0.3)',
-                textShadow: '0 0 4px rgba(16, 185, 129, 0.4)'
-              }}>
-              MERN Stack
-            </span>
+            className="mt-16"
+          >
+            <div className="inline-flex items-center gap-4 px-6 py-4 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-white/80">Currently building:</span>
+              <a
+                href="https://skr-e-commerce.netlify.app/"
+                className="font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                E-commerce Store
+              </a>
+              <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium border border-green-500/30">
+                MERN Stack
+              </span>
+            </div>
           </motion.div>
         </motion.div>
       </div>

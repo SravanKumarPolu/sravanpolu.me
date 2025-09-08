@@ -103,14 +103,14 @@ const Testimonials: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-                className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 md:p-12"
+                className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl"
               >
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                   <div className="flex-shrink-0">
                     <img
                       src={testimonials[currentIndex].avatar}
                       alt={testimonials[currentIndex].name}
-                      className="w-24 h-24 rounded-full object-cover border-4 border-white/20"
+                      className="w-28 h-28 rounded-full object-cover border-4 border-white/30 shadow-lg"
                     />
                   </div>
                   

@@ -153,28 +153,35 @@ const ContactForm: React.FC = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="w-full max-w-2xl mx-auto py-16 sm:py-20 md:py-24 px-6 bg-black/20 backdrop-blur-sm rounded-2xl border border-white/10"
+      className="w-full max-w-3xl mx-auto py-20 sm:py-24 md:py-28 px-8 bg-black border-4 border-white rounded-none shadow-[20px_20px_0px_0px_rgba(255,255,255,1)] relative overflow-hidden"
     >
-      <motion.div variants={itemVariants} className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4">
-          Let's Work Together
+      {/* 2024 Bold Background Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 via-red-500 to-purple-600 opacity-20"></div>
+      <div className="absolute inset-0" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-11.046-8.954-20-20-20v20h20z'/%3E%3C/g%3E%3C/svg%3E")`,
+        backgroundRepeat: 'repeat'
+      }}></div>
+      
+      <motion.div variants={itemVariants} className="text-center mb-8 relative z-10">
+        <h2 className="text-6xl font-black text-white mb-6 tracking-tight">
+          LET'S WORK <span className="text-yellow-400">TOGETHER</span>
         </h2>
-        <p className="text-white font-medium">
-          Ready to bring your ideas to life? Send me a message and let's discuss your project.
+        <p className="text-xl text-white font-bold uppercase tracking-wide">
+          READY TO BRING YOUR IDEAS TO LIFE? SEND ME A MESSAGE AND LET'S DISCUSS YOUR PROJECT.
         </p>
       </motion.div>
 
       <motion.form
         variants={itemVariants}
         onSubmit={handleSubmit}
-        className="space-y-6"
+        className="space-y-6 relative z-10"
         aria-label="Contact form"
         noValidate
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <motion.div variants={itemVariants}>
-            <label htmlFor="name" className="block text-sm font-semibold text-white mb-2">
-              Name *
+            <label htmlFor="name" className="block text-lg font-black text-white mb-3 uppercase tracking-wide">
+              NAME *
             </label>
             <input
               type="text"
@@ -186,8 +193,8 @@ const ContactForm: React.FC = () => {
               required
               aria-describedby={errors.name ? "name-error" : undefined}
               aria-invalid={!!errors.name}
-              className={`w-full px-4 py-3 bg-gray-900/90 border rounded-lg text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 shadow-lg ${
-                errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-500 focus:ring-blue-500'
+              className={`w-full px-6 py-4 bg-white border-4 border-white text-black placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-all duration-300 font-bold text-lg ${
+                errors.name ? 'border-red-500' : 'border-white'
               }`}
               placeholder="Your name"
             />
@@ -199,8 +206,8 @@ const ContactForm: React.FC = () => {
           </motion.div>
 
           <motion.div variants={itemVariants}>
-            <label htmlFor="email" className="block text-sm font-semibold text-white mb-2">
-              Email *
+            <label htmlFor="email" className="block text-lg font-black text-white mb-3 uppercase tracking-wide">
+              EMAIL *
             </label>
             <input
               type="email"
@@ -212,8 +219,8 @@ const ContactForm: React.FC = () => {
               required
               aria-describedby={errors.email ? "email-error" : undefined}
               aria-invalid={!!errors.email}
-              className={`w-full px-4 py-3 bg-gray-900/90 border rounded-lg text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 shadow-lg ${
-                errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-500 focus:ring-blue-500'
+              className={`w-full px-6 py-4 bg-white border-4 border-white text-black placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-all duration-300 font-bold text-lg ${
+                errors.email ? 'border-red-500' : 'border-white'
               }`}
               placeholder="your.email@example.com"
             />
@@ -226,8 +233,8 @@ const ContactForm: React.FC = () => {
         </div>
 
         <motion.div variants={itemVariants}>
-          <label htmlFor="subject" className="block text-sm font-semibold text-white mb-2">
-            Subject *
+          <label htmlFor="subject" className="block text-lg font-black text-white mb-3 uppercase tracking-wide">
+            SUBJECT *
           </label>
           <input
             type="text"
@@ -239,8 +246,8 @@ const ContactForm: React.FC = () => {
             required
             aria-describedby={errors.subject ? "subject-error" : undefined}
             aria-invalid={!!errors.subject}
-            className={`w-full px-4 py-3 bg-gray-900/90 border rounded-lg text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 shadow-lg ${
-              errors.subject ? 'border-red-500 focus:ring-red-500' : 'border-gray-500 focus:ring-blue-500'
+            className={`w-full px-6 py-4 bg-white border-4 border-white text-black placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-all duration-300 font-bold text-lg ${
+              errors.subject ? 'border-red-500' : 'border-white'
             }`}
             placeholder="What's this about?"
           />
@@ -252,8 +259,8 @@ const ContactForm: React.FC = () => {
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <label htmlFor="message" className="block text-sm font-semibold text-white mb-2">
-            Message *
+          <label htmlFor="message" className="block text-lg font-black text-white mb-3 uppercase tracking-wide">
+            MESSAGE *
           </label>
           <textarea
             id="message"
@@ -265,8 +272,8 @@ const ContactForm: React.FC = () => {
             rows={6}
             aria-describedby={errors.message ? "message-error" : undefined}
             aria-invalid={!!errors.message}
-            className={`w-full px-4 py-3 bg-gray-900/90 border rounded-lg text-white placeholder-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 resize-none shadow-lg ${
-              errors.message ? 'border-red-500 focus:ring-red-500' : 'border-gray-500 focus:ring-blue-500'
+            className={`w-full px-6 py-4 bg-white border-4 border-white text-black placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-all duration-300 resize-none font-bold text-lg ${
+              errors.message ? 'border-red-500' : 'border-white'
             }`}
             placeholder="Tell me about your project..."
           />
@@ -282,17 +289,20 @@ const ContactForm: React.FC = () => {
             type="submit"
             disabled={isSubmitting}
             aria-describedby="submit-status"
-            className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95"
+            className="px-12 py-6 bg-yellow-400 text-black font-black text-xl uppercase tracking-wide border-4 border-yellow-400 hover:bg-black hover:text-yellow-400 hover:border-yellow-400 focus:outline-none focus:border-red-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:shadow-[15px_15px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden group"
             whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
             whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
           >
+            {/* Button shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            
             {isSubmitting ? (
               <div className="flex items-center justify-center">
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2" aria-hidden="true"></div>
                 <span>Sending...</span>
               </div>
             ) : (
-              'Send Message'
+              <span className="relative z-10">SEND MESSAGE</span>
             )}
           </motion.button>
           <div id="submit-status" className="sr-only" aria-live="polite">

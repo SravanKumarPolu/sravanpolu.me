@@ -34,10 +34,10 @@ const DataAnalytics: React.FC = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16 transform-gpu"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             Data <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">Analytics</span>
           </h2>
-          <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto">
+          <p className="text-xl text-neutral-600 dark:text-neutral-300 max-w-4xl mx-auto">
             Interactive visualizations showcasing my technical skills, project distribution, and development journey
           </p>
         </motion.div>

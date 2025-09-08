@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, useTexture, Environment, ContactShadows } from '@react-three/drei';
+import { OrbitControls, useTexture, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface Simple3DPreviewProps {
