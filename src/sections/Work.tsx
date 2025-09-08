@@ -128,54 +128,153 @@ const Work: React.FC = () => {
 
 
   return (
-    <section
-      className="py-20 bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white">
-      <div {...swipeHandlers} className="container mx-auto px-6">
-        {/* Section Header */}
+    <section className="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+      {/* Modern Background Elements */}
+      <div className="absolute inset-0">
         <motion.div
-          ref={workRef}
-          initial={{ opacity: 0, y: 50, rotateX: 15 }}
-          animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16 transform-gpu">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">Projects</span>
+          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl"
+          animate={{
+            rotate: [0, 180, 360],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full"
+          animate={{
+            y: [0, -20, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 w-40 h-20 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-2xl -translate-x-1/2 -translate-y-1/2"
+          animate={{
+            rotate: [0, 90, 0],
+            x: [0, 20, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
+      
+      {/* Modern grid pattern */}
+      <div className="absolute inset-0 opacity-10" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        backgroundRepeat: 'repeat'
+      }}></div>
+
+      <div {...swipeHandlers} className="container mx-auto px-6 relative z-10">
+        {/* Modern Asymmetrical Header */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+          <motion.div
+            ref={workRef}
+            initial={{ opacity: 0, x: -50 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-left"
+          >
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-6">
+              <span className="text-cyan-400 text-sm font-medium">Portfolio</span>
+            </div>
+            
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
+              My{" "}
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                Projects
+              </span>
             </h2>
             
-            {/* 3D Toggle Button */}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleViewModeToggle}
-              className="flex items-center gap-2 hover:scale-105 transition-transform"
-              aria-label={`Switch to ${viewMode === '2d' ? '3D' : '2D'} view`}
-            >
-              {viewMode === '2d' ? (
-                <>
-                  <FaTh className="w-4 h-4" />
-                  <span className="hidden sm:inline">3D View</span>
-                </>
-              ) : (
-                <>
-                  <FaEye className="w-4 h-4" />
-                  <span className="hidden sm:inline">2D View</span>
-                </>
-              )}
-            </Button>
-          </div>
-          <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
-            Explore my portfolio of web applications built with modern technologies
-            {viewMode === '3d' && (
-              <span className="block mt-2 text-sm text-primary-500">
-                🎮 Interactive 3D Experience • Click & drag to explore
-              </span>
-            )}
-          </p>
-        </motion.div>
+            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+              Explore my portfolio of web applications built with modern technologies. 
+              Each project showcases different aspects of full-stack development.
+            </p>
 
+            {/* Modern View Toggle */}
+            <div className="flex items-center gap-4">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleViewModeToggle}
+                className="flex items-center gap-2 hover:scale-105 transition-transform border-2 border-white/30 hover:border-cyan-400 hover:bg-cyan-400 hover:text-white text-white"
+                aria-label={`Switch to ${viewMode === '2d' ? '3D' : '2D'} view`}
+              >
+                {viewMode === '2d' ? (
+                  <>
+                    <FaTh className="w-4 h-4" />
+                    <span className="hidden sm:inline">3D View</span>
+                  </>
+                ) : (
+                  <>
+                    <FaEye className="w-4 h-4" />
+                    <span className="hidden sm:inline">2D View</span>
+                  </>
+                )}
+              </Button>
+              
+              {viewMode === '3d' && (
+                <div className="px-4 py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full border border-yellow-400/30">
+                  <span className="text-yellow-400 text-sm font-medium">
+                    🎮 Interactive 3D Experience
+                  </span>
+                </div>
+              )}
+            </div>
+          </motion.div>
+
+          {/* Right Column - Visual Element */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="w-64 h-64 mx-auto bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-purple-600/20 rounded-3xl border border-white/20 backdrop-blur-sm flex items-center justify-center">
+              <div className="text-6xl">💻</div>
+            </div>
+            {/* Floating elements */}
+            <motion.div
+              className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"
+              animate={{
+                y: [0, -10, 0],
+                rotate: [0, 180, 360],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div
+              className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full"
+              animate={{
+                y: [0, 10, 0],
+                rotate: [360, 180, 0],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          </motion.div>
+        </div>
+
+        {/* Modern Project Showcase */}
         <div className="flex flex-col lg:flex-row gap-12">
-          {/* Sidebar - Technology Filter */}
+          {/* Modern Sidebar - Technology Filter */}
           {isDesktop && (
             <motion.aside
               className="lg:w-1/4"
@@ -184,26 +283,28 @@ const Work: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}>
               <div className="sticky top-24">
-                <h3 className="text-xl font-semibold mb-6 text-neutral-800 dark:text-neutral-200">
+                <h3 className="text-2xl font-bold mb-8 text-white">
                   Technologies
                 </h3>
                 <div className="space-y-3">
                   {courses.map((course, index) => (
-                    <button
+                    <motion.button
                       key={course.courseName}
                       onClick={() => changeSlide(index)}
-                      className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all duration-300 ${
+                      whileHover={{ scale: 1.02, x: 4 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 ${
                         index === currentSlide
-                          ? "bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 shadow-md"
-                          : "hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
+                          ? "bg-white/10 backdrop-blur-sm border border-cyan-400/50 text-white shadow-lg"
+                          : "hover:bg-white/5 backdrop-blur-sm border border-white/20 text-gray-300 hover:text-white"
                       }`}>
                       <img
                         src={course.language?.[0]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e5e7eb'/%3E%3Ctext x='16' y='20' text-anchor='middle' font-size='12' fill='%236b7280'%3E?%3C/text%3E%3C/svg%3E"}
                         alt={course.language?.[0]?.alt || "Language icon"}
-                        className="w-8 h-8 rounded-full"
+                        className="w-10 h-10 rounded-full"
                       />
-                      <span className="font-medium">{course.courseName}</span>
-                    </button>
+                      <span className="font-semibold">{course.courseName}</span>
+                    </motion.button>
                   ))}
                 </div>
               </div>
@@ -212,23 +313,25 @@ const Work: React.FC = () => {
 
           {/* Main Content */}
           <main className="flex-1">
-            {/* Mobile Navigation */}
+            {/* Modern Mobile Navigation */}
             {!isDesktop && (
               <div className="flex justify-center gap-4 mb-8">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={prevSlide}
+                  className="border-2 border-white/30 hover:border-cyan-400 hover:bg-cyan-400 hover:text-white text-white"
                 >
                   Previous
                 </Button>
-                <span className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
+                <span className="flex items-center text-sm text-gray-300">
                   {currentSlide + 1} of {courses.length}
                 </span>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={nextSlide}
+                  className="border-2 border-white/30 hover:border-cyan-400 hover:bg-cyan-400 hover:text-white text-white"
                 >
                   Next
                 </Button>
@@ -260,55 +363,47 @@ const Work: React.FC = () => {
                     />
                   </div>
                 ) : (
-                  // 2D Project Display (Original)
-                  <Card 
-                    variant="glass" 
-                    size="lg" 
-                    containerQuery={true}
-                    tilt={!shouldReduceMotion}
-                    shimmer={!shouldReduceMotion}
-                    glow={true}
-                    className="overflow-hidden backdrop-blur-xl"
-                  >
-                    {/* Project Header */}
-                    <div className="border-b border-neutral-200 dark:border-neutral-700 mb-6">
-                      <div className="flex items-center gap-4 mb-4">
+                  // Modern 2D Project Display
+                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+                    {/* Modern Project Header */}
+                    <div className="border-b border-white/20 mb-8">
+                      <div className="flex items-center gap-6 mb-6">
                         <img
                           src={courses[currentSlide]?.language?.[0]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%23e5e7eb'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='16' fill='%236b7280'%3E?%3C/text%3E%3C/svg%3E"}
                           alt={courses[currentSlide]?.language?.[0]?.alt || "Technology"}
-                          className="w-12 h-12 rounded-full"
+                          className="w-16 h-16 rounded-full border-4 border-white/20"
                         />
                         <div>
-                          <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200">
+                          <h3 className="text-3xl font-bold text-white mb-2">
                             {courses[currentSlide]?.courseName || "Unknown Technology"}
                           </h3>
-                          <p className="text-neutral-600 dark:text-neutral-400">
+                          <p className="text-gray-300 text-lg">
                             {courses[currentSlide]?.summary || "No description available"}
                           </p>
                         </div>
                       </div>
                     </div>
 
-                    {/* Project Carousel */}
+                    {/* Modern Project Carousel */}
                     <div className="relative">
-                      {/* Navigation Arrows */}
+                      {/* Modern Navigation Arrows */}
                       <button
                         onClick={handleProjectPrev}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 bg-white dark:bg-neutral-700 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-white/20 transition-all duration-300"
                         aria-label="Previous Project">
-                        <FaChevronLeft className="w-4 h-4 text-neutral-600 dark:text-neutral-300" />
+                        <FaChevronLeft className="w-5 h-5 text-white" />
                       </button>
                       
                       <button
                         onClick={handleProjectNext}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 bg-white dark:bg-neutral-700 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-white/20 transition-all duration-300"
                         aria-label="Next Project">
-                        <FaChevronRight className="w-4 h-4 text-neutral-600 dark:text-neutral-300" />
+                        <FaChevronRight className="w-5 h-5 text-white" />
                       </button>
 
-                      {/* Project Card */}
-                      <div className="bg-neutral-50 dark:bg-neutral-900 rounded-xl p-6">
-                        <div className="aspect-video mb-4 rounded-lg overflow-hidden">
+                      {/* Modern Project Card */}
+                      <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+                        <div className="aspect-video mb-6 rounded-2xl overflow-hidden border border-white/20">
                             <img
                               src={courses[currentSlide]?.projects?.[currentProjectIndex]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Ctext x='200' y='150' text-anchor='middle' font-size='24' fill='%236b7280'%3ENo Image%3C/text%3E%3C/svg%3E"}
                               alt={courses[currentSlide]?.projects?.[currentProjectIndex]?.title || "Project Image"}
@@ -317,7 +412,7 @@ const Work: React.FC = () => {
                         </div>
                         
                         <div className="text-center">
-                          <h4 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200 mb-2">
+                          <h4 className="text-2xl font-bold text-white mb-4">
                             {courses[currentSlide]?.projects?.[currentProjectIndex]?.title || "Project Title"}
                           </h4>
                           
@@ -335,7 +430,7 @@ const Work: React.FC = () => {
                                 setIsLoading(false);
                               }, 1000);
                             }}
-                            className="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600"
+                            className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-lg rounded-2xl hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                           >
                             View Project
                           </Button>
@@ -343,24 +438,24 @@ const Work: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Project Counter */}
-                    <div className="flex justify-center mt-6">
-                      <div className="flex gap-2">
+                    {/* Modern Project Counter */}
+                    <div className="flex justify-center mt-8">
+                      <div className="flex gap-3">
                         {courses[currentSlide]?.projects?.map((_, index) => (
                           <button
                             key={index}
                             onClick={() => setCurrentProjectIndex(index)}
-                            className={`w-2 h-2 rounded-full transition-colors ${
+                            className={`w-3 h-3 rounded-full transition-all duration-300 ${
                               index === currentProjectIndex
-                                ? "bg-primary-500"
-                                : "bg-neutral-300 dark:bg-neutral-600"
+                                ? "bg-cyan-400 scale-125"
+                                : "bg-white/30 hover:bg-white/50"
                             }`}
                             aria-label={`Go to project ${index + 1}`}
                           />
                         ))}
                       </div>
                     </div>
-                  </Card>
+                  </div>
                 )}
               </motion.div>
             </AnimatePresence>
