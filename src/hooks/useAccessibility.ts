@@ -306,8 +306,8 @@ export const useAriaLive = () => {
   return { announce, messages };
 };
 
-// Keyboard navigation hook
-export const useKeyboardNavigation = (onEscape?: () => void, onEnter?: () => void) => {
+// Simple keyboard navigation hook (legacy - use useKeyboardNavigation from useKeyboardNavigation.ts instead)
+export const useSimpleKeyboardNavigation = (onEscape?: () => void, onEnter?: () => void) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {

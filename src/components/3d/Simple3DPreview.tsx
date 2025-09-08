@@ -61,7 +61,6 @@ const Simple3DProject: React.FC<{ project: Simple3DPreviewProps['project']; onPr
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
         onClick={(e) => {
-          console.log('3D Project clicked:', project);
           e.stopPropagation();
           setClicked(true);
           onProjectClick();
@@ -152,14 +151,7 @@ const WebGLConfig: React.FC = () => {
     // Configure renderer for maximum clarity and sharpness
     // Note: antialias, alpha, preserveDrawingBuffer, and powerPreference are configured in Canvas props
     
-    console.log('WebGL configured for CRYSTAL-CLEAR sharpness:', {
-      colorSpace: gl.outputColorSpace,
-      toneMapping: gl.toneMapping,
-      toneMappingExposure: gl.toneMappingExposure,
-      pixelRatio: gl.getPixelRatio(),
-      shadowMap: gl.shadowMap.enabled,
-      shadowMapType: gl.shadowMap.type
-    });
+    // WebGL configured for optimal performance
   }, [gl]);
   
   return null;
@@ -167,8 +159,6 @@ const WebGLConfig: React.FC = () => {
 
 const Simple3DPreview: React.FC<Simple3DPreviewProps> = ({ project, onProjectClick }) => {
   const [hasError, setHasError] = useState(false);
-
-  console.log('Simple3DPreview rendering with project:', project);
 
   if (hasError) {
     return (

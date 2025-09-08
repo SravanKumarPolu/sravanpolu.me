@@ -91,17 +91,16 @@ const Work: React.FC = () => {
   const handleViewModeToggle = (): void => {
     setViewMode(prev => {
       const newMode = prev === '2d' ? '3d' : '2d';
-      console.log('Switching view mode from', prev, 'to', newMode);
       return newMode;
     });
     triggerHaptic('light');
     announce(`Switched to ${viewMode === '2d' ? '3D' : '2D'} view mode`);
   };
 
-  // Debug logging for 3D view
+  // 3D view effect
   useEffect(() => {
     if (viewMode === '3d') {
-      console.log('Rendering 3D view with project:', courses[currentSlide]?.projects?.[currentProjectIndex]);
+      // 3D view is active
     }
   }, [viewMode, currentSlide, currentProjectIndex]);
 

@@ -43,10 +43,10 @@ const Resume: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16 transform-gpu">
-          <h2 className="text-fluid-4xl font-bold mb-4 text-neutral-800 dark:text-neutral-200">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-neutral-800 dark:text-neutral-200">
             My <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-secondary-500">Resume</span>
           </h2>
-          <p className="text-fluid-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
             Download my resume to learn more about my experience and skills
           </p>
         </motion.div>
@@ -120,7 +120,7 @@ const Resume: React.FC = () => {
           viewport={{ once: true }}
           className="mt-16">
           <div className="text-center mb-8">
-            <h3 className="text-fluid-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">
+            <h3 className="text-xl md:text-2xl font-bold text-neutral-800 dark:text-neutral-200 mb-4">
               Key Skills & Technologies
             </h3>
           </div>
