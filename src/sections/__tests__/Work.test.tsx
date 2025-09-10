@@ -53,27 +53,31 @@ jest.mock('react-swipeable', () => ({
   useSwipeable: () => ({}),
 }));
 
-// Mock the 3D components
-jest.mock('../../components/3d', () => ({
-  Project3DShowcase: ({ onProjectChange, onProjectClick }: any) => (
-    <div data-testid="3d-showcase">
-      <button onClick={() => onProjectChange(1)}>Change Project</button>
-      <button onClick={() => onProjectClick({ name: 'Test Project' })}>Click Project</button>
+// Mock direct 3D preview import used by Work
+jest.mock('../../components/3d/Simple3DPreview', () => ({
+  __esModule: true,
+  default: ({ onProjectClick }: any) => (
+    <div data-testid="simple-3d">
+      <button onClick={() => onProjectClick?.({})}>Click Project</button>
     </div>
   ),
-  Project3DModal: ({ isOpen, onClose }: any) => 
-    isOpen ? (
-      <div data-testid="3d-modal">
-        <button onClick={onClose}>Close Modal</button>
-      </div>
-    ) : null,
+}));
+
+// Keep index mocks minimal if imported elsewhere
+jest.mock('../../components/3d', () => ({
+  __esModule: true,
+  Project3DPreview: () => <div data-testid="3d-preview" />,
+  Project3DShowcase: () => <div data-testid="3d-showcase" />,
+  Project3DModal: () => null,
   Lazy3DWrapper: ({ children }: any) => <div data-testid="lazy-3d">{children}</div>,
 }));
 
 describe('Work Section', () => {
   test('renders work section with title', () => {
     render(<Work />);
-    expect(screen.getByText(/my projects/i)).toBeInTheDocument();
+    // The title is split across elements: "My" and "Projects"
+    expect(screen.getByText('My')).toBeInTheDocument();
+    expect(screen.getByText('Projects')).toBeInTheDocument();
   });
 
   test('renders 3D toggle button', () => {
@@ -95,8 +99,8 @@ describe('Work Section', () => {
 
   test('renders technology filter buttons', () => {
     render(<Work />);
-    // Should render technology buttons from courses data
-    expect(screen.getByText(/next\.js/i)).toBeInTheDocument();
+    // Should render technology buttons from courses data; allow multiple matches
+    expect(screen.getAllByText(/next\.js/i).length).toBeGreaterThan(0);
   });
 
   test('renders project navigation arrows', () => {
@@ -112,36 +116,19 @@ describe('Work Section', () => {
     expect(indicators.length).toBeGreaterThan(0);
   });
 
-  test('opens 3D modal when project is clicked', () => {
+  test('clicking project in 3D view opens project link', () => {
+    const openSpy = jest.spyOn(window, 'open').mockImplementation(() => null as any);
     render(<Work />);
     
     // Switch to 3D view first
     const toggleButton = screen.getByLabelText(/switch to 3d view/i);
     fireEvent.click(toggleButton);
     
-    // Click on project in 3D showcase
+    // Click on project in 3D showcase (mocked button)
     const projectButton = screen.getByText('Click Project');
     fireEvent.click(projectButton);
     
-    // Modal should be open
-    expect(screen.getByTestId('3d-modal')).toBeInTheDocument();
-  });
-
-  test('closes 3D modal when close button is clicked', () => {
-    render(<Work />);
-    
-    // Switch to 3D view and open modal
-    const toggleButton = screen.getByLabelText(/switch to 3d view/i);
-    fireEvent.click(toggleButton);
-    
-    const projectButton = screen.getByText('Click Project');
-    fireEvent.click(projectButton);
-    
-    // Close modal
-    const closeButton = screen.getByText('Close Modal');
-    fireEvent.click(closeButton);
-    
-    // Modal should be closed
-    expect(screen.queryByTestId('3d-modal')).not.toBeInTheDocument();
+    expect(openSpy).toHaveBeenCalled();
+    openSpy.mockRestore();
   });
 });

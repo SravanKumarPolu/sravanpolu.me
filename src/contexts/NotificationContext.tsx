@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+import NotificationContainer from '../components/NotificationContainer';
 
 export interface Notification {
   id: string;
@@ -109,6 +110,8 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
       }}
     >
       {children}
+      {/* Ensure notifications are rendered globally */}
+      <NotificationContainer />
     </NotificationContext.Provider>
   );
 };

@@ -38,9 +38,10 @@ describe('ErrorBoundary Component', () => {
       </ErrorBoundary>
     );
     
-    expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
-    expect(screen.getByText(/refresh page/i)).toBeInTheDocument();
-    expect(screen.getByText(/try again/i)).toBeInTheDocument();
+    expect(screen.getByText(/oops! something went wrong/i)).toBeInTheDocument();
+    expect(screen.getByText(/reload page/i)).toBeInTheDocument();
+    // Use getByRole to find the button specifically
+    expect(screen.getByRole('button', { name: /try again/i })).toBeInTheDocument();
   });
 
   test('shows error details in development mode', () => {
@@ -48,17 +49,17 @@ describe('ErrorBoundary Component', () => {
     process.env.NODE_ENV = 'development';
 
     render(
-      <ErrorBoundary>
+      <ErrorBoundary showDetails={true}>
         <ThrowError shouldThrow={true} />
       </ErrorBoundary>
     );
     
-    expect(screen.getByText(/error details/i)).toBeInTheDocument();
+    expect(screen.getByText(/error details \(development\)/i)).toBeInTheDocument();
     
     process.env.NODE_ENV = originalEnv;
   });
 
-  test('refresh button calls window.location.reload', () => {
+  test('reload button calls window.location.reload', () => {
     const mockReload = jest.fn();
     Object.defineProperty(window, 'location', {
       value: { reload: mockReload },
@@ -71,8 +72,8 @@ describe('ErrorBoundary Component', () => {
       </ErrorBoundary>
     );
     
-    const refreshButton = screen.getByText(/refresh page/i);
-    refreshButton.click();
+    const reloadButton = screen.getByText(/reload page/i);
+    reloadButton.click();
     
     expect(mockReload).toHaveBeenCalled();
   });

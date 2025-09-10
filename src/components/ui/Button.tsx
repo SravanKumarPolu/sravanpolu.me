@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { designTokens } from '../../design-tokens';
 
-interface ButtonProps {
+interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onAnimationStart' | 'onAnimationEnd' | 'onAnimationIteration' | 'onDragStart' | 'onDrag' | 'onDragEnd'> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'accent' | 'danger';
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   children: React.ReactNode;
@@ -56,7 +56,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
   type = 'button',
   ripple = false,
   glow = false,
-  pulse = false
+  pulse = false,
+  ...rest
 }) => {
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -162,6 +163,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
         y: 0,
         transition: { type: "spring", stiffness: 400, damping: 10 }
       }}
+      {...rest}
     >
       {content}
       
