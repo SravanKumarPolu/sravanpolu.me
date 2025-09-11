@@ -24,8 +24,8 @@ const WebGLConfig: React.FC = () => {
     gl.toneMapping = THREE.ACESFilmicToneMapping;
     gl.toneMappingExposure = 1.0;
     
-    // Configure device pixel ratio (cap at 2 for mobile performance)
-    const dpr = Math.min(window.devicePixelRatio, 2);
+    // Configure device pixel ratio (cap at 3 for high-DPI sharpness)
+    const dpr = Math.min(window.devicePixelRatio, 3);
     gl.setPixelRatio(dpr);
     
     // Enable proper shadow rendering
@@ -81,6 +81,9 @@ const Project3DCard: React.FC<{
     setTextureLoaded(true);
     texture.flipY = true; // Fix upside-down texture issue
     texture.generateMipmaps = true;
+    texture.anisotropy = 16;
+    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.magFilter = THREE.LinearFilter;
   });
 
   // Memoized technology colors for consistent rendering
@@ -420,7 +423,7 @@ const Project3DPreview: React.FC<Project3DPreviewProps> = ({
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.0
         }}
-        dpr={[1, 2]}
+        dpr={[1, 3]}
         style={{ 
           background: 'transparent',
           opacity: isLoaded ? 1 : 0,

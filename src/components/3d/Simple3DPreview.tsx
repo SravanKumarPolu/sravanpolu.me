@@ -23,9 +23,9 @@ const Simple3DProject: React.FC<{ project: Simple3DPreviewProps['project']; onPr
   const texture = useTexture(project.src, (texture) => {
     setTextureLoaded(true);
     texture.flipY = true; // Fix upside-down texture issue
-    texture.generateMipmaps = false; // Disable mipmaps for maximum sharpness
-    texture.minFilter = THREE.NearestFilter; // Nearest filter for pixel-perfect sharpness
-    texture.magFilter = THREE.NearestFilter; // Nearest filter for maximum clarity
+    texture.generateMipmaps = true; // Use mipmaps to avoid shimmering and blurriness at angles
+    texture.minFilter = THREE.LinearMipmapLinearFilter; // Trilinear filtering for clarity
+    texture.magFilter = THREE.LinearFilter; // Linear for smoother upscaling
     texture.anisotropy = 16; // Maximum texture clarity
     texture.wrapS = THREE.ClampToEdgeWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
@@ -139,8 +139,8 @@ const WebGLConfig: React.FC = () => {
     gl.toneMapping = THREE.NoToneMapping; // Disable tone mapping for maximum contrast
     gl.toneMappingExposure = 1.0;
     
-    // Configure device pixel ratio (cap at 2 for mobile performance)
-    const dpr = Math.min(window.devicePixelRatio, 2);
+    // Configure device pixel ratio (cap at 3 for high-DPI sharpness)
+    const dpr = Math.min(window.devicePixelRatio, 3);
     gl.setPixelRatio(dpr);
     
     // Enable ultra-high quality shadow rendering
@@ -194,7 +194,7 @@ const Simple3DPreview: React.FC<Simple3DPreviewProps> = ({ project, onProjectCli
           precision: 'highp',
           logarithmicDepthBuffer: true
         }}
-        dpr={[1, 2]}
+        dpr={[1, 3]}
         style={{ background: '#ffffff' }}
       >
         <WebGLConfig />

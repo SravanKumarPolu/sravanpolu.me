@@ -25,8 +25,8 @@ const WebGLConfig: React.FC = () => {
     gl.toneMapping = THREE.ACESFilmicToneMapping;
     gl.toneMappingExposure = 1.5;
     
-    // Configure device pixel ratio (cap at 2 for mobile performance)
-    const dpr = Math.min(window.devicePixelRatio, 2);
+    // Configure device pixel ratio (cap at 3 for high-DPI sharpness)
+    const dpr = Math.min(window.devicePixelRatio, 3);
     gl.setPixelRatio(dpr);
     
     // Enable proper shadow rendering with high quality
@@ -367,7 +367,7 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
           precision: 'highp',
           logarithmicDepthBuffer: true
         }}
-        dpr={[1, 2]}
+        dpr={[1, 3]}
         style={{ 
           background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
           opacity: isLoaded ? 1 : 0,
