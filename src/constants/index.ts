@@ -1,4 +1,5 @@
 import bootstrap from "../assets/icons/bootstrap.svg";
+import nexCartisImg from  '../assets/images/nexCartis.png'
 import boostllyImg from "../assets/images/boostlly.png";
 import buyMeImg from "../assets/images/buy-me.png";
 import cardImg from "../assets/images/card.png";
@@ -45,14 +46,20 @@ export const courses = [
     courseName: "Next.js",
     projects: [
       {
+        src: nexCartisImg,
+        title: "nexCartis(beta version)",
+        name: "NexCartis",
+        link: "https://nextcartis.netlify.app/",
+      },
+      {
         src: chronobloomImg,
-        title: "chronobloom",
+        title: "chronoBloom",
         name: "ChronoBloom",
         link: "https://chronobloom.netlify.app/",
       },
       {
         src: boostllyImg,
-        title: "boostlly",
+        title: "boostlly(few features beta version",
         name: "Boostlly",
         link: "https://boostlly.netlify.app/",
       },

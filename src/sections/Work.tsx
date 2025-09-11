@@ -350,8 +350,26 @@ const Work: React.FC = () => {
                 {isLoading ? (
                   <SkeletonProjectCardAdvanced />
                 ) : viewMode === '3d' ? (
-                  // 3D Project Showcase
-                  <div className="w-full h-[400px] sm:h-[500px] md:h-[600px] rounded-xl overflow-hidden bg-white dark:bg-neutral-900">
+                  // 3D Project Showcase with navigation
+                  <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] rounded-xl overflow-hidden bg-white dark:bg-neutral-900">
+                    {/* Navigation Arrows (overlay) */}
+                    <button
+                      onClick={handleProjectPrev}
+                      className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-black/30 hover:bg-black/45 text-white rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 transition-all"
+                      aria-label="Previous Project"
+                    >
+                      <FaChevronLeft className="w-5 h-5" />
+                    </button>
+
+                    <button
+                      onClick={handleProjectNext}
+                      className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-black/30 hover:bg-black/45 text-white rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 transition-all"
+                      aria-label="Next Project"
+                    >
+                      <FaChevronRight className="w-5 h-5" />
+                    </button>
+
+                    {/* 3D Canvas */}
                     <Simple3DPreview
                       project={courses[currentSlide]?.projects?.[currentProjectIndex] || {
                         src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Ctext x='200' y='150' text-anchor='middle' font-size='24' fill='%236b7280'%3ENo Project%3C/text%3E%3C/svg%3E",
@@ -361,6 +379,18 @@ const Work: React.FC = () => {
                       }}
                       onProjectClick={() => handleProjectClick(courses[currentSlide]?.projects?.[currentProjectIndex])}
                     />
+
+                    {/* Indicators */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                      {(courses[currentSlide]?.projects || []).map((_, idx) => (
+                        <button
+                          key={`3d-dot-${idx}`}
+                          onClick={() => setCurrentProjectIndex(idx)}
+                          className={`w-2.5 h-2.5 rounded-full transition-all ${idx === currentProjectIndex ? 'bg-cyan-400 scale-125 shadow' : 'bg-white/40 hover:bg-white/70'}`}
+                          aria-label={`Go to project ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
                   </div>
                 ) : (
                   // Modern 2D Project Display
