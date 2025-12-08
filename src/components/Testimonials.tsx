@@ -28,20 +28,20 @@ const testimonials: Testimonial[] = [
 
 const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false); // Disabled for single testimonial
+  // const [isAutoPlaying, setIsAutoPlaying] = useState(false); // Disabled for single testimonial
   const { triggerHaptic } = useHaptic();
   const { shouldReduceMotion } = useAccessibility();
 
   useEffect(() => {
     // Disabled auto-play since there's only one testimonial
-    if (!isAutoPlaying || shouldReduceMotion || testimonials.length <= 1) return;
+    // if (!isAutoPlaying || shouldReduceMotion || testimonials.length <= 1) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, shouldReduceMotion]);
+  }, [shouldReduceMotion]);
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
@@ -73,11 +73,12 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
       {/* Modern Background Elements */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl"
+          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             rotate: [0, 180, 360],
             scale: [1, 1.1, 1],
@@ -89,7 +90,8 @@ const Testimonials: React.FC = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full"
+          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             y: [0, -20, 0],
             scale: [1, 1.2, 1],
@@ -102,7 +104,7 @@ const Testimonials: React.FC = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
         {/* Modern Asymmetrical Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <motion.div
@@ -112,16 +114,16 @@ const Testimonials: React.FC = () => {
             viewport={{ once: true }}
             className="text-left"
           >
-            <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-6">
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-4 sm:mb-6">
               <span className="text-cyan-400 text-sm font-medium">Client Feedback</span>
             </div>
-            <h2 className="text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-[1.2] tracking-tight">
               What Clients{" "}
               <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Say
               </span>
             </h2>
-            <p className="text-xl text-gray-300 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
               Don't just take my word for it. Here's what my clients have to say about working with me.
             </p>
           </motion.div>
@@ -177,7 +179,7 @@ const Testimonials: React.FC = () => {
               className="relative"
             >
               {/* Modern Card Design */}
-              <div className="bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+              <div className="bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 shadow-xl relative overflow-hidden">
                 {/* Decorative Elements */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-full -translate-y-16 translate-x-16"></div>
                 <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full translate-y-12 -translate-x-12"></div>
@@ -189,8 +191,11 @@ const Testimonials: React.FC = () => {
                       <div className="relative">
                         <img
                           src={testimonials[currentIndex].avatar}
-                          alt={testimonials[currentIndex].name}
-                          className="w-32 h-32 rounded-3xl object-cover border-4 border-white/30 shadow-2xl"
+                          alt={`${testimonials[currentIndex].name} - ${testimonials[currentIndex].role} at ${testimonials[currentIndex].company}`}
+                          className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-xl object-cover border-4 border-white/30 shadow-lg"
+                          loading="lazy"
+                          width={128}
+                          height={128}
                         />
                         {/* Status indicator */}
                         <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-400 rounded-full border-4 border-white flex items-center justify-center">
@@ -208,7 +213,7 @@ const Testimonials: React.FC = () => {
                       </div>
                       
                       {/* Quote */}
-                      <blockquote className="text-xl md:text-2xl text-white mb-8 leading-relaxed font-medium">
+                      <blockquote className="text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 sm:mb-8 leading-relaxed font-medium">
                         "{testimonials[currentIndex].content}"
                       </blockquote>
                       

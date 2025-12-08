@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useHaptic } from "../hooks/useHaptic";
 import { useAnnouncement } from "../components/AnnouncementSystem";
-import { MagneticCard } from "../components/MagneticCard";
+// import { MagneticCard } from "../components/MagneticCard";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 // import { Button } from "../components/ui/Button";
 // import { Card } from "../components/ui/Card";
@@ -33,11 +33,12 @@ const Resume: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
       {/* Modern Background Elements */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl"
+          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             rotate: [0, 180, 360],
             scale: [1, 1.1, 1],
@@ -49,7 +50,8 @@ const Resume: React.FC = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full"
+          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             y: [0, -20, 0],
             scale: [1, 1.2, 1],
@@ -68,7 +70,7 @@ const Resume: React.FC = () => {
         backgroundRepeat: 'repeat'
       }}></div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
         {/* Modern Asymmetrical Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
           {/* Left Column - Content */}
@@ -79,18 +81,18 @@ const Resume: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-left"
           >
-            <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-6">
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-4 sm:mb-6">
               <span className="text-cyan-400 text-sm font-medium">Download Resume</span>
             </div>
             
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 leading-[1.2] tracking-tight">
               My{" "}
               <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Resume
               </span>
             </h2>
             
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed">
               Download my resume to learn more about my experience and skills. 
               Get a comprehensive overview of my professional journey.
             </p>
@@ -101,7 +103,7 @@ const Resume: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleDownload}
-                className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-lg rounded-2xl hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+                className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-base sm:text-lg rounded-xl hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg flex items-center justify-center gap-2 sm:gap-3"
               >
                 <FiDownload className="w-5 h-5" />
                 Download Resume
@@ -111,9 +113,9 @@ const Resume: React.FC = () => {
                 href="#work"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border-2 border-white/30 text-white font-semibold text-lg rounded-2xl hover:border-cyan-400 hover:bg-cyan-400 hover:text-white transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+                className="px-6 py-3 sm:px-8 sm:py-4 border-2 border-white/30 text-white font-semibold text-base sm:text-lg rounded-xl hover:border-cyan-400 hover:bg-cyan-400 hover:text-white transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
               >
-                View Portfolio
+                See My Projects
               </motion.a>
             </div>
           </motion.div>
@@ -126,12 +128,14 @@ const Resume: React.FC = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl">
-              <div className="aspect-[4/3] bg-white/5 rounded-2xl overflow-hidden border border-white/20">
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-6 shadow-xl">
+              <div className="aspect-[4/3] bg-white/5 rounded-xl overflow-hidden border border-white/20">
                 <iframe
                   src="https://docs.google.com/gview?url=https://sravanpolu.me/Resume.pdf&embedded=true"
-                  title="Resume Preview"
-                  className="w-full h-full border-0 rounded-2xl"
+                  title="Sravan Kumar Polu Resume Preview - MERN Stack Developer"
+                  className="w-full h-full border-0 rounded-xl"
+                  loading="lazy"
+                  aria-label="Resume preview - PDF document viewer"
                 />
               </div>
             </div>
@@ -148,13 +152,13 @@ const Resume: React.FC = () => {
           className="mt-20"
         >
           <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-white mb-4">
+            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
               Key Skills &{" "}
               <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Technologies
               </span>
             </h3>
-            <p className="text-lg text-gray-300">
+            <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
               Technologies I work with to build amazing web applications
             </p>
           </div>
@@ -177,7 +181,7 @@ const Resume: React.FC = () => {
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className={`px-6 py-4 rounded-2xl text-center font-semibold text-white bg-gradient-to-r ${skill.color} shadow-lg hover:shadow-xl transition-all duration-300`}
+                className={`px-4 py-3 sm:px-6 sm:py-4 rounded-xl text-center font-semibold text-white bg-gradient-to-r ${skill.color} shadow-md hover:shadow-lg transition-all duration-300 text-sm sm:text-base`}
               >
                 {skill.name}
               </motion.div>

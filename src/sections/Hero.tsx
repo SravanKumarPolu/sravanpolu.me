@@ -67,7 +67,8 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0">
         {/* Large geometric shapes */}
         <motion.div
-          className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl"
+          className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             rotate: [0, 180, 360],
             scale: [1, 1.1, 1],
@@ -79,7 +80,8 @@ const Hero: React.FC = () => {
           }}
         />
         <motion.div
-          className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-purple-400/20 to-pink-500/20 rounded-full"
+          className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-purple-400/20 to-pink-500/20 rounded-full transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             y: [0, -20, 0],
             scale: [1, 1.2, 1],
@@ -91,7 +93,8 @@ const Hero: React.FC = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-40 left-20 w-40 h-20 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-2xl"
+          className="absolute bottom-40 left-20 w-40 h-20 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-2xl transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             rotate: [0, 90, 0],
             x: [0, 20, 0],
@@ -130,7 +133,7 @@ const Hero: React.FC = () => {
         <ThemeSelector size="lg" />
       </div>
 
-      <div ref={heroRef} className="relative z-10 container mx-auto px-4 sm:px-6 pt-16 sm:pt-20">
+      <div ref={heroRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 50, rotateX: 15 }}
           animate={inView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
@@ -158,7 +161,7 @@ const Hero: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 sm:mb-6 leading-[1.1] tracking-tight"
               >
                 <span className="block text-white">Hi, I'm</span>
                 <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
@@ -199,7 +202,7 @@ const Hero: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="text-lg sm:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl"
+                className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 md:mb-10 leading-[1.75] max-w-2xl"
               >
                 Passionate about building{" "}
                 <span className="font-semibold text-cyan-400">scalable</span>,{" "}
@@ -221,9 +224,9 @@ const Hero: React.FC = () => {
                     triggerHaptic('light');
                     document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 w-full sm:w-auto transition-all duration-300 transform hover:scale-105"
+                  className="px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg font-semibold rounded-xl shadow-md hover:shadow-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 w-full sm:w-auto transition-all duration-300 transform hover:scale-105"
                 >
-                  View Portfolio
+                  Explore My Work
                   <DownArrow />
                 </Button>
 
@@ -234,7 +237,7 @@ const Hero: React.FC = () => {
                     triggerHaptic('light');
                     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="px-8 py-4 text-lg font-semibold rounded-2xl border-2 border-white/30 hover:border-cyan-400 hover:bg-cyan-400 hover:text-white w-full sm:w-auto transition-all duration-300 transform hover:scale-105"
+                  className="px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg font-semibold rounded-xl border-2 border-white/30 hover:border-cyan-400 hover:bg-cyan-400 hover:text-white w-full sm:w-auto transition-all duration-300 transform hover:scale-105"
                 >
                   Contact Me
                 </Button>
@@ -251,7 +254,7 @@ const Hero: React.FC = () => {
               >
                 {/* Modern Profile Image */}
                 <motion.div 
-                  className="w-64 h-64 mx-auto rounded-3xl border-4 border-white/20 shadow-2xl overflow-hidden bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-600 p-1 cursor-pointer relative"
+                  className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mx-auto rounded-2xl border-4 border-white/20 shadow-xl overflow-hidden bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-600 p-1 cursor-pointer relative"
                   onMouseMove={handleMouseMove}
                   onMouseLeave={handleMouseLeave}
                   onMouseEnter={() => setIsHovered(true)}
@@ -259,6 +262,8 @@ const Hero: React.FC = () => {
                     rotateX: shouldReduceMotion ? 0 : rotateX,
                     rotateY: shouldReduceMotion ? 0 : rotateY,
                     transformStyle: 'preserve-3d',
+                    willChange: shouldReduceMotion ? 'auto' : 'transform',
+                    transform: 'translateZ(0)'
                   }}
                   whileHover={shouldReduceMotion ? {} : { 
                     scale: 1.05,
@@ -268,13 +273,17 @@ const Hero: React.FC = () => {
                 >
                   <img
                     src={skr}
-                    alt="Sravan Kumar Polu"
-                    className="w-full h-full rounded-3xl object-cover"
+                    alt="Sravan Kumar Polu - MERN Stack Developer and Full-Stack Engineer"
+                    className="w-full h-full rounded-xl object-cover"
+                    loading="eager"
+                    width={256}
+                    height={256}
+                    fetchPriority="high"
                   />
                   
                   {/* Modern Glow Effect */}
                   <motion.div
-                    className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/40 via-blue-500/40 to-purple-500/40 opacity-0"
+                    className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-500/40 via-blue-500/40 to-purple-500/40 opacity-0"
                     animate={{ opacity: isHovered && !shouldReduceMotion ? 1 : 0 }}
                     transition={{ duration: 0.3 }}
                   />
@@ -316,7 +325,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.6, delay: 1.2 }}
             className="mt-16"
           >
-            <div className="inline-flex items-center gap-4 px-6 py-4 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+            <div className="inline-flex items-center gap-3 sm:gap-4 px-4 py-3 sm:px-6 sm:py-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 text-sm sm:text-base">
               <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
               <span className="text-white/80">Currently building:</span>
               <a

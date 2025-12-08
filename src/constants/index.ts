@@ -1,6 +1,8 @@
 import bootstrap from "../assets/icons/bootstrap.svg";
 import nexCartisImg from  '../assets/images/nexCartis.png'
 import boostllyImg from "../assets/images/boostlly.png";
+import debiasDailyImg from "../assets/images/debiasDailyImg.png";
+import bloommindTrackerImg from "../assets/images/ bloommindTrackerImg.png";
 import buyMeImg from "../assets/images/buy-me.png";
 import cardImg from "../assets/images/card.png";
 import chronobloomImg from "../assets/images/chronobloom.png";
@@ -46,11 +48,24 @@ export const courses = [
     courseName: "Next.js",
     projects: [
       {
+        src: debiasDailyImg,
+        title: "DebiasDaily",
+        name: "DebiasDaily",
+        link: "https://debiasdaily.com/"
+      },
+      {
+        src: bloommindTrackerImg,
+        title: "BloomMind Tracker (beta)",
+        name: "BloomMind Tracker",
+        link: "https://bloommind-tracker.netlify.app/"
+      },
+      {
         src: nexCartisImg,
         title: "nexCartis(beta version)",
         name: "NexCartis",
         link: "https://nextcartis.netlify.app/",
       },
+   
       {
         src: chronobloomImg,
         title: "chronoBloom",

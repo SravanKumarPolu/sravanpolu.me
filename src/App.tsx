@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import LazySection from "./components/LazySection";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
 import NotificationContainer from "./components/NotificationContainer";
+import ScrollIndicator from "./components/ScrollIndicator";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { FocusProvider } from "./contexts/FocusContext";
@@ -79,6 +80,9 @@ const App: React.FC = () => {
                 <section className="sticky top-0 z-50">
                   <Nav />
                 </section>
+                
+                {/* Scroll Progress Indicator */}
+                <ScrollIndicator />
 
 
                 <section id="home" aria-label="Hero section">

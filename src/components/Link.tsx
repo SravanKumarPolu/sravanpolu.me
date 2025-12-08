@@ -33,13 +33,13 @@ const Link: React.FC<LinkProps> = React.memo(({ page, selectedPage, setSelectedP
     <a
       href={pageLink}
       onClick={handleClick}
-      className={`relative group py-2 px-4 text-lg transition duration-300 font-medium ${
-        isActive ? "text-white" : "text-gray-400 hover:text-white"
+      className={`relative group py-2 px-4 text-base sm:text-lg transition duration-300 font-medium min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent rounded-lg ${
+        isActive ? "text-white" : "text-gray-300 hover:text-white"
       }`}>
       {page}
       <span
-        className={`absolute bottom-0 left-0 h-0.5 bg-white transition-all duration-300 ${
-          isActive ? "w-full" : "w-0 group-hover:w-full"
+        className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-300 ${
+          isActive ? "w-full opacity-100" : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
         }`}
       />
     </a>
@@ -47,7 +47,7 @@ const Link: React.FC<LinkProps> = React.memo(({ page, selectedPage, setSelectedP
     <a
       href={pageLink}
       onClick={handleClick}
-      className={`block text-center text-base font-medium px-4 py-2 rounded-md ${
+      className={`block text-center text-base font-medium px-4 py-3 min-h-[44px] rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent ${
         isActive
           ? "text-white bg-gradient-to-r from-indigo-500 to-purple-600"
           : "text-gray-800 hover:bg-gray-100"

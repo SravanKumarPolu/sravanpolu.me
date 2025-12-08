@@ -153,7 +153,7 @@ const ContactForm: React.FC = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="w-full max-w-6xl mx-auto py-24 px-8 relative"
+      className="w-full max-w-6xl mx-auto py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 relative"
     >
       {/* Modern Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 rounded-3xl"></div>
@@ -166,25 +166,25 @@ const ContactForm: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
         {/* Left Column - Content */}
         <motion.div variants={itemVariants} className="text-left">
-          <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-6">
+          <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-4 sm:mb-6">
             <span className="text-cyan-400 text-sm font-medium">Get In Touch</span>
           </div>
           
-          <h2 className="text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-[1.2] tracking-tight">
             Let's Work{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
               Together
             </span>
           </h2>
           
-          <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
             Ready to bring your ideas to life? Send me a message and let's discuss your project.
           </p>
 
           {/* Contact Info Cards */}
           <div className="space-y-4">
-            <div className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
-              <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center">
+            <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center">
                 <span className="text-white text-xl">📧</span>
               </div>
               <div>
@@ -193,8 +193,8 @@ const ContactForm: React.FC = () => {
               </div>
             </div>
             
-            <div className="flex items-center gap-4 p-4 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center">
+            <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
                 <span className="text-white text-xl">💼</span>
               </div>
               <div>
@@ -207,7 +207,7 @@ const ContactForm: React.FC = () => {
 
         {/* Right Column - Form */}
         <motion.div variants={itemVariants} className="relative">
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl">
             <motion.form
               onSubmit={handleSubmit}
               className="space-y-6"
@@ -230,7 +230,7 @@ const ContactForm: React.FC = () => {
                     required
                     aria-describedby={errors.name ? "name-error" : undefined}
                     aria-invalid={!!errors.name}
-                    className={`w-full px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:bg-white/20 transition-all duration-300 rounded-2xl ${
+                    className={`w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:bg-white/20 transition-all duration-300 rounded-xl text-sm sm:text-base ${
                       errors.name ? 'border-red-400' : 'border-white/20'
                     }`}
                     placeholder="Your name"
@@ -256,7 +256,7 @@ const ContactForm: React.FC = () => {
                     required
                     aria-describedby={errors.email ? "email-error" : undefined}
                     aria-invalid={!!errors.email}
-                    className={`w-full px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:bg-white/20 transition-all duration-300 rounded-2xl ${
+                    className={`w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:bg-white/20 transition-all duration-300 rounded-xl text-sm sm:text-base ${
                       errors.email ? 'border-red-400' : 'border-white/20'
                     }`}
                     placeholder="your.email@example.com"
@@ -326,7 +326,7 @@ const ContactForm: React.FC = () => {
                   type="submit"
                   disabled={isSubmitting}
                   aria-describedby="submit-status"
-                  className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-lg rounded-2xl hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+                  className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-base sm:text-lg rounded-xl hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
                   whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                   whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                 >

@@ -9,7 +9,7 @@ import {
   ProjectMetricsChart, 
   ProjectTimelineChart 
 } from '../components/charts';
-import { Card } from '../components/ui/Card';
+// import { Card } from '../components/ui/Card';
 
 const DataAnalytics: React.FC = () => {
   const { ref: analyticsRef, inView } = useScrollAnimation(0.1, true);
@@ -23,17 +23,19 @@ const DataAnalytics: React.FC = () => {
   return (
     <section
       id="analytics"
-      className="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden text-white"
+      className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden text-white"
     >
       {/* Modern Background Elements */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl"
+          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{ rotate: [0, 180, 360], scale: [1, 1.1, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full"
+          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{ y: [0, -20, 0], scale: [1, 1.2, 1] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -48,7 +50,7 @@ const DataAnalytics: React.FC = () => {
         }}
       />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
         {/* Modern Asymmetrical Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <motion.div
@@ -61,13 +63,13 @@ const DataAnalytics: React.FC = () => {
             <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-6">
               <span className="text-cyan-400 text-sm font-medium">Interactive Insights</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 leading-[1.2] tracking-tight">
               Data{' '}
               <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Analytics
               </span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl leading-relaxed">
               Interactive visualizations showcasing my technical skills, project distribution, and development journey.
             </p>
           </motion.div>
@@ -147,25 +149,25 @@ const DataAnalytics: React.FC = () => {
         >
           <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
             <div className="text-center">
-              <h3 className="text-3xl font-bold text-white mb-6">Key Insights</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">Key Insights</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="p-4">
                   <div className="text-4xl font-extrabold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2">
                     15+
                   </div>
-                  <div className="text-sm text-gray-300">Projects Completed</div>
+                  <div className="text-sm text-gray-200">Projects Completed</div>
                 </div>
                 <div className="p-4">
                   <div className="text-4xl font-extrabold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent mb-2">
                     8
                   </div>
-                  <div className="text-sm text-gray-300">Technologies Mastered</div>
+                  <div className="text-sm text-gray-200">Technologies Mastered</div>
                 </div>
                 <div className="p-4">
                   <div className="text-4xl font-extrabold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent mb-2">
                     2+
                   </div>
-                  <div className="text-sm text-gray-300">Years of Experience</div>
+                  <div className="text-sm text-gray-200">Years of Experience</div>
                 </div>
               </div>
             </div>

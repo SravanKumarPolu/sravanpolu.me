@@ -11,7 +11,7 @@ import { useAnnouncement } from "../components/AnnouncementSystem";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { useSwipeable } from "react-swipeable";
 import { CustomButton as Button } from "../components/ui/Button";
-import { Card } from "../components/ui/Card";
+// import { Card } from "../components/ui/Card";
 // import { useTheme } from "../contexts/ThemeContext";
 import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor";
 import { useAccessibility } from "../hooks/useAccessibility";
@@ -128,11 +128,12 @@ const Work: React.FC = () => {
 
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
       {/* Modern Background Elements */}
       <div className="absolute inset-0">
         <motion.div
-          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl"
+          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             rotate: [0, 180, 360],
             scale: [1, 1.1, 1],
@@ -144,7 +145,8 @@ const Work: React.FC = () => {
           }}
         />
         <motion.div
-          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full"
+          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             y: [0, -20, 0],
             scale: [1, 1.2, 1],
@@ -156,7 +158,8 @@ const Work: React.FC = () => {
           }}
         />
         <motion.div
-          className="absolute top-1/2 left-1/2 w-40 h-20 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-2xl -translate-x-1/2 -translate-y-1/2"
+          className="absolute top-1/2 left-1/2 w-40 h-20 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-2xl -translate-x-1/2 -translate-y-1/2 transform-gpu"
+          style={{ willChange: 'transform' }}
           animate={{
             rotate: [0, 90, 0],
             x: [0, 20, 0],
@@ -175,7 +178,7 @@ const Work: React.FC = () => {
         backgroundRepeat: 'repeat'
       }}></div>
 
-      <div {...swipeHandlers} className="container mx-auto px-6 relative z-10">
+      <div {...swipeHandlers} className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
         {/* Modern Asymmetrical Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <motion.div
@@ -185,18 +188,18 @@ const Work: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-left"
           >
-            <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-6">
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-4 sm:mb-6">
               <span className="text-cyan-400 text-sm font-medium">Portfolio</span>
             </div>
             
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 leading-[1.2] tracking-tight">
               My{" "}
               <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Projects
               </span>
             </h2>
             
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-3xl">
               Explore my portfolio of web applications built with modern technologies. 
               Each project showcases different aspects of full-stack development.
             </p>
@@ -283,7 +286,7 @@ const Work: React.FC = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}>
               <div className="sticky top-24">
-                <h3 className="text-2xl font-bold mb-8 text-white">
+                <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-white">
                   Technologies
                 </h3>
                 <div className="space-y-3">
@@ -291,17 +294,29 @@ const Work: React.FC = () => {
                     <motion.button
                       key={course.courseName}
                       onClick={() => changeSlide(index)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          changeSlide(index);
+                        }
+                      }}
                       whileHover={{ scale: 1.02, x: 4 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 ${
+                      style={{ willChange: 'transform', transform: 'translateZ(0)' }}
+                      className={`w-full flex items-center gap-3 sm:gap-4 p-3 sm:p-4 min-h-[44px] rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent ${
                         index === currentSlide
-                          ? "bg-white/10 backdrop-blur-sm border border-cyan-400/50 text-white shadow-lg"
-                          : "hover:bg-white/5 backdrop-blur-sm border border-white/20 text-gray-300 hover:text-white"
-                      }`}>
+                          ? "bg-white/10 backdrop-blur-sm border border-cyan-400/50 text-white shadow-md"
+                          : "hover:bg-white/5 backdrop-blur-sm border border-white/20 text-gray-200 hover:text-white"
+                      }`}
+                      aria-label={`View ${course.courseName} projects`}
+                      aria-current={index === currentSlide ? 'page' : undefined}>
                       <img
                         src={course.language?.[0]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e5e7eb'/%3E%3Ctext x='16' y='20' text-anchor='middle' font-size='12' fill='%236b7280'%3E?%3C/text%3E%3C/svg%3E"}
-                        alt={course.language?.[0]?.alt || "Language icon"}
+                        alt={course.language?.[0]?.alt || `${course.courseName} technology icon`}
                         className="w-10 h-10 rounded-full"
+                        loading="lazy"
+                        width={40}
+                        height={40}
                       />
                       <span className="font-semibold">{course.courseName}</span>
                     </motion.button>
@@ -324,7 +339,7 @@ const Work: React.FC = () => {
                 >
                   Previous
                 </Button>
-                <span className="flex items-center text-sm text-gray-300">
+                <span className="flex items-center text-sm text-gray-200">
                   {currentSlide + 1} of {courses.length}
                 </span>
                 <Button
@@ -394,20 +409,23 @@ const Work: React.FC = () => {
                   </div>
                 ) : (
                   // Modern 2D Project Display
-                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl">
                     {/* Modern Project Header */}
                     <div className="border-b border-white/20 mb-8">
                       <div className="flex items-center gap-6 mb-6">
                         <img
                           src={courses[currentSlide]?.language?.[0]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%23e5e7eb'/%3E%3Ctext x='24' y='30' text-anchor='middle' font-size='16' fill='%236b7280'%3E?%3C/text%3E%3C/svg%3E"}
-                          alt={courses[currentSlide]?.language?.[0]?.alt || "Technology"}
+                          alt={courses[currentSlide]?.language?.[0]?.alt || `${courses[currentSlide]?.courseName || 'Technology'} logo`}
                           className="w-16 h-16 rounded-full border-4 border-white/20"
+                          loading="lazy"
+                          width={64}
+                          height={64}
                         />
                         <div>
-                          <h3 className="text-3xl font-bold text-white mb-2">
+                          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
                             {courses[currentSlide]?.courseName || "Unknown Technology"}
                           </h3>
-                          <p className="text-gray-300 text-lg">
+                          <p className="text-gray-200 text-base sm:text-lg leading-relaxed">
                             {courses[currentSlide]?.summary || "No description available"}
                           </p>
                         </div>
@@ -419,30 +437,45 @@ const Work: React.FC = () => {
                       {/* Modern Navigation Arrows */}
                       <button
                         onClick={handleProjectPrev}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-white/20 transition-all duration-300"
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleProjectPrev();
+                          }
+                        }}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 min-w-[48px] min-h-[48px] bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent"
                         aria-label="Previous Project">
                         <FaChevronLeft className="w-5 h-5 text-white" />
                       </button>
                       
                       <button
                         onClick={handleProjectNext}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-white/20 transition-all duration-300"
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleProjectNext();
+                          }
+                        }}
+                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 min-w-[48px] min-h-[48px] bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent"
                         aria-label="Next Project">
                         <FaChevronRight className="w-5 h-5 text-white" />
                       </button>
 
                       {/* Modern Project Card */}
-                      <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
-                        <div className="aspect-video mb-6 rounded-2xl overflow-hidden border border-white/20">
+                      <div className="bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl p-4 sm:p-6">
+                        <div className="aspect-video mb-4 sm:mb-6 rounded-xl overflow-hidden border border-white/20">
                             <img
                               src={courses[currentSlide]?.projects?.[currentProjectIndex]?.src || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f3f4f6'/%3E%3Ctext x='200' y='150' text-anchor='middle' font-size='24' fill='%236b7280'%3ENo Image%3C/text%3E%3C/svg%3E"}
-                              alt={courses[currentSlide]?.projects?.[currentProjectIndex]?.title || "Project Image"}
-                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                              alt={`${courses[currentSlide]?.projects?.[currentProjectIndex]?.title || 'Project'} screenshot - ${courses[currentSlide]?.courseName || 'Technology'} project`}
+                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 transform-gpu"
+                            style={{ willChange: 'transform' }}
+                              loading="lazy"
+                              decoding="async"
                             />
                         </div>
                         
                         <div className="text-center">
-                          <h4 className="text-2xl font-bold text-white mb-4">
+                          <h4 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">
                             {courses[currentSlide]?.projects?.[currentProjectIndex]?.title || "Project Title"}
                           </h4>
                           
@@ -460,7 +493,7 @@ const Work: React.FC = () => {
                                 setIsLoading(false);
                               }, 1000);
                             }}
-                            className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-lg rounded-2xl hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                            className="px-6 py-2.5 sm:px-8 sm:py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-base sm:text-lg rounded-xl hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
                           >
                             View Project
                           </Button>
@@ -475,12 +508,19 @@ const Work: React.FC = () => {
                           <button
                             key={index}
                             onClick={() => setCurrentProjectIndex(index)}
-                            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                setCurrentProjectIndex(index);
+                              }
+                            }}
+                            className={`w-4 h-4 min-w-[16px] min-h-[16px] rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent ${
                               index === currentProjectIndex
                                 ? "bg-cyan-400 scale-125"
                                 : "bg-white/30 hover:bg-white/50"
                             }`}
-                            aria-label={`Go to project ${index + 1}`}
+                            aria-label={`Go to project ${index + 1} of ${courses[currentSlide]?.projects?.length || 0}`}
+                            aria-current={index === currentProjectIndex ? 'true' : 'false'}
                           />
                         ))}
                       </div>

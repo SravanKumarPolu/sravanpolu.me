@@ -95,33 +95,38 @@ const Nav: React.FC = () => {
     };
   }, [setActiveLink]);
 
-  // Dynamic styles
+  // Dynamic styles with improved visibility
   const navbarStyle = isTopOfPage
-    ? "bg-transparent border-b border-white/10 backdrop-blur-md shadow-lg shadow-cyan-500/50"
+    ? "bg-transparent/80 border-b border-white/10 backdrop-blur-md shadow-md"
     : isDarkMode
-    ? "bg-gradient-to-r from-neutral-800/90 via-primary-800 to-secondary-800 shadow-lg shadow-primary-400/50 border-b border-white/10 backdrop-blur-md"
-    : "bg-gradient-to-r from-primary-500 via-neutral-800 to-secondary-500 shadow-lg shadow-primary-300/50 border-b border-neutral-300 backdrop-blur-md";
+    ? "bg-gradient-to-r from-neutral-800/95 via-primary-800/95 to-secondary-800/95 shadow-lg shadow-primary-400/30 border-b border-white/20 backdrop-blur-lg"
+    : "bg-gradient-to-r from-primary-500/95 via-neutral-800/95 to-secondary-500/95 shadow-lg shadow-primary-300/30 border-b border-neutral-300 backdrop-blur-lg";
 
   return (
     <nav
       ref={navRef}
-      className={`fixed top-0 z-50 w-full transition duration-300 ${navbarStyle}`}
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${navbarStyle}`}
+      style={{
+        transform: isTopOfPage ? 'translateY(0)' : 'translateY(0)',
+        opacity: 1
+      }}
       role="navigation"
       aria-label={getRoleDescription('navigation')}>
-      <div className="flex justify-between items-center px-4 sm:px-6 py-3 sm:py-4">
+      <div className="flex justify-between items-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
         {/* Logo */}
         <a 
           href="#home" 
           className="flex items-center gap-1 sm:gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-1"
           aria-label="Sravan Kumar Polu - Go to home section">
           <span 
-            className="font-bold tracking-wide text-sm sm:text-xl md:text-3xl uppercase"
+            className="font-bold tracking-wide text-xs sm:text-sm md:text-xl lg:text-2xl xl:text-3xl uppercase"
             style={{
               color: '#ffffff',
               textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 0, 0, 0.4)',
               fontWeight: '900'
             }}>
             <span 
+              className="hidden sm:inline"
               style={{
                 color: '#60a5fa',
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(96, 165, 250, 0.4)',
@@ -130,10 +135,19 @@ const Nav: React.FC = () => {
               Sravan Kumar Polu
             </span>
             <span 
+              className="sm:hidden"
+              style={{
+                color: '#60a5fa',
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(96, 165, 250, 0.4)',
+                fontWeight: '900'
+              }}>
+              SKP
+            </span>
+            <span 
               className="ml-1 sm:ml-2"
               style={{
-                color: '#ec4899',
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(236, 72, 153, 0.4)',
+                color: '#f472b6', // Improved contrast: lighter pink (#f472b6) for better WCAG AA compliance
+                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(244, 114, 182, 0.5)',
                 fontWeight: '900'
               }}>| MERN Dev</span>
           </span>
@@ -189,7 +203,7 @@ const Nav: React.FC = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: isNavOpen ? 1 : 0, x: isNavOpen ? 0 : 50 }}
           transition={{ duration: 0.5 }}
-          className={`absolute top-16 right-2 sm:right-4 py-6 px-6 sm:px-8 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-2xl space-y-3 min-w-[240px] ${
+          className={`absolute top-14 sm:top-16 right-2 sm:right-4 py-4 px-4 sm:py-6 sm:px-6 md:px-8 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-xl border border-gray-200 dark:border-neutral-700 rounded-xl shadow-xl space-y-2 sm:space-y-3 min-w-[200px] sm:min-w-[240px] ${
             isNavOpen ? "block" : "hidden"
           }`}
           role="menu"
