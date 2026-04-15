@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 // });
 
 const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
   // const { currentTheme, isDarkMode } = useTheme();
 
   return (
@@ -246,7 +247,7 @@ const Footer: React.FC = () => {
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3 text-gray-200 text-sm">
               <img src={copyrightSign} alt="Copyright" width={16} height={16} className="opacity-60" />
-              <span>© 2024 Sravan Kumar Polu. All rights reserved.</span>
+              <span>{currentYear} Sravan Kumar Polu. All rights reserved.</span>
             </div>
             
             <div className="flex items-center gap-3 text-sm text-gray-200">
