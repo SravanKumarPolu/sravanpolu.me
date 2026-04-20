@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { act, render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { NotificationProvider, useNotification } from '../NotificationContext';
 
 // Test component that uses the notification context
@@ -92,8 +92,10 @@ describe('NotificationContext', () => {
       expect(screen.getByText('Test')).toBeInTheDocument();
     });
     
-    // Fast-forward time
-    jest.advanceTimersByTime(5000);
+    // Fast-forward time inside act to avoid React state update warnings
+    act(() => {
+      jest.advanceTimersByTime(5000);
+    });
     
     await waitFor(() => {
       expect(screen.queryByText('Test')).not.toBeInTheDocument();

@@ -29,7 +29,7 @@ jobs:
         run: pnpm install
 
       - name: Run tests
-        run: pnpm test -- --watchAll=false
+        run: pnpm test --watchAll=false
 
       - name: Build production bundle
         run: pnpm build

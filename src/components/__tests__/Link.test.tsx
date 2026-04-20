@@ -68,7 +68,7 @@ describe('Link Component', () => {
     );
     
     const link = screen.getByText('Work');
-    expect(link).toHaveClass('text-gray-400');
+    expect(link).toHaveClass('text-gray-300');
   });
 
   test('prevents default link behavior', () => {
