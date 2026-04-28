@@ -76,7 +76,31 @@ Welcome to my personal developer portfolio built with modern web technologies to
 
 ---
 
-## 📬 Contact
+## � Documentation Guide
+
+Complete documentation for development, testing, and improvements:
+
+### 🧭 **Getting Started**
+- [TESTING_GUIDE.md](TESTING_GUIDE.md) - Unit testing, integration tests, and test coverage
+
+### 🎨 **Design & UI**
+- [DESIGN_SYSTEM_DOCUMENTATION.md](DESIGN_SYSTEM_DOCUMENTATION.md) - Color system, typography, components
+- [TYPOGRAPHY_NAVIGATION_IMPROVEMENTS.md](TYPOGRAPHY_NAVIGATION_IMPROVEMENTS.md) - Typography improvements and navigation flow
+
+### 💻 **Features**
+- [DATA_VISUALIZATIONS_GUIDE.md](DATA_VISUALIZATIONS_GUIDE.md) - Data visualization components and implementation
+- [3D_IMPLEMENTATION_GUIDE.md](3D_IMPLEMENTATION_GUIDE.md) - 3D features and Three.js integration
+
+### 🔧 **Bug Fixes & Issues**
+- [COMPREHENSIVE_BUG_FIXES_REPORT.md](COMPREHENSIVE_BUG_FIXES_REPORT.md) - All resolved bugs and fixes
+- [PROVIDER_HIERARCHY_FIX.md](PROVIDER_HIERARCHY_FIX.md) - React context provider hierarchy setup
+
+### 📈 **Improvements**
+- [PERFECT_10_RATING_IMPROVEMENT_PLAN.md](PERFECT_10_RATING_IMPROVEMENT_PLAN.md) - Roadmap to 10/10 rating
+
+---
+
+## �📬 Contact
 
 If you like what you see or want to collaborate:
 
