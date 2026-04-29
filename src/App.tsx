@@ -4,7 +4,6 @@ import "./App.css";
 import Nav from "./components/Nav";
 import LazySection from "./components/LazySection";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
-import NotificationContainer from "./components/NotificationContainer";
 import ScrollIndicator from "./components/ScrollIndicator";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
@@ -117,8 +116,6 @@ const App: React.FC = () => {
                   <LazySection sectionName="footer" />
                 </section>
               </main>
-              
-              <NotificationContainer />
                 </FocusProvider>
               </LoadingProvider>
             </AppProvider>

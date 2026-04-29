@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { BsSunFill, BsMoonStarsFill } from 'react-icons/bs';
 import { useApp } from '../contexts/AppContext';
-import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import { getAriaLabel } from '../utils/accessibility';
 
 interface ThemeToggleProps {
@@ -29,12 +28,6 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
     md: 'w-5 h-5',
     lg: 'w-6 h-6',
   };
-
-  // Keyboard navigation
-  useKeyboardNavigation({
-    onEnter: toggleTheme,
-    onSpace: toggleTheme,
-  });
 
   // Focus management
   useEffect(() => {

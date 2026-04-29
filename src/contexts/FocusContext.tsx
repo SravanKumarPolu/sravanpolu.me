@@ -68,23 +68,6 @@ export const FocusProvider: React.FC<FocusProviderProps> = ({ children }) => {
     elements[elements.length - 1]?.focus();
   };
 
-  // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Tab') {
-        event.preventDefault();
-        if (event.shiftKey) {
-          focusPrevious();
-        } else {
-          focusNext();
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [focusNext, focusPrevious]);
-
   return (
     <FocusContext.Provider
       value={{

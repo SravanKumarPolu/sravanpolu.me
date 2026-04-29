@@ -22,7 +22,6 @@ const DataAnalytics: React.FC = () => {
 
   return (
     <section
-      id="analytics"
       className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden text-white"
     >
       {/* Modern Background Elements */}
