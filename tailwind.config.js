@@ -32,7 +32,7 @@ const config = {
       },
       // ✅ Fonts
       fontFamily: {
-        sans: ["Helvetica", "Arial", "sans-serif"],
+        sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
         palanquin: ["Palanquin", "sans-serif"],
         montserrat: ["Montserrat", "sans-serif"],
       },

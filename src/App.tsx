@@ -42,7 +42,7 @@ const App: React.FC = () => {
                 <FocusProvider>
               <main 
                 id="main-content" 
-                className={`relative scroll-smooth bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-white overflow-x-hidden ${
+                className={`relative scroll-smooth bg-neutral-950 text-white overflow-x-hidden ${
                   shouldReduceAnimations ? 'reduce-motion' : ''
                 } ${isAccessible ? 'accessibility-enhanced' : ''}`}
                 style={{
@@ -64,10 +64,10 @@ const App: React.FC = () => {
                   Skip to work section
                 </a>
                 <a 
-                  href="#analytics" 
+                  href="#about" 
                   className="sr-only focus:not-sr-only focus:absolute focus:top-28 focus:left-4 bg-accent-600 text-white px-4 py-2 rounded-lg z-50 font-medium transition-all duration-200 hover:bg-accent-700"
                 >
-                  Skip to analytics
+                  Skip to about
                 </a>
                 <a 
                   href="#resume" 
@@ -88,31 +88,35 @@ const App: React.FC = () => {
                   <LazySection sectionName="hero" />
                 </section>
 
-                <section id="work" aria-label="Work and projects section">
-                  <LazySection sectionName="work" />
+                <section id="about" aria-label="About section">
+                  <LazySection sectionName="about" />
                 </section>
 
-                <section id="analytics" aria-label="Data analytics and visualizations section">
-                  <LazySection sectionName="analytics" />
+                <section id="work" aria-label="Work and projects section">
+                  <LazySection sectionName="work" />
                 </section>
 
                 <section id="skills" aria-label="Skills and expertise section">
                   <LazySection sectionName="skills" />
                 </section>
 
+                <section id="resume" aria-label="Resume section">
+                  <LazySection sectionName="resume" />
+                </section>
+
                 <section id="testimonials" aria-label="Client testimonials section">
                   <LazySection sectionName="testimonials" />
                 </section>
 
-                <section id="contact" aria-label="Contact form section">
+                <section id="contact" aria-label="Contact section">
                   <LazySection sectionName="contact" />
                 </section>
 
-                <section id="resume" aria-label="Resume and skills section">
-                  <LazySection sectionName="resume" />
+                <section id="analytics" aria-label="Data analytics section">
+                  <LazySection sectionName="analytics" />
                 </section>
 
-                <section id="footer" aria-label="Contact and footer section">
+                <section id="footer" aria-label="Footer section">
                   <LazySection sectionName="footer" />
                 </section>
               </main>

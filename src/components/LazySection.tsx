@@ -4,6 +4,7 @@ import SectionErrorBoundary from './SectionErrorBoundary';
 
 // Lazy load sections
 const LazyHero = lazy(() => import('../sections/Hero'));
+const LazyAbout = lazy(() => import('../sections/About'));
 const LazyWork = lazy(() => import('../sections/Work'));
 const LazyAnalytics = lazy(() => import('../sections/DataAnalytics'));
 const LazySkills = lazy(() => import('../components/SkillsShowcase'));
@@ -21,6 +22,15 @@ const getSkeletonForSection = (sectionName: string): React.ReactNode => {
   switch (sectionName.toLowerCase()) {
     case 'hero':
       return <SkeletonHero />;
+    case 'about':
+      return (
+        <section className="py-20 bg-neutral-950">
+          <div className="container mx-auto px-6 max-w-4xl space-y-4">
+            <SkeletonLoader variant="rectangular" height={32} width={200} className="rounded-lg" />
+            <SkeletonLoader variant="rectangular" height={120} className="rounded-lg" />
+          </div>
+        </section>
+      );
     case 'work':
       return (
         <section className="py-20 px-6 md:px-12 lg:px-20 xl:px-32 bg-gray-950 text-white">
@@ -139,6 +149,8 @@ const LazySection: React.FC<LazySectionProps> = ({ sectionName, fallback }) => {
     switch (sectionName.toLowerCase()) {
       case 'hero':
         return LazyHero;
+      case 'about':
+        return LazyAbout;
       case 'work':
         return LazyWork;
       case 'analytics':
