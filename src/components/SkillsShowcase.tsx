@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useHaptic } from '../hooks/useHaptic';
 import { useAccessibility } from '../hooks/useAccessibility';
+import SectionShell from './SectionShell';
+import { levelToProficiency, portfolioStats } from '../constants/portfolio';
 
 interface Skill {
   name: string;
@@ -84,31 +86,8 @@ const SkillsShowcase: React.FC = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-white/10 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 2 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
+    <SectionShell variant="elevated">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -116,11 +95,11 @@ const SkillsShowcase: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Skills & Expertise
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            Tech I ship with
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            A comprehensive overview of my technical skills and expertise across different domains.
+          <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+            Full skill list across {skills.length} technologies — proficiency reflects hands-on project use.
           </p>
         </motion.div>
 
@@ -130,7 +109,7 @@ const SkillsShowcase: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-3 mb-12 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0"
         >
           {categories.map((category) => (
             <motion.button
@@ -180,15 +159,18 @@ const SkillsShowcase: React.FC = () => {
                       <span className="text-2xl">{skill.icon}</span>
                       <h3 className="text-lg font-semibold text-white">{skill.name}</h3>
                     </div>
-                    <span className="text-sm text-gray-300">{skill.level}%</span>
+                    <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 text-cyan-300">
+                      {levelToProficiency(skill.level)}
+                    </span>
                   </div>
                   
                   <div className="relative">
-                    <div className="w-full bg-gray-700 rounded-full h-2">
+                    <div className="w-full bg-neutral-700 rounded-full h-2">
                       <motion.div
                         className={`h-2 rounded-full bg-gradient-to-r ${skill.color}`}
                         initial={{ width: 0 }}
                         animate={{ width: `${skill.level}%` }}
+                        aria-hidden
                         transition={{ 
                           duration: shouldReduceMotion ? 0 : 1.5,
                           delay: shouldReduceMotion ? 0 : index * 0.1 + 0.5
@@ -228,9 +210,9 @@ const SkillsShowcase: React.FC = () => {
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
         >
           {[
-            { label: 'Technologies', value: skills.length },
-            { label: 'Years Experience', value: '3+' },
-            { label: 'Projects Completed', value: '50+' }
+            { label: 'Skills listed', value: skills.length },
+            { label: 'Years building', value: portfolioStats.yearsExperience },
+            { label: 'Portfolio projects', value: portfolioStats.projectCount },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
@@ -246,7 +228,7 @@ const SkillsShowcase: React.FC = () => {
           ))}
         </motion.div>
       </div>
-    </section>
+    </SectionShell>
   );
 };
 

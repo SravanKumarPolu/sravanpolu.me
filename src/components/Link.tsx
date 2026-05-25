@@ -47,10 +47,10 @@ const Link: React.FC<LinkProps> = React.memo(({ page, selectedPage, setSelectedP
     <a
       href={pageLink}
       onClick={handleClick}
-      className={`block text-center text-base font-medium px-4 py-3 min-h-[44px] rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent ${
+      className={`block text-left text-base font-medium px-4 py-3 min-h-[48px] rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent ${
         isActive
-          ? "text-white bg-gradient-to-r from-indigo-500 to-purple-600"
-          : "text-gray-800 hover:bg-gray-100"
+          ? "text-white bg-cyan-600/30 border border-cyan-500/40"
+          : "text-neutral-200 hover:bg-white/10"
       }`}>
       {page}
     </a>

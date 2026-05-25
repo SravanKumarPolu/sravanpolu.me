@@ -35,12 +35,17 @@ export const assets = {
 
 export const navLinks = [
   { label: "Home", href: "home" },
+  { label: "About", href: "about" },
   { label: "Work", href: "work" },
-  { label: "Analytics", href: "analytics" },
   { label: "Skills", href: "skills" },
-  { label: "Testimonials", href: "testimonials" },
-  { label: "Contact", href: "contact" },
   { label: "Resume", href: "resume" },
+  { label: "Contact", href: "contact" },
+];
+
+/** Secondary nav — section kept on page, not in primary nav */
+export const secondaryNavLinks = [
+  { label: "Analytics", href: "analytics" },
+  { label: "Testimonials", href: "testimonials" },
 ];
 
 export const courses = [

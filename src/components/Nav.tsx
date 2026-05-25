@@ -7,155 +7,102 @@ import { useApp } from "../contexts/AppContext";
 import { useKeyboardNavigation } from "../hooks/useKeyboardNavigation";
 import { getAriaLabel, getRoleDescription } from "../utils/accessibility";
 import ThemeToggle from "./ThemeToggle";
-// Using simple SVG icons instead of react-icons
+import { FiDownload } from "react-icons/fi";
 
 const Nav: React.FC = () => {
-  const { 
-    isDarkMode, 
-    isNavOpen, 
-    activeLink, 
-    isTopOfPage,
-    toggleNav,
-    setActiveLink 
-  } = useApp();
-  
+  const { isDarkMode, isNavOpen, activeLink, isTopOfPage, toggleNav, setActiveLink } = useApp();
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
   const navRef = useRef<HTMLElement>(null);
 
-  // Keyboard navigation
   useKeyboardNavigation({
     onEscape: () => {
-      if (isNavOpen) {
-        toggleNav();
-      }
+      if (isNavOpen) toggleNav();
     },
   });
 
-  // Section observer with fallback scroll detection
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const sectionId = entry.target.id;
-            const matchedLink = navLinks.find(
-              (link) => link.href === sectionId
-            );
-            if (matchedLink) {
-              setActiveLink(matchedLink.label);
-            }
+            const matchedLink = navLinks.find((link) => link.href === sectionId);
+            if (matchedLink) setActiveLink(matchedLink.label);
           }
         });
       },
-      {
-        root: null,
-        rootMargin: "-10% 0px -10% 0px",
-        threshold: 0.3,
-      }
+      { root: null, rootMargin: "-12% 0px -12% 0px", threshold: 0.25 }
     );
 
-    // Fallback scroll-based detection
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
-      
+      const scrollPosition = window.scrollY + 120;
       for (let i = navLinks.length - 1; i >= 0; i--) {
         const link = navLinks[i];
         const section = document.getElementById(link.href);
-        if (section) {
-          const sectionTop = section.offsetTop;
-          if (scrollPosition >= sectionTop) {
-            setActiveLink(link.label);
-            break;
-          }
+        if (section && scrollPosition >= section.offsetTop) {
+          setActiveLink(link.label);
+          break;
         }
       }
     };
 
-    // Function to observe sections
     const observeSections = () => {
       navLinks.forEach((link) => {
         const section = document.getElementById(link.href);
-        if (section) {
-          observer.observe(section);
-        }
+        if (section) observer.observe(section);
       });
     };
 
-    // Try immediately and after a delay to catch lazy-loaded sections
     observeSections();
     const timeoutId = setTimeout(observeSections, 1000);
-
-    // Add scroll listener as fallback
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       clearTimeout(timeoutId);
       observer.disconnect();
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [setActiveLink]);
 
-  // Dynamic styles with improved visibility
   const navbarStyle = isTopOfPage
-    ? "bg-transparent/80 border-b border-white/10 backdrop-blur-md shadow-md"
+    ? "bg-neutral-950/80 border-b border-white/10 backdrop-blur-md"
     : isDarkMode
-    ? "bg-gradient-to-r from-neutral-800/95 via-primary-800/95 to-secondary-800/95 shadow-lg shadow-primary-400/30 border-b border-white/20 backdrop-blur-lg"
-    : "bg-gradient-to-r from-primary-500/95 via-neutral-800/95 to-secondary-500/95 shadow-lg shadow-primary-300/30 border-b border-neutral-300 backdrop-blur-lg";
+    ? "bg-neutral-950/95 border-b border-white/10 backdrop-blur-lg shadow-lg"
+    : "bg-neutral-950/95 border-b border-white/10 backdrop-blur-lg shadow-lg";
+
+  const handleResumeClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const link = document.createElement("a");
+    link.href = "/Resume.pdf";
+    link.download = "Sravan_Kumar_Polu_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    if (!isAboveMediumScreens && isNavOpen) toggleNav();
+  };
 
   return (
     <nav
       ref={navRef}
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${navbarStyle}`}
-      style={{
-        transform: isTopOfPage ? 'translateY(0)' : 'translateY(0)',
-        opacity: 1
-      }}
       role="navigation"
-      aria-label={getRoleDescription('navigation')}>
-      <div className="flex justify-between items-center px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
-        {/* Logo */}
-        <a 
-          href="#home" 
-          className="flex items-center gap-1 sm:gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-1"
-          aria-label="Sravan Kumar Polu - Go to home section">
-          <span 
-            className="font-bold tracking-wide text-xs sm:text-sm md:text-xl lg:text-2xl xl:text-3xl uppercase"
-            style={{
-              color: '#ffffff',
-              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(0, 0, 0, 0.4)',
-              fontWeight: '900'
-            }}>
-            <span 
-              className="hidden sm:inline"
-              style={{
-                color: '#60a5fa',
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(96, 165, 250, 0.4)',
-                fontWeight: '900'
-              }}>
-              Sravan Kumar Polu
-            </span>
-            <span 
-              className="sm:hidden"
-              style={{
-                color: '#60a5fa',
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(96, 165, 250, 0.4)',
-                fontWeight: '900'
-              }}>
-              SKP
-            </span>
-            <span 
-              className="ml-1 sm:ml-2"
-              style={{
-                color: '#f472b6', // Improved contrast: lighter pink (#f472b6) for better WCAG AA compliance
-                textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.6), 0 0 16px rgba(244, 114, 182, 0.5)',
-                fontWeight: '900'
-              }}>| MERN Dev</span>
+      aria-label={getRoleDescription("navigation")}
+    >
+      <div className="flex justify-between items-center px-4 sm:px-6 py-3 md:py-4 max-w-7xl mx-auto">
+        <a
+          href="#home"
+          className="font-semibold text-white text-sm sm:text-lg tracking-tight focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded-lg px-1"
+          aria-label="Sravan Kumar Polu - Go to home"
+        >
+          <span className="text-white">Sravan </span>
+          <span className="text-cyan-400">Polu</span>
+          <span className="hidden md:inline text-neutral-500 font-normal ml-2 text-sm">
+            Developer
           </span>
         </a>
 
-        {/* Desktop Navigation + Theme Toggle */}
         {isAboveMediumScreens ? (
-          <div className="flex gap-6 items-center">
+          <div className="flex gap-2 sm:gap-4 items-center">
             {navLinks.map((item) => (
               <Link
                 key={item.label}
@@ -164,30 +111,43 @@ const Nav: React.FC = () => {
                 setSelectedPage={setActiveLink}
               />
             ))}
-            <ThemeToggle 
+            <a
+              href="/Resume.pdf"
+              onClick={handleResumeClick}
+              className="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg text-sm font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-colors"
+            >
+              <FiDownload className="w-4 h-4" aria-hidden />
+              Resume
+            </a>
+            <ThemeToggle
               size="md"
-              className="bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md"
+              className="bg-white/10 hover:bg-white/15 border border-white/15 backdrop-blur-md"
             />
           </div>
         ) : (
-          // Mobile Hamburger
-          <div className="flex items-center gap-2 sm:gap-4">
-            <ThemeToggle 
-              size="sm"
-              className="bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md"
-            />
+          <div className="flex items-center gap-2">
+            <a
+              href="/Resume.pdf"
+              onClick={handleResumeClick}
+              className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-lg bg-cyan-600 text-white p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              aria-label="Download resume"
+            >
+              <FiDownload className="w-5 h-5" />
+            </a>
+            <ThemeToggle size="sm" className="bg-white/10 border border-white/15" />
             <button
               onClick={toggleNav}
-              className="text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20"
-              aria-label={getAriaLabel('toggle-navigation')}
+              className="text-white min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-white/10 border border-white/15 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              aria-label={getAriaLabel("toggle-navigation")}
               aria-expanded={isNavOpen}
-              aria-controls="mobile-menu">
+              aria-controls="mobile-menu"
+            >
               {isNavOpen ? (
-                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
@@ -196,31 +156,36 @@ const Nav: React.FC = () => {
         )}
       </div>
 
-      {/* Mobile Navigation Menu */}
-      {!isAboveMediumScreens && (
-        <motion.ul
-          id="mobile-menu"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: isNavOpen ? 1 : 0, x: isNavOpen ? 0 : 50 }}
-          transition={{ duration: 0.5 }}
-          className={`absolute top-14 sm:top-16 right-2 sm:right-4 py-4 px-4 sm:py-6 sm:px-6 md:px-8 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-xl border border-gray-200 dark:border-neutral-700 rounded-xl shadow-xl space-y-2 sm:space-y-3 min-w-[200px] sm:min-w-[240px] ${
-            isNavOpen ? "block" : "hidden"
-          }`}
-          role="menu"
-          aria-label="Mobile navigation menu">
-          {navLinks.map((item) => (
-            <li key={item.label} role="none">
-              <Link
-                page={item.label}
-                selectedPage={activeLink}
-                setSelectedPage={(label: string) => {
-                  setActiveLink(label);
-                  toggleNav();
-                }}
-              />
-            </li>
-          ))}
-        </motion.ul>
+      {!isAboveMediumScreens && isNavOpen && (
+        <>
+          <button
+            type="button"
+            className="fixed inset-0 bg-black/50 z-40"
+            aria-label="Close menu"
+            onClick={toggleNav}
+          />
+          <motion.ul
+            id="mobile-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="fixed left-0 right-0 top-[57px] z-50 py-6 px-4 bg-neutral-950 border-b border-white/10 space-y-1"
+            role="menu"
+            aria-label="Mobile navigation menu"
+          >
+            {navLinks.map((item) => (
+              <li key={item.label} role="none">
+                <Link
+                  page={item.label}
+                  selectedPage={activeLink}
+                  setSelectedPage={(label: string) => {
+                    setActiveLink(label);
+                    toggleNav();
+                  }}
+                />
+              </li>
+            ))}
+          </motion.ul>
+        </>
       )}
     </nav>
   );
