@@ -59,7 +59,7 @@ const ContactForm: React.FC = () => {
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed">
-            Ready to bring your ideas to life? Reach out directly by email and let's discuss your project.
+            Ready to bring your ideas to life? Reach out by email and let's discuss your project.
           </p>
 
           {/* Contact Info Cards */}
@@ -70,7 +70,7 @@ const ContactForm: React.FC = () => {
               </div>
               <div>
                 <div className="text-white font-semibold">Email</div>
-                <div className="text-gray-300">sravanpolu@gmail.com</div>
+                <div className="text-gray-300">sravanpolu.me@gmail.com</div>
               </div>
             </div>
 
@@ -93,7 +93,7 @@ const ContactForm: React.FC = () => {
               <div>
                 <h3 className="text-2xl font-bold text-white mb-2">Contact</h3>
                 <p className="text-gray-300 text-base leading-relaxed">
-                  I have removed the contact form here. Automatic email sending is not configured on this site, so direct email is the reliable option.
+                  This site does not use backend email delivery, so direct email is the most reliable option.
                 </p>
               </div>
               <div className="p-6 bg-white/5 border border-white/10 rounded-2xl">
@@ -108,7 +108,7 @@ const ContactForm: React.FC = () => {
               <div className="rounded-2xl bg-blue-950/20 border border-blue-700/20 p-5">
                 <p className="text-white font-semibold mb-2">Why this change</p>
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  The previous form was not connected to a backend mail service, so it could not reliably deliver messages. Please use the direct email link instead.
+                  The previous form was not connected to a mail service, so messages could not be delivered reliably.
                 </p>
               </div>
             </div>

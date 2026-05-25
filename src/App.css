@@ -2,11 +2,17 @@ html {
   scroll-behavior: smooth;
 }
 main {
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
 }
 
 section {
   scroll-snap-align: start;
+}
+
+@media (max-width: 768px) {
+  main {
+    scroll-snap-type: none;
+  }
 }
 
 /* Shimmer animation for skeleton loaders */

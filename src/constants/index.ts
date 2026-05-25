@@ -61,7 +61,7 @@ export const courses = [
       },
       {
         src: nexCartisImg,
-        title: "nexCartis(beta version)",
+        title: "NexCartis (beta)",
         name: "NexCartis",
         link: "https://nextcartis.netlify.app/",
       },
@@ -74,13 +74,13 @@ export const courses = [
       },
       {
         src: boostllyImg,
-        title: "boostlly(few features beta version",
+        title: "Boostlly (beta, limited features)",
         name: "Boostlly",
         link: "https://boostlly.netlify.app/",
       },
     ],
     language: [{ src: nextjs, alt: "Next.js logo", name: "Next.js" }],
-    summary: " This project mainly focused on Next.js framework",
+    summary: "This project mainly focuses on the Next.js framework.",
   },
   {
     courseName: "TypeScript",
@@ -106,7 +106,7 @@ export const courses = [
       },
     ],
     language: [{ src: typescript, alt: "TypeScript logo", name: "TypeScript" }],
-    summary: " This project mainly focused on TypeScript",
+    summary: "This project mainly focuses on TypeScript.",
   },
  
   {
@@ -127,7 +127,7 @@ export const courses = [
       },
     ],
     language: [{ src: react, alt: "react logo", name: "React" }],
-    summary: " This project mainly focused on React JS",
+    summary: "This project mainly focuses on React.",
   },
 
   {
@@ -141,7 +141,7 @@ export const courses = [
       },
     ],
     language: [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }],
-    summary: " This project mainly focused on Tailwind CSS",
+    summary: "This project mainly focuses on Tailwind CSS.",
   },
   {
     courseName: "CSS",
@@ -166,7 +166,7 @@ export const courses = [
       },
     ],
     language: [{ src: css, alt: "css logo", name: "CSS" }],
-    summary: " This project mainly focused on grid, flex,and animations",
+    summary: "This project mainly focuses on CSS Grid, Flexbox, and animations.",
   },
   {
     courseName: "BootStrap",
@@ -179,7 +179,7 @@ export const courses = [
       },
     ],
     language: [{ src: bootstrap, alt: "bootstrap logo", name: "BootStrap" }],
-    summary: " This project mainly focused on BootStrap CSS",
+    summary: "This project mainly focuses on Bootstrap CSS.",
   },
   {
     courseName: "JavaScript",
@@ -199,7 +199,7 @@ export const courses = [
     ],
     language: [{ src: js, alt: "JS logo", name: "JS" }],
 
-    summary: " This project mainly focused on js ",
+    summary: "This project mainly focuses on JavaScript.",
   },
   {
     courseName: "HTML",
@@ -212,7 +212,7 @@ export const courses = [
       },
     ],
     language: [{ src: html, alt: "html logo", name: "HTML" }],
-    summary: " This project mainly focused on Frames of HTML",
+    summary: "This project mainly focuses on HTML frame layouts.",
   },
 
   // Add more courses here
