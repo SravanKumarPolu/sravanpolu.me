@@ -3,10 +3,11 @@
 import Work from "./Work";
 import Footer from "./Footer";
 import Hero from "./Hero";
+import About from "./About";
 import Resume from "./Resume";
 import DataAnalytics from "./DataAnalytics";
 
-export { Hero, Footer, Work, Resume, DataAnalytics };
+export { Hero, About, Footer, Work, Resume, DataAnalytics };
 
 // types.ts
 export const SelectedPage = Object.freeze({

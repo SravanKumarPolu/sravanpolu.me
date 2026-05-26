@@ -1,4 +1,4 @@
-import { footerLinks, socialMedia } from "../constants";
+import { footerLinks, socialMedia, secondaryNavLinks } from "../constants";
 import React from "react";
 import copyrightSign from "../assets/icons/copyright-sign.svg";
 import footerLogo from "../assets/images/footerLogo.png";
@@ -89,21 +89,11 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="text-left"
           >
-            <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-4 sm:mb-6">
-              <span className="text-cyan-400 text-sm font-medium">Let's Connect</span>
-            </div>
-            
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 leading-[1.2] tracking-tight">
-              Ready to{" "}
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                Work Together?
-              </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 tracking-tight">
+              Sravan Kumar Polu
             </h2>
-            
-            <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed">
-              Passionate about building scalable, high-performance web applications 
-              with modern technologies. Always learning and growing in the ever-evolving 
-              world of web development.
+            <p className="text-neutral-400 mb-6 leading-relaxed max-w-md">
+              MERN stack developer · React · Next.js · TypeScript. Building and shipping web products end-to-end.
             </p>
 
             {/* Modern Profile Card */}
@@ -213,30 +203,19 @@ const Footer: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Modern Quote Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <div className="relative max-w-4xl mx-auto p-6 sm:p-8 lg:p-12 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/20 shadow-xl">
-            {/* Decorative Elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-full -translate-y-16 translate-x-16"></div>
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full translate-y-12 -translate-x-12"></div>
-            
-            <blockquote className="relative text-2xl lg:text-3xl italic text-white leading-relaxed mb-6 font-medium" cite="Sravan Kumar Polu">
-              "Every pixel matters. Every interaction counts. Building digital experiences 
-              that make a difference."
-            </blockquote>
-            <cite className="relative text-lg text-cyan-400 font-semibold">
-              — Sravan Kumar Polu
-            </cite>
-          </div>
-        </motion.div>
+        <nav className="flex flex-wrap justify-center gap-4 mb-12 text-sm" aria-label="Secondary sections">
+          {secondaryNavLinks.map((link) => (
+            <a
+              key={link.href}
+              href={`#${link.href}`}
+              className="text-neutral-400 hover:text-cyan-400 transition-colors min-h-[44px] inline-flex items-center px-2"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
 
-        {/* Modern Bottom Section */}
+        {/* Bottom Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -245,22 +224,14 @@ const Footer: React.FC = () => {
           className="border-t border-white/20 pt-8"
         >
           <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-3 text-gray-200 text-sm">
+            <div className="flex items-center justify-center lg:justify-start gap-3 text-gray-200 text-sm text-center lg:text-left">
               <img src={copyrightSign} alt="Copyright" width={16} height={16} className="opacity-60" />
               <span>{currentYear} Sravan Kumar Polu. All rights reserved.</span>
             </div>
             
-            <div className="flex items-center gap-3 text-sm text-gray-200">
-              <span>Built with</span>
-              <motion.span 
-                className="text-red-500 text-lg"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              >
-                ❤️
-              </motion.span>
-              <span>using React & TypeScript & Tailwind CSS</span>
-            </div>
+            <p className="text-sm text-neutral-500 text-center">
+              Built with React, TypeScript, and Tailwind CSS
+            </p>
           </div>
         </motion.div>
       </div>

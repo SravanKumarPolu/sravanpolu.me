@@ -3,8 +3,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useHaptic } from "../hooks/useHaptic";
 import { useAnnouncement } from "../components/AnnouncementSystem";
-// import { MagneticCard } from "../components/MagneticCard";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { useMediaQuery } from "@react-hook/media-query";
+import SectionShell from "../components/SectionShell";
 // import { Button } from "../components/ui/Button";
 // import { Card } from "../components/ui/Card";
 
@@ -12,6 +13,7 @@ const Resume: React.FC = () => {
   const { triggerHaptic } = useHaptic();
   const { announce } = useAnnouncement();
   const { ref: resumeRef, inView } = useScrollAnimation(0.1, true);
+  const isDesktop = useMediaQuery("(min-width:768px)");
 
   const handleDownload = (): void => {
     triggerHaptic('medium');
@@ -33,44 +35,8 @@ const Resume: React.FC = () => {
   };
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
-      {/* Modern Background Elements */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl transform-gpu"
-          style={{ willChange: 'transform' }}
-          animate={{
-            rotate: [0, 180, 360],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full transform-gpu"
-          style={{ willChange: 'transform' }}
-          animate={{
-            y: [0, -20, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      </div>
-      
-      {/* Modern grid pattern */}
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        backgroundRepeat: 'repeat'
-      }}></div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
+    <SectionShell>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Modern Asymmetrical Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
           {/* Left Column - Content */}
@@ -129,14 +95,29 @@ const Resume: React.FC = () => {
             className="relative"
           >
             <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 sm:p-6 shadow-xl">
-              <div className="aspect-[4/3] bg-white/5 rounded-xl overflow-hidden border border-white/20">
-                <iframe
-                  src="https://docs.google.com/gview?url=https://sravanpolu.me/Resume.pdf&embedded=true"
-                  title="Sravan Kumar Polu Resume Preview - MERN Stack Developer"
-                  className="w-full h-full border-0 rounded-xl"
-                  loading="lazy"
-                  aria-label="Resume preview - PDF document viewer"
-                />
+              <div className="aspect-[4/3] bg-white/5 rounded-xl overflow-hidden border border-white/20 flex flex-col items-center justify-center p-6 text-center">
+                {isDesktop ? (
+                  <iframe
+                    src="https://docs.google.com/gview?url=https://sravanpolu.me/Resume.pdf&embedded=true"
+                    title="Sravan Kumar Polu Resume Preview"
+                    className="w-full h-full min-h-[320px] border-0 rounded-xl"
+                    loading="lazy"
+                  />
+                ) : (
+                  <>
+                    <p className="text-neutral-300 mb-4 text-sm">
+                      Preview on desktop, or download the PDF below.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleDownload}
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-cyan-600 text-white font-semibold min-h-[48px]"
+                    >
+                      <FiDownload aria-hidden />
+                      Open resume PDF
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
@@ -189,7 +170,7 @@ const Resume: React.FC = () => {
           </div>
         </motion.div>
       </div>
-    </section>
+    </SectionShell>
   );
 };
 

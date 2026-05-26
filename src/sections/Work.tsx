@@ -17,6 +17,8 @@ import { usePerformanceMonitor } from "../hooks/usePerformanceMonitor";
 import { useAccessibility } from "../hooks/useAccessibility";
 import { SkeletonProjectCardAdvanced } from "../components/SkeletonLoader";
 import Simple3DPreview from "../components/3d/Simple3DPreview";
+import FeaturedWork from "../components/FeaturedWork";
+import SectionShell from "../components/SectionShell";
 
 
 const Work: React.FC = () => {
@@ -128,65 +130,15 @@ const Work: React.FC = () => {
 
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-indigo-900 relative overflow-hidden">
-      {/* Modern Background Elements */}
-      <div className="absolute inset-0">
-        <motion.div
-          className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-3xl transform-gpu"
-          style={{ willChange: 'transform' }}
-          animate={{
-            rotate: [0, 180, 360],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-purple-500/20 rounded-full transform-gpu"
-          style={{ willChange: 'transform' }}
-          animate={{
-            y: [0, -20, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 w-40 h-20 bg-gradient-to-r from-yellow-400/20 to-orange-500/20 rounded-2xl -translate-x-1/2 -translate-y-1/2 transform-gpu"
-          style={{ willChange: 'transform' }}
-          animate={{
-            rotate: [0, 90, 0],
-            x: [0, 20, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      </div>
-      
-      {/* Modern grid pattern */}
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        backgroundRepeat: 'repeat'
-      }}></div>
-
-      <div {...swipeHandlers} className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
+    <SectionShell>
+      <div {...swipeHandlers} className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Modern Asymmetrical Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-          <motion.div
+        <motion.div
             ref={workRef}
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-left"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-left mb-12 max-w-3xl"
           >
             <div className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full border border-cyan-400/30 mb-4 sm:mb-6">
               <span className="text-cyan-400 text-sm font-medium">Portfolio</span>
@@ -199,83 +151,50 @@ const Work: React.FC = () => {
               </span>
             </h2>
             
-            <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed max-w-3xl">
-              Explore my portfolio of web applications built with modern technologies. 
-              Each project showcases different aspects of full-stack development.
+            <p className="text-base sm:text-lg md:text-xl text-neutral-300 mb-6 sm:mb-8 leading-relaxed max-w-3xl">
+              {courses.length} technology stacks and {courses.reduce((n, c) => n + c.projects.length, 0)} projects —
+              from Next.js production apps to learning exercises.
             </p>
+        </motion.div>
 
-            {/* Modern View Toggle */}
-            <div className="flex items-center gap-4">
+        <FeaturedWork />
+
+        <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <div>
+            <h3 className="text-2xl sm:text-3xl font-bold text-white">All projects by technology</h3>
+            <p className="text-neutral-400 mt-1 text-sm sm:text-base">
+              Browse every project in the original stack-based gallery.
+            </p>
+          </div>
+          <details className="text-sm">
+            <summary className="cursor-pointer text-cyan-400 hover:text-cyan-300 list-none font-medium min-h-[44px] flex items-center">
+              Optional 3D preview
+            </summary>
+            <div className="mt-3 flex items-center gap-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleViewModeToggle}
-                className="flex items-center gap-2 hover:scale-105 transition-transform border-2 border-white/30 hover:border-cyan-400 hover:bg-cyan-400 hover:text-white text-white"
-                aria-label={`Switch to ${viewMode === '2d' ? '3D' : '2D'} view`}
+                className="border border-white/30 text-white"
+                aria-label={`Switch to ${viewMode === "2d" ? "3D" : "2D"} view`}
               >
-                {viewMode === '2d' ? (
+                {viewMode === "2d" ? (
                   <>
                     <FaTh className="w-4 h-4" />
-                    <span className="hidden sm:inline">3D View</span>
+                    <span>Enable 3D</span>
                   </>
                 ) : (
                   <>
                     <FaEye className="w-4 h-4" />
-                    <span className="hidden sm:inline">2D View</span>
+                    <span>Back to 2D</span>
                   </>
                 )}
               </Button>
-              
-              {viewMode === '3d' && (
-                <div className="px-4 py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full border border-yellow-400/30">
-                  <span className="text-yellow-400 text-sm font-medium">
-                    🎮 Interactive 3D Experience
-                  </span>
-                </div>
-              )}
             </div>
-          </motion.div>
-
-          {/* Right Column - Visual Element */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <div className="w-64 h-64 mx-auto bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-purple-600/20 rounded-3xl border border-white/20 backdrop-blur-sm flex items-center justify-center">
-              <div className="text-6xl">💻</div>
-            </div>
-            {/* Floating elements */}
-            <motion.div
-              className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"
-              animate={{
-                y: [0, -10, 0],
-                rotate: [0, 180, 360],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <motion.div
-              className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full"
-              animate={{
-                y: [0, 10, 0],
-                rotate: [360, 180, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
+          </details>
         </div>
 
-        {/* Modern Project Showcase */}
+        {/* Project gallery by technology */}
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Modern Sidebar - Technology Filter */}
           {isDesktop && (
@@ -537,7 +456,7 @@ const Work: React.FC = () => {
       {false && (
         <div>3D Modal temporarily disabled</div>
       )}
-    </section>
+    </SectionShell>
   );
 };
 

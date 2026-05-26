@@ -9,6 +9,7 @@ import {
   ProjectMetricsChart, 
   ProjectTimelineChart 
 } from '../components/charts';
+import { portfolioStats } from '../constants/portfolio';
 // import { Card } from '../components/ui/Card';
 
 const DataAnalytics: React.FC = () => {
@@ -63,13 +64,13 @@ const DataAnalytics: React.FC = () => {
               <span className="text-cyan-400 text-sm font-medium">Interactive Insights</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 leading-[1.2] tracking-tight">
-              Data{' '}
+              At a{' '}
               <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                Analytics
+                glance
               </span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl leading-relaxed">
-              Interactive visualizations showcasing my technical skills, project distribution, and development journey.
+              Portfolio analytics from your projects and stacks — charts below use the same data as the work section.
             </p>
           </motion.div>
           <motion.div
@@ -152,21 +153,21 @@ const DataAnalytics: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="p-4">
                   <div className="text-4xl font-extrabold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2">
-                    15+
+                    {portfolioStats.projectCount}
                   </div>
-                  <div className="text-sm text-gray-200">Projects Completed</div>
+                  <div className="text-sm text-gray-200">Portfolio projects</div>
                 </div>
                 <div className="p-4">
                   <div className="text-4xl font-extrabold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent mb-2">
-                    8
+                    {portfolioStats.technologyStacks}
                   </div>
-                  <div className="text-sm text-gray-200">Technologies Mastered</div>
+                  <div className="text-sm text-gray-200">Technology stacks</div>
                 </div>
                 <div className="p-4">
                   <div className="text-4xl font-extrabold bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent mb-2">
-                    2+
+                    {portfolioStats.yearsExperience}
                   </div>
-                  <div className="text-sm text-gray-200">Years of Experience</div>
+                  <div className="text-sm text-gray-200">Years building</div>
                 </div>
               </div>
             </div>
