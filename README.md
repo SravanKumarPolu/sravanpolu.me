@@ -47,6 +47,19 @@ Welcome to my personal developer portfolio built with modern web technologies to
 
 - Live resume preview using `iframe`
 - Buttons for viewing, downloading, and contacting
+- PDF is generated from `src/constants/resume-data.ts` (see **Resume PDF** below)
+
+### Resume PDF
+
+Content lives in `src/constants/resume-data.ts` (experience, education, production projects). Regenerate the file served at `/Resume.pdf`:
+
+```bash
+pnpm install
+pnpm exec puppeteer browsers install chrome   # first time only
+pnpm run build:resume
+```
+
+`pnpm run build` runs `build:resume` automatically before the production bundle. Edit `resume-data.ts` when you add jobs, degrees, or new production apps (keep projects aligned with `portfolio.ts`). Open `public/resume-preview.html` in a browser to tweak layout before regenerating the PDF.
 
 ### 3. 📞 **Footer (Contact Me)**
 
