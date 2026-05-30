@@ -7,6 +7,7 @@ import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { CustomButton as Button } from "../components/ui/Button";
 import { useAccessibility } from "../hooks/useAccessibility";
 import { FiDownload } from "react-icons/fi";
+import { contactLinks } from "../constants/portfolio";
 
 const Hero: React.FC = () => {
   const { triggerHaptic } = useHaptic();
@@ -90,9 +91,12 @@ const Hero: React.FC = () => {
                 MERN Stack Developer · React · TypeScript · Next.js
               </p>
 
-              <p className="text-base sm:text-lg text-neutral-300 mb-8 max-w-xl leading-relaxed">
-                I build production web apps end-to-end — from UI and APIs to deployment on
+              <p className="text-base sm:text-lg text-neutral-300 mb-6 max-w-xl leading-relaxed">
+                I ship production React and Next.js apps end-to-end — UI, APIs, and deployment on
                 Netlify and Vercel.
+              </p>
+              <p className="text-sm text-neutral-500 mb-8 max-w-xl">
+                Recent: DebiasDaily, BloomMind, NexCartis, ChronoBloom, Boostlly
               </p>
 
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-8">
@@ -123,6 +127,22 @@ const Hero: React.FC = () => {
                   Contact me
                 </Button>
               </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-sm text-neutral-500">Also on</span>
+                {[contactLinks.linkedIn, contactLinks.github, contactLinks.x].map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg border border-white/15 bg-white/5 text-sm text-neutral-200 hover:border-cyan-400/50 hover:text-white transition-colors"
+                  >
+                    <img src={social.src} alt="" className="w-4 h-4 invert opacity-80" width={16} height={16} />
+                    {social.name}
+                  </a>
+                ))}
+              </div>
             </div>
 
             <div className="relative flex justify-center">
@@ -144,7 +164,6 @@ const Hero: React.FC = () => {
                   loading="eager"
                   width={256}
                   height={256}
-                  fetchPriority="high"
                 />
                 <motion.div
                   className="absolute inset-0 rounded-xl bg-cyan-500/20 pointer-events-none"

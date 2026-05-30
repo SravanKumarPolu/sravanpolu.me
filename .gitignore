@@ -5,11 +5,17 @@
 /.pnp
 .pnp.js
 
+# pnpm cache
+.pnpm-store/
+
 # testing
 /coverage
 
 # production
 /build
+
+# generated resume preview (Resume.pdf is committed for deploy)
+/public/resume-preview.html
 
 # misc
 .DS_Store

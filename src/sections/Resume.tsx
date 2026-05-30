@@ -52,15 +52,11 @@ const Resume: React.FC = () => {
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 leading-[1.2] tracking-tight">
-              My{" "}
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                Resume
-              </span>
+              My <span className="text-cyan-400">resume</span>
             </h2>
-            
-            <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed">
-              Download my resume to learn more about my experience and skills. 
-              Get a comprehensive overview of my professional journey.
+
+            <p className="text-base sm:text-lg text-neutral-300 mb-6 sm:mb-8 leading-relaxed">
+              PDF with experience, skills, and project history — download or preview below.
             </p>
 
             {/* Modern Action Buttons */}
@@ -98,9 +94,9 @@ const Resume: React.FC = () => {
               <div className="aspect-[4/3] bg-white/5 rounded-xl overflow-hidden border border-white/20 flex flex-col items-center justify-center p-6 text-center">
                 {isDesktop ? (
                   <iframe
-                    src="https://docs.google.com/gview?url=https://sravanpolu.me/Resume.pdf&embedded=true"
+                    src="/Resume.pdf"
                     title="Sravan Kumar Polu Resume Preview"
-                    className="w-full h-full min-h-[320px] border-0 rounded-xl"
+                    className="w-full h-full min-h-[320px] border-0 rounded-xl bg-white"
                     loading="lazy"
                   />
                 ) : (
@@ -124,51 +120,13 @@ const Resume: React.FC = () => {
         </div>
 
 
-        {/* Modern Skills Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mt-20"
-        >
-          <div className="text-center mb-12">
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">
-              Key Skills &{" "}
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                Technologies
-              </span>
-            </h3>
-            <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
-              Technologies I work with to build amazing web applications
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {[
-              { name: "React", color: "from-blue-500 to-blue-600" },
-              { name: "Node.js", color: "from-green-500 to-green-600" },
-              { name: "MongoDB", color: "from-emerald-500 to-emerald-600" },
-              { name: "TypeScript", color: "from-blue-500 to-blue-600" },
-              { name: "Tailwind CSS", color: "from-cyan-500 to-cyan-600" },
-              { name: "Express.js", color: "from-gray-500 to-gray-600" },
-              { name: "Git", color: "from-orange-500 to-orange-600" },
-              { name: "AWS", color: "from-yellow-500 to-yellow-600" },
-            ].map((skill, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05, y: -5 }}
-                className={`px-4 py-3 sm:px-6 sm:py-4 rounded-xl text-center font-semibold text-white bg-gradient-to-r ${skill.color} shadow-md hover:shadow-lg transition-all duration-300 text-sm sm:text-base`}
-              >
-                {skill.name}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <p className="mt-12 text-center text-neutral-400 text-sm">
+          Full skill list in the{" "}
+          <a href="#skills" className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2">
+            skills section
+          </a>{" "}
+          below.
+        </p>
       </div>
     </SectionShell>
   );

@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 
 type SectionShellProps = {
   id?: string;
@@ -31,11 +30,9 @@ const SectionShell: React.FC<SectionShellProps> = ({
           }}
         />
       </div>
-      <motion.div
-        className="absolute top-24 right-16 w-24 h-24 rounded-2xl bg-cyan-500/10 pointer-events-none"
+      <div
+        className="absolute top-24 right-16 w-24 h-24 rounded-2xl bg-cyan-500/10 pointer-events-none motion-reduce:hidden"
         aria-hidden
-        animate={{ rotate: [0, 90, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
       />
       <div className="relative z-10">{children}</div>
     </section>
