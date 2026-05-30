@@ -6,7 +6,6 @@ import { useMediaQuery } from "@react-hook/media-query";
 import { useApp } from "../contexts/AppContext";
 import { useKeyboardNavigation } from "../hooks/useKeyboardNavigation";
 import { getAriaLabel, getRoleDescription } from "../utils/accessibility";
-import ThemeToggle from "./ThemeToggle";
 import { FiDownload } from "react-icons/fi";
 
 const Nav: React.FC = () => {
@@ -119,10 +118,6 @@ const Nav: React.FC = () => {
               <FiDownload className="w-4 h-4" aria-hidden />
               Resume
             </a>
-            <ThemeToggle
-              size="md"
-              className="bg-white/10 hover:bg-white/15 border border-white/15 backdrop-blur-md"
-            />
           </div>
         ) : (
           <div className="flex items-center gap-2">
@@ -134,7 +129,6 @@ const Nav: React.FC = () => {
             >
               <FiDownload className="w-5 h-5" />
             </a>
-            <ThemeToggle size="sm" className="bg-white/10 border border-white/15" />
             <button
               onClick={toggleNav}
               className="text-white min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-white/10 border border-white/15 focus:outline-none focus:ring-2 focus:ring-cyan-400"

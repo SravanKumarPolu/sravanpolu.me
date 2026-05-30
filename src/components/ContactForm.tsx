@@ -43,14 +43,11 @@ const ContactForm: React.FC = () => {
             <div className="inline-block px-4 py-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 mb-6">
               <span className="text-cyan-400 text-sm font-medium">Get in touch</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight">
-              Let&apos;s build{' '}
-              <span className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
-                something
-              </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight text-white">
+              Let&apos;s talk about your <span className="text-cyan-400">next role</span>
             </h2>
             <p className="text-neutral-300 text-base sm:text-lg mb-8 leading-relaxed">
-              Email works best — include the role, timeline, and any links. I typically reply within 24–48 hours.
+              Email works best — include the role, timeline, and links. I typically reply within 24–48 hours.
             </p>
             <div className="space-y-3">
               <a

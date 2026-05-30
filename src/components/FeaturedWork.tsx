@@ -9,9 +9,9 @@ const FeaturedWork: React.FC = () => {
   return (
     <div className="mb-16">
       <div className="mb-8">
-        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">Featured work</h3>
+        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">Production work</h3>
         <p className="text-neutral-400 text-base sm:text-lg max-w-2xl">
-          Production and beta apps — full portfolio by technology is below.
+          Apps I&apos;ve built and shipped — live demos below. Learning exercises are in a separate list.
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -40,16 +40,18 @@ const FeaturedCard: React.FC<{ project: FlatProject; index: number }> = ({ proje
       />
     </div>
     <div className="p-5 flex flex-col flex-1">
-      <div className="flex items-center gap-2 mb-2">
-        {project.language?.src && (
-          <img src={project.language.src} alt="" className="w-6 h-6 rounded-full" width={24} height={24} />
-        )}
-        <span className="text-xs font-medium text-cyan-400/90 uppercase tracking-wide">
-          {project.courseName}
-        </span>
+      <div className="flex flex-wrap gap-2 mb-3">
+        {project.tags.map((tag) => (
+          <span
+            key={tag}
+            className="text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 text-cyan-300/90"
+          >
+            {tag}
+          </span>
+        ))}
       </div>
-      <h4 className="text-lg font-bold text-white mb-1">{project.title}</h4>
-      <p className="text-sm text-neutral-400 mb-4 flex-1 line-clamp-2">{project.summary}</p>
+      <h4 className="text-lg font-bold text-white mb-2">{project.title}</h4>
+      <p className="text-sm text-neutral-400 mb-4 flex-1 leading-relaxed">{project.description}</p>
       <Button
         variant="primary"
         size="sm"
