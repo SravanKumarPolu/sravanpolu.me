@@ -27,6 +27,13 @@ module.exports = {
           }
         });
       }
+
+      // Remove CRA's ESLint webpack plugin to prevent duplicate-react plugin conflicts
+      if (Array.isArray(webpackConfig.plugins)) {
+        webpackConfig.plugins = webpackConfig.plugins.filter(
+          (plugin) => plugin?.constructor?.name !== "ESLintWebpackPlugin"
+        );
+      }
       
       return webpackConfig;
     },

@@ -386,21 +386,23 @@ const Project3DShowcase: React.FC<Project3DShowcaseProps> = ({
         {/* Enhanced Camera Controls - Mobile optimized */}
         {!shouldReduceMotion && (
           <OrbitControls
-            enablePan={false}
-            enableZoom={true}
-            enableRotate={true}
-            autoRotate={enableAutoRotate}
-            autoRotateSpeed={0.5}
-            maxPolarAngle={Math.PI * 0.75}
-            minPolarAngle={Math.PI * 0.25}
-            maxDistance={15}
-            minDistance={6}
-            touches={{
-              ONE: 2, // Single finger for rotation
-              TWO: 1  // Two fingers for zoom
-            }}
-            dampingFactor={0.05}
-            enableDamping={true}
+            {...{
+              enablePan: false,
+              enableZoom: true,
+              enableRotate: true,
+              autoRotate: enableAutoRotate,
+              autoRotateSpeed: 0.5,
+              maxPolarAngle: Math.PI * 0.75,
+              minPolarAngle: Math.PI * 0.25,
+              maxDistance: 15,
+              minDistance: 6,
+              touches: {
+                ONE: 2, // Single finger for rotation
+                TWO: 1,  // Two fingers for zoom
+              },
+              dampingFactor: 0.05,
+              enableDamping: true,
+            } as any}
           />
         )}
       </Canvas>

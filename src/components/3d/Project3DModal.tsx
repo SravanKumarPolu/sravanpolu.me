@@ -570,16 +570,18 @@ const Project3DModal: React.FC<Project3DModalProps> = ({
               {/* Enhanced Camera Controls */}
               {!shouldReduceMotion && (
                 <OrbitControls
-                  enablePan={true}
-                  enableZoom={true}
-                  enableRotate={true}
-                  autoRotate={false}
-                  maxPolarAngle={Math.PI * 0.75}
-                  minPolarAngle={Math.PI * 0.25}
-                  maxDistance={20}
-                  minDistance={4}
-                  dampingFactor={0.05}
-                  enableDamping={true}
+                  {...{
+                    enablePan: true,
+                    enableZoom: true,
+                    enableRotate: true,
+                    autoRotate: false,
+                    maxPolarAngle: Math.PI * 0.75,
+                    minPolarAngle: Math.PI * 0.25,
+                    maxDistance: 20,
+                    minDistance: 4,
+                    dampingFactor: 0.05,
+                    enableDamping: true,
+                  } as any}
                 />
               )}
             </Canvas>

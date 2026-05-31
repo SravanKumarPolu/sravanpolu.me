@@ -443,15 +443,17 @@ const Project3DPreview: React.FC<Project3DPreviewProps> = ({
           {/* Enhanced Camera Controls */}
           {!shouldReduceMotion && (
             <OrbitControls
-              enablePan={false}
-              enableZoom={false}
-              enableRotate={true}
-              autoRotate={isActive && enableAdvancedAnimations}
-              autoRotateSpeed={enableAdvancedAnimations ? 0.3 : 0.5}
-              maxPolarAngle={Math.PI * 0.75}
-              minPolarAngle={Math.PI * 0.25}
-              dampingFactor={0.05}
-              enableDamping={true}
+              {...{
+                enablePan: false,
+                enableZoom: false,
+                enableRotate: true,
+                autoRotate: isActive && enableAdvancedAnimations,
+                autoRotateSpeed: enableAdvancedAnimations ? 0.3 : 0.5,
+                maxPolarAngle: Math.PI * 0.75,
+                minPolarAngle: Math.PI * 0.25,
+                dampingFactor: 0.05,
+                enableDamping: true,
+              } as any}
             />
           )}
         </Suspense>

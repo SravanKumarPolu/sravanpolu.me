@@ -244,19 +244,21 @@ const Simple3DPreview: React.FC<Simple3DPreviewProps> = ({ project, onProjectCli
         
         {/* Camera controls - Mobile optimized */}
         <OrbitControls 
-          enableZoom={true}
-          enablePan={false}
-          enableRotate={true}
-          maxPolarAngle={Math.PI * 0.75}
-          minPolarAngle={Math.PI * 0.25}
-          maxDistance={8}
-          minDistance={4}
-          touches={{
-            ONE: 2, // Single finger for rotation
-            TWO: 1  // Two fingers for zoom
-          }}
-          dampingFactor={0.05}
-          enableDamping={true}
+          {...{
+            enableZoom: true,
+            enablePan: false,
+            enableRotate: true,
+            maxPolarAngle: Math.PI * 0.75,
+            minPolarAngle: Math.PI * 0.25,
+            maxDistance: 8,
+            minDistance: 4,
+            touches: {
+              ONE: 2, // Single finger for rotation
+              TWO: 1, // Two fingers for zoom
+            },
+            dampingFactor: 0.05,
+            enableDamping: true,
+          } as any}
         />
       </Canvas>
       
