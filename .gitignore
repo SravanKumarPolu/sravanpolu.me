@@ -17,6 +17,9 @@
 # generated resume preview (Resume.pdf is committed for deploy)
 /public/resume-preview.html
 
+# OpenCode local configuration
+opencode.json
+
 # misc
 .DS_Store
 .env.local
