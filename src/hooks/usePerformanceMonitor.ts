@@ -56,7 +56,7 @@ export const usePerformanceMonitor = (
       frameCountRef.current = 0;
       lastTimeRef.current = currentTime;
       
-      if (fpsRef.current < lowFPSThreshold) {
+      if (fpsRef.current < lowFPSThreshold && process.env.NODE_ENV === 'development') {
         console.warn(`Low FPS detected: ${fpsRef.current} FPS`);
       }
     }
@@ -116,66 +116,10 @@ export const usePerformanceMonitor = (
       if (process.env.NODE_ENV === 'development') {
         console.log(`${componentName} performance:`, newMetrics);
       }
-      
-      // Send to analytics in production
-      if (process.env.NODE_ENV === 'production') {
-        if (renderTime > slowRenderThreshold) {
-          console.warn(`Slow render detected in ${componentName}: ${renderTime.toFixed(2)}ms`);
-        }
-        
-        if (enableMemoryMonitoring && newMetrics.memoryUsage) {
-          const { used, limit } = newMetrics.memoryUsage;
-          if (used > limit * memoryWarningThreshold) {
-            console.warn(`High memory usage detected: ${used}MB / ${limit}MB`);
-          }
-        }
-      }
     };
   }, [componentName, enableMemoryMonitoring, enableFPSMonitoring, enableNetworkMonitoring, slowRenderThreshold, memoryWarningThreshold, measureFPS, getMemoryUsage, getNetworkInfo]);
 
   return metrics;
-};
-
-export const useMemoryMonitor = (warningThreshold: number = 0.8) => {
-  const [memoryUsage, setMemoryUsage] = useState<{
-    used: number;
-    total: number;
-    limit: number;
-  } | null>(null);
-
-  useEffect(() => {
-    const checkMemory = () => {
-      if ('memory' in performance) {
-        const memory = (performance as any).memory;
-        const usage = {
-          used: Math.round(memory.usedJSHeapSize / 1048576), // MB
-          total: Math.round(memory.totalJSHeapSize / 1048576), // MB
-          limit: Math.round(memory.jsHeapSizeLimit / 1048576), // MB
-        };
-        
-        setMemoryUsage(usage);
-        
-        if (process.env.NODE_ENV === 'development') {
-          console.log('Memory usage:', usage);
-        }
-        
-        // Warn if memory usage is high
-        if (usage.used > usage.limit * warningThreshold) {
-          console.warn('High memory usage detected:', usage);
-        }
-      }
-    };
-
-    // Check memory immediately
-    checkMemory();
-    
-    // Check memory every 5 seconds
-    const interval = setInterval(checkMemory, 5000);
-    
-    return () => clearInterval(interval);
-  }, [warningThreshold]);
-
-  return memoryUsage;
 };
 
 // Web Vitals monitoring

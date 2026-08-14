@@ -42,58 +42,6 @@ jest.mock('framer-motion', () => {
   };
 });
 
-// Mock @react-three/fiber and @react-three/drei for jsdom
-jest.mock('@react-three/fiber', () => ({
-  __esModule: true,
-  Canvas: ({ children, ...props }) => <div data-testid="canvas" {...props}>{children}</div>,
-  useFrame: () => {},
-  useThree: () => ({ gl: { setPixelRatio: () => {}, shadowMap: {}, outputColorSpace: '', toneMapping: 0 } }),
-}));
-
-jest.mock('@react-three/drei', () => ({
-  __esModule: true,
-  OrbitControls: () => null,
-  useTexture: () => ({}),
-  ContactShadows: () => null,
-}));
-
-// Mock Lottie component for testing
-jest.mock('lottie-react', () => {
-  return function MockLottie({ animationData, ...props }) {
-    return <div data-testid="lottie-animation" {...props} />;
-  };
-});
-
-// Mock canvas for Lottie
-Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
-  value: jest.fn(() => ({
-    fillRect: jest.fn(),
-    clearRect: jest.fn(),
-    getImageData: jest.fn(() => ({ data: new Array(4) })),
-    putImageData: jest.fn(),
-    createImageData: jest.fn(() => ({ data: new Array(4) })),
-    setTransform: jest.fn(),
-    drawImage: jest.fn(),
-    save: jest.fn(),
-    fillText: jest.fn(),
-    restore: jest.fn(),
-    beginPath: jest.fn(),
-    moveTo: jest.fn(),
-    lineTo: jest.fn(),
-    closePath: jest.fn(),
-    stroke: jest.fn(),
-    translate: jest.fn(),
-    scale: jest.fn(),
-    rotate: jest.fn(),
-    arc: jest.fn(),
-    fill: jest.fn(),
-    measureText: jest.fn(() => ({ width: 0 })),
-    transform: jest.fn(),
-    rect: jest.fn(),
-    clip: jest.fn(),
-  })),
-});
-
 // Mock window.matchMedia for useMediaQuery hook and libs
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

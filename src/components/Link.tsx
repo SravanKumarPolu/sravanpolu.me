@@ -33,7 +33,8 @@ const Link: React.FC<LinkProps> = React.memo(({ page, selectedPage, setSelectedP
     <a
       href={pageLink}
       onClick={handleClick}
-      className={`relative group py-2 px-4 text-base sm:text-lg transition duration-300 font-medium min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent rounded-lg ${
+      aria-current={isActive ? "page" : undefined}
+      className={`relative group py-2 px-4 text-base sm:text-lg transition duration-300 font-medium min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-lg ${
         isActive ? "text-white" : "text-gray-300 hover:text-white"
       }`}>
       {page}
@@ -47,7 +48,8 @@ const Link: React.FC<LinkProps> = React.memo(({ page, selectedPage, setSelectedP
     <a
       href={pageLink}
       onClick={handleClick}
-      className={`block text-left text-base font-medium px-4 py-3 min-h-[48px] rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-transparent ${
+      aria-current={isActive ? "page" : undefined}
+      className={`block text-left text-base font-medium px-4 py-3 min-h-[48px] rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${
         isActive
           ? "text-white bg-cyan-600/30 border border-cyan-500/40"
           : "text-neutral-200 hover:bg-white/10"

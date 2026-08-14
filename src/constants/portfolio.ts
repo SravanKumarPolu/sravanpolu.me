@@ -1,21 +1,24 @@
 import { courses, footerLinks, socialMedia } from "./index";
 
-/** Production apps — must match links in courses where applicable */
-export const PRODUCTION_PROJECT_LINKS = [
-  "https://debiasdaily.com/",
-  "https://bloommind-tracker.netlify.app/",
-  "https://nextcartis.netlify.app/",
-  "https://chronobloom.netlify.app/",
-  "https://boostlly.netlify.app/",
-] as const;
+export type ProjectStatus = "production" | "beta" | "client" | "learning";
 
-/** @deprecated use PRODUCTION_PROJECT_LINKS */
-export const FEATURED_PROJECT_LINKS = [
-  ...PRODUCTION_PROJECT_LINKS,
-  "https://skr-e-commerce.netlify.app/",
-] as const;
+export type ProjectDetails = {
+  role: string;
+  problemSolved: string;
+  features: string[];
+  technicalDecisions: string[];
+  challenges: string;
+  results: string;
+};
 
-export type ProjectTier = "production" | "learning";
+/** Recent product projects in stable order — used in the hero and stats */
+export const featuredProjectOrder = [
+  { name: "DebiasDaily", link: "https://debiasdaily.com/" },
+  { name: "BloomMind", link: "https://bloommind-tracker.netlify.app/" },
+  { name: "NexCartis", link: "https://nextcartis.netlify.app/" },
+  { name: "ChronoBloom", link: "https://chronobloom.netlify.app/" },
+  { name: "Boostlly", link: "https://boostlly.netlify.app/" },
+] as const;
 
 export type FlatProject = {
   src: string;
@@ -26,115 +29,180 @@ export type FlatProject = {
   summary: string;
   description: string;
   tags: string[];
-  tier: ProjectTier;
+  status: ProjectStatus;
   language?: { src: string; alt: string; name: string };
+  github?: string;
+  details?: ProjectDetails;
 };
+
+/** Placeholders used wherever a detail is not yet verified. */
+export const DETAILS_PLACEHOLDER = {
+  challenges: "Detailed notes to be added.",
+  results: "Metrics to be added once verified.",
+} as const;
 
 const PROJECT_META: Record<
   string,
-  { description: string; tags: string[]; tier: ProjectTier }
+  { description: string; tags: string[]; status: ProjectStatus; details?: ProjectDetails }
 > = {
   "https://debiasdaily.com/": {
     description: "Next.js product focused on daily bias awareness and mindful habits.",
     tags: ["Next.js", "TypeScript", "Tailwind"],
-    tier: "production",
+    status: "production",
+    details: {
+      role: "Developer",
+      problemSolved:
+        "Brings daily bias awareness and mindful habit-building into one focused product.",
+      features: ["Daily bias awareness prompts", "Mindful habit-building flow"],
+      technicalDecisions: [
+        "Built with Next.js",
+        "TypeScript end-to-end",
+        "Tailwind CSS styling",
+      ],
+      challenges: DETAILS_PLACEHOLDER.challenges,
+      results: DETAILS_PLACEHOLDER.results,
+    },
   },
   "https://bloommind-tracker.netlify.app/": {
     description: "Wellness tracker (beta) — habits, mood, and progress in one dashboard.",
     tags: ["Next.js", "TypeScript", "Netlify"],
-    tier: "production",
+    status: "beta",
+    details: {
+      role: "Developer",
+      problemSolved: "Tracks habits, mood, and progress in one dashboard.",
+      features: ["Habit tracking", "Mood logging", "Progress dashboard"],
+      technicalDecisions: ["Next.js + TypeScript", "Static deployment on Netlify"],
+      challenges: DETAILS_PLACEHOLDER.challenges,
+      results: DETAILS_PLACEHOLDER.results,
+    },
   },
   "https://nextcartis.netlify.app/": {
     description: "E-commerce style storefront (beta) with cart and product flows.",
     tags: ["Next.js", "React", "Tailwind"],
-    tier: "production",
+    status: "beta",
+    details: {
+      role: "Developer",
+      problemSolved: "Demonstrates e-commerce storefront flows — catalog and cart.",
+      features: ["Product catalog", "Cart flows", "Responsive storefront"],
+      technicalDecisions: ["Next.js + React", "Tailwind CSS"],
+      challenges: DETAILS_PLACEHOLDER.challenges,
+      results: DETAILS_PLACEHOLDER.results,
+    },
   },
   "https://chronobloom.netlify.app/": {
     description: "Time and focus companion app with a calm, product-style UI.",
     tags: ["Next.js", "TypeScript"],
-    tier: "production",
+    status: "beta",
+    details: {
+      role: "Developer",
+      problemSolved: "Provides a calm companion for time and focus management.",
+      features: ["Time management", "Focus sessions"],
+      technicalDecisions: ["Next.js + TypeScript"],
+      challenges: DETAILS_PLACEHOLDER.challenges,
+      results: DETAILS_PLACEHOLDER.results,
+    },
   },
   "https://boostlly.netlify.app/": {
     description: "Productivity companion (beta) for goals and lightweight tracking.",
     tags: ["Next.js", "React"],
-    tier: "production",
+    status: "beta",
+    details: {
+      role: "Developer",
+      problemSolved: "Offers lightweight goal and productivity tracking.",
+      features: ["Goal tracking", "Lightweight progress tracking"],
+      technicalDecisions: ["Next.js + React"],
+      challenges: DETAILS_PLACEHOLDER.challenges,
+      results: DETAILS_PLACEHOLDER.results,
+    },
   },
   "https://skr-e-commerce.netlify.app/": {
     description: "Full-stack MERN e-commerce — catalog, cart, and deployed demo.",
     tags: ["MERN", "React", "Node.js"],
-    tier: "production",
+    status: "client",
+    details: {
+      role: "Developer",
+      problemSolved: "Full-stack MERN e-commerce flow — catalog through checkout-ready cart.",
+      features: ["Product catalog", "Cart", "MERN backend"],
+      technicalDecisions: ["React + Node.js + Express + MongoDB"],
+      challenges: DETAILS_PLACEHOLDER.challenges,
+      results: DETAILS_PLACEHOLDER.results,
+    },
   },
   "https://sravan-gym.netlify.app": {
     description: "Gym landing experience built with TypeScript and responsive layout.",
     tags: ["TypeScript", "React"],
-    tier: "learning",
+    status: "learning",
   },
   "https://sravan-quizlet-landingpage.netlify.app/": {
     description: "Quizlet-style marketing page — layout and typography practice.",
     tags: ["TypeScript", "CSS"],
-    tier: "learning",
+    status: "learning",
   },
   "https://task-breaks.netlify.app/": {
     description: "Pomodoro-style task and break timer.",
     tags: ["TypeScript", "React"],
-    tier: "learning",
+    status: "learning",
   },
   "https://fanciful-kitten-112003.netlify.app/": {
     description: "UI clone exercise — component structure and styling.",
     tags: ["React", "CSS"],
-    tier: "learning",
+    status: "learning",
   },
   "https://van-life2.netlify.app/": {
     description: "Van life marketing layout — responsive React + CSS.",
     tags: ["React", "CSS"],
-    tier: "learning",
+    status: "learning",
   },
   "https://sravan-nike.netlify.app": {
     description: "Nike-style landing page with Tailwind utility patterns.",
     tags: ["Tailwind", "React"],
-    tier: "learning",
+    status: "learning",
   },
   "https://stripedemo1.netlify.app/": {
     description: "Stripe-style layout using CSS Grid.",
     tags: ["CSS", "Grid"],
-    tier: "learning",
+    status: "learning",
   },
   "https://sravan-cubedemo.netlify.app/": {
     description: "3D cube CSS animation demo.",
     tags: ["CSS", "Animation"],
-    tier: "learning",
+    status: "learning",
   },
   "https://sravan-solarsystemdemo.netlify.app/": {
     description: "Solar system CSS animation study.",
     tags: ["CSS", "Animation"],
-    tier: "learning",
+    status: "learning",
   },
   "https://jsfiddle.net/pvskr/pnfjt029/20/": {
     description: "Bootstrap card layout experiment.",
     tags: ["Bootstrap"],
-    tier: "learning",
+    status: "learning",
   },
   "https://new-buy-me.netlify.app/": {
     description: "JavaScript DOM and UI interaction practice.",
     tags: ["JavaScript"],
-    tier: "learning",
+    status: "learning",
   },
   "https://jsfiddle.net/pvskr/4ygntpoq/28/": {
     description: "Netflix landing page clone in vanilla JS.",
     tags: ["JavaScript", "HTML"],
-    tier: "learning",
+    status: "learning",
   },
   "https://sravanotp-project.netlify.app/": {
     description: "OTP input UI built with semantic HTML.",
     tags: ["HTML", "CSS"],
-    tier: "learning",
+    status: "learning",
   },
 };
 
-const defaultMeta = (courseName: string): { description: string; tags: string[]; tier: ProjectTier } => ({
+const defaultMeta = (courseName: string): {
+  description: string;
+  tags: string[];
+  status: ProjectStatus;
+} => ({
   description: `${courseName} project — UI and implementation practice.`,
   tags: [courseName],
-  tier: "learning",
+  status: "learning",
 });
 
 function enrichProject(
@@ -144,11 +212,6 @@ function enrichProject(
   language?: { src: string; alt: string; name: string }
 ): FlatProject {
   const meta = PROJECT_META[project.link] ?? defaultMeta(courseName);
-  const tier =
-    meta.tier === "production" ||
-    (PRODUCTION_PROJECT_LINKS as readonly string[]).includes(project.link)
-      ? "production"
-      : "learning";
 
   return {
     ...project,
@@ -156,7 +219,8 @@ function enrichProject(
     summary,
     description: meta.description,
     tags: meta.tags,
-    tier,
+    status: meta.status,
+    details: meta.details,
     language,
   };
 }
@@ -171,18 +235,26 @@ export function getAllProjects(): FlatProject[] {
 }
 
 export function getProductionProjects(): FlatProject[] {
-  return getAllProjects().filter((p) => p.tier === "production");
+  return getAllProjects().filter((p) => p.status === "production");
+}
+
+export function getBetaProjects(): FlatProject[] {
+  return getAllProjects().filter((p) => p.status === "beta");
+}
+
+export function getClientProjects(): FlatProject[] {
+  return getAllProjects().filter((p) => p.status === "client");
 }
 
 export function getLearningProjects(): FlatProject[] {
-  return getAllProjects().filter((p) => p.tier === "learning");
+  return getAllProjects().filter((p) => p.status === "learning");
 }
 
 /** Featured grid — production apps only, stable order */
 export function getFeaturedProjects(): FlatProject[] {
   const production = getProductionProjects();
-  const ordered = PRODUCTION_PROJECT_LINKS.flatMap((link) => {
-    const match = production.find((p) => p.link === link);
+  const ordered = featuredProjectOrder.flatMap((item) => {
+    const match = production.find((p) => p.link === item.link);
     return match ? [match] : [];
   });
   const seen = new Set(ordered.map((p) => p.link));
@@ -193,17 +265,18 @@ export function getFeaturedProjects(): FlatProject[] {
 export const portfolioStats = {
   projectCount: getAllProjects().length,
   productionCount: getProductionProjects().length,
+  betaCount: getBetaProjects().length,
   technologyStacks: courses.length,
   yearsExperience: "3+",
 } as const;
 
 export const aboutContent = {
-  badge: "Open to full-time & contract",
-  headline: "About me",
+  badge: "About me",
+  headline: "Building products people actually use",
   paragraphs: [
-    "I'm a MERN stack developer focused on React, Next.js, and TypeScript — building products from UI through APIs to deployment on Netlify and Vercel.",
-    "I've shipped production apps including DebiasDaily, BloomMind Tracker, NexCartis, ChronoBloom, and Boostlly, plus client work on Fiverr with clear communication and fast iteration.",
-    "I work best with defined scope, regular feedback, and measurable outcomes: performance, usability, and on-time delivery.",
+    "I'm a MERN stack developer who builds web products end-to-end — from React and Next.js interfaces to APIs and deployment on Netlify and Vercel.",
+    "My experience spans freelance and contract work with clients, plus my own independent products like DebiasDaily, BloomMind Tracker, and NexCartis.",
+    "I focus on clean component architecture, responsive UI, and shipping on time. I work best with defined scope, regular feedback, and clear outcomes.",
   ],
   highlights: [
     { label: "Production apps", value: String(portfolioStats.productionCount) },
@@ -213,31 +286,26 @@ export const aboutContent = {
   location: "India · Remote-friendly",
 } as const;
 
+export const careerTimeline = [
+  {
+    period: "2023 – Present",
+    title: "Independent products",
+    org: "Personal projects",
+    description:
+      "Designed, built, and shipped products including DebiasDaily, BloomMind Tracker, NexCartis, ChronoBloom, and Boostlly — from component architecture through deployment.",
+  },
+  {
+    period: "2022 – Present",
+    title: "Freelance & contract",
+    org: "Fiverr and direct clients",
+    description:
+      "Delivered responsive React and Next.js applications from scoped requirements through deployment, iterating quickly on UI and performance feedback.",
+  },
+] as const;
+
 export const contactLinks = {
   email: footerLinks[0].links.find((l) => l.link.startsWith("mailto:"))!,
   linkedIn: socialMedia.find((s) => s.name === "LinkedIn")!,
   github: socialMedia.find((s) => s.name === "Github")!,
   x: socialMedia.find((s) => s.name === "X")!,
 };
-
-export const coreSkills = [
-  { name: "React", proficiency: "Production" as const },
-  { name: "TypeScript", proficiency: "Production" as const },
-  { name: "Next.js", proficiency: "Production" as const },
-  { name: "Node.js", proficiency: "Proficient" as const },
-  { name: "Express.js", proficiency: "Proficient" as const },
-  { name: "MongoDB", proficiency: "Proficient" as const },
-  { name: "Tailwind CSS", proficiency: "Production" as const },
-  { name: "REST APIs", proficiency: "Production" as const },
-  { name: "Git", proficiency: "Proficient" as const },
-  { name: "Framer Motion", proficiency: "Comfortable" as const },
-  { name: "Vercel / Netlify", proficiency: "Proficient" as const },
-  { name: "Figma", proficiency: "Comfortable" as const },
-];
-
-export function levelToProficiency(level: number): "Production" | "Proficient" | "Comfortable" | "Familiar" {
-  if (level >= 90) return "Production";
-  if (level >= 82) return "Proficient";
-  if (level >= 75) return "Comfortable";
-  return "Familiar";
-}

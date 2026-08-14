@@ -13,16 +13,16 @@ describe("Work Section", () => {
   test("renders work section with title", () => {
     render(<Work />);
     expect(screen.getByText("Selected")).toBeInTheDocument();
-    expect(screen.getByText("projects")).toBeInTheDocument();
+    expect(screen.getAllByText("projects").length).toBeGreaterThan(0);
   });
 
-  test("renders production work grid", () => {
+  test("renders production section", () => {
     render(<Work />);
-    expect(screen.getByText("Production work")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Production" })).toBeInTheDocument();
   });
 
   test("renders collapsible learning projects", () => {
     render(<Work />);
-    expect(screen.getByText("Learning & UI exercises")).toBeInTheDocument();
+    expect(screen.getByText("Learning projects")).toBeInTheDocument();
   });
 });

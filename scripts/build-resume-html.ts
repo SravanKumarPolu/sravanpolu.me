@@ -44,7 +44,7 @@ function renderProjects(items: ResumeProject[]): string {
       (p) => `
     <article class="entry project">
       <div class="entry-head">
-        <h3>${escapeHtml(p.name)}</h3>
+        <h3>${escapeHtml(p.name)}${p.status === "beta" ? '<span class="status">beta</span>' : ""}</h3>
         <a class="link" href="${escapeHtml(p.link)}">${escapeHtml(p.link.replace(/^https?:\/\//, ""))}</a>
       </div>
       <p class="desc">${escapeHtml(p.description)}</p>
@@ -139,6 +139,20 @@ export function buildResumeHtml(): string {
     .project .link { font-size: 9pt; color: #0e7490; text-decoration: none; }
     .desc { font-size: 9.5pt; margin: 2px 0; }
     .tags { font-size: 9pt; color: #555; }
+    .status {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 1px 6px;
+      font-size: 7.5pt;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #92400e;
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      border-radius: 3px;
+      vertical-align: middle;
+    }
     .footnote {
       margin-top: 12px;
       font-size: 8.5pt;
@@ -187,13 +201,13 @@ export function buildResumeHtml(): string {
   </section>
 
   <section>
-    <h2>Selected production projects</h2>
+    <h2>Selected projects</h2>
     ${renderProjects(resumeProductionProjects)}
   </section>
 
   ${renderEducation(resumeEducation)}
 
-  <p class="footnote">Full portfolio: ${escapeHtml(website)}</p>
+  <p class="footnote">Full portfolio: ${escapeHtml(website)} · Last updated: ${escapeHtml(resumeProfile.lastUpdated)}</p>
 </body>
 </html>`;
 }

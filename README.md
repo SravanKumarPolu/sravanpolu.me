@@ -2,7 +2,7 @@
 
 Welcome to my personal developer portfolio built with modern web technologies to showcase my skills, projects, and professional background. This site reflects my journey, featuring real-time, responsive, and interactive web solutions.
 
-🌐 Live Site: [https://sravanpolu.me/](https://sravanpolu.me/)
+🌐 Live Site: [https://sravanpolu.com/](https://sravanpolu.com/)
 
 ---
 

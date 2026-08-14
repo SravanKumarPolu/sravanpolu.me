@@ -2,8 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import SectionShell from "../components/SectionShell";
-import { aboutContent } from "../constants/portfolio";
+import { aboutContent, careerTimeline } from "../constants/portfolio";
 import skr from "../assets/images/skr.png";
+import { FiBriefcase, FiClock, FiMapPin } from "react-icons/fi";
 
 const About: React.FC = () => {
   const { ref, inView } = useScrollAnimation(0.1, true);
@@ -11,7 +12,7 @@ const About: React.FC = () => {
   return (
     <SectionShell id="about">
       <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -28,7 +29,21 @@ const About: React.FC = () => {
                 <p key={p.slice(0, 32)}>{p}</p>
               ))}
             </div>
-            <p className="mt-6 text-sm text-cyan-400/90 font-medium">{aboutContent.location}</p>
+            <p className="mt-6 inline-flex items-center gap-2 text-sm text-cyan-400/90 font-medium">
+              <FiMapPin className="w-4 h-4" aria-hidden />
+              {aboutContent.location}
+            </p>
+            <div className="grid grid-cols-3 gap-3 mt-8">
+              {aboutContent.highlights.map((item) => (
+                <div
+                  key={item.label}
+                  className="text-center p-4 rounded-xl border border-white/10 bg-white/5"
+                >
+                  <div className="text-2xl sm:text-3xl font-bold text-white">{item.value}</div>
+                  <div className="text-xs sm:text-sm text-neutral-400 mt-1">{item.label}</div>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
@@ -40,27 +55,51 @@ const About: React.FC = () => {
             <div className="flex items-center gap-5 p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm">
               <img
                 src={skr}
-                alt="Sravan Kumar Polu"
+                alt="Portrait of Sravan Kumar Polu"
                 className="w-20 h-20 rounded-xl object-cover border border-white/20"
                 width={80}
                 height={80}
                 loading="lazy"
               />
-              <div>
-                <h3 className="text-xl font-bold text-white">Sravan Kumar Polu</h3>
-                <p className="text-neutral-400">MERN Stack Developer · React · Next.js</p>
+              <div className="space-y-2">
+                <p className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden />
+                  Open to full-time & contract
+                </p>
+                <p className="text-sm text-neutral-400">Available for remote roles worldwide.</p>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-3">
-              {aboutContent.highlights.map((item) => (
-                <div
-                  key={item.label}
-                  className="text-center p-4 rounded-xl border border-white/10 bg-white/5"
-                >
-                  <div className="text-2xl sm:text-3xl font-bold text-white">{item.value}</div>
-                  <div className="text-xs sm:text-sm text-neutral-400 mt-1">{item.label}</div>
-                </div>
-              ))}
+
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6">
+              <h3 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
+                <FiBriefcase className="w-4 h-4 text-cyan-400" aria-hidden />
+                Career timeline
+              </h3>
+              <ol className="mt-5 space-y-0 relative">
+                {careerTimeline.map((item, index) => (
+                  <li key={item.title} className="relative pl-6 pb-8 last:pb-0">
+                    {index < careerTimeline.length - 1 && (
+                      <span
+                        className="absolute left-[5px] top-3 bottom-0 w-px bg-white/15"
+                        aria-hidden
+                      />
+                    )}
+                    <span
+                      className="absolute left-0 top-[7px] w-[11px] h-[11px] rounded-full border-2 border-cyan-400 bg-neutral-950"
+                      aria-hidden
+                    />
+                    <p className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-300">
+                      <FiClock className="w-3.5 h-3.5" aria-hidden />
+                      {item.period}
+                    </p>
+                    <h4 className="text-base font-semibold text-white mt-1">{item.title}</h4>
+                    <p className="text-sm text-neutral-500 mt-0.5">{item.org}</p>
+                    <p className="text-sm text-neutral-400 mt-2 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </li>
+                ))}
+              </ol>
             </div>
           </motion.div>
         </div>

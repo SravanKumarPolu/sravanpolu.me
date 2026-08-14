@@ -29,8 +29,8 @@ const Work: React.FC = () => {
           </h2>
 
           <p className="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-3xl">
-            {portfolioStats.productionCount} production apps and {portfolioStats.projectCount} total
-            projects in this portfolio — led with React, Next.js, and TypeScript.
+            {portfolioStats.productionCount} production app and {portfolioStats.betaCount} beta
+            products, plus client work and learning exercises — organized by where they stand today.
           </p>
         </motion.div>
 

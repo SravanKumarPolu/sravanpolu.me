@@ -24,6 +24,7 @@ export type ResumeProject = {
   link: string;
   description: string;
   tags: string[];
+  status?: "production" | "beta";
 };
 
 export const resumeProfile = {
@@ -32,14 +33,15 @@ export const resumeProfile = {
   tagline: "React · TypeScript · Next.js · Node.js",
   location: "India · Remote-friendly",
   email: "sravanpolu.me@gmail.com",
-  website: "https://sravanpolu.me",
+  website: "https://sravanpolu.com",
   linkedIn: "https://www.linkedin.com/in/SravanPolu",
   github: "https://github.com/SravanKumarPolu",
   yearsExperience: "3+",
+  lastUpdated: "August 2026",
 } as const;
 
 export const resumeSummary =
-  "MERN stack developer focused on React, Next.js, and TypeScript — building products from UI through APIs to deployment on Netlify and Vercel. Shipped multiple production web apps and delivered client work on Fiverr with clear communication, fast iteration, and measurable outcomes in performance and usability.";
+  "MERN stack developer focused on React, Next.js, and TypeScript — building products from UI through APIs to deployment on Netlify and Vercel. Experience spans freelance and contract client work plus independent products, including one live production app (DebiasDaily) and several beta products currently in development.";
 
 export const resumeSkillGroups = [
   {
@@ -56,37 +58,42 @@ export const resumeSkillGroups = [
   },
 ] as const;
 
-/** Production apps — align with PRODUCTION_PROJECT_LINKS in portfolio.ts */
+/** Align with the statuses in PROJECT_META in portfolio.ts */
 export const resumeProductionProjects: ResumeProject[] = [
   {
     name: "DebiasDaily",
     link: "https://debiasdaily.com/",
     description: "Next.js product focused on daily bias awareness and mindful habits.",
     tags: ["Next.js", "TypeScript", "Tailwind"],
+    status: "production",
   },
   {
     name: "BloomMind Tracker",
     link: "https://bloommind-tracker.netlify.app/",
     description: "Wellness tracker (beta) — habits, mood, and progress in one dashboard.",
     tags: ["Next.js", "TypeScript", "Netlify"],
+    status: "beta",
   },
   {
     name: "NexCartis",
     link: "https://nextcartis.netlify.app/",
     description: "E-commerce style storefront (beta) with cart and product flows.",
     tags: ["Next.js", "React", "Tailwind"],
+    status: "beta",
   },
   {
     name: "ChronoBloom",
     link: "https://chronobloom.netlify.app/",
     description: "Time and focus companion app with a calm, product-style UI.",
     tags: ["Next.js", "TypeScript"],
+    status: "beta",
   },
   {
     name: "Boostlly",
     link: "https://boostlly.netlify.app/",
     description: "Productivity companion (beta) for goals and lightweight tracking.",
     tags: ["Next.js", "React"],
+    status: "beta",
   },
 ];
 
@@ -110,9 +117,9 @@ export const resumeExperience: ResumeExperience[] = [
     start: "2023",
     end: "Present",
     bullets: [
-      "Designed, built, and shipped production Next.js apps including DebiasDaily, BloomMind Tracker, NexCartis, ChronoBloom, and Boostlly.",
+      "Designed, built, and shipped a live production Next.js app (DebiasDaily) and several beta products including BloomMind Tracker, NexCartis, ChronoBloom, and Boostlly.",
       "Owned end-to-end delivery: component architecture, API integration patterns, and CI-friendly static deployments.",
-      "Maintained portfolio and project documentation at sravanpolu.me for recruiters and hiring managers.",
+      "Maintained portfolio and project documentation at sravanpolu.com for recruiters and hiring managers.",
     ],
   },
 ];

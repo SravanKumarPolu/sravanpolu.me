@@ -20,46 +20,39 @@ const Nav: React.FC = () => {
   });
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries: IntersectionObserverEntry[]) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const sectionId = entry.target.id;
-            const matchedLink = navLinks.find((link) => link.href === sectionId);
-            if (matchedLink) setActiveLink(matchedLink.label);
-          }
-        });
-      },
-      { root: null, rootMargin: "-12% 0px -12% 0px", threshold: 0.25 }
-    );
+    const getCurrentSection = (): string => {
+      const navHeight = 80;
+      const scrollPosition = window.scrollY;
+      let current = navLinks[0].label;
 
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 120;
-      for (let i = navLinks.length - 1; i >= 0; i--) {
-        const link = navLinks[i];
+      for (const link of navLinks) {
         const section = document.getElementById(link.href);
-        if (section && scrollPosition >= section.offsetTop) {
-          setActiveLink(link.label);
+        if (!section) continue;
+        const top = section.getBoundingClientRect().top + window.scrollY;
+        if (top <= scrollPosition + navHeight) {
+          current = link.label;
+        } else {
           break;
         }
       }
+
+      const isBottomOfPage =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4;
+      if (isBottomOfPage) current = navLinks[navLinks.length - 1].label;
+
+      return current;
     };
 
-    const observeSections = () => {
-      navLinks.forEach((link) => {
-        const section = document.getElementById(link.href);
-        if (section) observer.observe(section);
-      });
-    };
+    const handleScroll = () => setActiveLink(getCurrentSection());
 
-    observeSections();
-    const timeoutId = setTimeout(observeSections, 1000);
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
 
     return () => {
-      clearTimeout(timeoutId);
-      observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, [setActiveLink]);
 
@@ -90,7 +83,7 @@ const Nav: React.FC = () => {
       <div className="flex justify-between items-center px-4 sm:px-6 py-3 md:py-4 max-w-7xl mx-auto">
         <a
           href="#home"
-          className="font-semibold text-white text-sm sm:text-lg tracking-tight focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded-lg px-1"
+          className="font-semibold text-white text-sm sm:text-lg tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg px-1"
           aria-label="Sravan Kumar Polu - Go to home"
         >
           <span className="text-white">Sravan </span>
@@ -113,7 +106,7 @@ const Nav: React.FC = () => {
             <a
               href="/Resume.pdf"
               onClick={handleResumeClick}
-              className="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg text-sm font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg text-sm font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-colors"
             >
               <FiDownload className="w-4 h-4" aria-hidden />
               Resume
@@ -124,14 +117,14 @@ const Nav: React.FC = () => {
             <a
               href="/Resume.pdf"
               onClick={handleResumeClick}
-              className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-lg bg-cyan-600 text-white p-2 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-lg bg-cyan-600 text-white p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               aria-label="Download resume"
             >
-              <FiDownload className="w-5 h-5" />
+              <FiDownload className="w-5 h-5" aria-hidden />
             </a>
             <button
               onClick={toggleNav}
-              className="text-white min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-white/10 border border-white/15 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="text-white min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-white/10 border border-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               aria-label={getAriaLabel("toggle-navigation")}
               aria-expanded={isNavOpen}
               aria-controls="mobile-menu"
@@ -163,11 +156,10 @@ const Nav: React.FC = () => {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             className="fixed left-0 right-0 top-[57px] z-50 py-6 px-4 bg-neutral-950 border-b border-white/10 space-y-1"
-            role="menu"
             aria-label="Mobile navigation menu"
           >
             {navLinks.map((item) => (
-              <li key={item.label} role="none">
+              <li key={item.label}>
                 <Link
                   page={item.label}
                   selectedPage={activeLink}

@@ -3,30 +3,30 @@ const config = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 
   theme: {
-    fontSize: {
-      xs: ["12px", "16px"],
-      sm: ["14px", "20px"],
-      base: ["16px", "19.5px"],
-      lg: ["18px", "21.94px"],
-      xl: ["20px", "24.38px"],
-      "2xl": ["24px", "29.26px"],
-      "3xl": ["28px", "50px"],
-      "4xl": ["48px", "58px"],
-      "8xl": ["96px", "106px"],
-      // ✅ Fluid Typography System
-      'fluid-xs': 'clamp(0.75rem, 2vw, 0.875rem)',
-      'fluid-sm': 'clamp(0.875rem, 2.5vw, 1rem)',
-      'fluid-base': 'clamp(1rem, 3vw, 1.125rem)',
-      'fluid-lg': 'clamp(1.125rem, 3.5vw, 1.25rem)',
-      'fluid-xl': 'clamp(1.25rem, 4vw, 1.5rem)',
-      'fluid-2xl': 'clamp(1.5rem, 5vw, 2rem)',
-      'fluid-3xl': 'clamp(1.875rem, 6vw, 2.5rem)',
-      'fluid-4xl': 'clamp(2.25rem, 7vw, 3rem)',
-      'fluid-5xl': 'clamp(3rem, 8vw, 4rem)',
-      'fluid-6xl': 'clamp(3.75rem, 10vw, 5rem)',
-    },
-
     extend: {
+      fontSize: {
+        xs: ["12px", "16px"],
+        sm: ["14px", "20px"],
+        base: ["16px", "19.5px"],
+        lg: ["18px", "21.94px"],
+        xl: ["20px", "24.38px"],
+        "2xl": ["24px", "29.26px"],
+        "3xl": ["28px", "50px"],
+        "4xl": ["48px", "58px"],
+        "8xl": ["96px", "106px"],
+        // ✅ Fluid Typography System
+        'fluid-xs': 'clamp(0.75rem, 2vw, 0.875rem)',
+        'fluid-sm': 'clamp(0.875rem, 2.5vw, 1rem)',
+        'fluid-base': 'clamp(1rem, 3vw, 1.125rem)',
+        'fluid-lg': 'clamp(1.125rem, 3.5vw, 1.25rem)',
+        'fluid-xl': 'clamp(1.25rem, 4vw, 1.5rem)',
+        'fluid-2xl': 'clamp(1.5rem, 5vw, 2rem)',
+        'fluid-3xl': 'clamp(1.875rem, 6vw, 2.5rem)',
+        'fluid-4xl': 'clamp(2.25rem, 7vw, 3rem)',
+        'fluid-5xl': 'clamp(3rem, 8vw, 4rem)',
+        'fluid-6xl': 'clamp(3.75rem, 10vw, 5rem)',
+      },
+
       animation: {
         "spin-slow": "spin 20s linear infinite",
       },
@@ -451,20 +451,7 @@ const config = {
     },
   },
 
-  // ✅ DaisyUI Config
-  daisyui: {
-    themes: ["night", "business", "dark", "cmyk"], // sleek built-in themes
-    base: true,
-    styled: true,
-    utils: true,
-    logs: false,
-    rtl: false,
-    prefix: "",
-    darkTheme: "business",
-  },
-
   plugins: [
-    require("daisyui"),
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
     require("@tailwindcss/container-queries")
