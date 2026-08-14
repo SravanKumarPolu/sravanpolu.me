@@ -22,6 +22,7 @@ import otpImg from "../assets/images/otp.png";
 import quizletImg from "../assets/images/quizlet.png";
 import react from "../assets/icons/react.svg";
 import solorImg from "../assets/images/solordemo.png";
+import schoolManagementImg from "../assets/images/school-management.png";
 import stripeImg from "../assets/images/stripeDemo.png";
 import tailwind from "../assets/icons/tailwind.svg";
 import timerImg from "../assets/images/Task+Breaks.png";
@@ -81,6 +82,12 @@ export const courses = [
         title: "Boostlly (beta, limited features)",
         name: "Boostlly",
         link: "https://boostlly.netlify.app/",
+      },
+      {
+        src: schoolManagementImg,
+        title: "Smart Training & School Management",
+        name: "Smart Training & School Management",
+        link: "https://smart-training-school-management-de.vercel.app/",
       },
     ],
     language: [{ src: nextjs, alt: "Next.js logo", name: "Next.js" }],

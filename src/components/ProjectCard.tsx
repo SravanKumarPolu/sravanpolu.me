@@ -76,7 +76,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0, featured 
         <div className={`aspect-[16/10] ${featured ? "lg:aspect-auto lg:absolute lg:inset-0" : ""}`}>
           <img
             src={project.src}
-            alt={`${project.title} screenshot`}
+            alt={project.alt ?? `${project.title} screenshot`}
             className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
             loading="lazy"
             width={640}
@@ -158,6 +158,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0, featured 
                   label="Problem solved"
                   value={project.details.problemSolved}
                 />
+                {project.details.solution && (
+                  <CaseStudyField
+                    label="Solution"
+                    value={project.details.solution}
+                  />
+                )}
                 <CaseStudyField label="Features" items={project.details.features} />
                 <CaseStudyField
                   label="Technical decisions"

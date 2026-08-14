@@ -34,7 +34,7 @@ const LearningProjects: React.FC = () => {
             <div className="relative aspect-[16/10] overflow-hidden border-b border-white/10">
               <img
                 src={project.src}
-                alt={`${project.title} screenshot`}
+                alt={project.alt ?? `${project.title} screenshot`}
                 className="w-full h-full object-cover object-top"
                 loading="lazy"
                 width={640}

@@ -25,4 +25,28 @@ describe("Work Section", () => {
     render(<Work />);
     expect(screen.getByText("Learning projects")).toBeInTheDocument();
   });
+
+  test("renders client work section with Smart Training & School Management card", () => {
+    render(<Work />);
+    expect(screen.getByRole("heading", { name: "Client work" })).toBeInTheDocument();
+    expect(
+      screen.getByText("Smart Training & School Management")
+    ).toBeInTheDocument();
+    expect(screen.getByText("Client Demo · In Development")).toBeInTheDocument();
+
+    const liveLink = screen
+      .getAllByRole("link", { name: "Live demo" })
+      .find(
+        (link) =>
+          link.getAttribute("href") ===
+          "https://smart-training-school-management-de.vercel.app/"
+      );
+    expect(liveLink).toBeInTheDocument();
+    expect(liveLink).toHaveAttribute("target", "_blank");
+    expect(liveLink).toHaveAttribute("rel", "noopener noreferrer");
+
+    expect(
+      screen.getByAltText("Smart Training and School Management dashboard")
+    ).toBeInTheDocument();
+  });
 });

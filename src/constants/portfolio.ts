@@ -1,10 +1,11 @@
 import { courses, footerLinks, socialMedia } from "./index";
 
-export type ProjectStatus = "production" | "beta" | "client" | "learning";
+export type ProjectStatus = "production" | "beta" | "client" | "client-demo" | "learning";
 
 export type ProjectDetails = {
   role: string;
   problemSolved: string;
+  solution?: string;
   features: string[];
   technicalDecisions: string[];
   challenges: string;
@@ -32,6 +33,7 @@ export type FlatProject = {
   status: ProjectStatus;
   language?: { src: string; alt: string; name: string };
   github?: string;
+  alt?: string;
   details?: ProjectDetails;
 };
 
@@ -43,7 +45,13 @@ export const DETAILS_PLACEHOLDER = {
 
 const PROJECT_META: Record<
   string,
-  { description: string; tags: string[]; status: ProjectStatus; details?: ProjectDetails }
+  {
+    description: string;
+    tags: string[];
+    status: ProjectStatus;
+    alt?: string;
+    details?: ProjectDetails;
+  }
 > = {
   "https://debiasdaily.com/": {
     description: "Next.js product focused on daily bias awareness and mindful habits.",
@@ -111,6 +119,41 @@ const PROJECT_META: Record<
       problemSolved: "Offers lightweight goal and productivity tracking.",
       features: ["Goal tracking", "Lightweight progress tracking"],
       technicalDecisions: ["Next.js + React"],
+      challenges: DETAILS_PLACEHOLDER.challenges,
+      results: DETAILS_PLACEHOLDER.results,
+    },
+  },
+  "https://smart-training-school-management-de.vercel.app/": {
+    alt: "Smart Training and School Management dashboard",
+    description:
+      "A multi-role school management platform for managing branches, students, teachers, attendance, homework, timetables, fees, communication, reports, and administrative workflows.",
+    tags: ["Next.js", "Tailwind CSS"],
+    status: "client-demo",
+    details: {
+      role: "Full-stack development covering requirements analysis, application architecture, responsive UI, data modelling, role-based workflows, testing and deployment.",
+      problemSolved:
+        "Schools often manage admissions, attendance, fees, homework and communication across disconnected spreadsheets and manual processes.",
+      solution:
+        "A centralized multi-role platform giving administrators, branch administrators, teachers, parents and students role-specific access to school operations.",
+      features: [
+        "Role-based access for Admin, Branch Admin, Teacher, Parent and Student",
+        "School and branch management",
+        "Student admission and profiles",
+        "Teacher profiles and assignments",
+        "Daily and monthly attendance",
+        "Homework",
+        "Timetables",
+        "Fee-management workflows",
+        "Communication",
+        "Reports and dashboards",
+        "Audit logging",
+      ],
+      technicalDecisions: [
+        "Next.js frontend",
+        "Tailwind CSS styling",
+        "Role-aware views and sign-in flows",
+        "Deployed on Vercel",
+      ],
       challenges: DETAILS_PLACEHOLDER.challenges,
       results: DETAILS_PLACEHOLDER.results,
     },
@@ -220,6 +263,7 @@ function enrichProject(
     description: meta.description,
     tags: meta.tags,
     status: meta.status,
+    alt: meta.alt,
     details: meta.details,
     language,
   };
@@ -243,7 +287,9 @@ export function getBetaProjects(): FlatProject[] {
 }
 
 export function getClientProjects(): FlatProject[] {
-  return getAllProjects().filter((p) => p.status === "client");
+  return getAllProjects().filter(
+    (p) => p.status === "client" || p.status === "client-demo"
+  );
 }
 
 export function getLearningProjects(): FlatProject[] {

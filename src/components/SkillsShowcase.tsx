@@ -105,6 +105,10 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
         { name: "NexCartis", link: "https://nextcartis.netlify.app/" },
         { name: "ChronoBloom", link: "https://chronobloom.netlify.app/" },
         { name: "Boostlly", link: "https://boostlly.netlify.app/" },
+        {
+          name: "Smart Training & School Management",
+          link: "https://smart-training-school-management-de.vercel.app/",
+        },
       ],
     },
     {
@@ -114,6 +118,10 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
         { name: "DebiasDaily", link: "https://debiasdaily.com/" },
         { name: "NexCartis", link: "https://nextcartis.netlify.app/" },
         { name: "Nike landing", link: "https://sravan-nike.netlify.app" },
+        {
+          name: "Smart Training & School Management",
+          link: "https://smart-training-school-management-de.vercel.app/",
+        },
       ],
     },
     {
@@ -159,7 +167,13 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
     {
       name: "Vercel",
       icon: SiVercel,
-      projects: [{ name: "DebiasDaily", link: "https://debiasdaily.com/" }],
+      projects: [
+        { name: "DebiasDaily", link: "https://debiasdaily.com/" },
+        {
+          name: "Smart Training & School Management",
+          link: "https://smart-training-school-management-de.vercel.app/",
+        },
+      ],
     },
   ],
   familiar: [
