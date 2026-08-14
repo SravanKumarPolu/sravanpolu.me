@@ -11,30 +11,44 @@ import {
   SiFigma,
   SiFramer,
   SiGit,
+  SiGithub,
   SiGraphql,
+  SiHtml5,
   SiJavascript,
   SiMongodb,
   SiNetlify,
   SiNextdotjs,
   SiNodedotjs,
   SiPostgresql,
+  SiPrisma,
   SiReact,
+  SiReacthookform,
   SiTailwindcss,
   SiThreedotjs,
   SiTypescript,
   SiVercel,
+  SiZod,
 } from "react-icons/si";
-import { FiCloud, FiLink } from "react-icons/fi";
+import { BiLogoCss3 } from "react-icons/bi";
+import { FaAws } from "react-icons/fa";
+import { FiBarChart2, FiZap } from "react-icons/fi";
+import { TbBrain } from "react-icons/tb";
 
 type Icon = ComponentType<SVGProps<SVGSVGElement>>;
 
-type SkillTierKey = "production" | "working" | "familiar" | "learning";
+type SkillTierKey = "production" | "project" | "familiar" | "learning";
+
+interface ProjectRef {
+  name: string;
+  link?: string;
+  internal?: boolean;
+}
 
 interface Skill {
   name: string;
   icon: Icon;
-  projects: { name: string; link: string; internal?: boolean }[];
-  note?: string;
+  evidence: string;
+  projects: ProjectRef[];
 }
 
 interface TierMeta {
@@ -42,37 +56,32 @@ interface TierMeta {
   label: string;
   description: string;
   badge: string;
-  border: string;
 }
 
 const TIERS: TierMeta[] = [
   {
     key: "production",
     label: "Production experience",
-    description: "Shipped and kept live in products.",
+    description: "Used in deployed, working products.",
     badge: "border-emerald-500/30 bg-emerald-500/15 text-emerald-300",
-    border: "hover:border-emerald-400/40",
   },
   {
-    key: "working",
-    label: "Working knowledge",
-    description: "Used across client and personal projects — confident building and shipping with these.",
+    key: "project",
+    label: "Project experience",
+    description: "Used in complete client, beta or substantial portfolio projects.",
     badge: "border-cyan-500/30 bg-cyan-500/15 text-cyan-300",
-    border: "hover:border-cyan-400/40",
   },
   {
     key: "familiar",
     label: "Familiar",
-    description: "Comfortable working with these in side projects and experiments.",
+    description: "Technologies used in focused projects and practical exercises.",
     badge: "border-violet-500/30 bg-violet-500/15 text-violet-300",
-    border: "hover:border-violet-400/40",
   },
   {
     key: "learning",
     label: "Currently learning",
-    description: "Actively exploring and applying in practice.",
+    description: "Technologies I am actively studying through courses and hands-on labs.",
     badge: "border-amber-500/30 bg-amber-500/15 text-amber-300",
-    border: "hover:border-amber-400/40",
   },
 ];
 
@@ -81,43 +90,27 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
     {
       name: "React",
       icon: SiReact,
+      evidence: "Used in:",
       projects: [
         { name: "DebiasDaily", link: "https://debiasdaily.com/" },
-        { name: "NexCartis", link: "https://nextcartis.netlify.app/" },
-        { name: "Boostlly", link: "https://boostlly.netlify.app/" },
+        { name: "this portfolio", link: "#work", internal: true },
       ],
     },
     {
       name: "TypeScript",
       icon: SiTypescript,
+      evidence: "Used in:",
       projects: [
         { name: "DebiasDaily", link: "https://debiasdaily.com/" },
-        { name: "BloomMind", link: "https://bloommind-tracker.netlify.app/" },
-        { name: "ChronoBloom", link: "https://chronobloom.netlify.app/" },
-      ],
-    },
-    {
-      name: "Next.js",
-      icon: SiNextdotjs,
-      projects: [
-        { name: "DebiasDaily", link: "https://debiasdaily.com/" },
-        { name: "BloomMind", link: "https://bloommind-tracker.netlify.app/" },
-        { name: "NexCartis", link: "https://nextcartis.netlify.app/" },
-        { name: "ChronoBloom", link: "https://chronobloom.netlify.app/" },
-        { name: "Boostlly", link: "https://boostlly.netlify.app/" },
-        {
-          name: "Smart Training & School Management",
-          link: "https://smart-training-school-management-de.vercel.app/",
-        },
+        { name: "this portfolio", link: "#work", internal: true },
       ],
     },
     {
       name: "Tailwind CSS",
       icon: SiTailwindcss,
+      evidence: "Used in:",
       projects: [
         { name: "DebiasDaily", link: "https://debiasdaily.com/" },
-        { name: "NexCartis", link: "https://nextcartis.netlify.app/" },
-        { name: "Nike landing", link: "https://sravan-nike.netlify.app" },
         {
           name: "Smart Training & School Management",
           link: "https://smart-training-school-management-de.vercel.app/",
@@ -125,54 +118,76 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       ],
     },
     {
-      name: "REST APIs",
-      icon: FiLink,
-      projects: [{ name: "E-commerce store", link: "https://skr-e-commerce.netlify.app/" }],
+      name: "TanStack Query",
+      icon: FiZap,
+      evidence: "Used in:",
+      projects: [{ name: "DebiasDaily", link: "https://debiasdaily.com/" }],
+    },
+    {
+      name: "Netlify",
+      icon: SiNetlify,
+      evidence: "Used in:",
+      projects: [
+        { name: "DebiasDaily", link: "https://debiasdaily.com/" },
+        { name: "client demos" },
+      ],
     },
   ],
-  working: [
+  project: [
+    {
+      name: "Next.js",
+      icon: SiNextdotjs,
+      evidence: "Used in:",
+      projects: [
+        {
+          name: "Smart Training & School Management",
+          link: "https://smart-training-school-management-de.vercel.app/",
+        },
+      ],
+    },
     {
       name: "Node.js",
       icon: SiNodedotjs,
-      projects: [{ name: "E-commerce store", link: "https://skr-e-commerce.netlify.app/" }],
+      evidence: "Used in:",
+      projects: [{ name: "SKR E-Commerce", link: "https://skr-e-commerce.netlify.app/" }],
     },
     {
-      name: "Express.js",
+      name: "Express",
       icon: SiExpress,
-      projects: [{ name: "E-commerce store", link: "https://skr-e-commerce.netlify.app/" }],
+      evidence: "Used in:",
+      projects: [{ name: "SKR E-Commerce", link: "https://skr-e-commerce.netlify.app/" }],
     },
     {
       name: "MongoDB",
       icon: SiMongodb,
-      projects: [{ name: "E-commerce store", link: "https://skr-e-commerce.netlify.app/" }],
+      evidence: "Used in:",
+      projects: [{ name: "SKR E-Commerce", link: "https://skr-e-commerce.netlify.app/" }],
     },
     {
-      name: "JavaScript",
-      icon: SiJavascript,
+      name: "Vercel",
+      icon: SiVercel,
+      evidence: "Used in:",
       projects: [
-        { name: "buyMe", link: "https://new-buy-me.netlify.app/" },
-        { name: "Netflix clone", link: "https://jsfiddle.net/pvskr/4ygntpoq/28/" },
+        {
+          name: "Smart Training & School Management",
+          link: "https://smart-training-school-management-de.vercel.app/",
+        },
       ],
     },
     {
       name: "Git",
       icon: SiGit,
-      projects: [{ name: "GitHub", link: "https://github.com/SravanKumarPolu" }],
-    },
-    {
-      name: "Netlify",
-      icon: SiNetlify,
-      projects: [{ name: "BloomMind", link: "https://bloommind-tracker.netlify.app/" }],
-    },
-    {
-      name: "Vercel",
-      icon: SiVercel,
+      evidence: "Used in:",
       projects: [
-        { name: "DebiasDaily", link: "https://debiasdaily.com/" },
-        {
-          name: "Smart Training & School Management",
-          link: "https://smart-training-school-management-de.vercel.app/",
-        },
+        { name: "All projects (GitHub)", link: "https://github.com/SravanKumarPolu" },
+      ],
+    },
+    {
+      name: "GitHub",
+      icon: SiGithub,
+      evidence: "Used in:",
+      projects: [
+        { name: "Project repositories", link: "https://github.com/SravanKumarPolu" },
       ],
     },
   ],
@@ -180,48 +195,103 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
     {
       name: "Framer Motion",
       icon: SiFramer,
-      projects: [{ name: "Portfolio projects", link: "#work", internal: true }],
+      evidence: "Used in:",
+      projects: [{ name: "Portfolio interactions", link: "#work", internal: true }],
     },
     {
       name: "Figma",
       icon: SiFigma,
-      projects: [{ name: "Portfolio and product design", link: "#work", internal: true }],
+      evidence: "Used for:",
+      projects: [{ name: "Portfolio and product UI design", link: "#work", internal: true }],
     },
     {
-      name: "Three.js",
-      icon: SiThreedotjs,
+      name: "JavaScript",
+      icon: SiJavascript,
+      evidence: "Practised in:",
       projects: [
-        { name: "3D cube", link: "https://sravan-cubedemo.netlify.app/" },
-        { name: "Solar system", link: "https://sravan-solarsystemdemo.netlify.app/" },
+        { name: "buyMe", link: "https://new-buy-me.netlify.app/" },
+        { name: "Netflix clone" },
       ],
     },
     {
-      name: "Docker",
-      icon: SiDocker,
-      projects: [],
+      name: "HTML",
+      icon: SiHtml5,
+      evidence: "Practised in:",
+      projects: [{ name: "Semantic markup exercises", link: "https://sravanotp-project.netlify.app/" }],
+    },
+    {
+      name: "CSS",
+      icon: BiLogoCss3,
+      evidence: "Practised in:",
+      projects: [{ name: "Grid, Flexbox and animation exercises", link: "https://stripedemo1.netlify.app/" }],
     },
     {
       name: "Bootstrap",
       icon: SiBootstrap,
-      note: "Experience: Familiar",
-      projects: [],
-    },
-    {
-      name: "AWS",
-      icon: FiCloud,
-      projects: [],
+      evidence: "Practised in:",
+      projects: [{ name: "Responsive UI exercises" }],
     },
   ],
   learning: [
     {
-      name: "PostgreSQL",
-      icon: SiPostgresql,
-      projects: [],
+      name: "Docker",
+      icon: SiDocker,
+      evidence: "Learning:",
+      projects: [{ name: "Containers and local development environments" }],
+    },
+    {
+      name: "AWS",
+      icon: FaAws,
+      evidence: "Learning:",
+      projects: [{ name: "EC2, VPC, IAM, S3, RDS and cloud deployment" }],
     },
     {
       name: "GraphQL",
       icon: SiGraphql,
-      projects: [],
+      evidence: "Learning:",
+      projects: [{ name: "Queries, mutations and API integration" }],
+    },
+    {
+      name: "PostgreSQL",
+      icon: SiPostgresql,
+      evidence: "Learning:",
+      projects: [{ name: "Relational data modelling and SQL fundamentals." }],
+    },
+    {
+      name: "Prisma",
+      icon: SiPrisma,
+      evidence: "Learning:",
+      projects: [{ name: "Database access and schema migrations" }],
+    },
+    {
+      name: "Zustand",
+      icon: TbBrain,
+      evidence: "Learning:",
+      projects: [{ name: "State management with a minimal API" }],
+    },
+    {
+      name: "React Hook Form",
+      icon: SiReacthookform,
+      evidence: "Learning:",
+      projects: [{ name: "Form state and validation workflows" }],
+    },
+    {
+      name: "Zod",
+      icon: SiZod,
+      evidence: "Learning:",
+      projects: [{ name: "Runtime validation and type-safe schemas" }],
+    },
+    {
+      name: "Recharts",
+      icon: FiBarChart2,
+      evidence: "Learning:",
+      projects: [{ name: "Data visualisation with charts" }],
+    },
+    {
+      name: "Three.js",
+      icon: SiThreedotjs,
+      evidence: "Learning:",
+      projects: [{ name: "3D graphics and animations" }],
     },
   ],
 };
@@ -283,7 +353,7 @@ const SkillsShowcase: React.FC = () => {
                   return (
                     <article
                       key={skill.name}
-                      className={`group rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-5 transition-colors duration-300 ${tier.border}`}
+                      className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-5"
                     >
                       <div className="flex items-center gap-3 mb-3">
                         <span
@@ -294,14 +364,12 @@ const SkillsShowcase: React.FC = () => {
                         </span>
                         <h4 className="text-base font-semibold text-white">{skill.name}</h4>
                       </div>
-                      {skill.note ? (
-                        <p className="text-xs text-neutral-400 leading-relaxed">{skill.note}</p>
-                      ) : skill.projects.length > 0 ? (
-                        <p className="text-xs text-neutral-400 leading-relaxed">
-                          Used in:{" "}
-                          {skill.projects.map((project, projectIndex) => (
-                            <React.Fragment key={project.link}>
-                              {projectIndex > 0 && <span className="text-neutral-600">, </span>}
+                      <p className="text-xs text-neutral-400 leading-relaxed">
+                        <span className="font-semibold text-neutral-200">{skill.evidence}</span>{" "}
+                        {skill.projects.map((project, projectIndex) => (
+                          <React.Fragment key={project.name}>
+                            {projectIndex > 0 && <span className="text-neutral-500">, </span>}
+                            {project.link ? (
                               <a
                                 href={project.link}
                                 target={project.internal ? undefined : "_blank"}
@@ -310,12 +378,12 @@ const SkillsShowcase: React.FC = () => {
                               >
                                 {project.name}
                               </a>
-                            </React.Fragment>
-                          ))}
-                        </p>
-                      ) : (
-                        <p className="text-xs italic text-neutral-500">Details to be added.</p>
-                      )}
+                            ) : (
+                              <span>{project.name}</span>
+                            )}
+                          </React.Fragment>
+                        ))}
+                      </p>
                     </article>
                   );
                 })}
