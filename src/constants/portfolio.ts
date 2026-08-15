@@ -10,6 +10,7 @@ export type ProjectDetails = {
   technicalDecisions: string[];
   challenges: string;
   results: string;
+  note?: string;
 };
 
 /** Recent product projects in stable order — used in the hero and stats */
@@ -54,9 +55,10 @@ const PROJECT_META: Record<
   }
 > = {
   "https://debiasdaily.com/": {
-    description: "Next.js product focused on daily bias awareness and mindful habits.",
-    tags: ["Next.js", "TypeScript", "Tailwind"],
+    description: "React product focused on daily bias awareness and mindful habits.",
+    tags: ["React", "Tailwind"],
     status: "production",
+    alt: "DebiasDaily cognitive bias learning application",
     details: {
       role: "Developer",
       problemSolved:
@@ -127,7 +129,7 @@ const PROJECT_META: Record<
     alt: "Smart Training and School Management dashboard",
     description:
       "A multi-role school management platform for managing branches, students, teachers, attendance, homework, timetables, fees, communication, reports, and administrative workflows.",
-    tags: ["Next.js", "Tailwind CSS"],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     status: "client-demo",
     details: {
       role: "Full-stack development covering requirements analysis, application architecture, responsive UI, data modelling, role-based workflows, testing and deployment.",
@@ -156,6 +158,7 @@ const PROJECT_META: Record<
       ],
       challenges: DETAILS_PLACEHOLDER.challenges,
       results: DETAILS_PLACEHOLDER.results,
+      note: "Demo build in development — sign-in flows and data are simulated with mock data while the platform evolves toward production.",
     },
   },
   "https://skr-e-commerce.netlify.app/": {
@@ -352,6 +355,6 @@ export const careerTimeline = [
 export const contactLinks = {
   email: footerLinks[0].links.find((l) => l.link.startsWith("mailto:"))!,
   linkedIn: socialMedia.find((s) => s.name === "LinkedIn")!,
-  github: socialMedia.find((s) => s.name === "Github")!,
+  github: socialMedia.find((s) => s.name === "GitHub")!,
   x: socialMedia.find((s) => s.name === "X")!,
 };

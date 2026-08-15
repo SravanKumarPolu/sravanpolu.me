@@ -1,21 +1,20 @@
 import bootstrap from "../assets/icons/bootstrap.svg";
-import nexCartisImg from  '../assets/images/nexCartis.png'
+import nexCartisImg from "../assets/images/nexCartis.png";
 import boostllyImg from "../assets/images/boostlly.png";
 import debiasDailyImg from "../assets/images/debiasDailyImg.png";
-import bloommindTrackerImg from "../assets/images/ bloommindTrackerImg.png";
-import buyMeImg from "../assets/images/buy-me.png";
-import cardImg from "../assets/images/card.png";
+import bloommindTrackerImg from "../assets/images/bloommindTrackerImg.png";
+import buyMeImg from "../assets/images/buy-me.jpg";
+import cardImg from "../assets/images/card.jpg";
 import chronobloomImg from "../assets/images/chronobloom.png";
 import css from "../assets/icons/css.svg";
 import cubeImg from "../assets/images/cubedemo.png";
-import downArrow from "../assets/icons/downArrow.svg";
 import dropboxImg from "../assets/images/dropbox.png";
 import github from "../assets/icons/github.svg";
 import gymImg from "../assets/images/SravanGym.png";
 import html from "../assets/icons/html.svg";
 import js from "../assets/icons/js.svg";
 import linkedIn from "../assets/icons/linkedIn.svg";
-import netflixImg from "../assets/images/NetFlixDemo.png";
+import netflixImg from "../assets/images/NetFlixDemo.jpg";
 import nextjs from "../assets/icons/nextjs.svg";
 import nikeImg from "../assets/images/NikeDemo.png";
 import otpImg from "../assets/images/otp.png";
@@ -23,16 +22,12 @@ import quizletImg from "../assets/images/quizlet.png";
 import react from "../assets/icons/react.svg";
 import solorImg from "../assets/images/solordemo.png";
 import schoolManagementImg from "../assets/images/school-management.png";
-import stripeImg from "../assets/images/stripeDemo.png";
+import stripeImg from "../assets/images/stripeDemo.jpg";
 import tailwind from "../assets/icons/tailwind.svg";
-import timerImg from "../assets/images/Task+Breaks.png";
+import timerImg from "../assets/images/Task+Breaks.jpg";
 import twitter from "../assets/icons/twitter.svg";
 import typescript from "../assets/icons/ts.svg";
 import vanlifImg from "../assets/images/vanlife.png";
-
-export const assets = {
-  downArrow,
-};
 
 export const navLinks = [
   { label: "Home", href: "home" },
@@ -56,7 +51,8 @@ export const courses = [
         src: debiasDailyImg,
         title: "DebiasDaily",
         name: "DebiasDaily",
-        link: "https://debiasdaily.com/"
+        link: "https://debiasdaily.com/",
+        alt: "DebiasDaily cognitive bias learning application"
       },
       {
         src: bloommindTrackerImg,
@@ -229,8 +225,6 @@ export const courses = [
   // Add more courses here
 ];
 
-export const work = [{ src: tailwind, alt: "tailwind logo", name: "Tailwind" }];
-
 export const footerLinks = [
   {
     title: "Get in touch",
@@ -261,8 +255,8 @@ export const socialMedia = [
   },
   {
     src: github,
-    alt: "githu logo",
-    name: "Github",
+    alt: "GitHub logo",
+    name: "GitHub",
     link: "https://github.com/SravanKumarPolu",
   },
   {
