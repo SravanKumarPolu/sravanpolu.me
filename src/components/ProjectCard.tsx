@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DETAILS_PLACEHOLDER, type FlatProject } from "../constants/portfolio";
 import ProjectStatusBadge from "./ProjectStatusBadge";
+import ProjectImage from "./ProjectImage";
 import { FiBookOpen, FiExternalLink, FiGithub } from "react-icons/fi";
 
 interface ProjectCardProps {
@@ -22,6 +23,8 @@ const CaseStudyField: React.FC<{
     value === DETAILS_PLACEHOLDER.challenges ||
     value === DETAILS_PLACEHOLDER.results;
 
+  if (isPlaceholder) return null;
+
   return (
     <div>
       <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">
@@ -39,13 +42,7 @@ const CaseStudyField: React.FC<{
           ))}
         </ul>
       ) : (
-        <dd
-          className={`text-sm leading-relaxed ${
-            isPlaceholder ? "italic text-neutral-500" : "text-neutral-300"
-          }`}
-        >
-          {value}
-        </dd>
+        <dd className="text-sm leading-relaxed text-neutral-300">{value}</dd>
       )}
     </div>
   );
@@ -74,9 +71,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0, featured 
         }`}
       >
         <div className={`aspect-[16/10] ${featured ? "lg:aspect-auto lg:absolute lg:inset-0" : ""}`}>
-          <img
+          <ProjectImage
             src={project.src}
             alt={project.alt ?? `${project.title} screenshot`}
+            title={project.title}
             className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
             loading="lazy"
             width={640}
@@ -115,7 +113,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0, featured 
             className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 min-h-[40px]"
           >
             <FiExternalLink className="w-4 h-4" aria-hidden />
-            Live demo
+            View live
           </a>
           {project.github && (
             <a
@@ -137,7 +135,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0, featured 
               className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-neutral-200 hover:border-cyan-400/50 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 min-h-[40px]"
             >
               <FiBookOpen className="w-4 h-4" aria-hidden />
-              Case study
+              View details
             </button>
           )}
         </div>
@@ -174,6 +172,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0, featured 
                   value={project.details.challenges}
                 />
                 <CaseStudyField label="Results" value={project.details.results} />
+                {project.details.note && (
+                  <div className="sm:col-span-2">
+                    <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">
+                      Development status
+                    </dt>
+                    <dd className="text-sm leading-relaxed text-neutral-300">
+                      {project.details.note}
+                    </dd>
+                  </div>
+                )}
               </dl>
             </motion.div>
           )}

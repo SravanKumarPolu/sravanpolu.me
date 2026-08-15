@@ -63,8 +63,8 @@ export const resumeProductionProjects: ResumeProject[] = [
   {
     name: "DebiasDaily",
     link: "https://debiasdaily.com/",
-    description: "Next.js product focused on daily bias awareness and mindful habits.",
-    tags: ["Next.js", "TypeScript", "Tailwind"],
+    description: "React product focused on daily bias awareness and mindful habits.",
+    tags: ["React", "Tailwind"],
     status: "production",
   },
   {

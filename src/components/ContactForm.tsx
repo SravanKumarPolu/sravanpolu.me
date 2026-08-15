@@ -44,22 +44,22 @@ const ContactForm: React.FC = () => {
               <span className="text-cyan-400 text-sm font-medium">Get in touch</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight text-white">
-              Let&apos;s talk about your <span className="text-cyan-400">next role</span>
+              Have a role or project in mind? <span className="text-cyan-400">Let&apos;s talk.</span>
             </h2>
             <p className="text-neutral-300 text-base sm:text-lg mb-8 leading-relaxed">
-              Email works best — include the role, timeline, and links. I typically reply within 24–48 hours.
+              Email works best — include the role or project scope, timeline, and links. I
+              typically reply within 24–48 hours.
             </p>
             <div className="space-y-3">
-              <a
-                href={contactLinks.email.link}
-                className="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5 hover:border-cyan-400/40 transition-colors"
-              >
+              <div className="flex items-center gap-4 p-4 rounded-xl border border-white/10 bg-white/5">
                 <span className="text-cyan-400 font-semibold shrink-0">Email</span>
                 <span className="text-neutral-300 break-all text-sm sm:text-base">
                   {contactLinks.email.name}
                 </span>
-              </a>
-              <p className="text-sm text-neutral-500">Available for freelance and full-time opportunities.</p>
+              </div>
+              <p className="text-sm text-neutral-500">
+                Available for freelance and full-time opportunities, remote-friendly.
+              </p>
             </div>
           </motion.div>
 
@@ -75,7 +75,7 @@ const ContactForm: React.FC = () => {
                 href={contactLinks.email.link}
                 className="inline-flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-4 text-sm font-semibold text-white hover:from-cyan-600 hover:to-blue-700 min-h-[48px] transition-colors"
               >
-                Email {contactLinks.email.name}
+                Send an email
               </a>
               <div>
                 <p className="text-sm font-semibold text-white mb-3">Also find me on</p>

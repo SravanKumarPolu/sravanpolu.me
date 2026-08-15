@@ -62,13 +62,13 @@ const TIERS: TierMeta[] = [
   {
     key: "production",
     label: "Production experience",
-    description: "Used in deployed, working products.",
+    description: "Technologies verified in deployed, working products.",
     badge: "border-emerald-500/30 bg-emerald-500/15 text-emerald-300",
   },
   {
     key: "project",
     label: "Project experience",
-    description: "Used in complete client, beta or substantial portfolio projects.",
+    description: "Technologies verified in substantial beta, client or portfolio projects.",
     badge: "border-cyan-500/30 bg-cyan-500/15 text-cyan-300",
   },
   {
@@ -100,10 +100,7 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       name: "TypeScript",
       icon: SiTypescript,
       evidence: "Used in:",
-      projects: [
-        { name: "DebiasDaily", link: "https://debiasdaily.com/" },
-        { name: "this portfolio", link: "#work", internal: true },
-      ],
+      projects: [{ name: "this portfolio", link: "#work", internal: true }],
     },
     {
       name: "Tailwind CSS",
@@ -118,18 +115,12 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       ],
     },
     {
-      name: "TanStack Query",
-      icon: FiZap,
-      evidence: "Used in:",
-      projects: [{ name: "DebiasDaily", link: "https://debiasdaily.com/" }],
-    },
-    {
       name: "Netlify",
       icon: SiNetlify,
       evidence: "Used in:",
       projects: [
         { name: "DebiasDaily", link: "https://debiasdaily.com/" },
-        { name: "client demos" },
+        { name: "SKR E-Commerce", link: "https://skr-e-commerce.netlify.app/" },
       ],
     },
   ],
@@ -205,6 +196,21 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       projects: [{ name: "Portfolio and product UI design", link: "#work", internal: true }],
     },
     {
+      name: "Three.js",
+      icon: SiThreedotjs,
+      evidence: "Practised in:",
+      projects: [
+        { name: "3D Cube", link: "https://sravan-cubedemo.netlify.app/" },
+        { name: "Solar System", link: "https://sravan-solarsystemdemo.netlify.app/" },
+      ],
+    },
+    {
+      name: "Bootstrap",
+      icon: SiBootstrap,
+      evidence: "Practised in:",
+      projects: [{ name: "Responsive UI exercises" }],
+    },
+    {
       name: "JavaScript",
       icon: SiJavascript,
       evidence: "Practised in:",
@@ -224,12 +230,6 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       icon: BiLogoCss3,
       evidence: "Practised in:",
       projects: [{ name: "Grid, Flexbox and animation exercises", link: "https://stripedemo1.netlify.app/" }],
-    },
-    {
-      name: "Bootstrap",
-      icon: SiBootstrap,
-      evidence: "Practised in:",
-      projects: [{ name: "Responsive UI exercises" }],
     },
   ],
   learning: [
@@ -255,7 +255,7 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       name: "PostgreSQL",
       icon: SiPostgresql,
       evidence: "Learning:",
-      projects: [{ name: "Relational data modelling and SQL fundamentals." }],
+      projects: [{ name: "Relational data modelling and SQL fundamentals" }],
     },
     {
       name: "Prisma",
@@ -268,6 +268,12 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       icon: TbBrain,
       evidence: "Learning:",
       projects: [{ name: "State management with a minimal API" }],
+    },
+    {
+      name: "TanStack Query",
+      icon: FiZap,
+      evidence: "Learning:",
+      projects: [{ name: "Server-state management with React Query" }],
     },
     {
       name: "React Hook Form",
@@ -286,12 +292,6 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       icon: FiBarChart2,
       evidence: "Learning:",
       projects: [{ name: "Data visualisation with charts" }],
-    },
-    {
-      name: "Three.js",
-      icon: SiThreedotjs,
-      evidence: "Learning:",
-      projects: [{ name: "3D graphics and animations" }],
     },
   ],
 };

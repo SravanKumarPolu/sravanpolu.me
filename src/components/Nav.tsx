@@ -106,7 +106,8 @@ const Nav: React.FC = () => {
             <a
               href="/Resume.pdf"
               onClick={handleResumeClick}
-              className="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg text-sm font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg text-sm font-semibold text-neutral-200 border border-white/15 bg-white/5 hover:border-cyan-400/50 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-colors"
+              aria-label="Download resume PDF"
             >
               <FiDownload className="w-4 h-4" aria-hidden />
               Resume
@@ -117,7 +118,7 @@ const Nav: React.FC = () => {
             <a
               href="/Resume.pdf"
               onClick={handleResumeClick}
-              className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-lg bg-cyan-600 text-white p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+              className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-lg bg-white/10 border border-white/15 text-white p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               aria-label="Download resume"
             >
               <FiDownload className="w-5 h-5" aria-hidden />
@@ -147,6 +148,7 @@ const Nav: React.FC = () => {
         <>
           <button
             type="button"
+            tabIndex={-1}
             className="fixed inset-0 bg-black/50 z-40"
             aria-label="Close menu"
             onClick={toggleNav}

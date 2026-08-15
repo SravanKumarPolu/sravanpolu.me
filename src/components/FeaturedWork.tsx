@@ -76,28 +76,25 @@ const FeaturedWork: React.FC = () => {
           </p>
         </motion.div>
         <div className="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8">
-          {client.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {client.map((project, index) => (
-                <ProjectCard key={project.link} project={project} index={index} />
-              ))}
-            </div>
-          ) : (
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-              <p className="text-neutral-300 leading-relaxed max-w-2xl">
-                I&apos;ve delivered responsive React and Next.js builds for clients on Fiverr
-                and through direct contracts — from scoped requirements to deployment on
-                Netlify and Vercel. Detailed client case studies are available on request.
-              </p>
-              <a
-                href={contactLinks.email.link}
-                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-neutral-200 hover:border-cyan-400/50 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-colors min-h-[44px] shrink-0"
-              >
-                <FiMail className="w-4 h-4" aria-hidden />
-                Request case studies
-              </a>
-            </div>
-          )}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
+            <p className="text-neutral-300 leading-relaxed max-w-2xl">
+              I&apos;ve delivered responsive React and Next.js builds for clients on Fiverr
+              and through direct contracts — from scoped requirements to deployment on
+              Netlify and Vercel. Detailed client case studies are available on request.
+            </p>
+            <a
+              href={contactLinks.email.link}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-neutral-200 hover:border-cyan-400/50 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-colors min-h-[44px] shrink-0"
+            >
+              <FiMail className="w-4 h-4" aria-hidden />
+              Request case studies
+            </a>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            {client.map((project, index) => (
+              <ProjectCard key={project.link} project={project} index={index} />
+            ))}
+          </div>
         </div>
       </section>
     </div>

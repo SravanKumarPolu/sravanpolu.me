@@ -5,7 +5,7 @@ import { useHaptic } from "../hooks/useHaptic";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { CustomButton as Button } from "../components/ui/Button";
 import { useAccessibility } from "../hooks/useAccessibility";
-import { FiArrowRight, FiDownload } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
 import { contactLinks, featuredProjectOrder } from "../constants/portfolio";
 
 const Hero: React.FC = () => {
@@ -39,17 +39,6 @@ const Hero: React.FC = () => {
   const scrollTo = (id: string) => {
     triggerHaptic("light");
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleDownloadResume = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    triggerHaptic("medium");
-    const link = document.createElement("a");
-    link.href = "/Resume.pdf";
-    link.download = "Sravan_Kumar_Polu_Resume.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
   };
 
   return (
@@ -122,7 +111,7 @@ const Hero: React.FC = () => {
                   onClick={() => scrollTo("work")}
                   className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 border-0 shadow-lg shadow-cyan-500/20 px-6 sm:px-7 focus-visible:ring-cyan-400"
                 >
-                  View selected work
+                  View Featured Work
                   <FiArrowRight className="w-5 h-5" aria-hidden />
                 </Button>
                 <Button
@@ -133,14 +122,6 @@ const Hero: React.FC = () => {
                 >
                   Contact me
                 </Button>
-                <a
-                  href="/Resume.pdf"
-                  onClick={handleDownloadResume}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[48px] rounded-xl text-base font-semibold text-neutral-300 hover:text-white hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-colors"
-                >
-                  <FiDownload className="w-5 h-5" aria-hidden />
-                  Download resume
-                </a>
               </div>
 
               <div className="flex flex-wrap items-center gap-3">

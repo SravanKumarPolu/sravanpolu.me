@@ -19,8 +19,9 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "pnpm run build:resume && DISABLE_ESLINT_PLUGIN=true craco build",
+    "build": "pnpm run build:resume && DISABLE_ESLINT_PLUGIN=true craco build && pnpm run prerender",
     "build:resume": "tsx scripts/generate-resume-pdf.ts",
+    "prerender": "tsx scripts/prerender.ts",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

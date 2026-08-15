@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { getLearningProjects } from "../constants/portfolio";
 import ProjectStatusBadge from "./ProjectStatusBadge";
+import ProjectImage from "./ProjectImage";
 import { FiChevronDown, FiExternalLink } from "react-icons/fi";
 
 const LearningProjects: React.FC = () => {
@@ -32,9 +33,10 @@ const LearningProjects: React.FC = () => {
             className="flex flex-col rounded-xl border border-white/10 hover:border-cyan-400/30 bg-neutral-950/50 overflow-hidden transition-colors"
           >
             <div className="relative aspect-[16/10] overflow-hidden border-b border-white/10">
-              <img
+              <ProjectImage
                 src={project.src}
                 alt={project.alt ?? `${project.title} screenshot`}
+                title={project.title}
                 className="w-full h-full object-cover object-top"
                 loading="lazy"
                 width={640}
