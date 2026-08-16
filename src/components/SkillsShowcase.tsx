@@ -304,7 +304,7 @@ const SkillsShowcase: React.FC = () => {
     <SectionShell variant="elevated">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
           viewport={{ once: true }}
@@ -314,24 +314,14 @@ const SkillsShowcase: React.FC = () => {
             Tech I ship with
           </h2>
           <p className="text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto leading-relaxed">
-            {totalSkills} technologies grouped by how I use them today — every tier is tied to
-            real projects, not percentages.
+            {totalSkills} technologies grouped by how I use or study them today — based on
+            project evidence, practical exercises, and active learning.
           </p>
         </motion.div>
 
         <div className="space-y-10 sm:space-y-12">
-          {TIERS.map((tier, tierIndex) => (
-            <motion.section
-              key={tier.key}
-              aria-labelledby={`tier-${tier.key}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: shouldReduceMotion ? 0 : 0.4,
-                delay: shouldReduceMotion ? 0 : tierIndex * 0.06,
-              }}
-              viewport={{ once: true }}
-            >
+          {TIERS.map((tier) => (
+            <section key={tier.key} aria-labelledby={`tier-${tier.key}`}>
               <div className="flex flex-wrap items-center gap-3 mb-5">
                 <h3
                   id={`tier-${tier.key}`}
@@ -348,11 +338,18 @@ const SkillsShowcase: React.FC = () => {
               <p className="text-sm sm:text-base text-neutral-400 mb-5">{tier.description}</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {SKILLS[tier.key].map((skill) => {
+                {SKILLS[tier.key].map((skill, cardIndex) => {
                   const IconComponent = skill.icon;
                   return (
-                    <article
+                    <motion.article
                       key={skill.name}
+                      initial={{ opacity: 1, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: shouldReduceMotion ? 0 : 0.35,
+                        delay: shouldReduceMotion ? 0 : cardIndex * 0.03,
+                      }}
                       className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-5"
                     >
                       <div className="flex items-center gap-3 mb-3">
@@ -384,16 +381,16 @@ const SkillsShowcase: React.FC = () => {
                           </React.Fragment>
                         ))}
                       </p>
-                    </article>
+                    </motion.article>
                   );
                 })}
               </div>
-            </motion.section>
+            </section>
           ))}
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
           viewport={{ once: true }}

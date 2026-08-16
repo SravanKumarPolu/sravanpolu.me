@@ -18,7 +18,7 @@ const FeaturedWork: React.FC = () => {
     <div className="space-y-16">
       <section aria-labelledby="production-heading">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 1, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
@@ -40,7 +40,7 @@ const FeaturedWork: React.FC = () => {
 
       <section aria-labelledby="beta-heading">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 1, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
@@ -62,7 +62,7 @@ const FeaturedWork: React.FC = () => {
 
       <section aria-labelledby="client-heading">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 1, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}

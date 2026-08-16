@@ -55,7 +55,7 @@ const Hero: React.FC = () => {
 
       <div ref={heroRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 max-w-7xl">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 1, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="max-w-6xl mx-auto"
@@ -185,7 +185,7 @@ const Hero: React.FC = () => {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 1, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="mt-10 lg:mt-12"

@@ -10,11 +10,11 @@ const About: React.FC = () => {
   const { ref, inView } = useScrollAnimation(0.1, true);
 
   return (
-    <SectionShell id="about">
+    <SectionShell>
       <div ref={ref} className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
+            initial={{ opacity: 1, x: -24 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
@@ -47,7 +47,7 @@ const About: React.FC = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
+            initial={{ opacity: 1, x: 24 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.15 }}
             className="flex flex-col gap-6"

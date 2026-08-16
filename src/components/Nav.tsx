@@ -23,13 +23,14 @@ const Nav: React.FC = () => {
     const getCurrentSection = (): string => {
       const navHeight = 80;
       const scrollPosition = window.scrollY;
+      const tolerance = 4;
       let current = navLinks[0].label;
 
       for (const link of navLinks) {
         const section = document.getElementById(link.href);
         if (!section) continue;
         const top = section.getBoundingClientRect().top + window.scrollY;
-        if (top <= scrollPosition + navHeight) {
+        if (top <= scrollPosition + navHeight + tolerance) {
           current = link.label;
         } else {
           break;

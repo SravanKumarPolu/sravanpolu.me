@@ -88,12 +88,12 @@ export function buildResumeHtml(): string {
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: "Segoe UI", Calibri, Arial, sans-serif;
-      font-size: 10.5pt;
-      line-height: 1.35;
+      font-size: 10pt;
+      line-height: 1.3;
       color: #111;
       background: #fff;
     }
-    header { border-bottom: 2px solid #0e7490; padding-bottom: 10px; margin-bottom: 14px; }
+    header { border-bottom: 2px solid #0e7490; padding-bottom: 7px; margin-bottom: 10px; }
     h1 { font-size: 22pt; font-weight: 700; letter-spacing: -0.02em; }
     .subtitle { font-size: 11.5pt; color: #0e7490; font-weight: 600; margin-top: 2px; }
     .tagline { font-size: 10pt; color: #444; margin-top: 4px; }
@@ -106,15 +106,15 @@ export function buildResumeHtml(): string {
       gap: 6px 14px;
     }
     .contact a { color: #0e7490; text-decoration: none; }
-    section { margin-bottom: 14px; }
+    section { margin-bottom: 10px; }
     h2 {
       font-size: 11pt;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: #0e7490;
       border-bottom: 1px solid #d1d5db;
-      padding-bottom: 3px;
-      margin-bottom: 8px;
+      padding-bottom: 2px;
+      margin-bottom: 6px;
     }
     .summary { color: #222; }
     .skills-grid {
@@ -124,7 +124,7 @@ export function buildResumeHtml(): string {
     }
     .skill-group strong { display: block; font-size: 9.5pt; margin-bottom: 2px; }
     .skill-group span { font-size: 9.5pt; color: #333; }
-    .entry { margin-bottom: 10px; }
+    .entry { margin-bottom: 7px; }
     .entry-head {
       display: flex;
       justify-content: space-between;

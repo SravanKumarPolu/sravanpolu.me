@@ -23,12 +23,12 @@ const Testimonials: React.FC = () => {
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white">Trusted on client work</h2>
           <p className="text-neutral-400 mt-3 text-base sm:text-lg">
-            Feedback from a recent freelance delivery.
+            Feedback from a recent freelance delivery — a React/Next.js client project.
           </p>
         </div>
 
         <motion.article
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 1, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}

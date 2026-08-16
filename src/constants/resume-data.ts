@@ -45,16 +45,24 @@ export const resumeSummary =
 
 export const resumeSkillGroups = [
   {
-    label: "Frontend",
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    label: "Core skills",
+    skills: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "JavaScript",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Git",
+      "Vercel",
+      "Netlify",
+    ],
   },
   {
-    label: "Backend",
-    skills: ["Node.js", "Express.js", "MongoDB", "REST APIs", "GraphQL"],
-  },
-  {
-    label: "Tools & deployment",
-    skills: ["Git", "Vercel", "Netlify", "Docker", "Figma"],
+    label: "Familiar / Currently learning",
+    skills: ["Framer Motion", "Docker", "AWS", "PostgreSQL", "Prisma", "GraphQL"],
   },
 ] as const;
 

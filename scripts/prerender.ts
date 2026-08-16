@@ -112,10 +112,10 @@ async function main(): Promise<void> {
     const scrollHeight = await page.evaluate(() => document.body.scrollHeight);
     for (let y = 0; y <= scrollHeight; y += 600) {
       await page.evaluate((pos) => window.scrollTo(0, pos), y);
-      await new Promise((r) => setTimeout(r, 100));
+      await new Promise((r) => setTimeout(r, 150));
     }
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await new Promise((r) => setTimeout(r, 800));
+    await new Promise((r) => setTimeout(r, 1200));
 
     // Force remaining lazy images to load before capture.
     await page.evaluate(() => {
@@ -124,6 +124,18 @@ async function main(): Promise<void> {
       });
     });
     await new Promise((r) => setTimeout(r, 2000));
+
+    // Reveal anything still hidden by scroll-triggered entrance animations so
+    // crawlers and no-JS clients receive fully visible content.
+    await page.evaluate(() => {
+      document.querySelectorAll("*").forEach((el) => {
+        const style = (el as HTMLElement).style;
+        if (style.opacity && parseFloat(style.opacity) < 1) {
+          style.opacity = "1";
+        }
+      });
+    });
+    await new Promise((r) => setTimeout(r, 300));
 
     await page.evaluate(() => window.scrollTo(0, 0));
     await new Promise((r) => setTimeout(r, 300));
