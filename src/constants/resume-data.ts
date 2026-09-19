@@ -29,8 +29,8 @@ export type ResumeProject = {
 
 export const resumeProfile = {
   name: "Sravan Kumar Polu",
-  title: "MERN Stack Developer",
-  tagline: "React · TypeScript · Next.js · Node.js",
+  title: "Full-Stack Developer (MERN + DevOps)",
+  tagline: "React · Next.js · TypeScript · Node.js · FastAPI · AWS",
   location: "India · Remote-friendly",
   email: "sravanpolu.me@gmail.com",
   website: "https://sravanpolu.com",
@@ -45,24 +45,42 @@ export const resumeSummary =
 
 export const resumeSkillGroups = [
   {
-    label: "Core skills",
+    label: "Frontend & Mobile",
     skills: [
       "React",
       "Next.js",
       "TypeScript",
       "JavaScript",
       "Tailwind CSS",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "Git",
-      "Vercel",
-      "Netlify",
+      "shadcn/ui",
+      "Zustand",
+      "Framer Motion",
+      "React Native",
+      "Expo",
     ],
   },
   {
-    label: "Familiar / Currently learning",
-    skills: ["Framer Motion", "Docker", "AWS", "PostgreSQL", "Prisma", "GraphQL"],
+    label: "Backend & APIs",
+    skills: ["Node.js", "Express.js", "FastAPI", "REST APIs", "GraphQL", "JWT Authentication"],
+  },
+  {
+    label: "Databases",
+    skills: ["MongoDB", "PostgreSQL", "SQLAlchemy"],
+  },
+  {
+    label: "Cloud & DevOps",
+    skills: [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Jenkins",
+      "Terraform",
+      "Git",
+      "GitHub Actions",
+      "CI/CD",
+      "Vercel",
+      "Netlify",
+    ],
   },
 ] as const;
 

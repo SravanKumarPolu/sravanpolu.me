@@ -75,7 +75,7 @@ function renderEducation(items: ResumeEducation[]): string {
 }
 
 export function buildResumeHtml(): string {
-  const { name, title, tagline, location, email, website, linkedIn, github, yearsExperience } =
+  const { name, title, tagline, location, email, website, linkedIn, github } =
     resumeProfile;
 
   return `<!DOCTYPE html>
@@ -88,54 +88,54 @@ export function buildResumeHtml(): string {
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: "Segoe UI", Calibri, Arial, sans-serif;
-      font-size: 10pt;
-      line-height: 1.3;
+      font-size: 9.5pt;
+      line-height: 1.28;
       color: #111;
       background: #fff;
     }
-    header { border-bottom: 2px solid #0e7490; padding-bottom: 7px; margin-bottom: 10px; }
-    h1 { font-size: 22pt; font-weight: 700; letter-spacing: -0.02em; }
-    .subtitle { font-size: 11.5pt; color: #0e7490; font-weight: 600; margin-top: 2px; }
-    .tagline { font-size: 10pt; color: #444; margin-top: 4px; }
+    header { border-bottom: 2px solid #0e7490; padding-bottom: 5px; margin-bottom: 8px; }
+    h1 { font-size: 20pt; font-weight: 700; letter-spacing: -0.02em; }
+    .subtitle { font-size: 11pt; color: #0e7490; font-weight: 600; margin-top: 2px; }
+    .tagline { font-size: 9.5pt; color: #444; margin-top: 3px; }
     .contact {
-      margin-top: 8px;
-      font-size: 9.5pt;
+      margin-top: 5px;
+      font-size: 9pt;
       color: #333;
       display: flex;
       flex-wrap: wrap;
-      gap: 6px 14px;
+      gap: 4px 12px;
     }
     .contact a { color: #0e7490; text-decoration: none; }
-    section { margin-bottom: 10px; }
+    section { margin-bottom: 7px; }
     h2 {
-      font-size: 11pt;
+      font-size: 10.5pt;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: #0e7490;
       border-bottom: 1px solid #d1d5db;
       padding-bottom: 2px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .summary { color: #222; }
     .skills-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 14px;
     }
-    .skill-group strong { display: block; font-size: 9.5pt; margin-bottom: 2px; }
-    .skill-group span { font-size: 9.5pt; color: #333; }
-    .entry { margin-bottom: 7px; }
+    .skill-group strong { display: block; font-size: 9pt; margin-bottom: 1px; }
+    .skill-group span { font-size: 9pt; color: #333; }
+    .entry { margin-bottom: 5px; }
     .entry-head {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       gap: 12px;
     }
-    .entry h3 { font-size: 10.5pt; font-weight: 700; }
-    .dates { font-size: 9.5pt; color: #555; white-space: nowrap; }
-    .meta { font-size: 9.5pt; color: #444; margin: 2px 0 4px; }
-    ul { margin-left: 18px; }
-    li { margin-bottom: 3px; color: #222; }
+    .entry h3 { font-size: 10pt; font-weight: 700; }
+    .dates { font-size: 9pt; color: #555; white-space: nowrap; }
+    .meta { font-size: 9pt; color: #444; margin: 1px 0 3px; }
+    ul { margin-left: 16px; }
+    li { margin-bottom: 2px; color: #222; }
     .project .link { font-size: 9pt; color: #0e7490; text-decoration: none; }
     .desc { font-size: 9.5pt; margin: 2px 0; }
     .tags { font-size: 9pt; color: #555; }
@@ -154,7 +154,7 @@ export function buildResumeHtml(): string {
       vertical-align: middle;
     }
     .footnote {
-      margin-top: 12px;
+      margin-top: 8px;
       font-size: 8.5pt;
       color: #666;
       text-align: center;
@@ -164,7 +164,7 @@ export function buildResumeHtml(): string {
 <body>
   <header>
     <h1>${escapeHtml(name)}</h1>
-    <p class="subtitle">${escapeHtml(title)} · ${escapeHtml(yearsExperience)} years</p>
+    <p class="subtitle">${escapeHtml(title)}</p>
     <p class="tagline">${escapeHtml(tagline)}</p>
     <div class="contact">
       <span>${escapeHtml(location)}</span>
