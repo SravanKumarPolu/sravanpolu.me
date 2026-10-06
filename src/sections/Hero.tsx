@@ -64,7 +64,7 @@ const Hero: React.FC = () => {
             <div>
               <div className="inline-block px-4 py-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 mb-5">
                 <span className="text-cyan-400 text-sm font-medium">
-                  Open to full-time & contract · Remote-friendly
+                  Available for freelance, contract & full-time · Remote-friendly
                 </span>
               </div>
 
@@ -76,15 +76,15 @@ const Hero: React.FC = () => {
               </h1>
 
               <p className="text-lg sm:text-xl text-cyan-400/90 font-medium mb-3">
-                MERN Stack Developer · React · TypeScript · Next.js
+                React &amp; Next.js Full-Stack Developer · React · TypeScript · Node.js
               </p>
 
               <p className="text-base sm:text-lg text-neutral-300 mb-4 max-w-xl leading-relaxed">
-                I ship production React and Next.js apps end-to-end — UI, APIs, and deployment on
-                Netlify and Vercel.
+                I build production React and Next.js apps end-to-end — UI, APIs, and deployment
+                on Vercel and Netlify.
               </p>
               <p className="text-sm text-neutral-300 mb-6 max-w-xl leading-relaxed">
-                Recent projects:{" "}
+                Flagship projects:{" "}
                 {featuredProjectOrder.map((project, index) => (
                   <React.Fragment key={project.link}>
                     {index > 0 && (
@@ -120,13 +120,13 @@ const Hero: React.FC = () => {
                   onClick={() => scrollTo("contact")}
                   className="w-full sm:w-auto border-2 border-cyan-400/50 text-cyan-100 hover:border-cyan-300 hover:bg-cyan-500/10 hover:text-white px-6 sm:px-7 focus-visible:ring-cyan-400"
                 >
-                  Contact me
+                  Discuss your project
                 </Button>
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
                 <span className="text-sm text-neutral-400">Also on</span>
-                {[contactLinks.linkedIn, contactLinks.github, contactLinks.x].map((social) => (
+                {[contactLinks.linkedIn, contactLinks.github, contactLinks.fiverr, contactLinks.x].map((social) => (
                   <a
                     key={social.name}
                     href={social.link}
@@ -134,7 +134,13 @@ const Hero: React.FC = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg border border-white/15 bg-white/5 text-sm text-neutral-200 hover:border-cyan-400/50 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-colors"
                   >
-                    <img src={social.src} alt="" className="w-4 h-4 invert opacity-80" width={16} height={16} />
+                    {social.icon ? (
+                      <social.icon className="w-4 h-4 opacity-80" aria-hidden />
+                    ) : (
+                      social.src && (
+                        <img src={social.src} alt="" className="w-4 h-4 invert opacity-80" width={16} height={16} />
+                      )
+                    )}
                     {social.name}
                   </a>
                 ))}
@@ -161,7 +167,7 @@ const Hero: React.FC = () => {
                   <div className="w-full h-full rounded-[1.6rem] overflow-hidden bg-neutral-900">
                     <img
                       src={skr}
-                      alt="Sravan Kumar Polu — MERN stack developer"
+                      alt="Sravan Kumar Polu — React & Next.js full-stack developer"
                       className="w-full h-full object-cover"
                       loading="eager"
                       width={320}
@@ -192,17 +198,17 @@ const Hero: React.FC = () => {
           >
             <div className="inline-flex flex-wrap items-center gap-2 sm:gap-3 px-4 py-3 sm:px-5 sm:py-3.5 rounded-xl border border-white/10 bg-white/5 text-sm sm:text-base">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden />
-              <span className="text-neutral-300 font-medium">Currently building:</span>
+              <span className="text-neutral-300 font-medium">Latest build:</span>
               <a
                 href="https://skr-e-commerce.netlify.app/"
                 className="font-semibold text-cyan-300 hover:text-cyan-200 underline underline-offset-4 decoration-cyan-500/40"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                E-commerce Store
+                SKR E-Commerce
               </a>
               <span className="px-2.5 py-1 rounded-full text-xs font-semibold border border-emerald-500/30 text-emerald-300 bg-emerald-500/10">
-                MERN Stack
+                Full-Stack MERN
               </span>
             </div>
           </motion.div>

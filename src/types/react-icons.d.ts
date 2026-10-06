@@ -16,13 +16,19 @@ declare module "react-icons/fi" {
   export const FiChevronDown: IconComponent;
   export const FiClock: IconComponent;
   export const FiCloud: IconComponent;
+  export const FiCode: IconComponent;
   export const FiDownload: IconComponent;
   export const FiExternalLink: IconComponent;
   export const FiFileText: IconComponent;
   export const FiGithub: IconComponent;
+  export const FiLayout: IconComponent;
   export const FiLink: IconComponent;
   export const FiMail: IconComponent;
   export const FiMapPin: IconComponent;
+  export const FiServer: IconComponent;
+  export const FiSmartphone: IconComponent;
+  export const FiTool: IconComponent;
+  export const FiUploadCloud: IconComponent;
   export const FiZap: IconComponent;
 }
 
@@ -35,12 +41,16 @@ declare module "react-icons/si" {
   export const SiDocker: IconComponent;
   export const SiExpress: IconComponent;
   export const SiFigma: IconComponent;
+  export const SiFiverr: IconComponent;
   export const SiFramer: IconComponent;
   export const SiGit: IconComponent;
   export const SiGithub: IconComponent;
+  export const SiGithubactions: IconComponent;
   export const SiGraphql: IconComponent;
   export const SiHtml5: IconComponent;
   export const SiJavascript: IconComponent;
+  export const SiJenkins: IconComponent;
+  export const SiKubernetes: IconComponent;
   export const SiMongodb: IconComponent;
   export const SiNetlify: IconComponent;
   export const SiNextdotjs: IconComponent;
@@ -50,6 +60,7 @@ declare module "react-icons/si" {
   export const SiReact: IconComponent;
   export const SiReacthookform: IconComponent;
   export const SiTailwindcss: IconComponent;
+  export const SiTerraform: IconComponent;
   export const SiThreedotjs: IconComponent;
   export const SiTypescript: IconComponent;
   export const SiVercel: IconComponent;

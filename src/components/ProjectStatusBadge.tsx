@@ -25,6 +25,11 @@ const STATUS_META: Record<
     className: "border-violet-500/30 bg-violet-500/15 text-violet-300",
     dot: "bg-violet-400",
   },
+  mobile: {
+    label: "Mobile · Expo",
+    className: "border-sky-500/30 bg-sky-500/15 text-sky-300",
+    dot: "bg-sky-400",
+  },
   learning: {
     label: "Learning",
     className: "border-white/15 bg-white/10 text-neutral-300",

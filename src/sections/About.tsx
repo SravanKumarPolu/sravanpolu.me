@@ -44,6 +44,18 @@ const About: React.FC = () => {
                 </div>
               ))}
             </div>
+
+            <div className="mt-4 flex flex-wrap gap-2" aria-label="Engineering practices">
+              {aboutContent.practices.map((practice) => (
+                <span
+                  key={practice}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-neutral-300"
+                >
+                  <span className="w-1 h-1 rounded-full bg-cyan-400" aria-hidden />
+                  {practice}
+                </span>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
@@ -64,9 +76,11 @@ const About: React.FC = () => {
               <div className="space-y-2">
                 <p className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden />
-                  Open to full-time & contract
+                  Available for freelance, contract & full-time
                 </p>
-                <p className="text-sm text-neutral-400">Available for remote roles worldwide.</p>
+                <p className="text-sm text-neutral-400">
+                  Remote-friendly — India based, working worldwide.
+                </p>
               </div>
             </div>
 

@@ -7,8 +7,9 @@ const LazyHero = lazy(() => import('../sections/Hero'));
 const LazyAbout = lazy(() => import('../sections/About'));
 const LazyWork = lazy(() => import('../sections/Work'));
 const LazySkills = lazy(() => import('../components/SkillsShowcase'));
+const LazyServices = lazy(() => import('../components/Services'));
 const LazyTestimonials = lazy(() => import('../components/Testimonials'));
-const LazyContact = lazy(() => import('../components/ContactForm'));
+const LazyContact = lazy(() => import('../components/ContactSection'));
 const LazyResume = lazy(() => import('../sections/Resume'));
 const LazyFooter = lazy(() => import('../sections/Footer'));
 
@@ -108,6 +109,22 @@ const getSkeletonForSection = (sectionName: string): React.ReactNode => {
           </div>
         </section>
       );
+    case 'services':
+      return (
+        <section className="py-16 sm:py-20 md:py-24 bg-neutral-950">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <SkeletonLoader variant="rectangular" height={40} width={300} className="mx-auto mb-4 rounded-lg" />
+              <SkeletonLoader variant="rectangular" height={20} width={500} className="mx-auto rounded-lg" />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <SkeletonCard key={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+      );
     case 'footer':
       return (
         <footer className="bg-neutral py-16 w-full min-h-screen items-center justify-center">
@@ -131,6 +148,8 @@ const LazySection: React.FC<LazySectionProps> = ({ sectionName, fallback }) => {
         return LazyHero;
       case 'about':
         return LazyAbout;
+      case 'services':
+        return LazyServices;
       case 'work':
         return LazyWork;
       case 'skills':

@@ -1,6 +1,6 @@
 /**
  * Single source for resume PDF generation (pnpm run build:resume).
- * Keep production projects in sync with src/constants/portfolio.ts.
+ * Keep project list in sync with src/constants/portfolio.ts.
  */
 
 export type ResumeExperience = {
@@ -24,116 +24,98 @@ export type ResumeProject = {
   link: string;
   description: string;
   tags: string[];
-  status?: "production" | "beta";
+  status?: "production" | "beta" | "demo" | "mobile";
 };
 
 export const resumeProfile = {
   name: "Sravan Kumar Polu",
-  title: "Full-Stack Developer (MERN + DevOps)",
-  tagline: "React · Next.js · TypeScript · Node.js · FastAPI · AWS",
+  title: "Frontend / Full-Stack Developer",
+  tagline: "React · Next.js · TypeScript · Node.js · MongoDB",
   location: "India · Remote-friendly",
   email: "sravanpolu.me@gmail.com",
   website: "https://sravanpolu.com",
   linkedIn: "https://www.linkedin.com/in/SravanPolu",
   github: "https://github.com/SravanKumarPolu",
   yearsExperience: "3+",
-  lastUpdated: "August 2026",
+  lastUpdated: "October 2026",
 } as const;
 
 export const resumeSummary =
-  "MERN stack developer focused on React, Next.js, and TypeScript — building products from UI through APIs to deployment on Netlify and Vercel. Experience spans freelance and contract client work plus independent products, including one live production app (DebiasDaily) and several beta products currently in development.";
+  "Frontend / full-stack developer building production web apps with React, Next.js and TypeScript — from UI through APIs to deployment on Vercel and Netlify. Ships and maintains independent products, including one live production app (DebiasDaily) and a full-stack MERN e-commerce build, alongside freelance client work. Growing DevOps skill area through hands-on CI/CD and cloud infrastructure labs.";
 
 export const resumeSkillGroups = [
   {
-    label: "Frontend & Mobile",
+    label: "Frontend",
     skills: [
       "React",
       "Next.js",
       "TypeScript",
       "JavaScript",
       "Tailwind CSS",
-      "shadcn/ui",
-      "Zustand",
       "Framer Motion",
-      "React Native",
-      "Expo",
+      "React Native (AirSense)",
+      "Expo / EAS",
     ],
   },
   {
     label: "Backend & APIs",
-    skills: ["Node.js", "Express.js", "FastAPI", "REST APIs", "GraphQL", "JWT Authentication"],
+    skills: ["Node.js", "Express.js", "REST APIs", "MongoDB", "JWT Authentication"],
   },
   {
     label: "Databases",
-    skills: ["MongoDB", "PostgreSQL", "SQLAlchemy"],
+    skills: ["MongoDB (sessions, transactions, unique constraints)"],
   },
   {
     label: "Cloud & DevOps",
     skills: [
-      "AWS",
-      "Docker",
-      "Kubernetes",
-      "Jenkins",
-      "Terraform",
       "Git",
-      "GitHub Actions",
-      "CI/CD",
+      "GitHub Actions (CI on this portfolio)",
       "Vercel",
       "Netlify",
+      "Docker (learning)",
+      "AWS / Terraform / Jenkins (hands-on labs)",
     ],
   },
 ] as const;
 
-/** Align with the statuses in PROJECT_META in portfolio.ts */
+/** Aligned with the statuses in PROJECT_META in portfolio.ts */
 export const resumeProductionProjects: ResumeProject[] = [
+  {
+    name: "SKR E-Commerce",
+    link: "https://skr-e-commerce.netlify.app/",
+    description:
+      "Full-stack MERN e-commerce (React/TS + Node/Express + MongoDB) with retry-safe order processing: idempotency keys, payload hashing and DB unique constraints prevent duplicate orders.",
+    tags: ["React", "TypeScript", "Node.js", "Express", "MongoDB"],
+  },
   {
     name: "DebiasDaily",
     link: "https://debiasdaily.com/",
-    description: "React product focused on daily bias awareness and mindful habits.",
-    tags: ["React", "Tailwind"],
+    description:
+      "Live production Next.js + TypeScript app: 83-bias daily curriculum, quiz/review flows, text-to-speech, offline-capable PWA.",
+    tags: ["Next.js", "TypeScript", "PWA", "Tailwind"],
     status: "production",
   },
   {
-    name: "BloomMind Tracker",
-    link: "https://bloommind-tracker.netlify.app/",
-    description: "Wellness tracker (beta) — habits, mood, and progress in one dashboard.",
-    tags: ["Next.js", "TypeScript", "Netlify"],
-    status: "beta",
-  },
-  {
-    name: "NexCartis",
-    link: "https://nextcartis.netlify.app/",
-    description: "E-commerce style storefront (beta) with cart and product flows.",
-    tags: ["Next.js", "React", "Tailwind"],
-    status: "beta",
-  },
-  {
-    name: "ChronoBloom",
-    link: "https://chronobloom.netlify.app/",
-    description: "Time and focus companion app with a calm, product-style UI.",
-    tags: ["Next.js", "TypeScript"],
-    status: "beta",
-  },
-  {
-    name: "Boostlly",
-    link: "https://boostlly.netlify.app/",
-    description: "Productivity companion (beta) for goals and lightweight tracking.",
-    tags: ["Next.js", "React"],
-    status: "beta",
+    name: "Smart Training & School Management",
+    link: "https://smart-training-school-management-de.vercel.app/",
+    description:
+      "Multi-role school SaaS demo (sample data): five role-based dashboards, branch-scoped access, admissions-to-fees workflows.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    status: "demo",
   },
 ];
 
 export const resumeExperience: ResumeExperience[] = [
   {
     company: "Freelance — Fiverr & direct clients",
-    role: "MERN Stack Developer",
+    role: "Frontend / Full-Stack Developer",
     location: "Remote",
     start: "2022",
     end: "Present",
     bullets: [
-      "Built and delivered responsive React and Next.js applications from scoped requirements through deployment.",
-      "Communicated progress with regular updates; iterated quickly on feedback for UI, performance, and usability.",
-      "Deployed client projects to Netlify and Vercel with production-ready builds and clear handoff documentation.",
+      "Built and deployed responsive React/Next.js applications across client and independent projects, including dashboards, landing pages and application workflows.",
+      "Owned delivery end-to-end: requirements scoping, implementation, deployment to Netlify/Vercel, and handoff documentation.",
+      "Iterated on client feedback across UI, performance and accessibility with regular progress updates.",
     ],
   },
   {
@@ -143,12 +125,18 @@ export const resumeExperience: ResumeExperience[] = [
     start: "2023",
     end: "Present",
     bullets: [
-      "Designed, built, and shipped a live production Next.js app (DebiasDaily) and several beta products including BloomMind Tracker, NexCartis, ChronoBloom, and Boostlly.",
-      "Owned end-to-end delivery: component architecture, API integration patterns, and CI-friendly static deployments.",
-      "Maintained portfolio and project documentation at sravanpolu.com for recruiters and hiring managers.",
+      "Designed, built and shipped DebiasDaily — a live production Next.js/TypeScript product with an 83-bias curriculum, quiz/review flows, offline PWA support and text-to-speech.",
+      "Built SKR E-Commerce end-to-end (MERN) with authentication and retry-safe, idempotent order processing; built a five-role school management demo with branch-scoped access.",
+      "Also built AirSense (React Native/Expo): multi-provider environmental data with fallback, provenance labelling and a recommendation engine.",
+      "Maintains this portfolio with automated tests, GitHub Actions CI, prerendered SEO and accessibility tooling.",
     ],
   },
 ];
 
-/** Add degrees here when ready; section is omitted from PDF when empty. */
-export const resumeEducation: ResumeEducation[] = [];
+export const resumeEducation: ResumeEducation[] = [
+  {
+    school: "Lovely Professional University",
+    degree: "B.Tech",
+    year: "2019",
+  },
+];

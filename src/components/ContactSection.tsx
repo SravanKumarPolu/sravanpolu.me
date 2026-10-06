@@ -6,7 +6,12 @@ import { contactLinks } from "../constants/portfolio";
 import { socialMedia } from "../constants";
 import { FiMail } from "react-icons/fi";
 
-const ContactForm: React.FC = () => {
+/**
+ * Contact section — email-first contact panel.
+ * Renamed from `ContactForm.tsx`: it never was a form, so the name no longer lies.
+ * A real form was intentionally skipped to avoid adding backend infrastructure.
+ */
+const ContactSection: React.FC = () => {
   const { shouldReduceMotion } = useAccessibility();
 
   return (
@@ -24,11 +29,16 @@ const ContactForm: React.FC = () => {
               <span className="text-cyan-400 text-sm font-medium">Get in touch</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 tracking-tight text-white">
-              Have a role or project in mind? <span className="text-cyan-400">Let&apos;s talk.</span>
+              Have a project or role in mind?{" "}
+              <span className="text-cyan-400">Let&apos;s talk.</span>
             </h2>
-            <p className="text-neutral-300 text-base sm:text-lg mb-8 leading-relaxed">
-              Email works best — include the role or project scope, timeline, and links. I
-              typically reply within 24–48 hours.
+            <p className="text-neutral-300 text-base sm:text-lg mb-4 leading-relaxed">
+              Email works best. For projects, it helps if you include the scope, the timeline,
+              any relevant links — and a budget range if you already have one. For roles, a short
+              note about the team and stack is perfect.
+            </p>
+            <p className="text-neutral-400 text-sm sm:text-base mb-8 leading-relaxed">
+              I typically reply within 24–48 hours.
             </p>
           </div>
 
@@ -55,23 +65,29 @@ const ContactForm: React.FC = () => {
               </a>
               <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                 <p className="text-sm text-neutral-200">
-                  <span className="font-semibold text-white">Availability:</span> full-time,
-                  contract, and freelance — remote-friendly.
+                  <span className="font-semibold text-white">Availability:</span> freelance,
+                  contract, and full-time — remote-friendly.
                 </p>
               </div>
               <div>
                 <p className="text-sm font-semibold text-white mb-3">Also find me on</p>
                 <div className="flex flex-wrap gap-3">
-                  {socialMedia.map((icon) => (
+                  {socialMedia.map((social) => (
                     <a
-                      key={icon.name}
-                      href={icon.link}
+                      key={social.name}
+                      href={social.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 py-3 min-h-[44px] rounded-lg border border-white/15 bg-white/5 text-sm text-neutral-200 hover:border-cyan-400/50 hover:text-white transition-colors"
                     >
-                      <img src={icon.src} alt="" className="w-5 h-5 invert opacity-80" width={20} height={20} />
-                      {icon.name}
+                      {social.icon ? (
+                        <social.icon className="w-5 h-5 opacity-80" aria-hidden />
+                      ) : (
+                        social.src && (
+                          <img src={social.src} alt="" className="w-5 h-5 invert opacity-80" width={20} height={20} />
+                        )
+                      )}
+                      {social.name}
                     </a>
                   ))}
                 </div>
@@ -84,4 +100,4 @@ const ContactForm: React.FC = () => {
   );
 };
 
-export default ContactForm;
+export default ContactSection;

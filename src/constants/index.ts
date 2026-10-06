@@ -1,5 +1,9 @@
+import type { ComponentType, SVGProps } from "react";
+import { SiFiverr } from "react-icons/si";
 import bootstrap from "../assets/icons/bootstrap.svg";
 import nexCartisImg from "../assets/images/nexCartis.png";
+import skrEcommerceCover from "../assets/images/skr-ecommerce-cover.svg";
+import airsenseCover from "../assets/images/airsense-cover.svg";
 import boostllyImg from "../assets/images/boostlly.png";
 import debiasDailyImg from "../assets/images/debiasDailyImg.png";
 import bloommindTrackerImg from "../assets/images/bloommindTrackerImg.png";
@@ -33,6 +37,7 @@ export const navLinks = [
   { label: "Home", href: "home" },
  
   { label: "About", href: "about" },
+  { label: "Services", href: "services" },
   { label: "Work", href: "work" },
   
   { label: "Resume", href: "resume" },
@@ -44,6 +49,26 @@ export const navLinks = [
 export const secondaryNavLinks = [{ label: "Feedback", href: "testimonials" }];
 
 export const courses = [
+  {
+    courseName: "Full-Stack & Mobile",
+    projects: [
+      {
+        src: skrEcommerceCover,
+        title: "SKR E-Commerce",
+        name: "SKR E-Commerce",
+        link: "https://skr-e-commerce.netlify.app/",
+        alt: "SKR E-Commerce full-stack MERN application",
+      },
+      {
+        src: airsenseCover,
+        title: "AirSense",
+        name: "AirSense",
+        link: "#airsense",
+        alt: "AirSense air-quality companion app",
+      },
+    ],
+    summary: "Flagship full-stack and mobile product builds.",
+  },
   {
     courseName: "Next.js",
     projects: [
@@ -246,7 +271,17 @@ export const footerLinks = [
   },
 ];
 
-export const socialMedia = [
+export const fiverrProfileUrl = "https://www.fiverr.com/users/sravankumarpolu/portfolio";
+
+export type SocialMediaLink = {
+  src?: string;
+  icon?: ComponentType<SVGProps<SVGSVGElement>>;
+  alt: string;
+  name: string;
+  link: string;
+};
+
+export const socialMedia: SocialMediaLink[] = [
   {
     src: linkedIn,
     alt: "LinkedIn logo",
@@ -258,6 +293,12 @@ export const socialMedia = [
     alt: "GitHub logo",
     name: "GitHub",
     link: "https://github.com/SravanKumarPolu",
+  },
+  {
+    icon: SiFiverr,
+    alt: "Fiverr logo",
+    name: "Fiverr",
+    link: fiverrProfileUrl,
   },
   {
     src: twitter,

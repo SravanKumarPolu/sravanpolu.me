@@ -106,15 +106,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0, featured 
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 min-h-[40px]"
-          >
-            <FiExternalLink className="w-4 h-4" aria-hidden />
-            View live
-          </a>
+          {project.link && !project.link.startsWith("#") && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white hover:from-cyan-600 hover:to-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 min-h-[40px]"
+            >
+              <FiExternalLink className="w-4 h-4" aria-hidden />
+              View live
+            </a>
+          )}
           {project.github && (
             <a
               href={project.github}
@@ -151,11 +153,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index = 0, featured 
               className="overflow-hidden"
             >
               <dl className="mt-5 pt-5 border-t border-white/10 grid gap-4 sm:grid-cols-2">
-                <CaseStudyField label="Role" value={project.details.role} />
-                <CaseStudyField
-                  label="Problem solved"
-                  value={project.details.problemSolved}
-                />
+                {project.details.contribution ? (
+                  <div className="sm:col-span-2">
+                    <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-500 mb-1">
+                      My contribution
+                    </dt>
+                    <dd className="text-sm leading-relaxed text-neutral-300">
+                      {project.details.contribution}
+                    </dd>
+                  </div>
+                ) : (
+                  <CaseStudyField label="Role" value={project.details.role} />
+                )}
+                <CaseStudyField label="Problem solved" value={project.details.problemSolved} />
                 {project.details.solution && (
                   <CaseStudyField
                     label="Solution"

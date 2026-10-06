@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" role="img" aria-label="AirSense — air quality companion app cover">
+  <defs>
+    <linearGradient id="abg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071a1c"/>
+      <stop offset="0.55" stop-color="#0b2733"/>
+      <stop offset="1" stop-color="#0e3a4a"/>
+    </linearGradient>
+    <linearGradient id="aacc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="agauge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="0.5" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#f87171"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="400" fill="url(#abg)"/>
+
+  <!-- flowing wind lines -->
+  <g fill="none" stroke="url(#aacc)" stroke-width="3" stroke-linecap="round" stroke-opacity="0.55">
+    <path d="M40 300c60-28 120 28 180 0s120 28 180 0 120 28 180 0"/>
+    <path d="M60 330c55-24 110 24 165 0s110 24 165 0 110 24 165 0" stroke-opacity="0.3"/>
+    <path d="M80 90c50 22 100-22 150 0s100-22 150 0" stroke-opacity="0.35"/>
+  </g>
+
+  <!-- confidence gauge (abstract) -->
+  <g transform="translate(400 190)">
+    <path d="M-120 40a120 120 0 0 1 240 0" fill="none" stroke="#1e293b" stroke-width="22" stroke-linecap="round"/>
+    <path d="M-120 40a120 120 0 0 1 168 -85" fill="none" stroke="url(#agauge)" stroke-width="22" stroke-linecap="round"/>
+    <text x="0" y="30" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" fill="#f1f5f9">AQI</text>
+    <text x="0" y="58" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#5eead4">measured · fresh</text>
+  </g>
+
+  <!-- wordmark -->
+  <g transform="translate(64 56)">
+    <rect width="46" height="46" rx="12" fill="url(#aacc)"/>
+    <path d="M12 26c4-6 8 6 11 0s8 6 11 0" fill="none" stroke="#04262b" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="126" y="78" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#f8fafc">AirSense</text>
+  <text x="127" y="100" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#7dd3fc">React Native · Expo · Trustworthy air data</text>
+
+  <text x="64" y="180" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#cbd5e1">What the air quality is —</text>
+  <text x="64" y="204" font-family="Segoe UI, Arial, sans-serif" font-size="15" fill="#cbd5e1">how much to trust it —</text>
+  <text x="64" y="228" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600" fill="#5eead4">what you can do next.</text>
+</svg>

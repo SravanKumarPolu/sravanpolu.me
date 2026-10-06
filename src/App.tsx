@@ -71,6 +71,10 @@ const App: React.FC = () => {
                     <LazySection sectionName="about" />
                   </section>
 
+                  <section id="services" aria-label="Services section">
+                    <LazySection sectionName="services" />
+                  </section>
+
                   <section id="work" aria-label="Work and projects section">
                     <LazySection sectionName="work" />
                   </section>
@@ -83,12 +87,12 @@ const App: React.FC = () => {
                     <LazySection sectionName="skills" />
                   </section>
 
-                  <section id="contact" aria-label="Contact section">
-                    <LazySection sectionName="contact" />
-                  </section>
-
                   <section id="testimonials" aria-label="Client feedback section">
                     <LazySection sectionName="testimonials" />
+                  </section>
+
+                  <section id="contact" aria-label="Contact section">
+                    <LazySection sectionName="contact" />
                   </section>
 
                   <section id="footer" aria-label="Footer section">

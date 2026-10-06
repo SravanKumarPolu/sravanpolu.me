@@ -1,7 +1,7 @@
 {
   "short_name": "Sravan Polu",
-  "name": "Sravan Kumar Polu - MERN Stack Developer Portfolio",
-  "description": "Professional portfolio showcasing MERN stack projects, modern UI, and interactive web applications built with React, TypeScript, and Tailwind CSS.",
+  "name": "Sravan Kumar Polu - React & Next.js Full-Stack Developer",
+  "description": "Portfolio of a frontend / full-stack developer building production React, Next.js and TypeScript applications.",
   "icons": [
     {
       "src": "favicon.ico",

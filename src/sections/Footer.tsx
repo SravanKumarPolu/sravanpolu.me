@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
           <div>
             <h2 className="text-2xl font-bold text-white mb-3 tracking-tight">Sravan Kumar Polu</h2>
             <p className="text-neutral-400 mb-6 leading-relaxed max-w-md">
-              MERN stack developer · React · Next.js · TypeScript. Shipping web products end-to-end.
+              React & Next.js full-stack developer · TypeScript. Shipping web products end-to-end.
             </p>
             <div className="flex items-center gap-4 p-4 rounded-2xl border border-white/10 bg-white/5">
               <img
@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
               />
               <div>
                 <p className="font-semibold text-white">Sravan Kumar Polu</p>
-                <p className="text-cyan-400/90 text-sm">MERN Stack Developer</p>
+                <p className="text-cyan-400/90 text-sm">React & Next.js Full-Stack Developer</p>
               </div>
             </div>
           </div>
@@ -55,23 +55,29 @@ const Footer: React.FC = () => {
             <div>
               <h3 className="text-lg font-bold text-white mb-4">Follow</h3>
               <div className="flex gap-3 flex-wrap">
-                {socialMedia.map((icon) => (
+                {socialMedia.map((social) => (
                   <a
-                    key={icon.name}
-                    href={icon.link}
+                    key={social.name}
+                    href={social.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl border border-white/10 hover:border-cyan-400/40 transition-colors"
-                    aria-label={`Follow on ${icon.name}`}
+                    aria-label={`Follow on ${social.name}`}
                   >
-                    <img
-                      src={icon.src}
-                      alt=""
-                      className="w-5 h-5 invert opacity-80"
-                      width={20}
-                      height={20}
-                      loading="lazy"
-                    />
+                    {social.icon ? (
+                      <social.icon className="w-5 h-5 opacity-80" aria-hidden />
+                    ) : (
+                      social.src && (
+                        <img
+                          src={social.src}
+                          alt=""
+                          className="w-5 h-5 invert opacity-80"
+                          width={20}
+                          height={20}
+                          loading="lazy"
+                        />
+                      )
+                    )}
                   </a>
                 ))}
               </div>

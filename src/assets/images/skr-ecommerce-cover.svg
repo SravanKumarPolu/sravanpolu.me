@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" role="img" aria-label="SKR E-Commerce — full-stack MERN project cover">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0f1e"/>
+      <stop offset="0.55" stop-color="#0e1a33"/>
+      <stop offset="1" stop-color="#10294f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#3b82f6" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="400" fill="url(#bg)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#ffffff" stroke-opacity="0.05" stroke-width="1">
+    <path d="M0 80h640M0 160h640M0 240h640M0 320h640"/>
+    <path d="M80 0v400M160 0v400M240 0v400M320 0v400M400 0v400M480 0v400M560 0v400"/>
+  </g>
+
+  <!-- stacked layer cards: frontend / api / db -->
+  <g transform="translate(64 96)">
+    <rect x="0" y="0" width="220" height="64" rx="12" fill="url(#panel)" stroke="#22d3ee" stroke-opacity="0.45"/>
+    <text x="20" y="28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#e2e8f0">React + TypeScript</text>
+    <text x="20" y="48" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#94a3b8">Storefront · Cart · Checkout</text>
+
+    <rect x="36" y="84" width="220" height="64" rx="12" fill="url(#panel)" stroke="#3b82f6" stroke-opacity="0.45"/>
+    <text x="56" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#e2e8f0">Node.js + Express API</text>
+    <text x="56" y="132" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#94a3b8">Auth · Orders · Idempotency</text>
+
+    <rect x="72" y="168" width="220" height="64" rx="12" fill="url(#panel)" stroke="#60a5fa" stroke-opacity="0.45"/>
+    <text x="92" y="196" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#e2e8f0">MongoDB</text>
+    <text x="92" y="216" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#94a3b8">Sessions · Unique constraints</text>
+  </g>
+
+  <!-- wordmark -->
+  <g transform="translate(64 40)">
+    <rect width="46" height="46" rx="12" fill="url(#accent)"/>
+    <text x="23" y="30" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="700" fill="#06121f">S</text>
+  </g>
+  <text x="126" y="62" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#f8fafc">SKR E-Commerce</text>
+  <text x="127" y="84" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#67e8f9">Full-Stack MERN · Retry-safe order processing</text>
+
+  <!-- decorative circuit arc -->
+  <g fill="none" stroke="url(#accent)" stroke-opacity="0.5" stroke-width="2">
+    <circle cx="500" cy="200" r="110" stroke-dasharray="4 10"/>
+    <circle cx="500" cy="200" r="70" stroke-opacity="0.35"/>
+  </g>
+  <circle cx="500" cy="200" r="26" fill="url(#panel)" stroke="#22d3ee" stroke-opacity="0.6"/>
+  <path d="M488 200h24M500 188v24" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+</svg>

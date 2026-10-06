@@ -12,9 +12,12 @@ import {
   SiFramer,
   SiGit,
   SiGithub,
+  SiGithubactions,
   SiGraphql,
   SiHtml5,
   SiJavascript,
+  SiJenkins,
+  SiKubernetes,
   SiMongodb,
   SiNetlify,
   SiNextdotjs,
@@ -24,6 +27,7 @@ import {
   SiReact,
   SiReacthookform,
   SiTailwindcss,
+  SiTerraform,
   SiThreedotjs,
   SiTypescript,
   SiVercel,
@@ -31,7 +35,7 @@ import {
 } from "react-icons/si";
 import { BiLogoCss3 } from "react-icons/bi";
 import { FaAws } from "react-icons/fa";
-import { FiBarChart2, FiZap } from "react-icons/fi";
+import { FiBarChart2, FiServer, FiSmartphone, FiZap } from "react-icons/fi";
 import { TbBrain } from "react-icons/tb";
 
 type Icon = ComponentType<SVGProps<SVGSVGElement>>;
@@ -93,14 +97,36 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       evidence: "Used in:",
       projects: [
         { name: "DebiasDaily", link: "https://debiasdaily.com/" },
-        { name: "this portfolio", link: "#work", internal: true },
+        { name: "SKR E-Commerce", link: "https://skr-e-commerce.netlify.app/" },
+        {
+          name: "this portfolio",
+          link: "https://github.com/SravanKumarPolu/sravanpolu.me",
+        },
       ],
     },
     {
       name: "TypeScript",
       icon: SiTypescript,
       evidence: "Used in:",
-      projects: [{ name: "this portfolio", link: "#work", internal: true }],
+      projects: [
+        {
+          name: "this portfolio",
+          link: "https://github.com/SravanKumarPolu/sravanpolu.me",
+        },
+        { name: "DebiasDaily", link: "https://debiasdaily.com/" },
+      ],
+    },
+    {
+      name: "Next.js",
+      icon: SiNextdotjs,
+      evidence: "Used in:",
+      projects: [
+        { name: "DebiasDaily", link: "https://debiasdaily.com/" },
+        {
+          name: "Smart Training & School Management",
+          link: "https://smart-training-school-management-de.vercel.app/",
+        },
+      ],
     },
     {
       name: "Tailwind CSS",
@@ -126,15 +152,16 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
   ],
   project: [
     {
-      name: "Next.js",
-      icon: SiNextdotjs,
+      name: "React Native",
+      icon: FiSmartphone,
       evidence: "Used in:",
-      projects: [
-        {
-          name: "Smart Training & School Management",
-          link: "https://smart-training-school-management-de.vercel.app/",
-        },
-      ],
+      projects: [{ name: "AirSense (mobile app)" }],
+    },
+    {
+      name: "Expo",
+      icon: FiSmartphone,
+      evidence: "Used in:",
+      projects: [{ name: "AirSense — EAS builds" }],
     },
     {
       name: "Node.js",
@@ -153,6 +180,17 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
       icon: SiMongodb,
       evidence: "Used in:",
       projects: [{ name: "SKR E-Commerce", link: "https://skr-e-commerce.netlify.app/" }],
+    },
+    {
+      name: "GitHub Actions",
+      icon: SiGithubactions,
+      evidence: "Runs in:",
+      projects: [
+        {
+          name: "this portfolio's CI",
+          link: "https://github.com/SravanKumarPolu/sravanpolu.me/blob/main/.github/workflows/ci.yml",
+        },
+      ],
     },
     {
       name: "Vercel",
@@ -242,8 +280,28 @@ const SKILLS: Record<SkillTierKey, Skill[]> = {
     {
       name: "AWS",
       icon: FaAws,
+      evidence: "Hands-on labs:",
+      projects: [
+        { name: "EC2, security groups, networking, S3/CloudFront and deployment basics" },
+      ],
+    },
+    {
+      name: "Terraform",
+      icon: SiTerraform,
+      evidence: "Hands-on labs:",
+      projects: [{ name: "Provisioning EC2, security groups and load balancers" }],
+    },
+    {
+      name: "Jenkins",
+      icon: SiJenkins,
       evidence: "Learning:",
-      projects: [{ name: "EC2, VPC, IAM, S3, RDS and cloud deployment" }],
+      projects: [{ name: "Build/test pipelines alongside GitHub Actions" }],
+    },
+    {
+      name: "Kubernetes",
+      icon: SiKubernetes,
+      evidence: "Learning:",
+      projects: [{ name: "Fundamentals and local clusters — no production experience yet" }],
     },
     {
       name: "GraphQL",
@@ -392,14 +450,44 @@ const SkillsShowcase: React.FC = () => {
         <motion.div
           initial={{ opacity: 1, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+          className="mt-12 sm:mt-14"
+        >
+          <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-cyan-500/10 via-white/5 to-blue-600/10 p-6 sm:p-8">
+            <div className="flex items-center gap-3 mb-3">
+              <span
+                className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/10 text-cyan-300 shrink-0"
+                aria-hidden
+              >
+                <FiServer className="w-5 h-5" />
+              </span>
+              <h3 className="text-lg sm:text-xl font-bold text-white">
+                Infrastructure &amp; DevOps — growing skill area
+              </h3>
+            </div>
+            <p className="text-sm sm:text-base text-neutral-300 leading-relaxed max-w-3xl">
+              Hands-on lab and learning projects — not production experience yet. Current work:
+              AWS fundamentals (EC2, security groups, networking, S3/CloudFront), Terraform
+              provisioning labs, CI/CD pipelines with GitHub Actions (live on this site&apos;s
+              repository) and Jenkins, and GCP networking labs (VPC design, public/private
+              subnets, Cloud NAT, bastion hosts, Cloud SQL, Memorystore, managed instance groups
+              and HTTPS load balancing).
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 1, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
           viewport={{ once: true }}
           className="mt-14 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-4xl mx-auto"
         >
           {[
-            { label: "Skills listed", value: totalSkills },
+            { label: "Technologies", value: totalSkills },
             { label: "Years building", value: portfolioStats.yearsExperience },
-            { label: "Portfolio projects", value: portfolioStats.projectCount },
+            { label: "Projects shipped & maintained", value: portfolioStats.shippedCount },
           ].map((stat) => (
             <div
               key={stat.label}

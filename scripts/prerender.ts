@@ -100,9 +100,9 @@ async function main(): Promise<void> {
     await page.goto(url, { waitUntil: "networkidle0", timeout: 60000 });
     console.log("Page loaded, waiting for #work...");
     await page.waitForSelector("#work", { timeout: 30000 });
-    console.log("#work found, waiting for #production-heading...");
-    await page.waitForSelector("#production-heading", { timeout: 30000 });
-    console.log("#production-heading found");
+    console.log("#work found, waiting for #flagship-heading...");
+    await page.waitForSelector("#flagship-heading", { timeout: 30000 });
+    console.log("#flagship-heading found");
     await page.waitForFunction(
       () => document.fonts && document.fonts.ready instanceof Promise,
       { timeout: 10000 }

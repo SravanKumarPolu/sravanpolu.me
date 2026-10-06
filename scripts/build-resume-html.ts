@@ -44,7 +44,7 @@ function renderProjects(items: ResumeProject[]): string {
       (p) => `
     <article class="entry project">
       <div class="entry-head">
-        <h3>${escapeHtml(p.name)}${p.status === "beta" ? '<span class="status">beta</span>' : ""}</h3>
+        <h3>${escapeHtml(p.name)}${p.status ? `<span class="status">${escapeHtml(p.status)}</span>` : ""}</h3>
         <a class="link" href="${escapeHtml(p.link)}">${escapeHtml(p.link.replace(/^https?:\/\//, ""))}</a>
       </div>
       <p class="desc">${escapeHtml(p.description)}</p>

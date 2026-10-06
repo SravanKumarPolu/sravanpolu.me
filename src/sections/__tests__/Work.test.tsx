@@ -16,9 +16,24 @@ describe("Work Section", () => {
     expect(screen.getAllByText("projects").length).toBeGreaterThan(0);
   });
 
-  test("renders production section", () => {
+  test("renders flagship projects section", () => {
     render(<Work />);
-    expect(screen.getByRole("heading", { name: "Production" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Flagship projects" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "More products" })).toBeInTheDocument();
+  });
+
+  test("does not render a request-case-studies CTA", () => {
+    render(<Work />);
+    expect(screen.queryByText(/request case studies/i)).not.toBeInTheDocument();
+  });
+
+  test("renders flagship SKR E-Commerce card with GitHub link", () => {
+    render(<Work />);
+    expect(screen.getByText("SKR E-Commerce")).toBeInTheDocument();
+    const githubLink = screen
+      .getAllByRole("link", { name: /github/i })
+      .find((link) => link.getAttribute("href")?.startsWith("https://github.com/"));
+    expect(githubLink).toBeInTheDocument();
   });
 
   test("renders collapsible learning projects", () => {
@@ -26,18 +41,7 @@ describe("Work Section", () => {
     expect(screen.getByText("Learning projects")).toBeInTheDocument();
   });
 
-  test("renders client work introduction and request-case-studies button", () => {
-    render(<Work />);
-    expect(screen.getByRole("heading", { name: "Client work" })).toBeInTheDocument();
-    expect(
-      screen.getByText(/delivered responsive React and Next.js builds for clients/i)
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: /request case studies/i })
-    ).toHaveAttribute("href", expect.stringMatching(/^mailto:/));
-  });
-
-  test("renders client work section with Smart Training & School Management card", () => {
+  test("renders flagship Smart Training & School Management demo card with honest demo labelling", () => {
     render(<Work />);
     expect(
       screen.getByText("Smart Training & School Management")

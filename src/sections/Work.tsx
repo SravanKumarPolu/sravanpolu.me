@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import { portfolioStats } from "../constants/portfolio";
 import FeaturedWork from "../components/FeaturedWork";
 import LearningProjects from "../components/LearningProjects";
 import SectionShell from "../components/SectionShell";
@@ -29,8 +28,8 @@ const Work: React.FC = () => {
           </h2>
 
           <p className="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-3xl">
-            {portfolioStats.productionCount} production app and {portfolioStats.betaCount} beta
-            products, plus client work and learning exercises — organized by where they stand today.
+            Flagship full-stack, production and mobile work — with honest status labels and the
+            engineering story behind each build. Learning exercises are kept separate below.
           </p>
         </motion.div>
 
