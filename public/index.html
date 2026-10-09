@@ -62,13 +62,15 @@
     
     <!-- ✅ Apple Touch Icon & PWA -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     
-    <!-- ✅ Advanced Font Loading for 10/10 Typography -->
+    <!-- ✅ Advanced Font Loading for 10/10 Typography (non-blocking CSS) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+    </noscript>
     
     <!-- ✅ Structured Data for SEO -->
     <script type="application/ld+json">
@@ -76,17 +78,23 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Sravan Kumar Polu",
-      "jobTitle": "Frontend / Full-Stack Developer",
-      "description": "Frontend / Full-Stack developer building production React, Next.js and TypeScript applications",
+      "jobTitle": "React & Next.js Full-Stack Developer",
+      "description": "Full-stack developer building production React, Next.js and TypeScript applications — UI, APIs and deployment",
       "url": "https://sravanpolu.com",
       "image": "https://sravanpolu.com/og-image.png",
+      "email": "mailto:sravanpolu.me@gmail.com",
       "sameAs": [
         "https://www.linkedin.com/in/SravanPolu",
         "https://github.com/SravanKumarPolu",
         "https://x.com/SravanPolu"
       ],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Lovely Professional University"
+      },
       "knowsAbout": [
         "React",
+        "Next.js",
         "TypeScript",
         "Node.js",
         "MongoDB",
@@ -95,38 +103,28 @@
         "JavaScript",
         "Web Development"
       ],
-      "nationality": "Indian"
+      "knowsLanguage": ["en"],
+      "nationality": "Indian",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN"
+      }
     }
     </script>
   </head>
 
   <body>
+    <!--
+      No-JS visitors see the pre-rendered content captured by scripts/prerender.ts
+      (part of the "build" script). This compact notice replaces a fuller fallback
+      block that duplicated the pre-rendered content and produced a second <h1>
+      in the raw HTML — harmful for SEO and confusing to read.
+    -->
     <noscript>
-      <main style="max-width: 720px; margin: 0 auto; padding: 24px 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #111; line-height: 1.6;">
-        <h1 style="font-size: 1.75rem; margin-bottom: 4px;">Sravan Kumar Polu</h1>
-        <p style="color: #0e7490; font-weight: 600;">React & Next.js Full-Stack Developer</p>
-        <p>This portfolio is a JavaScript application. Enable JavaScript for the full experience — or browse the essentials below.</p>
-        <h2 style="font-size: 1.2rem; margin-top: 24px;">Summary</h2>
-        <p>I build production React, Next.js and TypeScript apps end-to-end — UI, APIs, and deployment on Vercel and Netlify. Available for freelance, contract and full-time opportunities.</p>
-        <h2 style="font-size: 1.2rem; margin-top: 24px;">Selected projects</h2>
-        <ul>
-          <li><a href="https://skr-e-commerce.netlify.app/" rel="noopener noreferrer">SKR E-Commerce</a> — full-stack MERN e-commerce with retry-safe order processing</li>
-          <li><a href="https://debiasdaily.com/" rel="noopener noreferrer">DebiasDaily</a> — live production Next.js microlearning app</li>
-          <li><a href="https://smart-training-school-management-de.vercel.app/" rel="noopener noreferrer">Smart Training &amp; School Management</a> — multi-role demo using sample data</li>
-          <li><a href="https://bloommind-tracker.netlify.app/" rel="noopener noreferrer">BloomMind Tracker</a> — wellness tracker (beta)</li>
-          <li><a href="https://nextcartis.netlify.app/" rel="noopener noreferrer">NexCartis</a> — e-commerce storefront (beta)</li>
-          <li><a href="https://chronobloom.netlify.app/" rel="noopener noreferrer">ChronoBloom</a> — time and focus companion (beta)</li>
-          <li><a href="https://boostlly.netlify.app/" rel="noopener noreferrer">Boostlly</a> — productivity companion (beta)</li>
-        </ul>
-        <h2 style="font-size: 1.2rem; margin-top: 24px;">Contact</h2>
-        <p>
-          Email: <a href="mailto:sravanpolu.me@gmail.com">sravanpolu.me@gmail.com</a> ·
-          <a href="https://www.linkedin.com/in/SravanPolu" rel="noopener noreferrer">LinkedIn</a> ·
-          <a href="https://github.com/SravanKumarPolu" rel="noopener noreferrer">GitHub</a> ·
-          <a href="https://sravanpolu.com/Resume.pdf">Resume (PDF)</a>
-        </p>
-        <p style="margin-top: 32px; font-size: 0.85rem; color: #555;">&copy; Sravan Kumar Polu · Remote-friendly, India</p>
-      </main>
+      <p style="max-width:720px;margin:0 auto;padding:12px 16px;background:#fef3c7;color:#92400e;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:0.9rem;text-align:center;">
+        JavaScript is disabled — you are viewing a static snapshot of this portfolio.
+        Enable JavaScript for the full interactive experience.
+      </p>
     </noscript>
     <div id="root"></div>
   </body>

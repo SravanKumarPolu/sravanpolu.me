@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FiExternalLink } from "react-icons/fi";
 import SectionShell from "./SectionShell";
 import { fiverrProfileUrl } from "../constants";
-import subbaGAvatar from "../assets/images/subba_g.png";
+import subbaGAvatar from "../assets/images/subba_g.webp";
 
 const testimonial = {
   name: "Subba G.",

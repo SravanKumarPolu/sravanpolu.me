@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import SectionShell from "../components/SectionShell";
 import { aboutContent, careerTimeline } from "../constants/portfolio";
-import skr from "../assets/images/skr.png";
+import skr from "../assets/images/skr.webp";
 import { FiBriefcase, FiClock, FiMapPin } from "react-icons/fi";
 
 const About: React.FC = () => {

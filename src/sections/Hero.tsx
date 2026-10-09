@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import skr from "../assets/images/skr.png";
+import skr from "../assets/images/skr.webp";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useHaptic } from "../hooks/useHaptic";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";

@@ -78,7 +78,6 @@ const Nav: React.FC = () => {
     <nav
       ref={navRef}
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${navbarStyle}`}
-      role="navigation"
       aria-label={getRoleDescription("navigation")}
     >
       <div className="flex justify-between items-center px-4 sm:px-6 py-3 md:py-4 max-w-7xl mx-auto">
@@ -158,7 +157,7 @@ const Nav: React.FC = () => {
             id="mobile-menu"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="fixed left-0 right-0 top-[57px] z-50 py-6 px-4 bg-neutral-950 border-b border-white/10 space-y-1"
+            className="absolute inset-x-0 top-full py-6 px-4 bg-neutral-950 border-b border-white/10 space-y-1"
             aria-label="Mobile navigation menu"
           >
             {navLinks.map((item) => (

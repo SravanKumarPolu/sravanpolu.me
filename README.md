@@ -19,6 +19,25 @@ Welcome to my personal developer portfolio built with modern web technologies to
 
 ## 📁 Project Structure
 
+```
+├── public/               # Static assets copied verbatim to build/
+│   ├── Resume.pdf        # Resume served at /Resume.pdf
+│   ├── resume-preview.html # Rendered in the desktop resume iframe
+│   ├── robots.txt · sitemap.xml · manifest.json · og-image.png
+│   └── index.html        # Meta tags, JSON-LD, non-blocking fonts
+├── src/
+│   ├── components/       # Nav, sections' pieces, UI primitives, tests
+│   ├── sections/         # Page-level sections (Hero, About, Work, …)
+│   ├── constants/        # portfolio.ts (projects), resume-data.ts (resume source of truth)
+│   ├── contexts/ · hooks/ · utils/
+│   └── index.tsx         # Entry point
+├── scripts/              # generate-resume-pdf.ts, prerender.ts
+├── docs/                  # Testing guide, design system docs
+├── .github/workflows/ci.yml  # CI: install (frozen lockfile) → test → build
+├── netlify.toml           # Netlify headers + caching
+└── vercel.json            # Vercel headers + caching
+```
+
 ---
 
 ## 🔎 Sections Overview
@@ -93,6 +112,10 @@ pnpm run build:resume
 
 Development and testing documentation lives in [`docs/`](docs/); historical internal
 notes are archived in [`docs/internal/`](docs/internal/).
+
+### Audit
+- [AUDIT_REPORT.md](AUDIT_REPORT.md) - Competitive gap audit, technical review, verification results, and improvement roadmap
+- [CHANGELOG.md](CHANGELOG.md) - Chronological record of all implemented fixes and improvements
 
 ### Getting Started
 - [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md) - Unit testing, integration tests, and test coverage

@@ -1,4 +1,5 @@
 {
+  "id": "/",
   "short_name": "Sravan Polu",
   "name": "Sravan Kumar Polu - React & Next.js Full-Stack Developer",
   "description": "Portfolio of a frontend / full-stack developer building production React, Next.js and TypeScript applications.",
@@ -16,15 +17,28 @@
     {
       "src": "logo192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logo512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "theme_color": "#1a1a1a",
   "background_color": "#0a0a0a",
   "orientation": "portrait-primary",
-  "scope": "/",
   "lang": "en",
   "categories": ["portfolio", "developer", "technology"]
 }

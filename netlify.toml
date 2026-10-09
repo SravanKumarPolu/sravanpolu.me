@@ -1,0 +1,35 @@
+# Netlify configuration for sravanpolu.com
+# Deploy the `build/` output as the publish directory.
+
+[build]
+  publish = "build"
+
+# Immutable caching for hashed static assets
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Short cache for the resume PDF (regenerated on each build)
+[[headers]]
+  for = "/Resume.pdf"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+# Security headers
+# NOTE: frame-ancestors 'self' (not X-Frame-Options: DENY) because the Resume
+# section embeds /resume-preview.html in a same-origin iframe. This CSP
+# directive blocks cross-origin framing while keeping that feature intact.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Content-Security-Policy = "frame-ancestors 'self'"

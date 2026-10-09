@@ -56,11 +56,13 @@ async function main(): Promise<void> {
   try {
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
+    // Ensure the embedded base64 fonts are fully loaded before printing.
+    await page.evaluateHandle("document.fonts.ready");
     await page.pdf({
       path: outputPdf,
       format: "letter",
       printBackground: true,
-      margin: { top: "0.55in", right: "0.6in", bottom: "0.55in", left: "0.6in" },
+      margin: { top: "0.567in", right: "0.73in", bottom: "0.5in", left: "0.73in" },
     });
   } finally {
     await browser.close();
