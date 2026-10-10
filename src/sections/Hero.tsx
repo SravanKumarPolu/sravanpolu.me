@@ -76,7 +76,7 @@ const Hero: React.FC = () => {
               </h1>
 
               <p className="text-lg sm:text-xl text-cyan-400/90 font-medium mb-3">
-                React &amp; Next.js Full-Stack Developer · React · TypeScript · Node.js
+                FULL-STACK DEVELOPER (MERN + DevOps)   (· React Or Next.js · TypeScript · Node.js)
               </p>
 
               <p className="text-base sm:text-lg text-neutral-300 mb-4 max-w-xl leading-relaxed">

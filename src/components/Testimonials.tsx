@@ -36,7 +36,7 @@ const Testimonials: React.FC = () => {
           transition={{ duration: 0.4 }}
           className="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8"
         >
-          <div className="flex items-center gap-2 mb-4" aria-label={`${testimonial.rating} out of 5 stars`}>
+          <div className="flex items-center gap-2 mb-4" role="img" aria-label={`${testimonial.rating} out of 5 stars`}>
             {Array.from({ length: 5 }).map((_, i) => (
               <span key={i} className="text-yellow-400 text-lg" aria-hidden>
                 ★
@@ -65,7 +65,7 @@ const Testimonials: React.FC = () => {
               href={fiverrProfileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Verified client feedback on Fiverr (opens Fiverr profile in a new tab)"
+              aria-label="Verified on Fiverr - client feedback (opens Fiverr profile in a new tab)"
               className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-neutral-200 hover:border-cyan-400/50 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 min-h-[40px] transition-colors"
             >
               Verified on Fiverr

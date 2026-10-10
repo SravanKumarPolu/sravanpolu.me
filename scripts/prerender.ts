@@ -64,9 +64,13 @@ function getChromeExecutablePath(): string | undefined {
     if (existsSync(macPath)) return macPath;
   }
   if (process.platform === "linux") {
-    return ["/usr/bin/google-chrome", "/usr/bin/chromium-browser", "/usr/bin/chromium"].find((p) =>
-      existsSync(p)
-    );
+    return [
+      "/usr/local/bin/chromium",
+      "/usr/bin/google-chrome",
+      "/usr/bin/google-chrome-stable",
+      "/usr/bin/chromium-browser",
+      "/usr/bin/chromium",
+    ].find((p) => existsSync(p));
   }
   return undefined;
 }

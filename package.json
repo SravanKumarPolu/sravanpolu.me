@@ -2,6 +2,9 @@
   "name": "sravanpolu.com",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "@react-hook/media-query": "^1.1.1",
     "@tailwindcss/container-queries": "^0.1.1",

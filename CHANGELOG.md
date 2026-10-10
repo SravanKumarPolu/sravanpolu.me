@@ -3,6 +3,58 @@
 All notable changes to the sravanpolu.com portfolio project, from the competitive gap audit (October 2026).
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) principles.
 
+## [Unreleased] — 2026-10-10 (Pass D — v2: metadata dates, prerender portability, CI order, accessibility 100)
+
+v2 audit-and-fix pass. Verified every Pass C fix still holds, then closed the
+remaining gaps. All changes preserve the existing UI, layout, navigation and
+project content. Full report: `docs/SEO_FINAL_AUDIT.md`.
+
+### Fixed
+
+- **Future-dated metadata corrected** — `public/sitemap.xml` `lastmod` and the
+  `ProfilePage.dateModified` JSON-LD value were `2026-10-11`, one day ahead of
+  the actual content modification date. Both now use the real date
+  (`2026-10-10`, UTC).
+- **Obsolete / duplicate meta tags removed** from `public/index.html`:
+  `googlebot` (exact duplicate of the `robots` directive), `revisit-after`,
+  `rating`, `distribution` (all ignored by modern engines).
+- **Puppeteer Chrome discovery made portable** — `scripts/prerender.ts` and
+  `scripts/generate-resume-pdf.ts` now also probe `/usr/local/bin/chromium`
+  and `/usr/bin/google-chrome-stable`. Previously the production build FAILED
+  (`Could not find Chrome (ver. 148.0.7778.97)`) on systems where Chromium
+  lives outside the three hard-coded paths, because the puppeteer cache can
+  hold a mismatched browser build.
+- **CI workflow step order fixed** (`.github/workflows/ci.yml`) — `pnpm` is
+  now installed (via corepack) *before* `actions/setup-node`, whose
+  `cache: pnpm` option requires the package manager on `PATH`. The previous
+  order failed at the setup step. `corepack prepare` now activates the same
+  version pinned in `packageManager` (10.14.0) instead of `pnpm@latest`.
+- **Accessibility 96 → 100 (Lighthouse)** — `role="img"` added to the
+  testimonial star-rating containers (aria-label on a role-less `div` is
+  prohibited), and the nav logo / Fiverr link accessible names now contain
+  their visible text (`label-content-name-mismatch`).
+
+### Added
+
+- `engines.node: ">=20"` in `package.json` (documents the supported runtime;
+  CI uses 20, local dev verified on 24).
+- `scripts/verify-interactions.ts` — 21-check post-mount regression suite:
+  React-mount detection over the prerendered DOM, duplicate-DOM guard,
+  nav/CTA/mobile-menu interaction tests, console-error monitoring.
+
+### Verified (no changes needed)
+
+- Title, meta description, canonical, robots, OG/Twitter metadata: unique,
+  consistent, trailing-slash aligned with sitemap `loc` (all re-verified in
+  the built HTML).
+- JSON-LD `@graph` (Person + WebSite + ProfilePage): parses, `@id` references
+  resolve; no duplicates after React mount.
+- Prerendering: no hydration conflicts (fresh `createRoot` render over static
+  snapshot — verified by mount detection + h1 content-stability test), no
+  duplicate DOM, no console/page errors after mount.
+- External links: 28/30 HTTP 200; LinkedIn (999) and Fiverr (403) block
+  datacenter IPs (same result as the v1 audit — not broken links).
+
 ## [Unreleased] — 2026-10-11 (Pass C — SEO verification & hardening)
 
 Pass C audited the live site against this repository, verified every Pass A/B

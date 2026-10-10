@@ -24,7 +24,9 @@ function getChromeExecutablePath(): string | undefined {
 
   if (process.platform === "linux") {
     const linuxPaths = [
+      "/usr/local/bin/chromium",
       "/usr/bin/google-chrome",
+      "/usr/bin/google-chrome-stable",
       "/usr/bin/chromium-browser",
       "/usr/bin/chromium",
     ];

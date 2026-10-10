@@ -84,9 +84,9 @@ const Nav: React.FC = () => {
         <a
           href="#home"
           className="font-semibold text-white text-sm sm:text-lg tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg px-1"
-          aria-label="Sravan Kumar Polu - Go to home"
+          aria-label="Sravan Polu Developer - go to home"
         >
-          <span className="text-white">Sravan </span>
+          <span className="text-white">Sravan</span>
           <span className="text-cyan-400">Polu</span>
           <span className="hidden md:inline text-neutral-500 font-normal ml-2 text-sm">
             Developer
