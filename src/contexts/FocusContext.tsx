@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useRef, useEffect, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useRef, useCallback, ReactNode } from 'react';
 
 interface FocusContextType {
   registerFocusableElement: (id: string, element: HTMLElement) => void;

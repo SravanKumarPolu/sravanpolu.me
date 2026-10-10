@@ -155,3 +155,105 @@ After deploy, verify: `/robots.txt` shows `Sitemap:` line; `/logo512-maskable.pn
 | P4 | Upgrade `@testing-library/react` (clears act() warnings); consider Playwright e2e for contact + resume flows | Maintainability |
 | P5 | CRA → Vite (or Next.js if a blog is planned) | Build speed, smaller runtime; framework stays React either way |
 | P6 | Content marketing (2–3 technical posts on shipped projects) | Long-tail freelance SEO |
+
+---
+
+## 13. Pass C Addendum — SEO Audit & Hardening (2026-10-11)
+
+Pass C re-audited the repository **and** the live site, verified every Pass A/B
+claim, and closed the remaining gaps. Method: source inspection, live HTTP
+checks (curl), rendered-DOM inspection (Puppeteer), Lighthouse 13, and a full
+re-run of the quality suite. No UI, layout, navigation, resume or project
+content was changed.
+
+### 13.1 Live-site status re-verified (supersedes §1's stale-build caveat)
+
+The owner **did redeploy** after Pass B: the live site now serves the
+prerendered build (182.6 KB rendered HTML, single `<h1>`, enriched Person
+JSON-LD, new robots.txt with `Sitemap:`, sitemap with `lastmod`,
+`logo512-maskable.png` → 200, correct 404 status for unknown paths).
+Remaining live deficiency at audit time: **none of the security headers from
+`netlify.toml` were being served** (X-Content-Type-Options, Referrer-Policy,
+Permissions-Policy, CSP frame-ancestors all absent; HSTS present only in
+Netlify's shorter form) — fixed for every deploy method via `public/_headers`
+(§13.3 C-1).
+
+### 13.2 Checklist verification matrix (user's 16 items)
+
+| # | Checklist item | Verdict | Evidence |
+|---|---|---|---|
+| 1 | Title + unique meta description | **Pass (kept)** | 56-char title, 170-char description, source + live verified |
+| 2 | Canonical + www/non-www | **Fixed (C-6)** | www→apex 301 + http→https 301 live-verified; canonical/og:url/JSON-LD aligned to `https://sravanpolu.com/` to match sitemap |
+| 3 | Valid XML sitemap + robots.txt | **Pass (kept, lastmod refreshed)** | robots allows all + Sitemap line; sitemap valid, lastmod 2026-10-11 |
+| 4 | Indexability / no accidental noindex | **Fixed (C-3)** | `index,follow` on homepage; real 404 status on unknown paths; `resume-preview.html` (thin iframe page) now `noindex` |
+| 5 | Semantic HTML, H1–H6 | **Pass (kept)** | exactly 1 `<h1>`, logical h2→h4 hierarchy verified in source and built HTML |
+| 6 | Open Graph + Twitter metadata | **Pass (kept)** | complete OG + Twitter card; image now correctly `og-image.jpg` (1200×630 verified) |
+| 7 | Person / WebSite JSON-LD | **Fixed (C-5)** | `@graph` with Person + WebSite + ProfilePage, `@id`-linked, valid JSON (parser-verified) |
+| 8 | CSR + prerendered HTML for SEO | **Fixed (C-2, C-4-img)** | 179.3 KB fully-rendered HTML; font stylesheet restored to non-blocking `media="print"` in shipped HTML; SPA interactivity preserved (smoke-tested) |
+| 9 | Core Web Vitals (LCP/INP/CLS) | **Improved** | lab unthrottled: LCP 616 ms desktop / 432 ms mobile, CLS 0.0022/0.0000; Lighthouse (throttled): LCP 1.5 s desktop / 2.5 s mobile, CLS 0.005/0.059, TBT 160/380 ms. INP: not directly measurable in lab; TBT + zero-error interaction tests (menu, nav, resume) indicate low risk; field data pending |
+| 10 | Image optimization, alt, lazy, responsive sizing | **Improved (C-4/C-12)** | all images WebP + alt text; shipped HTML now lazy-loads below-fold images (27 lazy/2 eager) while keeping every `<img src>` crawlable; 17 screenshots right-sized 1280→800 px; src assets 800→487 KB (−39%); JPEG-bytes-in-.png fixed |
+| 11 | Internal nav, anchors, link accessibility | **Pass (kept)** | hash anchors, skip link, `aria-current`, focus-visible rings, 44 px targets — smoke-verified |
+| 12 | Mobile usability + accessibility | **Pass (kept)** | viewport meta, mobile menu flush (−1 px), 0 page errors at 390 px, Lighthouse Accessibility 96 |
+| 13 | Content relevance (freelance + recruiters) | **Pass (kept)** | services section, availability badge, honest status labels, resume pipeline, verified Fiverr testimonial — unchanged per scope |
+| 14 | Redirects, broken links, duplicates | **Pass + documented** | 25/25 project/GitHub links HTTP 200; LinkedIn (999) and Fiverr (403) block datacenter agents — **not verifiable from this environment**, pages open in browsers; no duplicate content (single page, www redirects, thin page noindexed) |
+| 15 | Lighthouse results | **Measured** | **SEO 100 · Best Practices 100 · Accessibility 96 · Performance 94 desktop (LCP 1.5 s, TBT 100 ms) / 83–88 mobile applied-throttled (LCP 2.5 s)** (Lighthouse 13, local `build/`). Simulated-throttling mobile scores lower (~53) — see §13.4 note on task-window attribution; total main-thread work unchanged while all user-facing metrics improved. Experimental "Agentic Browsing" category (50) relates to llms.txt/WebMCP — not a ranking factor, out of scope |
+| 16 | Search Console readiness | **Delivered** | `docs/SEARCH_CONSOLE_GUIDE.md`: deploy checklist, property setup, sitemap submission, indexing request, monitoring expectations |
+
+### 13.3 Pass C findings (severity + disposition)
+
+| ID | Severity | Finding | Disposition |
+|----|----------|---------|-------------|
+| C-1 | **High** | Live site serves none of the security headers (netlify.toml only applies to git-connected deploys; current deploy appears to be drag-and-drop) | **Fixed** — `public/_headers` ships inside `build/`, applies to any Netlify deploy method |
+| C-2 | **Medium** | Shipped (prerendered) HTML contained render-blocking font CSS (`media="all"` captured post-onload) — silently undid Pass A fix #8 | **Fixed** — `prerender.ts` restores `media="print"` after capture |
+| C-3 | **Medium** | `/resume-preview.html` publicly 200 without `noindex` — thin iframe-only page, duplicate-content risk | **Fixed** — `noindex` in generator + committed copy |
+| C-4 | **Medium** | MIME mismatch: `favicon.png`, `logo192.png`, `og-image.png` were JPEG bytes served as `image/png` | **Fixed** — favicon/logo192 re-encoded as true PNG; og-image published as `og-image.jpg` (references updated) |
+| C-5 | **Medium** | Structured data covered Person only; WebSite/ProfilePage missing (checklist item 7) | **Fixed** — `@id`-linked `@graph` |
+| C-6 | **Low** | Canonical/og:url/JSON-LD lacked trailing slash vs sitemap `<loc>` | **Fixed** — all `https://sravanpolu.com/` |
+| C-7 | **Low** | ESLint never executed anywhere (build sets `DISABLE_ESLINT_PLUGIN=true`, craco removes the plugin, no lint script) | **Fixed** — `lint` script + direct devDeps (same versions already in lockfile) + CI step; 3 errors/4 warnings fixed |
+| C-8 | **Low** | CI had no explicit typecheck step | **Fixed** — `typecheck` script + CI step |
+| C-9 | **Low** | Sitemap `lastmod` 2026-10-09 | **Fixed** — 2026-10-11 |
+| C-10 | **Info** | `src/assets/Resume.pdf` unused duplicate (drift-prone; caused Pass A/B confusion) | **Fixed** — removed; pipeline regenerates `public/Resume.pdf` per build (text-identical) |
+| C-11 | **Info** | Pass B's `Resume.pdf` md5 restoration claim was stale (a rebuild overwrote it by design) | **Documented** — this addendum + CHANGELOG correct the record |
+| C-12 | **Medium** | Prerendered HTML shipped all images as `loading="eager"` (757 KB upfront; throttled LCP 8.8 s) | **Fixed** — prerender restores native lazy attributes; hero stays eager with `fetchpriority="high"`; content images ship `decoding="async"` |
+
+### 13.4 Before → after (Pass C, measured)
+
+| Metric | Before (start of Pass C) | After |
+|---|---|---|
+| Lighthouse mobile performance (applied throttling) | 66 with LCP 8.8 s (simulated run) | **83–88 (LCP 2.5 s, TBT 230–390 ms)** |
+| Lighthouse desktop performance | — | **94 (LCP 1.5 s, TBT 100 ms, CLS 0.003)** |
+| Lighthouse SEO / Best Practices / Accessibility | 100 / 100 / 96 | **100 / 100 / 96 (maintained)** |
+| Lab CWV unthrottled (LCP desktop / mobile) | 644 ms / 376 ms (Pass B baseline) | **564 ms / 420 ms, CLS 0.0016 / 0.0000** |
+| Images transferred on load | 757 KB (all eager) | **443 KB (lazy below fold)** |
+| Total transferred on load | 1,636 KB | **1,311 KB** |
+| `src/assets/images` weight | 800 KB | **487 KB (−39%)** |
+| Largest screenshot (Netflix clone) | 174 KB @1280 px | **74 KB @800 px** |
+| Font CSS in shipped HTML | render-blocking (`media="all"`) | **non-blocking (`media="print"`)** |
+| LCP image hints | none | **`fetchpriority="high"` + `decoding="async"`** |
+| Security headers on live | absent | **shipped in build via `_headers`** (active after redeploy) |
+| ESLint | never ran | **runs in CI, 0 errors/0 warnings** |
+| Tests / typecheck / build | 28/28 · pass · pass | **28/28 · pass · pass** |
+
+**Measurement honesty note.** Lighthouse's simulated-throttling mobile run
+(default preset) scores ~53 on the fixed build versus 66 before the fixes:
+simulated TBT is inflated because deferring work (non-blocking fonts, lazy
+images) moves main-thread tasks into the FCP→TTI measurement window, while
+total main-thread work is essentially unchanged (~2.7 s before and after —
+verified via mainthread-work-breakdown). Every user-facing metric improved
+under both methodologies (LCP 8.8→2.5 s applied / 8.8→6.9 s simulated, Speed
+Index, TTI, transferred bytes −20%). Applied-throttling runs (83–88) and
+real-user field data (CrUX, after deploy) are the appropriate references for
+actual visitor experience; the remaining hydration cost is the known CRA +
+framer-motion stack cost already covered by roadmap item P5.
+
+### 13.5 Remaining owner actions
+
+1. **Redeploy** (git push → Netlify build, or drag-and-drop `build/` — headers now work either way), then run the checklist in `docs/SEARCH_CONSOLE_GUIDE.md` §2.
+2. **Google Search Console**: property setup + sitemap submission + Request indexing — full steps in `docs/SEARCH_CONSOLE_GUIDE.md`.
+3. Optional roadmap items unchanged from §12 (case studies, testimonial attribution, CRA→Vite migration, `@testing-library/react` upgrade to clear `act()` warnings).
+4. Optional (not a ranking factor): the experimental Lighthouse "Agentic Browsing" category suggests `llms.txt`/WebMCP support for AI-agent crawlers — future consideration only.
+
+Lighthouse report evidence (openable in any browser) is archived in
+[`docs/internal/lighthouse/`](docs/internal/lighthouse/): the pre-fix
+mobile-emulation run (performance 66) and the post-fix desktop (94) and
+mobile applied-throttling (83–88) runs.

@@ -48,6 +48,7 @@ const ProjectImage: React.FC<ProjectImageProps> = ({
       width={width}
       height={height}
       loading={loading}
+      decoding="async"
       onError={() => setHasError(true)}
     />
   );

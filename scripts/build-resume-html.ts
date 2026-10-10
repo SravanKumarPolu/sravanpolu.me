@@ -114,6 +114,7 @@ export function buildResumeHtml(): string {
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="robots" content="noindex" />
   <title>${escapeHtml(name)} — Resume</title>
   <style>
     @font-face {

@@ -3,7 +3,114 @@
 All notable changes to the sravanpolu.com portfolio project, from the competitive gap audit (October 2026).
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) principles.
 
+## [Unreleased] — 2026-10-11 (Pass C — SEO verification & hardening)
+
+Pass C audited the live site against this repository, verified every Pass A/B
+fix, and closed the remaining gaps. All changes preserve the existing UI,
+layout, navigation and project content.
+
+### Fixed
+
+- **Security headers now ship inside the deploy** (`public/_headers`, copied to
+  `build/_headers`). The live site was serving none of the headers from
+  `netlify.toml` because they only apply to git-connected deploys; the current
+  deployment appears to be drag-and-drop. `_headers` applies to every Netlify
+  deploy method (identical values to `netlify.toml`, so no conflicts).
+- **Non-blocking font loading restored in the deployed HTML.** The prerender
+  script captured the Google Fonts link *after* the browser had already flipped
+  `media="print"` to `"all"`, so the shipped HTML contained a render-blocking
+  stylesheet (silently undoing the Pass A fix). `scripts/prerender.ts` now
+  rewrites the link back to `media="print"` after capture; the `onload`
+  handler and `<noscript>` fallback still cover JS and no-JS clients.
+- **Below-fold images are lazy again in the shipped HTML.** The prerender
+  script forced every image to `loading="eager"` for capture and that state
+  shipped, so real browsers downloaded all ~757 KB of images upfront and the
+  LCP element competed with them on slow connections. The prerender now
+  restores `loading="lazy"` for everything that was not natively eager (hero
+  portrait stays eager). Raw HTML still contains every `<img src>`, so
+  crawlers see all images.
+- **`resume-preview.html` marked `noindex`** (in `scripts/build-resume-html.ts`
+  and the committed `public/` copy). It is an iframe-only embed; indexing it as
+  a standalone thin page added a duplicate-content risk.
+- **True image encodings:** `favicon.png` and `logo192.png` were JPEG bytes
+  served as `image/png` — re-encoded as genuine PNGs (same URLs).
+  `og-image.png` was also JPEG bytes; it is now correctly published as
+  **`og-image.jpg`** (95 KB, progressive) with `og:image`, `twitter:image` and
+  JSON-LD references updated.
+- **URL-form consistency:** canonical, `og:url` and JSON-LD `url` now use
+  `https://sravanpolu.com/` (trailing slash), matching the sitemap `<loc>`.
+- **Lint failures fixed** (first time ESLint ran on the codebase): split
+  multiple assertions inside `waitFor` callbacks, switched to `findByText`,
+  removed unused imports (`render`, `screen`, `useEffect`,
+  `removeNotification`).
+
+### Added
+
+- **WebSite + ProfilePage JSON-LD** — the Person schema is now an `@id`-linked
+  `@graph` (Person, WebSite, ProfilePage), satisfying the structured-data
+  checklist without inventing content.
+- **`lint` and `typecheck` scripts** and matching CI steps
+  (install → typecheck → lint → test → build). ESLint 8.57.1 and
+  eslint-config-react-app 7.0.1 were promoted from transitive to direct
+  devDependencies — no new packages added to the lockfile.
+- **`scripts/verify-build.ts`** — reusable smoke + Core Web Vitals suite
+  (sections render, images, iframe, mobile menu, crawler-view HTML assertions,
+  LCP/CLS measurement) run against `build/`.
+- **`docs/SEARCH_CONSOLE_GUIDE.md`** — deploy verification checklist, GSC
+  property setup, sitemap submission, indexing request, and honest monitoring
+  expectations.
+
+### Changed
+
+- **Project screenshots right-sized** (17 images, 1280 px → 800 px wide —
+  2× their ~400 px card display) and hero/flagship images recompressed:
+  `src/assets/images` went 800 KB → 487 KB (−39%); the Netflix-clone
+  screenshot alone dropped 174 KB → 74 KB. No layout change (same aspect
+  ratio, `object-cover` cards).
+- `sitemap.xml` `lastmod` updated to 2026-10-11.
+- Removed unused duplicate `src/assets/Resume.pdf` (the served PDF is
+  `public/Resume.pdf`, regenerated from `resume-data.ts` on every build).
+
+### Corrected documentation
+
+- Pass B's claim that `public/Resume.pdf` was "restored to the uploaded
+  original (md5 `4ae7e25a…`)" no longer held: a later `pnpm build`
+  regeneration overwrote it (by design — the build regenerates the PDF from
+  `resume-data.ts`; output is text-identical, only the embedded PDF timestamp
+  differs). The AUDIT_REPORT addendum documents the pipeline behavior instead
+  of a stale md5.
+
+### Verified (Pass C, executed not assumed)
+
+- `pnpm run typecheck` — PASS · `pnpm run lint` — PASS (0 errors, 0 warnings)
+- Tests: 28/28 passing (6 suites) — no regressions
+- Production build + prerender: 179.3 KB fully-rendered HTML; font link ships
+  `media="print"`; 27 lazy + 2 eager images
+- `pnpm install --frozen-lockfile` — consistent (CI-safe)
+- Smoke suite (32 checks): 9/9 sections, 0 console/page errors, 0 broken
+  images, resume iframe loads, mobile menu opens flush (−1 px), fonts load,
+  single `<h1>` in raw HTML
+- Lab Core Web Vitals (unthrottled, local): LCP 564 ms desktop / 420 ms
+  mobile, CLS 0.0016 / 0.0000
+- Lighthouse 13 (throttled lab, against local `build/`):
+  **SEO 100 · Best Practices 100 · Accessibility 96 · Performance 94 desktop
+  (LCP 1.5 s, TBT 100 ms) / 83–88 mobile applied-throttled (LCP 2.5 s)** —
+  mobile performance was 66 (LCP 8.8 s) before the lazy-loading and image
+  fixes. Methodology note: Lighthouse's *simulated*-throttling mobile run
+  scores lower (~53) because deferring work (non-blocking fonts, lazy images)
+  shifts main-thread tasks into the FCP→TTI measurement window — total
+  main-thread work is unchanged (~2.7 s) and every user-facing metric (LCP,
+  Speed Index, TTI, transferred bytes) improved. Real-user INP/field data
+  (CrUX) remain the authoritative signal after deploy.
+- External links: 25/25 project + GitHub URLs return 200; LinkedIn (HTTP 999)
+  and Fiverr (403) block automated agents from datacenter IPs — pages open
+  normally in browsers, but could not be verified from this environment
+- Live-site checks performed 2026-10-10: www → apex 301, http → https 301,
+  proper 404 status for unknown paths, robots/sitemap/logo512-maskable all
+  correct. **Security headers still missing on live until redeploy.**
+
 ## [Unreleased] — 2026-10-10
+
 
 ### Fixed (Pass B — verification round)
 

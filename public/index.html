@@ -30,11 +30,11 @@
     <!-- ✅ Open Graph for social sharing -->
     <meta property="og:title" content="Sravan Kumar Polu | React & Next.js Full-Stack Developer" />
     <meta property="og:description" content="Frontend / Full-Stack developer — production React, Next.js and TypeScript apps. Available for freelance, contract and full-time opportunities." />
-    <meta property="og:image" content="https://sravanpolu.com/og-image.png" />
+    <meta property="og:image" content="https://sravanpolu.com/og-image.jpg" />
     <meta property="og:image:alt" content="Sravan Kumar Polu - React & Next.js Full-Stack Developer" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:url" content="https://sravanpolu.com" />
+    <meta property="og:url" content="https://sravanpolu.com/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Sravan Kumar Polu Portfolio" />
     <meta property="og:locale" content="en_US" />
@@ -45,7 +45,7 @@
     <meta name="twitter:creator" content="@SravanPolu" />
     <meta name="twitter:title" content="Sravan Kumar Polu | React & Next.js Full-Stack Developer" />
     <meta name="twitter:description" content="Frontend / Full-Stack developer — production React, Next.js and TypeScript apps. Available for freelance, contract and full-time opportunities." />
-    <meta name="twitter:image" content="https://sravanpolu.com/og-image.png" />
+    <meta name="twitter:image" content="https://sravanpolu.com/og-image.jpg" />
     <meta name="twitter:image:alt" content="Sravan Kumar Polu - React & Next.js Full-Stack Developer" />
 
     <!-- ✅ Additional SEO Meta Tags -->
@@ -57,8 +57,8 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-tap-highlight" content="no" />
     
-    <!-- ✅ Canonical URL -->
-    <link rel="canonical" href="https://sravanpolu.com" />
+    <!-- ✅ Canonical URL (trailing-slash root — matches sitemap <loc>, og:url and JSON-LD url) -->
+    <link rel="canonical" href="https://sravanpolu.com/" />
     
     <!-- ✅ Apple Touch Icon & PWA -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -72,43 +72,68 @@
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
     </noscript>
     
-    <!-- ✅ Structured Data for SEO -->
+    <!-- ✅ Structured Data for SEO: Person + WebSite + ProfilePage (@graph, @id-linked) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Sravan Kumar Polu",
-      "jobTitle": "React & Next.js Full-Stack Developer",
-      "description": "Full-stack developer building production React, Next.js and TypeScript applications — UI, APIs and deployment",
-      "url": "https://sravanpolu.com",
-      "image": "https://sravanpolu.com/og-image.png",
-      "email": "mailto:sravanpolu.me@gmail.com",
-      "sameAs": [
-        "https://www.linkedin.com/in/SravanPolu",
-        "https://github.com/SravanKumarPolu",
-        "https://x.com/SravanPolu"
-      ],
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "Lovely Professional University"
-      },
-      "knowsAbout": [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "Node.js",
-        "MongoDB",
-        "Express.js",
-        "Tailwind CSS",
-        "JavaScript",
-        "Web Development"
-      ],
-      "knowsLanguage": ["en"],
-      "nationality": "Indian",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "IN"
-      }
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://sravanpolu.com/#person",
+          "name": "Sravan Kumar Polu",
+          "jobTitle": "React & Next.js Full-Stack Developer",
+          "description": "Full-stack developer building production React, Next.js and TypeScript applications — UI, APIs and deployment",
+          "url": "https://sravanpolu.com/",
+          "image": "https://sravanpolu.com/og-image.jpg",
+          "email": "mailto:sravanpolu.me@gmail.com",
+          "sameAs": [
+            "https://www.linkedin.com/in/SravanPolu",
+            "https://github.com/SravanKumarPolu",
+            "https://x.com/SravanPolu"
+          ],
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Lovely Professional University"
+          },
+          "knowsAbout": [
+            "React",
+            "Next.js",
+            "TypeScript",
+            "Node.js",
+            "MongoDB",
+            "Express.js",
+            "Tailwind CSS",
+            "JavaScript",
+            "Web Development"
+          ],
+          "knowsLanguage": ["en"],
+          "nationality": "Indian",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "IN"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://sravanpolu.com/#website",
+          "url": "https://sravanpolu.com/",
+          "name": "Sravan Kumar Polu — Portfolio",
+          "description": "Portfolio of Sravan Kumar Polu, React and Next.js full-stack developer — freelance, contract and full-time.",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://sravanpolu.com/#person" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://sravanpolu.com/#profile-page",
+          "url": "https://sravanpolu.com/",
+          "name": "Sravan Kumar Polu — React & Next.js Full-Stack Developer",
+          "isPartOf": { "@id": "https://sravanpolu.com/#website" },
+          "about": { "@id": "https://sravanpolu.com/#person" },
+          "mainEntity": { "@id": "https://sravanpolu.com/#person" },
+          "inLanguage": "en",
+          "dateModified": "2026-10-11"
+        }
+      ]
     }
     </script>
   </head>

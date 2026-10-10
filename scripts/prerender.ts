@@ -118,12 +118,33 @@ async function main(): Promise<void> {
     await new Promise((r) => setTimeout(r, 1200));
 
     // Force remaining lazy images to load before capture.
+    // First record which images are natively eager (e.g. the LCP hero image) —
+    // after capture we restore loading="lazy" on everything else so real
+    // browsers defer below-fold images. The <img src> stays in the raw HTML,
+    // so crawlers still see every image.
+    const nativelyEagerSrcs = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('img[loading="eager"]')).map(
+        (img) => (img as HTMLImageElement).currentSrc
+      )
+    );
     await page.evaluate(() => {
       document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
         (img as HTMLImageElement).loading = "eager";
       });
     });
     await new Promise((r) => setTimeout(r, 2000));
+
+    // Restore native lazy loading now that every image is fetched — the
+    // serialized HTML then ships loading="lazy" for below-fold images while
+    // the fetched state keeps this prerender session intact.
+    await page.evaluate((eagerSrcs: string[]) => {
+      document.querySelectorAll('img[loading="eager"]').forEach((img) => {
+        const el = img as HTMLImageElement;
+        if (!eagerSrcs.includes(el.currentSrc)) {
+          el.loading = "lazy";
+        }
+      });
+    }, nativelyEagerSrcs);
 
     // Reveal anything still hidden by scroll-triggered entrance animations so
     // crawlers and no-JS clients receive fully visible content.
@@ -143,12 +164,31 @@ async function main(): Promise<void> {
     const html = await page.evaluate(
       () => "<!DOCTYPE html>\n" + document.documentElement.outerHTML
     );
-    await writeFile(indexPath, html, "utf8");
+
+    // The non-blocking Google Fonts link is declared `media="print"` with
+    // `onload="this.media='all'"`. By capture time the browser has already
+    // flipped media to "all", and that state gets serialized — shipping a
+    // render-blocking stylesheet in the deployed HTML. Restore the original
+    // non-blocking form (browsers defer media="print" stylesheets for first
+    // paint; the onload handler re-enables it; the <noscript> fallback covers
+    // non-JS clients).
+    let output = html;
+    const fontLinkPattern = /(<link\b[^>]*fonts\.googleapis\.com[^>]*?\bmedia=)"all"/i;
+    if (fontLinkPattern.test(output)) {
+      output = output.replace(fontLinkPattern, '$1"print"');
+      console.log("Restored non-blocking font loading (media=\"print\") in prerendered HTML");
+    } else {
+      console.warn(
+        "Warning: expected non-blocking Google Fonts link not found in captured HTML."
+      );
+    }
+
+    await writeFile(indexPath, output, "utf8");
 
     if (consoleErrors.length > 0) {
       console.warn("Prerender console errors:", consoleErrors);
     }
-    console.log(`Pre-rendered ${indexPath} (${(html.length / 1024).toFixed(1)} KB)`);
+    console.log(`Pre-rendered ${indexPath} (${(output.length / 1024).toFixed(1)} KB)`);
   } finally {
     await browser.close();
     server.close();

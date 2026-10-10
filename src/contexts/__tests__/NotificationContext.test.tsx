@@ -4,7 +4,7 @@ import { NotificationProvider, useNotification } from '../NotificationContext';
 
 // Test component that uses the notification context
 const TestComponent = () => {
-  const { addNotification, removeNotification, showSuccess, showError } = useNotification();
+  const { addNotification, showSuccess, showError } = useNotification();
 
   return (
     <div>
@@ -41,10 +41,8 @@ describe('NotificationContext', () => {
     
     fireEvent.click(screen.getByText('Add Notification'));
     
-    await waitFor(() => {
-      expect(screen.getByText('Test')).toBeInTheDocument();
-      expect(screen.getByText('Test message')).toBeInTheDocument();
-    });
+    await screen.findByText('Test');
+    await screen.findByText('Test message');
   });
 
   test('shows success notification', async () => {
@@ -56,10 +54,8 @@ describe('NotificationContext', () => {
     
     fireEvent.click(screen.getByText('Show Success'));
     
-    await waitFor(() => {
-      expect(screen.getByText('Success')).toBeInTheDocument();
-      expect(screen.getByText('Operation completed')).toBeInTheDocument();
-    });
+    await screen.findByText('Success');
+    await screen.findByText('Operation completed');
   });
 
   test('shows error notification', async () => {
@@ -71,10 +67,8 @@ describe('NotificationContext', () => {
     
     fireEvent.click(screen.getByText('Show Error'));
     
-    await waitFor(() => {
-      expect(screen.getByText('Error')).toBeInTheDocument();
-      expect(screen.getByText('Something went wrong')).toBeInTheDocument();
-    });
+    await screen.findByText('Error');
+    await screen.findByText('Something went wrong');
   });
 
   test('auto-removes notification after duration', async () => {

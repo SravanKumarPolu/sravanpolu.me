@@ -1,0 +1,26 @@
+# Netlify headers for sravanpolu.com — deployed as part of build/ so they apply
+# to EVERY deploy method (drag-and-drop of build/, CI from repo, or CLI).
+# Mirrors netlify.toml [[headers]] (git-connected deploys); identical values, so
+# the two sources never conflict.
+
+# Immutable caching for hashed static assets
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+# Short cache for the resume PDF (regenerated on each build)
+/Resume.pdf
+  Cache-Control: public, max-age=3600
+
+# Security headers
+# NOTE: frame-ancestors 'self' (not X-Frame-Options: DENY) because the Resume
+# section embeds /resume-preview.html in a same-origin iframe. This CSP
+# directive blocks cross-origin framing while keeping that feature intact.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: frame-ancestors 'self'

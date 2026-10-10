@@ -170,6 +170,8 @@ const Hero: React.FC = () => {
                       alt="Sravan Kumar Polu — React & Next.js full-stack developer"
                       className="w-full h-full object-cover"
                       loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
                       width={320}
                       height={320}
                     />

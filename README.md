@@ -22,19 +22,20 @@ Welcome to my personal developer portfolio built with modern web technologies to
 ```
 ├── public/               # Static assets copied verbatim to build/
 │   ├── Resume.pdf        # Resume served at /Resume.pdf
-│   ├── resume-preview.html # Rendered in the desktop resume iframe
-│   ├── robots.txt · sitemap.xml · manifest.json · og-image.png
-│   └── index.html        # Meta tags, JSON-LD, non-blocking fonts
+│   ├── resume-preview.html # Rendered in the desktop resume iframe (noindex)
+│   ├── robots.txt · sitemap.xml · manifest.json · og-image.jpg · _headers
+│   └── index.html        # Meta tags, JSON-LD (Person/WebSite/ProfilePage), non-blocking fonts
 ├── src/
 │   ├── components/       # Nav, sections' pieces, UI primitives, tests
 │   ├── sections/         # Page-level sections (Hero, About, Work, …)
 │   ├── constants/        # portfolio.ts (projects), resume-data.ts (resume source of truth)
 │   ├── contexts/ · hooks/ · utils/
 │   └── index.tsx         # Entry point
-├── scripts/              # generate-resume-pdf.ts, prerender.ts
-├── docs/                  # Testing guide, design system docs
-├── .github/workflows/ci.yml  # CI: install (frozen lockfile) → test → build
-├── netlify.toml           # Netlify headers + caching
+├── scripts/              # generate-resume-pdf.ts, prerender.ts, verify-build.ts
+├── docs/                  # Testing guide, design system docs, Search Console guide
+├── .github/workflows/ci.yml  # CI: install (frozen lockfile) → typecheck → lint → test → build
+├── netlify.toml           # Netlify headers + caching (git-connected deploys)
+│                          # public/_headers mirrors them for drag-and-drop builds
 └── vercel.json            # Vercel headers + caching
 ```
 
@@ -108,6 +109,23 @@ pnpm run build:resume
 
 ---
 
+## 🧪 Quality Commands
+
+```bash
+pnpm install
+pnpm run typecheck    # tsc --noEmit
+pnpm run lint          # ESLint (react-app config)
+pnpm test -- --watchAll=false   # Jest + Testing Library
+pnpm build             # resume → production bundle → prerender (needs Chrome)
+```
+
+`pnpm build` (and `scripts/prerender.ts`) needs a Chrome/Chromium binary — set
+`PUPPETEER_EXECUTABLE_PATH` if it is not on a standard path. After a build,
+`npx tsx scripts/verify-build.ts` runs the full smoke + Core Web Vitals
+verification suite against `build/`.
+
+---
+
 ## Documentation Guide
 
 Development and testing documentation lives in [`docs/`](docs/); historical internal
@@ -116,6 +134,7 @@ notes are archived in [`docs/internal/`](docs/internal/).
 ### Audit
 - [AUDIT_REPORT.md](AUDIT_REPORT.md) - Competitive gap audit, technical review, verification results, and improvement roadmap
 - [CHANGELOG.md](CHANGELOG.md) - Chronological record of all implemented fixes and improvements
+- [docs/SEARCH_CONSOLE_GUIDE.md](docs/SEARCH_CONSOLE_GUIDE.md) - Google Search Console setup and sitemap submission steps
 
 ### Getting Started
 - [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md) - Unit testing, integration tests, and test coverage
