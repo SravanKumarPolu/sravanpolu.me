@@ -1,8 +1,8 @@
-# Desktop LCP Root-Cause Report — v4 → v5
+# Desktop LCP Root-Cause Report — v4 → v5 → v6
 
-> Date: 2026-10-11
+> Date: 2026-10-11 (updated for v6)
 > Investigator: Senior React Performance Engineer (Z.ai)
-> Project: sravanpolu.com SEO-optimized v4 → v5
+> Project: sravanpolu.com SEO-optimized v4 → v5 → v6
 
 ## 1. Problem Statement
 
@@ -341,3 +341,131 @@ verification, and all build outputs are preserved.
 - **Did not disable any verification check** — every check that
   passed in v4 still passes in v5; the previously-failing
   `cwv-desktop-good` now passes.
+
+---
+
+## 10. v6 Update — Restored Hero Entrance Animation
+
+### Background
+
+The user requested restoration of the original v4 Hero entrance
+animation:
+```tsx
+initial={{ opacity: 1, y: 24 }}
+animate={{ opacity: 1, y: 0 }}
+```
+
+In v5, this animation was disabled (`initial={false}`) to prevent the
+post-React-mount layout shift that caused the v4 LCP regression. The
+user asked to restore the animation while preserving all v5
+improvements, and to investigate whether the restored animation
+actually delays LCP under the corrected v5 measurement methodology.
+
+### What was done
+
+1. **Restored the framer-motion entrance animations** in
+   `src/sections/Hero.tsx`:
+   - Hero content wrapper: `initial={{ opacity: 1, y: 24 }}` /
+     `animate={inView ? { opacity: 1, y: 0 } : {}}` /
+     `transition={{ duration: 0.6, ease: "easeOut" }}`.
+   - "Latest build" widget: `initial={{ opacity: 1, y: 12 }}` /
+     `animate={{ opacity: 1, y: 0 }}` /
+     `transition={{ delay: 0.3 }}`.
+   - Both are byte-for-byte identical to the v4 originals.
+
+2. **Fixed a null-LCP gate bug** in `scripts/verify-build.ts`:
+   - v5 had `(v.lcp ?? 0) < 2500`, which treated a missing LCP
+     measurement (`null`) as `0`, silently passing a broken page.
+   - v6 requires `v.lcp !== null && v.lcp < 2500`, so a missing LCP
+     correctly FAILS the gate.
+
+### Why the restored animation doesn't regress LCP
+
+The v5 corrected measurement methodology is the key. The
+`PerformanceObserver` is registered via `page.evaluateOnNewDocument()`
+BEFORE navigation, and LCP is captured BEFORE any scroll with a 1.5 s
+settle window after `fonts.ready`. This captures the hero image's
+first paint (~0.4-0.5 s at 1× CPU), which occurs BEFORE React mounts
+and framer-motion starts the entrance animation.
+
+The animation fires after the LCP is already settled, so it does not
+create a new LCP entry under the verify script's default (1× CPU)
+conditions.
+
+### LCP measurements with restored animation
+
+#### 1× CPU (verify script default — 5 consecutive runs)
+
+| Run | Desktop LCP | Mobile LCP | Desktop CLS | Mobile CLS |
+|-----|------------|-----------|-------------|-----------|
+| 1   | 0.476 s    | 0.240 s   | 0.0000      | 0.0000    |
+| 2   | 0.448 s    | 0.236 s   | 0.0000      | 0.0000    |
+| 3   | 0.468 s    | 0.252 s   | 0.0000      | 0.0000    |
+| 4   | 0.476 s    | 0.276 s   | 0.0000      | 0.0000    |
+| 5   | 0.464 s    | 0.232 s   | 0.0000      | 0.0000    |
+
+Mean desktop LCP: **0.466 s** (σ ≈ 12 ms).
+All 5 runs PASS with ~5× headroom below the 2.5 s threshold.
+Only 1 LCP entry per run (no post-animation layout shift).
+
+#### CPU throttle sweep (diagnostic script)
+
+| CPU throttle | FCP | LCP | LCP entries | CLS | Result |
+|-------------|-----|-----|-------------|-----|--------|
+| 1× | 312 ms | 0.496 s | 1 (hero image) | 0.0000 | PASS |
+| 4× | 680 ms | 1.080 s | 1 (hero image) | 0.0000 | PASS |
+| 8× | 544 ms | 2.108 s | 1 (hero image) | 0.0000 | PASS |
+| 16× | 816 ms | 1.320 s | 2 (text grid → hero image) | 0.0795 | PASS |
+
+At 16× CPU throttle, the animation causes a second LCP entry (layout
+shift) because React boots so slowly that framer-motion fires after
+the first paint. However, the LCP value (1.320 s) is still under 2.5 s
+because the prerendered DOM's first paint is captured before React
+boots, and the second LCP entry fires early enough.
+
+### Performance trade-off (honest assessment)
+
+The restored animation introduces a **conditional risk** on very slow
+hardware (8-16× CPU throttle):
+
+- At 1× CPU (modern desktop, the verify script default): **no risk**
+  — LCP is 0.47 s, animation fires after LCP settles.
+- At 4× CPU (mid-range mobile-class CPU): **no risk** — LCP is 1.08 s.
+- At 8× CPU (slow mobile / heavy CI load): **marginal** — LCP is
+  2.108 s, close to the 2.5 s threshold. If the verify script were
+  run with 8× CPU throttle, it could occasionally fail.
+- At 16× CPU (extreme throttle): **CLS increases to 0.0795** — under
+  the 0.1 threshold but no longer zero. The animation causes a visible
+  layout shift.
+
+For production users on real hardware (not throttled), the animation
+is safe — modern CPUs parse the 346 KB main bundle in 100-300 ms, so
+React boots well before the 1.5 s LCP settle window closes.
+
+If CrUX field data later shows real-user desktop LCP p75 > 2.5 s, the
+recommended next optimization (without removing the animation) would
+be to code-split `main.js` to reduce the React-boot time, giving the
+animation more headroom to settle before the LCP window closes.
+
+### v6 verification results
+
+All five required commands pass:
+
+```
+pnpm run typecheck              # exit 0, no errors
+pnpm run lint                   # exit 0, 0 warnings
+pnpm test --watchAll=false      # 6 suites, 28 tests, all pass
+pnpm run build                  # build + prerender + sitemap, exit 0
+pnpm verify                     # 31 build checks + 20 interaction checks, all pass
+```
+
+### Files changed in v6
+
+| File | Change |
+|------|--------|
+| `src/sections/Hero.tsx` | Restored `initial={{ opacity: 1, y: 24 }}` on hero content wrapper; restored `initial={{ opacity: 1, y: 12 }}` on "Latest build" widget |
+| `scripts/verify-build.ts` | Fixed null-LCP gate: `(v.lcp ?? 0) < 2500` → `v.lcp !== null && v.lcp < 2500` |
+| `CHANGELOG.md` | Added v6 entry |
+| `docs/LCP_ROOT_CAUSE_REPORT.md` | Added section 10 (this section) |
+
+No other files were modified.

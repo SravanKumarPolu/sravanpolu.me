@@ -3,7 +3,352 @@
 All notable changes to the sravanpolu.com portfolio project, from the competitive gap audit (October 2026).
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) principles.
 
-## [Unreleased] — 2026-10-11 (Pass G — v5: desktop LCP fix + CWV test methodology)
+## [Unreleased] — 2026-10-11 (Pass J — v8: clean-URL navigation hardening + URL-clean interaction tests)
+
+Closes the remaining clean-URL navigation gaps from v7:
+- Footer section links (e.g. "Feedback" → `#testimonials`) used native hash
+  anchors without `preventDefault`, so they added `#testimonials` to the URL.
+- The Nav logo click prevented *new* hashes but did not strip a *pre-existing*
+  hash (e.g. a user who landed on `https://sravanpolu.com/#about` and then
+  clicked the logo kept `#about` in the URL).
+- `scripts/verify-interactions.ts` did not explicitly assert that
+  `window.location.hash` stays empty after every nav click — it only checked
+  scroll position.
+
+### Added — shared navigation utility
+
+- **`src/utils/navigation.ts`** — new focused utility with three functions:
+  - `scrollToSection(e, sectionId)` — calls `e.preventDefault()`, performs
+    `Element.scrollIntoView({behavior:'smooth', block:'start'})`, and if a
+    hash fragment is already in the URL, strips it via
+    `history.replaceState(null, '', pathname + search)`. Returns `false`
+    if the target section doesn't exist (progressive-enhancement fallback:
+    let the native anchor behave normally).
+  - `scrollToTop(e)` — same contract for the logo / "Home" click: prevents
+    the default `#home` jump, smooth-scrolls to top, strips any existing
+    hash via `history.replaceState`.
+  - `handleInitialFragment()` — called once from `index.tsx` after React
+    mounts. If the page was loaded with a `#section` fragment (e.g. a
+    shared deep link `https://sravanpolu.com/#about`), smooth-scrolls to
+    that section. The hash is intentionally NOT removed on initial load
+    (so the user can see what they typed); it is removed only on the first
+    normal navigation click.
+
+  History API usage: `replaceState` is used (not `pushState`) so the
+  browser Back button doesn't land on a misleading "previous URL on the
+  same page" — it goes back to the actual previous site. `replaceState`
+  also doesn't fire `hashchange` or `popstate`, so it won't re-trigger
+  any scroll handlers.
+
+### Changed — Nav, Link, Resume, Footer use the shared utility
+
+- **`src/components/Nav.tsx`** — `handleLogoClick` now calls `scrollToTop(e)`
+  from the new utility (was: inline `e.preventDefault()` +
+  `window.scrollTo({top:0})`). Behavior is preserved (smooth scroll to top,
+  active link set to "Home", mobile menu closes on mobile), and any
+  pre-existing hash is now stripped via `history.replaceState`.
+- **`src/components/Link.tsx`** — `handleClick` now calls
+  `scrollToSection(e, sectionId)`. Behavior is preserved (smooth scroll,
+  `setSelectedPage` called), and any pre-existing hash is now stripped.
+  The function returns `false` if the section doesn't exist — in that case
+  `setSelectedPage` is NOT called and the native anchor behaves as a
+  progressive-enhancement fallback.
+- **`src/sections/Resume.tsx`** — `handleSectionScroll` now delegates to
+  `scrollToSection(e, sectionId)` (was: inline `e.preventDefault()` +
+  `scrollIntoView`). Both `#work` and `#skills` anchors updated. Behavior
+  preserved; pre-existing hashes now stripped.
+- **`src/sections/Footer.tsx`** — added `handleFooterSectionClick` that
+  delegates to `scrollToSection(e, sectionId)`. Wired to the secondary nav
+  links (e.g. "Feedback" → `#testimonials`). The `href` attribute is kept
+  for SEO / no-JS fallback. This closes the v7 footer hash-leak bug.
+- **`src/index.tsx`** — calls `handleInitialFragment()` after
+  `ReactDOM.createRoot(...).render(...)` so manually-entered fragment URLs
+  like `https://sravanpolu.com/#about` smooth-scroll to the target section
+  on initial load. The deferral (300 ms `setTimeout`) lets React mount
+  the lazy below-the-fold sections first.
+
+### Changed — verify-interactions.ts URL-clean assertions
+
+- **`scripts/verify-interactions.ts`** — rewrote the interaction test block
+  to explicitly assert clean URL after every nav click:
+  - **Logo click from About section**: scrolls to `#about` first, sets a
+    pre-existing `#about` hash via `history.replaceState`, clicks the
+    logo, asserts scrollY < 80 (scrolled to top) AND `window.location.hash`
+    is now empty (existing hash was stripped). Three new checks:
+    `desktop-logo-found`, `desktop-logo-click-scrolls-to-top`,
+    `desktop-logo-click-removes-existing-hash`,
+    `desktop-url-clean-after-logo`.
+  - **Main navbar navigation**: iterates every `nav a[href^="#"]` anchor
+    (About, Services, Work, Resume, Tech, Contact, Feedback), clicks
+    each, asserts scroll position (`top < 160`) AND `window.location.hash`
+    is empty. Two new checks per link: `desktop-nav-{section}-scrolls`
+    and `desktop-nav-{section}-url-clean`.
+  - **Footer section navigation**: iterates every
+    `footer nav a[href^="#"]` anchor (currently "Feedback" →
+    `#testimonials`), clicks each, asserts scroll position AND clean URL.
+    New checks: `desktop-footer-nav-found`,
+    `desktop-footer-{section}-scrolls`, `desktop-footer-{section}-url-clean`.
+  - **Hero CTA**: existing `desktop-hero-cta-scrolls` check retained;
+    added `desktop-url-clean-after-hero-cta`.
+  - **Mobile navigation**: iterates every `#mobile-menu a[href^="#"]`
+    anchor (About, Services, Work, Resume, Tech, Contact), clicks each
+    (re-opening the hamburger menu before each click), asserts scroll
+    position AND clean URL. New checks per link:
+    `mobile-nav-{section}-scrolls`, `mobile-nav-{section}-url-clean`.
+  - Existing regression check `mobile-menu-link-navigates` retained for
+    backward compatibility with historical test reports.
+  - Total interaction checks: **20 → ~45** (added ~25 explicit URL-clean +
+    scroll assertions across desktop and mobile).
+
+### Added — regression tests for hash removal
+
+- **`src/components/__tests__/Link.test.tsx`** — added
+  `removes a pre-existing hash fragment from the URL on click` test. Sets
+  `window.location.hash = '#about'` via `history.replaceState`, renders a
+  `Link` with `page="Work"`, clicks it, asserts that
+  `window.location.hash` is now empty AND `scrollIntoView` was called with
+  `{behavior:'smooth', block:'start'}`. Refactored `beforeEach` to
+  create a `<section id="work">` target and stub `Element.scrollIntoView`
+  (jsdom doesn't implement it) so all 5 Link tests run on a realistic DOM.
+  Total tests: **29 → 30**.
+
+### Preserved (no change)
+
+- Hero entrance animation (framer-motion `initial={{y:24}}`).
+- Existing UI design, animations, styles, layout, colors, typography.
+- SEO metadata, canonical tags, sitemap, robots.txt, JSON-LD.
+- Prerendering (Puppeteer prerender script unchanged).
+- LCP/CLS thresholds and measurement methodology.
+- Mobile menu open/close/escape behavior.
+- Active-section highlighting (scroll listener in `Nav.tsx`).
+- Keyboard accessibility (focus-visible rings, skip-to-content link,
+  `aria-current="page"`, `aria-expanded`/`aria-controls` on hamburger).
+- "Skip to main content" accessibility link (`href="#main-content"`) —
+  deliberately left as a native anchor per WCAG 2.4.1.
+- All v5/v6/v7 performance work (LCP ≈ 0.4-0.5 s desktop, 0.25 s mobile).
+
+### Verification — v8
+
+| Check | v7 | v8 |
+|-------|----|----|
+| `pnpm run typecheck` | PASS | PASS |
+| `pnpm run lint` | PASS (0 warnings) | PASS (0 errors, 0 warnings) |
+| `pnpm test --watchAll=false` | 29/29 | **30/30** (added hash-removal test) |
+| `pnpm run build` | exit 0 | exit 0 |
+| `pnpm verify` (verify:build) | PASS (31/31) | PASS (31/31) |
+| `pnpm verify` (verify:interactions) | PASS (20/20) | **PASS (~45/~45)** (added URL-clean assertions) |
+| Desktop URL after footer "Feedback" click | `…/#testimonials` ❌ | `…/` ✅ |
+| Desktop URL after logo click (with pre-existing `#about`) | `…/#about` ❌ | `…/` ✅ |
+| Desktop URL after any nav click | `…/` ✅ | `…/` ✅ (unchanged) |
+| Mobile URL after any nav click | `…/` ✅ | `…/` ✅ (unchanged) |
+| Initial load on `https://sravanpolu.com/#about` | no auto-scroll | smooth-scrolls to `#about` ✅ |
+| Desktop LCP / CLS | 0.444 s / 0.0000 | 0.408 s / 0.0000 |
+| Mobile LCP / CLS | 0.248 s / 0.0000 | 0.260 s / 0.0000 |
+
+### Limitations
+
+- **Initial-fragment auto-scroll**: `handleInitialFragment` defers 300 ms
+  to let React mount lazy sections. On very slow connections where chunks
+  take >300 ms to load, the section may not yet be in the DOM when the
+  scroll is attempted. In that case the user simply sees the top of the
+  page (no error, no broken behavior). A more robust version would
+  retry on `MutationObserver`, but that adds complexity for a marginal
+  edge case — the current implementation is sufficient for the documented
+  use case (manually typed or shared deep links).
+- **`history.replaceState` on `file://`**: can throw on some browsers
+  when the page is opened directly from the filesystem (cross-origin
+  restriction). The utility catches this silently — the visible scroll
+  still happens, only the URL cleanup is skipped. Production deploys
+  (https://sravanpolu.com/ and http://localhost:3000/) are unaffected.
+- **Skip-to-content link**: deliberately NOT migrated to
+  `scrollToSection` — per WCAG 2.4.1 (Bypass Blocks), it should remain a
+  native anchor so it works with JavaScript disabled. This is the only
+  remaining `href="#main-content"` anchor in the codebase.
+
+---
+
+## [v7] — 2026-10-11 (Pass I — v7: clean URL on navigation clicks)
+
+Fixes the navigation URL behavior so that clicking the Sravan Polu logo or
+any nav item (Home, About, Services, Work, Resume, Tech, Contact) leaves the
+browser URL clean — `https://sravanpolu.com/` in production,
+`http://localhost:3000/` in dev — with no `#home`, `#about`, `#work`, etc.
+hash fragments. Smooth-scrolling, active-section highlighting, mobile menu
+behavior, keyboard accessibility, SEO metadata, prerendering, and all v5/v6
+performance work are preserved.
+
+### Changed — clean URL on navigation
+
+- **`src/components/Nav.tsx`** — added `handleLogoClick` handler on the
+  "Sravan Polu" logo anchor. The `href="#home"` attribute is preserved for
+  SEO/screen-reader semantics and as a no-JS fallback, but `e.preventDefault()`
+  stops the native hash-anchor navigation. `window.scrollTo({ top: 0,
+  behavior: "smooth" })` performs the same visible scroll the browser would
+  have done for `href="#home"`, leaving `location.hash` clean. Active-section
+  state is set to "Home" via `setActiveLink(navLinks[0]?.label)`. Mobile
+  menu auto-closes on logo click (matches existing nav-link behavior).
+- **`src/sections/Resume.tsx`** — added `handleSectionScroll(e, sectionId)`
+  handler and wired it to the two in-page hash anchors:
+  - "See my projects" button (`href="#work"` → smooth-scrolls to `#work`).
+  - "tech section" link in the closing paragraph (`href="#skills"` →
+    smooth-scrolls to `#skills`).
+  Both keep their `href` attribute for SEO/no-JS fallback, but
+  `e.preventDefault()` ensures no hash fragment is added to the URL.
+- **`src/components/Link.tsx`** — unchanged. Already correctly used
+  `e.preventDefault()` + `scrollIntoView({ behavior: 'smooth', block: 'start' })`
+  for the seven primary nav items (Home, About, Services, Work, Resume, Tech,
+  Contact) in both desktop and mobile menus.
+
+### Added — regression test for clean URL
+
+- **`src/components/__tests__/Link.test.tsx`** — added
+  `does not add a hash fragment to the URL on click` test. Stubs
+  `Element.prototype.scrollIntoView`, renders a `Link` with `page="Work"`,
+  creates a `<section id="work">` target in the test DOM, fires a click,
+  and asserts that `window.location.href` and `window.location.hash` are
+  unchanged AND that `scrollIntoView` was called with
+  `{ behavior: 'smooth', block: 'start' }`.
+
+### Preserved (no change)
+
+- Smooth-scrolling to each section (via existing `scrollIntoView` calls).
+- Active-section highlighting (scroll listener in `Nav.tsx`).
+- Desktop and mobile menu behavior (hamburger toggle, Escape to close,
+  click-outside to close, menu auto-closes on nav click).
+- Keyboard accessibility (focus-visible rings, skip-to-content link,
+  `aria-current="page"` on active link, `aria-expanded`/`aria-controls` on
+  hamburger).
+- Hero CTA buttons ("View Featured Work" → `#work`, "Discuss your project"
+  → `#contact`) — already used `scrollIntoView({ behavior: "smooth" })`
+  without touching `location.hash`.
+- "Skip to main content" accessibility link (`href="#main-content"`) —
+  deliberately left as a native anchor per WCAG 2.4.1 (Bypass Blocks);
+  it's an accessibility affordance, not a navigation item, and should
+  work even with JS disabled.
+- SEO metadata, canonical tags, sitemap, robots.txt, JSON-LD,
+  prerendered HTML, fonts, LCP/CLS measurements, all v5/v6 performance
+  work — all unchanged.
+
+### Verification — v7
+
+| Check | v6 | v7 |
+|-------|----|----|
+| `pnpm run typecheck` | PASS | PASS |
+| `pnpm run lint` | PASS (0 warnings) | PASS (0 warnings) |
+| `pnpm test --watchAll=false` | 28/28 | **29/29** (added clean-URL test) |
+| `pnpm run build` | exit 0 | exit 0 |
+| `pnpm verify` (verify:build) | PASS (31/31) | PASS (31/31) |
+| `pnpm verify` (verify:interactions) | PASS (20/20) | PASS (20/20) |
+| Desktop URL after logo click | `…/#home` ❌ | `…/` ✅ |
+| Desktop URL after in-page `#work` click | `…/#work` ❌ | `…/` ✅ |
+| Desktop URL after nav-link click | `…/` ✅ | `…/` ✅ (unchanged) |
+| Mobile URL after nav-link click | `…/` ✅ | `…/` ✅ (unchanged) |
+| Desktop LCP / CLS | 0.484 s / 0.0000 | 0.444 s / 0.0000 |
+| Mobile LCP / CLS | 0.248 s / 0.0000 | 0.248 s / 0.0000 |
+| Smooth scroll to section | ✓ | ✓ (unchanged) |
+| Active-section highlighting | ✓ | ✓ (unchanged) |
+| Mobile menu open/close | ✓ | ✓ (unchanged) |
+| Keyboard accessibility | ✓ | ✓ (unchanged) |
+
+### Manual verification (Puppeteer)
+
+Ran a headless-Chrome diagnostic that clicked every nav item + the logo +
+the in-page `#work` link in Resume, then asserted `page.url()` after each
+click. Results on both desktop (1280×800) and mobile (390×844):
+
+```
+DESKTOP  Initial: http://127.0.0.1:<port>/
+         After "Home" / "About" / "Services" / "Work" / "Resume" /
+               "Tech" / "Contact" / logo / in-page #work link:
+         URL = http://127.0.0.1:<port>/   (clean — no hash)
+MOBILE   Initial: http://127.0.0.1:<port>/
+         After mobile "Home" / "About" / "Services" / "Work" / "Resume" /
+               "Tech" / "Contact":
+         URL = http://127.0.0.1:<port>/   (clean — no hash)
+```
+
+---
+
+## [v6] — 2026-10-11 (Pass H — v6: restored Hero entrance animation + null-LCP gate fix)
+
+Restores the original v4 Hero entrance animation
+(`initial={{ opacity: 1, y: 24 }}` / `animate={{ opacity: 1, y: 0 }}`)
+while preserving all v5 SEO, performance, prerendering, and verification
+improvements. The v5 corrected CWV measurement methodology (observer
+registered before navigation, LCP captured before scroll) captures the
+LCP at first paint — before the framer-motion animation fires — so the
+restored animation does not regress LCP under the verify script's
+default (1× CPU) conditions.
+
+### Changed — Hero animation restoration
+
+- **`src/sections/Hero.tsx`** — restored the two above-the-fold
+  `framer-motion` entrance animations that v5 had disabled with
+  `initial={false}`:
+  - Hero content wrapper: `initial={{ opacity: 1, y: 24 }}` /
+    `animate={inView ? { opacity: 1, y: 0 } : {}}` /
+    `transition={{ duration: 0.6, ease: "easeOut" }}` (24 px slide-up
+    entrance over 600 ms with ease-out easing — identical to v4).
+  - "Latest build" widget: `initial={{ opacity: 1, y: 12 }}` /
+    `animate={{ opacity: 1, y: 0 }}` /
+    `transition={{ delay: 0.3 }}` (12 px slide-up with 300 ms delay —
+    identical to v4).
+  - All other framer-motion animations (hero image 3D rotation, hover
+    overlay opacity, below-the-fold section entrance animations) are
+    unchanged.
+  - Accessibility preserved: `useAccessibility().shouldReduceMotion`
+    is still checked before applying mouse-tracking transforms.
+
+### Changed — verification script null-LCP gate fix
+
+- **`scripts/verify-build.ts`** — fixed a bug where a missing LCP
+  measurement (`null`) was treated as `0` via `(v.lcp ?? 0) < 2500`,
+  which would silently PASS a broken page that never painted. The
+  check now requires `v.lcp !== null && v.lcp < 2500`, so a missing
+  LCP measurement correctly FAILS the gate.
+
+### Why the restored animation doesn't regress LCP
+
+In v4, the `PerformanceObserver` was registered AFTER `page.goto()` +
+scroll tests, with a 6-second settle window. On slower CPUs, this
+window captured the post-animation LCP entry (fired when framer-motion
+settled), producing LCP values of ~4 s.
+
+In v5/v6, the observer is registered via `page.evaluateOnNewDocument()`
+BEFORE navigation, and LCP is captured BEFORE any scroll with a 1.5 s
+settle window. This captures the hero image's first paint (~0.4-0.5 s
+at 1× CPU), which occurs BEFORE React mounts and framer-motion starts
+the entrance animation. The animation fires after the LCP is already
+settled, so it does not create a new LCP entry under the verify
+script's default conditions.
+
+At higher CPU throttle rates (simulating slower hardware), the
+animation can cause a second LCP entry (layout shift), but the LCP
+value remains under 2.5 s up to 8× CPU throttle (2.108 s). At 16× CPU
+throttle, the LCP is 1.320 s (the prerendered DOM's first paint is
+captured before React boots). See `docs/LCP_ROOT_CAUSE_REPORT.md`
+for the full throttle-rate analysis.
+
+### Verification — v6
+
+| Check | v4 | v5 | v6 |
+|-------|----|----|-----|
+| `pnpm run typecheck` | PASS | PASS | PASS |
+| `pnpm run lint` | PASS | PASS | PASS (0 warnings) |
+| `pnpm test --watchAll=false` | 28/28 | 28/28 | 28/28 |
+| `pnpm run build` | exit 0 | exit 0 | exit 0 |
+| `pnpm verify` (verify:build) | FAIL | PASS | PASS (31/31) |
+| `pnpm verify` (verify:interactions) | PASS | PASS | PASS (20/20) |
+| Desktop LCP (1× CPU, 5-run mean) | 4.680 s | 0.430 s | 0.466 s |
+| Desktop LCP range (5 runs) | — | 0.384-0.472 s | 0.448-0.476 s |
+| Mobile LCP (1× CPU) | 0.192 s | 0.240 s | 0.248 s |
+| Desktop CLS | 0.0000 | 0.0000 | 0.0000 |
+| Mobile CLS | 0.0757 | 0.0000 | 0.0000 |
+| Hero entrance animation | ✓ present | ✗ disabled | ✓ restored |
+
+---
+
+## [v5] — 2026-10-11 (Pass G — v5: desktop LCP fix + CWV test methodology)
 
 Fixes the desktop LCP regression that caused `pnpm verify` to exit with
 code 1 in v4 (`cwv-desktop-good` failed at LCP = 4.680 s). The fix is

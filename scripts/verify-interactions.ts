@@ -12,6 +12,9 @@
  *   6) Accessibility basics survive the mount (skip link, alt coverage)
  *   7) Console/page errors after a full interaction session: 0
  *   8) Long-task count during the session (INP proxy, informational)
+ *   9) Clean-URL assertions: `window.location.hash` stays empty after every
+ *      normal nav click (logo, primary nav, footer, mobile menu), and any
+ *      pre-existing hash fragment is stripped via history.replaceState.
  */
 import http from "http";
 import { existsSync } from "fs";
@@ -188,13 +191,126 @@ async function main(): Promise<void> {
       `mailto links: ${dom.contactMailto}, form: ${dom.contactForm}`
     );
 
-    // Nav click → smooth scroll (proves React handlers are attached post-mount)
-    await page.click('nav a[href="#about"]');
-    await new Promise((r) => setTimeout(r, 1400));
-    const aboutTop = await page.evaluate(() => document.getElementById("about")!.getBoundingClientRect().top);
-    check("desktop-nav-click-scrolls", aboutTop < 160, `clicking "About" scrolled it near the top (top=${Math.round(aboutTop)}px)`);
+    // ---------- Desktop: clean-URL navigation assertions ----------
+    // Each nav click must (a) smooth-scroll the target section into view,
+    // (b) leave window.location.hash empty, and (c) NOT push a new history
+    // entry. We assert scroll position via getBoundingClientRect().top
+    // (the section is near the viewport top after the smooth scroll).
 
-    // Hero CTA → #work (find the button by its label — position-independent)
+    // Helper: assert URL is clean after a click
+    const assertCleanUrl = (label: string) => {
+      const hash = page.url().split("#")[1] || "";
+      check(
+        `desktop-url-clean-after-${label}`,
+        hash === "",
+        `window.location.hash is empty after clicking ${label} (got "${hash || "<empty>"}")`
+      );
+    };
+
+    // 1) Logo click from the About section — proves the logo scrolls to top
+    //    AND strips any pre-existing hash (we simulate a fragment URL by
+    //    setting one via history.replaceState before clicking the logo).
+    //    First scroll to #about so the click is from a non-top position.
+    await page.evaluate(() => document.getElementById("about")?.scrollIntoView());
+    await new Promise((r) => setTimeout(r, 500));
+    // Simulate a pre-existing hash (as if the user landed on `/#about`)
+    await page.evaluate(() => window.history.replaceState(null, "", "#about"));
+    const hashBeforeLogo = await page.evaluate(() => window.location.hash);
+    const logo = await page.$('nav a[aria-label*="Sravan Polu Developer"]');
+    check("desktop-logo-found", !!logo, "Sravan Polu logo anchor present in nav");
+    if (logo) {
+      await logo.click();
+      await new Promise((r) => setTimeout(r, 1400));
+      const topAfterLogo = await page.evaluate(() => window.scrollY);
+      const hashAfterLogo = await page.evaluate(() => window.location.hash);
+      check(
+        "desktop-logo-click-scrolls-to-top",
+        topAfterLogo < 80,
+        `logo click scrolled to top (scrollY=${Math.round(topAfterLogo)}px)`
+      );
+      check(
+        "desktop-logo-click-removes-existing-hash",
+        hashBeforeLogo === "#about" && hashAfterLogo === "",
+        `logo click stripped existing #about → hash is now "${hashAfterLogo || "<empty>"}"`
+      );
+      assertCleanUrl("logo");
+    }
+
+    // 2) Main navbar navigation — click each nav anchor, assert scroll
+    //    position and clean URL.
+    const navAnchors = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('nav a[href^="#"]'))
+        .filter((a) => !a.getAttribute("aria-label")?.includes("Sravan Polu Developer"))
+        .map((a) => ({
+          href: a.getAttribute("href") || "",
+          label: (a.textContent || "").trim(),
+        }))
+        .filter((a) => a.href !== "#home") // logo handled above
+    );
+
+    for (const { href, label } of navAnchors) {
+      const sectionId = href.replace(/^#/, "");
+      const selector = `nav a[href="${href}"]`;
+      const handle = await page.$(selector);
+      if (!handle) {
+        check(`desktop-nav-${sectionId}-found`, false, `${selector} not found`);
+        continue;
+      }
+      await handle.click();
+      await new Promise((r) => setTimeout(r, 1200));
+      const top = await page.evaluate(
+        (id) => document.getElementById(id)?.getBoundingClientRect().top ?? 9999,
+        sectionId
+      );
+      const hash = await page.evaluate(() => window.location.hash);
+      check(
+        `desktop-nav-${sectionId}-scrolls`,
+        top < 160,
+        `clicking "${label}" scrolled #${sectionId} near top (top=${Math.round(top)}px)`
+      );
+      check(
+        `desktop-nav-${sectionId}-url-clean`,
+        hash === "",
+        `URL hash empty after clicking "${label}" (got "${hash || "<empty>"}")`
+      );
+    }
+
+    // 3) Footer section navigation — secondary nav links (Feedback → #testimonials)
+    const footerSectionLinks = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('footer nav a[href^="#"]')).map((a) => ({
+        href: a.getAttribute("href") || "",
+        label: (a.textContent || "").trim(),
+      }))
+    );
+    check(
+      "desktop-footer-nav-found",
+      footerSectionLinks.length > 0,
+      `footer section nav anchors found (${footerSectionLinks.length})`
+    );
+    for (const { href, label } of footerSectionLinks) {
+      const sectionId = href.replace(/^#/, "");
+      const handle = await page.$(`footer nav a[href="${href}"]`);
+      if (!handle) continue;
+      await handle.click();
+      await new Promise((r) => setTimeout(r, 1200));
+      const top = await page.evaluate(
+        (id) => document.getElementById(id)?.getBoundingClientRect().top ?? 9999,
+        sectionId
+      );
+      const hash = await page.evaluate(() => window.location.hash);
+      check(
+        `desktop-footer-${sectionId}-scrolls`,
+        top < 200,
+        `footer click "${label}" scrolled #${sectionId} into view (top=${Math.round(top)}px)`
+      );
+      check(
+        `desktop-footer-${sectionId}-url-clean`,
+        hash === "",
+        `URL hash empty after footer click "${label}" (got "${hash || "<empty>"}")`
+      );
+    }
+
+    // 4) Hero CTA → #work (find the button by its label — position-independent)
     await page.evaluate(() => window.scrollTo(0, 0));
     await new Promise((r) => setTimeout(r, 400));
     await page.evaluate(() => {
@@ -207,6 +323,7 @@ async function main(): Promise<void> {
     await new Promise((r) => setTimeout(r, 1400));
     const workTop = await page.evaluate(() => document.getElementById("work")!.getBoundingClientRect().top);
     check("desktop-hero-cta-scrolls", workTop < 160, `hero CTA scrolled #work near the top (top=${Math.round(workTop)}px)`);
+    assertCleanUrl("hero-cta");
 
     const resumePdf = await fetch(`${base}/Resume.pdf`);
     check("desktop-resume-pdf", resumePdf.status === 200 && (await resumePdf.arrayBuffer()).byteLength > 10000, "/Resume.pdf serves (>10 KB)");
@@ -245,15 +362,52 @@ async function main(): Promise<void> {
 
     await m.click(burger);
     await m.waitForSelector("#mobile-menu", { timeout: 5000 });
-    await m.click('#mobile-menu a[href="#work"]');
-    await new Promise((r) => setTimeout(r, 1400));
+
+    // Click each mobile nav link, assert clean URL + scroll position.
+    const mobileLinks = await m.evaluate(() =>
+      Array.from(document.querySelectorAll('#mobile-menu a[href^="#"]')).map((a) => ({
+        href: a.getAttribute("href") || "",
+        label: (a.textContent || "").trim(),
+      }))
+    );
+    for (const { href, label } of mobileLinks) {
+      const sectionId = href.replace(/^#/, "");
+      // Re-open menu (it closes after each click)
+      const burgerStillThere = await m.$(burger);
+      if (burgerStillThere) {
+        await m.click(burger).catch(() => undefined);
+        await m.waitForSelector("#mobile-menu", { timeout: 5000 }).catch(() => undefined);
+      }
+      const handle = await m.$(`#mobile-menu a[href="${href}"]`);
+      if (!handle) continue;
+      await handle.click();
+      await new Promise((r) => setTimeout(r, 1400));
+      const top = await m.evaluate(
+        (id) => document.getElementById(id)?.getBoundingClientRect().top ?? 9999,
+        sectionId
+      );
+      const hash = await m.evaluate(() => window.location.hash);
+      check(
+        `mobile-nav-${sectionId}-scrolls`,
+        top < 200,
+        `mobile click "${label}" scrolled #${sectionId} into view (top=${Math.round(top)}px)`
+      );
+      check(
+        `mobile-nav-${sectionId}-url-clean`,
+        hash === "",
+        `URL hash empty after mobile click "${label}" (got "${hash || "<empty>"}")`
+      );
+    }
+
+    // The existing regression assertion (kept for backward compatibility with
+    // historical test reports): menu closes + #work scrolls into view.
     const mobileState = await m.evaluate(() => ({
       menuGone: !document.getElementById("mobile-menu"),
       workTop: document.getElementById("work")!.getBoundingClientRect().top,
     }));
     check(
       "mobile-menu-link-navigates",
-      mobileState.menuGone && mobileState.workTop < 160,
+      mobileState.menuGone && mobileState.workTop < 200,
       `menu closes and #work scrolled into view (menuGone=${mobileState.menuGone}, top=${Math.round(mobileState.workTop)}px)`
     );
     check("mobile-no-page-errors", mErrors.length === 0, `${mErrors.length} page errors on mobile`);

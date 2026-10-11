@@ -356,8 +356,13 @@ async function main(): Promise<void> {
     }
     if (vDesk.err.length > 0) results.push(`WARN  cwv-desktop-observer-err  ${vDesk.err.join("; ")}`);
     if (vMob.err.length > 0) results.push(`WARN  cwv-mobile-observer-err   ${vMob.err.join("; ")}`);
-    check("cwv-desktop-good", (vDesk.lcp ?? 0) < 2500 && vDesk.cls < 0.1, fmt(vDesk));
-    check("cwv-mobile-good", (vMob.lcp ?? 0) < 2500 && vMob.cls < 0.1, fmt(vMob));
+    // A missing LCP measurement (null) must FAIL — it means the
+    // PerformanceObserver never fired, which indicates a broken measurement
+    // or a page that never painted. Treating null as 0 would silently pass a
+    // broken page through the gate.
+    const lcpOk = (v: { lcp: number | null }) => v.lcp !== null && v.lcp < 2500;
+    check("cwv-desktop-good", lcpOk(vDesk) && vDesk.cls < 0.1, fmt(vDesk));
+    check("cwv-mobile-good", lcpOk(vMob) && vMob.cls < 0.1, fmt(vMob));
 
     check("desktop-no-console-errors", consoleErrors.length === 0, `${consoleErrors.length} errors${consoleErrors.length ? ": " + consoleErrors.slice(0, 3).join(" | ") : ""}`);
 

@@ -7,6 +7,7 @@ import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { useMediaQuery } from "@react-hook/media-query";
 import SectionShell from "../components/SectionShell";
 import { resumeProfile } from "../constants/resume-data";
+import { scrollToSection } from "../utils/navigation";
 
 const Resume: React.FC = () => {
   const { triggerHaptic } = useHaptic();
@@ -29,6 +30,17 @@ const Resume: React.FC = () => {
       window.open("/Resume.pdf", "_blank");
       announce("Resume opened in new tab", "polite");
     }
+  };
+
+  /**
+   * In-page anchor scroll — same visible behavior as a native `href="#work"`
+   * / `href="#skills"` jump, but leaves `location.hash` clean so the browser
+   * URL stays `https://sravanpolu.com/` (or `http://localhost:3000/`). The
+   * `href` attribute is kept on the element for SEO / screen-reader semantics
+   * and as a progressive-enhancement fallback if JS fails.
+   */
+  const handleSectionScroll = (e: React.MouseEvent, sectionId: string): void => {
+    scrollToSection(e, sectionId);
   };
 
   return (
@@ -72,6 +84,7 @@ const Resume: React.FC = () => {
 
               <motion.a
                 href="#work"
+                onClick={(e) => handleSectionScroll(e, "work")}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 border-2 border-white/30 text-white font-semibold text-base sm:text-lg rounded-xl hover:border-cyan-400 hover:bg-cyan-400 hover:text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
@@ -146,6 +159,7 @@ const Resume: React.FC = () => {
           Full skill list in the{" "}
           <a
             href="#skills"
+            onClick={(e) => handleSectionScroll(e, "skills")}
             className="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-sm"
           >
             tech section

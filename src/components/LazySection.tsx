@@ -9,7 +9,6 @@ import SectionErrorBoundary from './SectionErrorBoundary';
 import Hero from '../sections/Hero';
 
 // Lazy load sections (Hero is eager — see import above)
-const LazyHero = lazy(() => import('../sections/Hero'));
 const LazyAbout = lazy(() => import('../sections/About'));
 const LazyWork = lazy(() => import('../sections/Work'));
 const LazySkills = lazy(() => import('../components/SkillsShowcase'));
@@ -194,7 +193,7 @@ const LazySection: React.FC<LazySectionProps> = ({ sectionName, fallback }) => {
   const getLazyComponent = (): ComponentType | null => {
     switch (sectionName.toLowerCase()) {
       case 'hero':
-        return LazyHero; // eager — see static import above
+        return null; // eager — see static import above
       case 'about':
         return LazyAbout;
       case 'services':

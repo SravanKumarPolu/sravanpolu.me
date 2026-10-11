@@ -1,6 +1,7 @@
 import React from "react";
 import { useMediaQuery } from "@react-hook/media-query";
 import { navLinks } from "../constants";
+import { scrollToSection } from "../utils/navigation";
 
 interface LinkProps {
   page: string;
@@ -11,21 +12,19 @@ interface LinkProps {
 const Link: React.FC<LinkProps> = React.memo(({ page, selectedPage, setSelectedPage }) => {
   const isActive = selectedPage === page;
   const isAboveMediumScreens = useMediaQuery("(min-width:1060px)");
-  
+
   // Get the correct href from navLinks
   const navLink = navLinks.find(link => link.label === page);
   const pageLink = navLink ? `#${navLink.href}` : `#${page.toLowerCase()}`;
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    setSelectedPage(page);
-    
-    const targetElement = document.getElementById(navLink?.href || page.toLowerCase());
-    if (targetElement) {
-      targetElement.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+    // scrollToSection calls e.preventDefault(), performs the smooth scroll,
+    // and strips any pre-existing hash from the URL via history.replaceState.
+    // If the target section doesn't exist, it returns false and we let the
+    // native anchor behave as a progressive-enhancement fallback.
+    const sectionId = navLink?.href || page.toLowerCase();
+    if (scrollToSection(e, sectionId)) {
+      setSelectedPage(page);
     }
   };
 

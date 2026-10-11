@@ -6,6 +6,7 @@ import { useMediaQuery } from "@react-hook/media-query";
 import { useApp } from "../contexts/AppContext";
 import { useKeyboardNavigation } from "../hooks/useKeyboardNavigation";
 import { getAriaLabel, getRoleDescription } from "../utils/accessibility";
+import { scrollToTop } from "../utils/navigation";
 
 /**
  * Feather "download" icon — inline copy of react-icons/fi FiDownload so the
@@ -99,6 +100,22 @@ const Nav: React.FC = () => {
     if (!isAboveMediumScreens && isNavOpen) toggleNav();
   };
 
+  /**
+   * Logo / "Home" click — smooth-scrolls to the top of the page (the Hero
+   * section) WITHOUT adding `#home` to the browser URL. `e.preventDefault()`
+   * stops the native hash-anchor navigation; `window.scrollTo({ top: 0,
+   * behavior: 'smooth' })` performs the same visible scroll the browser would
+   * have done for `href="#home"`. If a hash fragment was already in the URL
+   * (e.g. the user landed on `/#about`), `history.replaceState` strips it so
+   * the address bar returns to the clean root URL — without a page reload
+   * and without pushing a misleading Back-button entry.
+   */
+  const handleLogoClick = (e: React.MouseEvent) => {
+    scrollToTop(e);
+    setActiveLink(navLinks[0]?.label ?? "Home");
+    if (!isAboveMediumScreens && isNavOpen) toggleNav();
+  };
+
   return (
     <nav
       ref={navRef}
@@ -108,6 +125,7 @@ const Nav: React.FC = () => {
       <div className="flex justify-between items-center px-4 sm:px-6 py-3 md:py-4 max-w-7xl mx-auto">
         <a
           href="#home"
+          onClick={handleLogoClick}
           className="font-semibold text-white text-sm sm:text-lg tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg px-1"
           aria-label="Sravan Polu Developer - go to home"
         >

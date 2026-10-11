@@ -2,8 +2,20 @@ import { footerLinks, socialMedia, secondaryNavLinks } from "../constants";
 import React from "react";
 import copyrightSign from "../assets/icons/copyright-sign.svg";
 import footerLogo from "../assets/images/footerLogo.png";
+import { scrollToSection } from "../utils/navigation";
+
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+
+  /**
+   * Footer section links (e.g. "Feedback" → #testimonials) — same visible
+   * behavior as a native hash jump, but leaves `location.hash` clean so the
+   * URL stays `https://sravanpolu.com/`. The `href` attribute is kept for
+   * SEO / screen-reader semantics and no-JS progressive enhancement.
+   */
+  const handleFooterSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string): void => {
+    scrollToSection(e, sectionId);
+  };
 
   return (
     <footer
@@ -90,6 +102,7 @@ const Footer: React.FC = () => {
             <a
               key={link.href}
               href={`#${link.href}`}
+              onClick={(e) => handleFooterSectionClick(e, link.href)}
               className="text-neutral-400 hover:text-cyan-400 transition-colors min-h-[44px] inline-flex items-center px-2"
             >
               {link.label}

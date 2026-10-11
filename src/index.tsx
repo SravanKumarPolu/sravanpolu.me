@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { handleInitialFragment } from './utils/navigation';
 
 /**
  * Startup strategy for the Puppeteer-prerendered production build.
@@ -53,3 +54,10 @@ ReactDOM.createRoot(container).render(
 );
 
 // Web Vitals are measured in-app by useWebVitals (hooks/usePerformanceMonitor).
+
+// If the user landed on a fragment URL (e.g. `https://sravanpolu.com/#about`
+// typed manually or shared), smooth-scroll to that section now — after React
+// has had a beat to mount the lazy sections below the fold. The URL hash is
+// NOT removed on initial load (so the user can see what they typed); it is
+// removed only on the first normal navigation click via `scrollToSection`.
+handleInitialFragment();
