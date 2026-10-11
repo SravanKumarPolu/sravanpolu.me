@@ -145,3 +145,32 @@ Prerequisite: **deploy first** (§9), then follow `docs/SEARCH_CONSOLE_GUIDE.md`
 - [ ] 7. Rich Results Test on `https://sravanpolu.com/` → Person detected.
 - [ ] 8. Search Console: property + sitemap + request indexing (§8).
 - [ ] 9. After ~28 days: check Experience → Core Web Vitals (field LCP/INP/CLS) in Search Console.
+
+## 10. Pass E (v3) — decision-implementation audit: centralized metadata + genuine-change dating
+
+Checked the codebase against the four-pillar SEO decision. Verdict at audit
+time: *keep-static* ✅ and *avoid* (no SSR/Next/dynamic) ✅ were already
+achieved; *page-specific when needed* was correctly deferred but had zero
+readiness documentation; the **"Improve" pillar was not implemented** — no
+central metadata source (site URL hand-copied across 8+ files) and fully
+manual `lastmod`/`dateModified` (the exact manual process that produced the
+v1 future-dated `2026-10-11` bug). Pass E closes those gaps:
+
+| Pillar | Status after Pass E |
+| --- | --- |
+| Keep static (robots, canonical, title, description, OG image, personal JSON-LD) | ✅ Unchanged — still static, hand-auditable files |
+| Improve (centralize + genuine-change dates) | ✅ `src/constants/site.ts` single source of truth; `scripts/generate-sitemap.ts` enforces sync (preflight fails the build on drift) and stamps `lastmod` + `dateModified` from a content hash of the prerendered page (bundle-hash noise normalized away) |
+| Page-specific when needed | ✅ Documented pattern + `SITEMAP_PAGES` extension point — `docs/PAGE_METADATA_GUIDE.md` |
+| Avoid (dynamic everything / SSR / Next.js) | ✅ Still react-scripts + craco + React 18; all new machinery is build-time only; zero new dependencies |
+
+Regression evidence: typecheck PASS, lint 0, tests 28/28, build PASS
+end-to-end, `verify-build` 37/37 (5 new sitemap/date-lockstep checks),
+`verify-interactions` 21/21, LCP 0.648 s / CLS 0.0016 (desktop lab).
+Generator behavior proven: no-change rebuild → `KEPT 2026-10-10` (cross-build
+hash determinism confirmed); injected DOM change → `BUMPED` (hash change
+detected); hand-edited title → preflight `FAIL` naming the exact mismatch.
+
+**Owner note:** the shipped `scripts/.metadata-state.json` is part of the
+system — commit it together with the generated `public/sitemap.xml` /
+`public/index.html` changes (see the guide). Deployment checklist (§9)
+applies unchanged to this build.

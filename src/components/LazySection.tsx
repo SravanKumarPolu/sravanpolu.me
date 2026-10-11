@@ -1,8 +1,14 @@
-import React, { Suspense, lazy, ComponentType } from 'react';
+import React, { Suspense, lazy, ComponentType, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import SkeletonLoader, { SkeletonHero, SkeletonCard, SkeletonProjectCard } from './SkeletonLoader';
 import SectionErrorBoundary from './SectionErrorBoundary';
+// The Hero is bundled eagerly (not code-split): it is the above-the-fold LCP
+// section, so making it wait for a separate chunk download after main.js adds
+// a serial network round-trip to the LCP chain. Every other section stays
+// code-split and intersection-gated below.
+import Hero from '../sections/Hero';
 
-// Lazy load sections
+// Lazy load sections (Hero is eager — see import above)
 const LazyHero = lazy(() => import('../sections/Hero'));
 const LazyAbout = lazy(() => import('../sections/About'));
 const LazyWork = lazy(() => import('../sections/Work'));
@@ -12,6 +18,24 @@ const LazyTestimonials = lazy(() => import('../components/Testimonials'));
 const LazyContact = lazy(() => import('../components/ContactSection'));
 const LazyResume = lazy(() => import('../sections/Resume'));
 const LazyFooter = lazy(() => import('../sections/Footer'));
+
+/**
+ * Below-fold sections mount only when they approach the viewport.
+ *
+ * React.lazy alone splits the code but still downloads, parses and renders
+ * EVERY section during initial page load — the "lazy" sections were costing
+ * the whole page's JS on boot and pushing every section image into the
+ * initial network contention. Intersection-gating means a cold load only
+ * fetches/renders what is (nearly) visible; the rest streams in as the
+ * visitor scrolls.
+ *
+ * rootMargin 800px keeps loading comfortably ahead of the scroll position so
+ * sections are ready before they become visible (no visible pop-in, and any
+ * skeleton→content height change happens off-screen so CLS stays 0).
+ * scripts/prerender.ts scrolls the full page, so the prerendered HTML and the
+ * no-JS/crawler view still contain every section.
+ */
+const SECTION_PRELOAD_MARGIN = '800px 0px';
 
 interface LazySectionProps {
   sectionName: string;
@@ -141,11 +165,36 @@ const getSkeletonForSection = (sectionName: string): React.ReactNode => {
   }
 };
 
+/**
+ * Fires `onMounted` when the real section content has committed to the DOM.
+ * Rendered next to the lazy component INSIDE the Suspense boundary, so the
+ * callback only runs after the chunk has loaded and mounted — not while the
+ * skeleton fallback is showing.
+ */
+const SectionMountedProbe: React.FC<{ onMounted: () => void }> = ({ onMounted }) => {
+  useEffect(() => {
+    onMounted();
+  }, [onMounted]);
+  return null;
+};
+
+/**
+ * Sections whose React tree is structurally different below a breakpoint
+ * (useMediaQuery) cannot use the prerendered height as a reservation: the
+ * prerendered DOM was captured at a 1280px viewport, so below that breakpoint
+ * the captured markup reflows to a different height than the component that
+ * actually mounts. For those sections the reservation is only applied when the
+ * component's own media query matches the prerendered layout.
+ */
+const PIN_GUARDS: Record<string, string> = {
+  resume: '(min-width: 768px)', // src/sections/Resume.tsx renders an iframe layout only on desktop
+};
+
 const LazySection: React.FC<LazySectionProps> = ({ sectionName, fallback }) => {
-  const getLazyComponent = (): ComponentType => {
+  const getLazyComponent = (): ComponentType | null => {
     switch (sectionName.toLowerCase()) {
       case 'hero':
-        return LazyHero;
+        return LazyHero; // eager — see static import above
       case 'about':
         return LazyAbout;
       case 'services':
@@ -170,11 +219,58 @@ const LazySection: React.FC<LazySectionProps> = ({ sectionName, fallback }) => {
   const LazyComponent = getLazyComponent();
   const skeletonFallback = fallback || getSkeletonForSection(sectionName);
 
+  // Intersection-gate every non-hero section's mount (see comment above).
+  const { ref, inView } = useInView({
+    rootMargin: SECTION_PRELOAD_MARGIN,
+    triggerOnce: true,
+    initialInView: false,
+  });
+
+  // Height reservation: index.tsx measured each section's true rendered height
+  // from the prerendered DOM (at this exact viewport) before React took over.
+  // While a section shows a skeleton — both before it enters the preload margin
+  // AND while its chunk loads after entering it — the gate wrapper is pinned to
+  // exactly that height (skeletons are clipped with overflow:hidden; several
+  // skeleton layouts are TALLER than the real section, e.g. the footer skeleton
+  // is min-h-screen). Mounting real content swaps an equal-height box in, so
+  // anchor/nav jumps during initial load cause no layout shift. The pin drops
+  // once the real content has mounted (SectionMountedProbe), letting the
+  // section define its own height from then on.
+  const [contentMounted, setContentMounted] = React.useState(false);
+  const handleContentMounted = React.useCallback(() => setContentMounted(true), []);
+  const prerenderHeights = (window as unknown as {
+    __prerenderSectionHeights?: Record<string, number>;
+  }).__prerenderSectionHeights;
+  const sectionId = sectionName.toLowerCase();
+  const reservedHeight = prerenderHeights?.[sectionId];
+  const pinGuard = PIN_GUARDS[sectionId];
+  const pinAllowed =
+    typeof reservedHeight === 'number' &&
+    (!pinGuard || window.matchMedia(pinGuard).matches);
+  const showSkeleton = !inView || !contentMounted;
+  const gateStyle =
+    showSkeleton && pinAllowed
+      ? { height: reservedHeight, overflow: 'hidden' as const }
+      : undefined;
+
   return (
     <SectionErrorBoundary sectionName={sectionName}>
-      <Suspense fallback={skeletonFallback}>
-        <LazyComponent />
-      </Suspense>
+      {sectionId === 'hero' ? (
+        <Hero />
+      ) : (
+        <div ref={ref} style={gateStyle}>
+          {inView && LazyComponent ? (
+            <Suspense fallback={skeletonFallback}>
+              <>
+                <LazyComponent />
+                <SectionMountedProbe onMounted={handleContentMounted} />
+              </>
+            </Suspense>
+          ) : (
+            <div aria-busy="true">{skeletonFallback}</div>
+          )}
+        </div>
+      )}
     </SectionErrorBoundary>
   );
 };

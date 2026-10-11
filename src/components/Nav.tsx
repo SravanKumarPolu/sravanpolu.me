@@ -6,7 +6,32 @@ import { useMediaQuery } from "@react-hook/media-query";
 import { useApp } from "../contexts/AppContext";
 import { useKeyboardNavigation } from "../hooks/useKeyboardNavigation";
 import { getAriaLabel, getRoleDescription } from "../utils/accessibility";
-import { FiDownload } from "react-icons/fi";
+
+/**
+ * Feather "download" icon — inline copy of react-icons/fi FiDownload so the
+ * eager Nav code does not pull the react-icons barrel modules into the
+ * initial bundle (react-icons/si alone was ~35 KB minified in main.js).
+ * Path data is identical to FiDownload; rendering is pixel-identical.
+ */
+const FiDownload: React.FC<{ className?: string; "aria-hidden"?: boolean }> = ({
+  className,
+  ...rest
+}) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    {...rest}
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+    <polyline points="7 10 12 15 17 10" />
+    <line x1="12" y1="15" x2="12" y2="3" />
+  </svg>
+);
 
 const Nav: React.FC = () => {
   const { isDarkMode, isNavOpen, activeLink, isTopOfPage, toggleNav, setActiveLink } = useApp();
@@ -86,7 +111,7 @@ const Nav: React.FC = () => {
           className="font-semibold text-white text-sm sm:text-lg tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded-lg px-1"
           aria-label="Sravan Polu Developer - go to home"
         >
-          <span className="text-white">Sravan</span>
+          <span className="text-white">Sravan </span>
           <span className="text-cyan-400">Polu</span>
           <span className="hidden md:inline text-neutral-500 font-normal ml-2 text-sm">
             Developer
@@ -109,7 +134,7 @@ const Nav: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-lg text-sm font-semibold text-neutral-200 border border-white/15 bg-white/5 hover:border-cyan-400/50 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 transition-colors"
               aria-label="Download resume PDF"
             >
-              <FiDownload className="w-4 h-4" aria-hidden />
+              <FiDownload className="w-4 h-4" aria-hidden={true} />
               Resume
             </a>
           </div>
@@ -121,7 +146,7 @@ const Nav: React.FC = () => {
               className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-lg bg-white/10 border border-white/15 text-white p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               aria-label="Download resume"
             >
-              <FiDownload className="w-5 h-5" aria-hidden />
+              <FiDownload className="w-5 h-5" aria-hidden={true} />
             </a>
             <button
               onClick={toggleNav}

@@ -1,7 +1,10 @@
 /**
  * Single source for resume PDF generation (pnpm run build:resume).
  * Keep project list in sync with src/constants/portfolio.ts.
+ * Profile URLs are imported from the site-wide single source of truth
+ * (./site) so the resume, the rendered site and the JSON-LD can never drift.
  */
+import { SITE_URL, SOCIAL_PROFILES } from "./site";
 
 export type ResumeExperience = {
   company: string;
@@ -35,9 +38,9 @@ export const resumeProfile = {
   tagline: "React · Next.js · Node.js",
   location: "India · Remote-friendly",
   email: "sravanpolu.me@gmail.com",
-  website: "https://sravanpolu.com",
-  linkedIn: "https://www.linkedin.com/in/SravanPolu",
-  github: "https://github.com/SravanKumarPolu",
+  website: SITE_URL,
+  linkedIn: SOCIAL_PROFILES.linkedIn,
+  github: SOCIAL_PROFILES.github,
   yearsExperience: "3+",
   lastUpdated: "October 2026",
 } as const;

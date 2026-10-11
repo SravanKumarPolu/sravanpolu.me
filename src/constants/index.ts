@@ -1,5 +1,9 @@
 import type { ComponentType, SVGProps } from "react";
-import { SiFiverr } from "react-icons/si";
+import { SOCIAL_PROFILES } from "./site";
+// Inline copy of react-icons/si SiFiverr — keeps the eager Nav → constants
+// import chain free of react-icons barrel modules (see the icon file for why).
+import FiverrIcon from "../components/icons/FiverrIcon";
+
 import bootstrap from "../assets/icons/bootstrap.svg";
 import nexCartisImg from "../assets/images/nexCartis.webp";
 import skrEcommerceCover from "../assets/images/skr-ecommerce-cover.svg";
@@ -261,11 +265,11 @@ export const footerLinks = [
 
       {
         name: "linkedin.com/in/SravanPolu",
-        link: "https://www.linkedin.com/in/SravanPolu",
+        link: SOCIAL_PROFILES.linkedIn,
       },
       {
         name: "github.com/SravanKumarPolu",
-        link: "https://github.com/SravanKumarPolu",
+        link: SOCIAL_PROFILES.github,
       },
     ],
   },
@@ -286,16 +290,16 @@ export const socialMedia: SocialMediaLink[] = [
     src: linkedIn,
     alt: "LinkedIn logo",
     name: "LinkedIn",
-    link: "https://www.linkedin.com/in/SravanPolu",
+    link: SOCIAL_PROFILES.linkedIn,
   },
   {
     src: github,
     alt: "GitHub logo",
     name: "GitHub",
-    link: "https://github.com/SravanKumarPolu",
+    link: SOCIAL_PROFILES.github,
   },
   {
-    icon: SiFiverr,
+    icon: FiverrIcon,
     alt: "Fiverr logo",
     name: "Fiverr",
     link: fiverrProfileUrl,
@@ -304,6 +308,6 @@ export const socialMedia: SocialMediaLink[] = [
     src: twitter,
     alt: "X logo",
     name: "X",
-    link: "https://x.com/SravanPolu",
+    link: SOCIAL_PROFILES.x,
   },
 ];

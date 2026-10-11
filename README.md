@@ -117,12 +117,24 @@ pnpm run typecheck    # tsc --noEmit
 pnpm run lint          # ESLint (react-app config)
 pnpm test -- --watchAll=false   # Jest + Testing Library
 pnpm build             # resume → production bundle → prerender (needs Chrome)
+pnpm verify            # post-build verification: smoke + SEO + CWV + interactions
 ```
 
 `pnpm build` (and `scripts/prerender.ts`) needs a Chrome/Chromium binary — set
 `PUPPETEER_EXECUTABLE_PATH` if it is not on a standard path. After a build,
-`npx tsx scripts/verify-build.ts` runs the full smoke + Core Web Vitals
-verification suite against `build/`.
+`pnpm verify` runs the full verification suite against the final prerendered
+`build/` output (`verify-build.ts`: crawler-view HTML, SEO metadata lockstep,
+rendered sections, images, resume assets, lab Core Web Vitals — LCP / CLS
+captured before any scroll, with element identity printed for debuggability;
+then `verify-interactions.ts`: mounted-React interaction and regression suite).
+CI (`.github/workflows/ci.yml`) runs the same steps and fails on any check.
+
+For deeper LCP regression analysis, `scripts/lcp-diagnostic-full.ts` captures
+every LCP candidate with element identity across CPU throttle rates 1× / 4× /
+8× / 16×. Run it directly: `PUPPETEER_EXECUTABLE_PATH=… npx tsx scripts/lcp-diagnostic-full.ts`.
+See `docs/LCP_ROOT_CAUSE_REPORT.md` for the v4→v5 desktop LCP root-cause
+analysis (hero `framer-motion` entrance animation displaced the LCP element
+post-React-mount on slow CPUs).
 
 ---
 

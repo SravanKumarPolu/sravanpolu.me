@@ -102,24 +102,56 @@ async function main(): Promise<void> {
     });
 
     await page.goto(url, { waitUntil: "networkidle0", timeout: 60000 });
-    console.log("Page loaded, waiting for #work...");
-    await page.waitForSelector("#work", { timeout: 30000 });
-    console.log("#work found, waiting for #flagship-heading...");
-    await page.waitForSelector("#flagship-heading", { timeout: 30000 });
-    console.log("#flagship-heading found");
+    console.log("Page loaded, waiting for fonts...");
     await page.waitForFunction(
       () => document.fonts && document.fonts.ready instanceof Promise,
       { timeout: 10000 }
     ).catch(() => undefined);
+    await page.evaluate(() => document.fonts.ready);
+    await new Promise((r) => setTimeout(r, 300));
 
-    // Scroll through the whole page to trigger scroll-reveal animations.
-    const scrollHeight = await page.evaluate(() => document.body.scrollHeight);
-    for (let y = 0; y <= scrollHeight; y += 600) {
-      await page.evaluate((pos) => window.scrollTo(0, pos), y);
-      await new Promise((r) => setTimeout(r, 150));
+    // Scroll through the whole page FIRST: LazySection mounts sections only
+    // when they approach the viewport (IntersectionObserver, 800px margin), so
+    // this pass triggers every section's chunk fetch + mount. Walking in
+    // 600px steps (not teleporting) ensures every section actually enters the
+    // preload margin; as sections mount the page grows, so keep walking until
+    // the height is stable and no skeleton placeholders remain.
+    console.log("Scrolling to trigger lazy sections...");
+    let walkedTo = 0;
+    let stablePasses = 0;
+    for (let guard = 0; guard < 60 && stablePasses < 2; guard++) {
+      const height = await page.evaluate(() => document.body.scrollHeight);
+      for (let y = walkedTo; y <= height; y += 600) {
+        await page.evaluate((pos) => window.scrollTo(0, pos), y);
+        await new Promise((r) => setTimeout(r, 150));
+      }
+      walkedTo = Math.max(walkedTo, height);
+      // Step 600px past the last known height on the next pass so any newly
+      // revealed section enters its preload margin.
+      walkedTo += 600;
+      await new Promise((r) => setTimeout(r, 400));
+      const pending = await page.evaluate(() => document.querySelectorAll('[aria-busy="true"]').length);
+      const newHeight = await page.evaluate(() => document.body.scrollHeight);
+      stablePasses = pending === 0 && newHeight === height ? stablePasses + 1 : 0;
     }
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await new Promise((r) => setTimeout(r, 1200));
+
+    // Wait until every IO-gated section has actually mounted (no pending
+    // skeleton placeholders left) and the key content markers exist.
+    console.log("Waiting for all sections to mount...");
+    await page.waitForFunction(
+      () => {
+        const pending = document.querySelectorAll('[aria-busy="true"]').length;
+        const flagship = document.getElementById("flagship-heading");
+        return pending === 0 && !!flagship;
+      },
+      { timeout: 60000, polling: 500 }
+    );
+    console.log("All sections mounted (flagship heading present, 0 pending skeletons)");
+
+    // Give late layout/animation work (charts, iframes) a beat to settle.
+    await new Promise((r) => setTimeout(r, 1000));
 
     // Force remaining lazy images to load before capture.
     // First record which images are natively eager (e.g. the LCP hero image) —
@@ -168,23 +200,15 @@ async function main(): Promise<void> {
     const html = await page.evaluate(
       () => "<!DOCTYPE html>\n" + document.documentElement.outerHTML
     );
-
-    // The non-blocking Google Fonts link is declared `media="print"` with
-    // `onload="this.media='all'"`. By capture time the browser has already
-    // flipped media to "all", and that state gets serialized — shipping a
-    // render-blocking stylesheet in the deployed HTML. Restore the original
-    // non-blocking form (browsers defer media="print" stylesheets for first
-    // paint; the onload handler re-enables it; the <noscript> fallback covers
-    // non-JS clients).
     let output = html;
+
+    // Fonts are self-hosted since v4 (inline @font-face + preload in
+    // public/index.html) — there is no media="print" Google Fonts link to
+    // restore anymore. Keep the check harmless if one ever reappears.
     const fontLinkPattern = /(<link\b[^>]*fonts\.googleapis\.com[^>]*?\bmedia=)"all"/i;
     if (fontLinkPattern.test(output)) {
       output = output.replace(fontLinkPattern, '$1"print"');
       console.log("Restored non-blocking font loading (media=\"print\") in prerendered HTML");
-    } else {
-      console.warn(
-        "Warning: expected non-blocking Google Fonts link not found in captured HTML."
-      );
     }
 
     await writeFile(indexPath, output, "utf8");

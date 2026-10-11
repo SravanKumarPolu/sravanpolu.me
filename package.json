@@ -22,9 +22,13 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "pnpm run build:resume && DISABLE_ESLINT_PLUGIN=true craco build && pnpm run prerender",
+    "build": "pnpm run build:resume && DISABLE_ESLINT_PLUGIN=true craco build && pnpm run prerender && pnpm run generate:sitemap",
     "build:resume": "tsx scripts/generate-resume-pdf.ts",
     "prerender": "tsx scripts/prerender.ts",
+    "generate:sitemap": "tsx scripts/generate-sitemap.ts",
+    "verify": "pnpm run verify:build && pnpm run verify:interactions",
+    "verify:build": "tsx scripts/verify-build.ts",
+    "verify:interactions": "tsx scripts/verify-interactions.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
     "test": "craco test",
@@ -53,8 +57,9 @@
     "@craco/craco": "^7.1.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.6.0",
-    "@types/testing-library__jest-dom": "^5.14.9",    "@types/react": "^18.2.42",
+    "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
+    "@types/testing-library__jest-dom": "^5.14.9",
     "eslint": "^8.57.1",
     "eslint-config-react-app": "^7.0.1",
     "puppeteer": "^24.43.1",
@@ -64,6 +69,13 @@
   },
   "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748",
   "pnpm": {
-    "onlyBuiltDependencies": ["puppeteer"]
+    "onlyBuiltDependencies": [
+      "puppeteer"
+    ],
+    "ignoredBuiltDependencies": [
+      "core-js",
+      "core-js-pure",
+      "esbuild"
+    ]
   }
 }

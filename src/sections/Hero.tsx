@@ -5,8 +5,30 @@ import { useHaptic } from "../hooks/useHaptic";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { CustomButton as Button } from "../components/ui/Button";
 import { useAccessibility } from "../hooks/useAccessibility";
-import { FiArrowRight } from "react-icons/fi";
 import { contactLinks, featuredProjectOrder } from "../constants/portfolio";
+
+// Inline copy of react-icons/fi FiArrowRight — the Hero renders eagerly (it is
+// the above-the-fold LCP section), and importing it from react-icons here
+// would pull the shared react-icons/fi barrel back into the initial bundle.
+// Path data is identical to FiArrowRight; rendering is pixel-identical.
+const FiArrowRight: React.FC<{ className?: string; "aria-hidden"?: boolean }> = ({
+  className,
+  ...rest
+}) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    {...rest}
+  >
+    <line x1="5" y1="12" x2="19" y2="12" />
+    <polyline points="12 5 19 12 12 19" />
+  </svg>
+);
 
 const Hero: React.FC = () => {
   const { triggerHaptic } = useHaptic();
@@ -55,8 +77,8 @@ const Hero: React.FC = () => {
 
       <div ref={heroRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 max-w-7xl">
         <motion.div
-          initial={{ opacity: 1, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          initial={false}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="max-w-6xl mx-auto"
         >
@@ -76,7 +98,7 @@ const Hero: React.FC = () => {
               </h1>
 
               <p className="text-lg sm:text-xl text-cyan-400/90 font-medium mb-3">
-                FULL-STACK DEVELOPER (MERN + DevOps)   (· React Or Next.js · TypeScript · Node.js)
+                React &amp; Next.js Full-Stack Developer · React · TypeScript · Node.js
               </p>
 
               <p className="text-base sm:text-lg text-neutral-300 mb-4 max-w-xl leading-relaxed">
@@ -112,7 +134,7 @@ const Hero: React.FC = () => {
                   className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 border-0 shadow-lg shadow-cyan-500/20 px-6 sm:px-7 focus-visible:ring-cyan-400"
                 >
                   View Featured Work
-                  <FiArrowRight className="w-5 h-5" aria-hidden />
+                  <FiArrowRight className="w-5 h-5" aria-hidden={true} />
                 </Button>
                 <Button
                   variant="outline"
@@ -193,7 +215,7 @@ const Hero: React.FC = () => {
           </div>
 
           <motion.div
-            initial={{ opacity: 1, y: 12 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="mt-10 lg:mt-12"

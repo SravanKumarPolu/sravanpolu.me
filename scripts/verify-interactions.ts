@@ -127,6 +127,23 @@ async function main(): Promise<void> {
     check("desktop-react-mounted", !!mounted, "#root carries a React 18 container key (client render took over)");
     await new Promise((r) => setTimeout(r, 500)); // let post-mount effects settle
 
+    // Sections below the fold mount lazily (IntersectionObserver gate in
+    // LazySection), so walk the page once — like a real visitor scrolling —
+    // and wait until every section has mounted before asserting on the DOM.
+    await page.evaluate(() => {
+      window.__pendingSections = () => document.querySelectorAll('[aria-busy="true"]').length;
+    });
+    for (let y = 0; y <= await page.evaluate(() => document.body.scrollHeight); y += 600) {
+      await page.evaluate((pos) => window.scrollTo(0, pos), y);
+      await new Promise((r) => setTimeout(r, 120));
+    }
+    await page.waitForFunction(
+      () => document.querySelectorAll('[aria-busy="true"]').length === 0,
+      { timeout: 30000, polling: 400 }
+    );
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await new Promise((r) => setTimeout(r, 500));
+
     const dom = await page.evaluate((ids: string[]) => {
       const h1s = document.querySelectorAll("h1");
       const h1 = h1s[0]?.textContent?.replace(/\s+/g, " ").trim() || "";
