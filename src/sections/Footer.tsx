@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
               />
               <div>
                 <p className="font-semibold text-white">Sravan Kumar Polu</p>
-                <p className="text-cyan-400/90 text-sm">React & Next.js Full-Stack Developer</p>
+                <p className="text-cyan-400/90 text-sm">Freelance Full-Stack Developer (MERN + DevOps) | React.js | Next.js | TypeScript | Node.js | Express.js | Python | MongoDB | PostgreSQL | AWS | Docker </p>
               </div>
             </div>
           </div>
