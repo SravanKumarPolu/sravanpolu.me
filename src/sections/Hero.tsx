@@ -1,34 +1,12 @@
 import React, { useState } from "react";
 import skr from "../assets/images/skr.webp";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import DownArrow from "../components/DownArrow";
 import { useHaptic } from "../hooks/useHaptic";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import { CustomButton as Button } from "../components/ui/Button";
 import { useAccessibility } from "../hooks/useAccessibility";
 import { contactLinks, featuredProjectOrder } from "../constants/portfolio";
-
-// Inline copy of react-icons/fi FiArrowRight — the Hero renders eagerly (it is
-// the above-the-fold LCP section), and importing it from react-icons here
-// would pull the shared react-icons/fi barrel back into the initial bundle.
-// Path data is identical to FiArrowRight; rendering is pixel-identical.
-const FiArrowRight: React.FC<{ className?: string; "aria-hidden"?: boolean }> = ({
-  className,
-  ...rest
-}) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-    {...rest}
-  >
-    <line x1="5" y1="12" x2="19" y2="12" />
-    <polyline points="12 5 19 12 12 19" />
-  </svg>
-);
 
 const Hero: React.FC = () => {
   const { triggerHaptic } = useHaptic();
@@ -133,8 +111,10 @@ const Hero: React.FC = () => {
                   onClick={() => scrollTo("work")}
                   className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 border-0 shadow-lg shadow-cyan-500/20 px-6 sm:px-7 focus-visible:ring-cyan-400"
                 >
-                  View Featured Work
-                  <FiArrowRight className="w-5 h-5" aria-hidden={true} />
+                  <span className="inline-flex flex-col items-center gap-1">
+                    View Featured Work
+                    <DownArrow className="w-5 h-5" aria-hidden={true} />
+                  </span>
                 </Button>
                 <Button
                   variant="outline"
