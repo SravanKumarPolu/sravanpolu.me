@@ -62,7 +62,7 @@ const Hero: React.FC = () => {
         >
           <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-12 items-center">
             <div>
-              <div className="inline-block px-4 py-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 mb-5">
+              <div className="inline-block px-4 py-2 mt-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 mb-5">
                 <span className="text-cyan-400 text-sm font-medium">
                   Available for freelance, contract & full-time · Remote-friendly
                 </span>
